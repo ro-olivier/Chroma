@@ -114,7 +114,8 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:inputType="text"
-            android:id="@+id/TextData" />
+            android:id="@+id/TextData"
+            android:hint="@string/MoodHint" />
 
         <Space
             android:layout_width="0dp"
