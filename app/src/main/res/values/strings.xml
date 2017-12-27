@@ -1,3 +1,5 @@
+<?xml version="1.0" encoding="utf-8"?>
+
 <resources>
     <string name="app_name">Chroma</string>
     <string name="Option1">Mood</string>
@@ -7,4 +9,16 @@
     <string name="Save">Save</string>
     <string name="MoodHint">Write a few words about your day…</string>
     <string name="AddMoney">Add</string>
+
+
+    <string-array name="spendingsCategories">
+        <item>Drinks</item>
+        <item>Food</item>
+        <item>Cadeaux/Dons</item>
+        <item>Factures</item>
+        <item>Resto</item>
+        <item>Santé</item>
+        <item>Tech</item>
+        <item>Other</item>
+    </string-array>
 </resources>

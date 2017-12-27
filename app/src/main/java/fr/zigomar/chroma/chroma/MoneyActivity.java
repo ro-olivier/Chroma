@@ -4,9 +4,12 @@ import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ListView;
+import android.widget.Spinner;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import org.json.JSONObject;
 
@@ -28,12 +31,12 @@ public class MoneyActivity extends AppCompatActivity {
     private String filename;
 
     private TextView descField;
-    private TextView catField;
+    private Spinner catField;
     private TextView amountField;
     private Button addButton;
     private ListView spendingsListView;
 
-    private SpendingAdapter adapter;
+    private SpendingAdapter spendingAdapter;
 
     @Override
     protected void onCreate(final Bundle savedInstanceState) {
@@ -45,7 +48,7 @@ public class MoneyActivity extends AppCompatActivity {
         this.filename = new SimpleDateFormat("yyyy-MM-dd", Locale.FRANCE).format(this.currentDate);
 
         this.descField = (TextView) findViewById(R.id.TextDescription);
-        this.catField = (TextView) findViewById(R.id.TextCategory);
+        this.catField = (Spinner) findViewById(R.id.TextCategory);
         this.amountField = (TextView) findViewById(R.id.TextAmount);
         this.addButton = (Button) findViewById(R.id.AddButton);
 
@@ -54,23 +57,35 @@ public class MoneyActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 String d = descField.getText().toString();
-                String c = catField.getText().toString();
-                Double a = Double.valueOf(amountField.getText().toString());
+                String c = catField.getSelectedItem().toString();
+                if (amountField.getText().length() > 0 && descField.getText().length() > 0 && catField.getSelectedItem().toString().length() > 0) {
+                    try {
+                        Double a = Double.valueOf(amountField.getText().toString());
 
-                adapter.add(new Spending(d, c, a));
-
-                Log.i("CHORMA", "Currently " + spendings.size() + " spendings.");
-
+                        spendingAdapter.add(new Spending(d, c, a));
+                        Log.i("CHORMA", "Currently " + spendings.size() + " spendings.");
+                    } catch (NumberFormatException e) {
+                        Toast.makeText(getApplicationContext(), "Unable to parse the value.", Toast.LENGTH_SHORT).show();
+                        // afficher un message indiquant que le chiffre n'a pas pu être parsé
+                    }
+                } else {
+                    Toast.makeText(getApplicationContext(), "All three values are required.", Toast.LENGTH_SHORT).show();
+                }
             }
         });
+
+        ArrayAdapter<CharSequence> spinnerAdapter = ArrayAdapter.createFromResource(this,
+                R.array.spendingsCategories, android.R.layout.simple_spinner_item);
+        spinnerAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        catField.setAdapter(spinnerAdapter);
 
         // init : récupérer les dépenses courantes dans le JSON s'il en existe
         this.spendings = getSpendings();
 
         this.spendingsListView = (ListView) findViewById(R.id.ListViewMoney);
 
-        this.adapter = new SpendingAdapter(MoneyActivity.this, spendings);
-        this.spendingsListView.setAdapter(adapter);
+        this.spendingAdapter = new SpendingAdapter(MoneyActivity.this, spendings);
+        this.spendingsListView.setAdapter(spendingAdapter);
     }
 
     private List<Spending> getSpendings(){
