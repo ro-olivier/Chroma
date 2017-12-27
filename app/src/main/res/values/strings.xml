@@ -4,6 +4,7 @@
     <string name="Option2">Money</string>
     <string name="Option3">Misc</string>
     <string name="Option4">Transport</string>
-    <string name="Save">Enregistrer</string>
+    <string name="Save">Save</string>
     <string name="MoodHint">Write a few words about your day…</string>
+    <string name="AddMoney">Add</string>
 </resources>

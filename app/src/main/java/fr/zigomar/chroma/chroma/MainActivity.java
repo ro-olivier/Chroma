@@ -23,6 +23,7 @@ public class MainActivity extends AppCompatActivity {
     ImageButton backwardButton;
 
     Button moodButton;
+    Button moneyButton;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -61,6 +62,19 @@ public class MainActivity extends AppCompatActivity {
                 Intent moodIntent = new Intent (MainActivity.this, MoodActivity.class);
                 moodIntent.putExtra(CURRENT_DATE, currentDate.getTime());
                 startActivity(moodIntent);
+            }
+        });
+
+
+        this.moneyButton = (Button) findViewById(R.id.ButtonToOption2);
+        this.moneyButton.setOnClickListener(new View.OnClickListener() {
+
+            @Override
+            public void onClick(View v) {
+                Log.i("CHROMA", "Switching to money activity");
+                Intent moneyIntent = new Intent (MainActivity.this, MoneyActivity.class);
+                moneyIntent.putExtra(CURRENT_DATE, currentDate.getTime());
+                startActivity(moneyIntent);
             }
         });
 
