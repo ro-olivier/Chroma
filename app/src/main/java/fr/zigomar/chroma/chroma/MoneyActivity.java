@@ -11,13 +11,7 @@ import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import org.json.JSONException;
-import org.json.JSONObject;
-
-import java.io.FileOutputStream;
-import java.lang.reflect.Array;
 import java.text.SimpleDateFormat;
-import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import java.util.Locale;
@@ -27,11 +21,11 @@ public class MoneyActivity extends AppCompatActivity {
 
     public static final String CURRENT_DATE = "com.example.chroma.current_date";
 
-    private JSONObject data;
+    private DataHandler dh;
+
     List<Spending> spendings;
 
     private Date currentDate = new Date();
-    private String filename;
 
     private TextView descField;
     private Spinner catField;
@@ -48,14 +42,16 @@ public class MoneyActivity extends AppCompatActivity {
 
         this.currentDate.setTime(getIntent().getLongExtra(CURRENT_DATE, -1));
         updateDateView();
-        this.filename = new SimpleDateFormat("yyyy-MM-dd", Locale.FRANCE).format(this.currentDate);
+
+        // init the data handler
+        this.dh = new DataHandler(this.getApplicationContext(), this.currentDate);
 
         this.descField = (TextView) findViewById(R.id.TextDescription);
         this.catField = (Spinner) findViewById(R.id.TextCategory);
         this.amountField = (TextView) findViewById(R.id.TextAmount);
         this.addButton = (Button) findViewById(R.id.AddButton);
 
-        addButton.setOnClickListener(new View.OnClickListener() {
+        this.addButton.setOnClickListener(new View.OnClickListener() {
 
             @Override
             public void onClick(View v) {
@@ -66,7 +62,7 @@ public class MoneyActivity extends AppCompatActivity {
                         Double a = Double.valueOf(amountField.getText().toString());
 
                         spendingAdapter.add(new Spending(d, c, a));
-                        Log.i("CHORMA", "Currently " + spendings.size() + " spendings.");
+                        Log.i("CHROMA", "Currently " + spendings.size() + " spendings.");
                     } catch (NumberFormatException e) {
                         Toast.makeText(getApplicationContext(), "Unable to parse the value.", Toast.LENGTH_SHORT).show();
                         // afficher un message indiquant que le chiffre n'a pas pu être parsé
@@ -77,30 +73,28 @@ public class MoneyActivity extends AppCompatActivity {
             }
         });
 
+        // setting the spinner Adapter (for the spendings category)
         ArrayAdapter<CharSequence> spinnerAdapter = ArrayAdapter.createFromResource(this,
                 R.array.spendingsCategories, android.R.layout.simple_spinner_item);
         spinnerAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-        catField.setAdapter(spinnerAdapter);
+        this.catField.setAdapter(spinnerAdapter);
 
         // init : récupérer les dépenses courantes dans le JSON s'il en existe
         this.spendings = getSpendings();
-        //initData();
 
         this.spendingsListView = (ListView) findViewById(R.id.ListViewMoney);
 
-        this.spendingAdapter = new SpendingAdapter(MoneyActivity.this, spendings);
-        this.spendingsListView.setAdapter(spendingAdapter);
+        this.spendingAdapter = new SpendingAdapter(MoneyActivity.this, this.spendings);
+        this.spendingsListView.setAdapter(this.spendingAdapter);
     }
 
     private List<Spending> getSpendings(){
-        List<Spending> spendings = new ArrayList<Spending>();
-        spendings.add(new Spending("Un premier test, les courses.", "Food", 10));
-        spendings.add(new Spending("Un second test, un verre.", "Drinks", 5));
-        spendings.add(new Spending("Un troisième test, quelques satoshis...", "Tech", 50));
-        return spendings;
+        //List<Spending> spendings = new ArrayList<Spending>();
+        return this.dh.getSpendingsList();
     }
 
     private void updateDateView() {
+        // simple method to update the date view at the top of the screen
         TextView dateView = (TextView) findViewById(R.id.DateTextView);
         String formattedDate = (new SimpleDateFormat("yyyy/MM/dd", Locale.FRANCE).format(this.currentDate));
         Log.i("CHROMA", "Updating date : " + formattedDate);
@@ -109,32 +103,18 @@ public class MoneyActivity extends AppCompatActivity {
 
     @Override
     protected void onStop() {
+        // surcharge the onStop() method to include a call to the method updating the data and then
+        // using the DataHandler to write it to file before closing
         super.onStop();
-        Log.i("CHORMA", "Starting activity closing...");
+        Log.i("CHROMA","Starting activity closing...");
 
-        JSONObject j = new JSONObject();
-        try {
-            j.put("spendings", this.spendings);
-        } catch (JSONException e) {
-            e.printStackTrace();
-        }
+        updateMoneyData();
+        dh.writeDataToFile(getApplicationContext());
+    }
 
-        String string = j.toString();
-
-        Log.i("CHROMA", "this.spendings = " + this.spendings);
-        Log.i("CHROMA", "this.spendings.toString() = " + this.spendings.toString());
-        Log.i("CHROMA", "j = " + j);
-        Log.i("CHROMA", "Received the data j.toString() + " + string);
-
-        FileOutputStream outputStream;
-
-        try {
-            Log.i("CHROMA", "Writing new values to file " + this.filename + " : " + string);
-            outputStream = openFileOutput(this.filename, MODE_PRIVATE);
-            outputStream.write(string.getBytes());
-            outputStream.close();
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
+    private void updateMoneyData() {
+        // simply pass the data to the DataHandler with the dedicated method
+        Log.i("CHROMA", "Updating the data object with current spendings");
+        this.dh.saveMoneyData(this.spendings);
     }
 }

@@ -12,6 +12,7 @@ import android.widget.TextView;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.Locale;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -96,9 +97,10 @@ public class MainActivity extends AppCompatActivity {
         Log.i("CHROMA", "Decrementing Date");
     }
 
-    public void updateDateView() {
+    private void updateDateView() {
+        // simple method to update the date view at the top of the screen
         TextView dateView = (TextView) findViewById(R.id.DateTextView);
-        String formattedDate = (new SimpleDateFormat("yyyy/MM/dd").format(currentDate));
+        String formattedDate = (new SimpleDateFormat("yyyy/MM/dd", Locale.FRANCE).format(this.currentDate));
         Log.i("CHROMA", "Updating date : " + formattedDate);
         dateView.setText(formattedDate);
     }
