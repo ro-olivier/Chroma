@@ -85,7 +85,7 @@ public class MoodActivity extends AppCompatActivity {
         // surcharge the onStop() method to include a call to the method updating the data and then
         // using the DataHandler to write it to file before closing
         super.onStop();
-        Log.i("CHORMA","Starting activity closing...");
+        Log.i("CHROMA","Starting activity closing...");
 
         updateMoodData();
         dh.writeDataToFile(getApplicationContext());

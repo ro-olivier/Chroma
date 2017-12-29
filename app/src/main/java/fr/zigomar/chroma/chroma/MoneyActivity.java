@@ -37,15 +37,20 @@ public class MoneyActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(final Bundle savedInstanceState) {
+        // calling inherited class constructor
         super.onCreate(savedInstanceState);
+
+        // setting the view's layout
         setContentView(R.layout.activity_money);
 
+        // update the date view at the top of the layout
         this.currentDate.setTime(getIntent().getLongExtra(CURRENT_DATE, -1));
         updateDateView();
 
         // init the data handler
         this.dh = new DataHandler(this.getApplicationContext(), this.currentDate);
 
+        // getting the views from their id
         this.descField = (TextView) findViewById(R.id.TextDescription);
         this.catField = (Spinner) findViewById(R.id.TextCategory);
         this.amountField = (TextView) findViewById(R.id.TextAmount);
@@ -65,7 +70,6 @@ public class MoneyActivity extends AppCompatActivity {
                         Log.i("CHROMA", "Currently " + spendings.size() + " spendings.");
                     } catch (NumberFormatException e) {
                         Toast.makeText(getApplicationContext(), "Unable to parse the value.", Toast.LENGTH_SHORT).show();
-                        // afficher un message indiquant que le chiffre n'a pas pu être parsé
                     }
                 } else {
                     Toast.makeText(getApplicationContext(), "All three values are required.", Toast.LENGTH_SHORT).show();
@@ -79,9 +83,11 @@ public class MoneyActivity extends AppCompatActivity {
         spinnerAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         this.catField.setAdapter(spinnerAdapter);
 
-        // init : récupérer les dépenses courantes dans le JSON s'il en existe
+        // init of the data : fetch spendings data in the currentDate file if it exist
         this.spendings = getSpendings();
 
+        // finishing up the setting of the adapter for the list view of the retrieve (and
+        // new) spendings
         this.spendingsListView = (ListView) findViewById(R.id.ListViewMoney);
 
         this.spendingAdapter = new SpendingAdapter(MoneyActivity.this, this.spendings);
@@ -89,7 +95,7 @@ public class MoneyActivity extends AppCompatActivity {
     }
 
     private List<Spending> getSpendings(){
-        //List<Spending> spendings = new ArrayList<Spending>();
+        // getting the data is handle by the DataHandler
         return this.dh.getSpendingsList();
     }
 

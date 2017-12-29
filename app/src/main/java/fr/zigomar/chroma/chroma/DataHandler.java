@@ -36,14 +36,20 @@ class DataHandler {
         initData(ctx);
     }
 
-
+    /*
+        ########################################################
+        Global section :
+            - initData (readFromFile)
+            - writeToFile method
+        ########################################################
+     */
     private void initData(Context ctx) {
         Log.i("CHROMA", "Data init started.");
 
         FileInputStream is;
 
         try {
-            // read the file if it exists, and create JSON object
+            // read the file if it exists, and create JSON object with was is in it
             is  = ctx.getApplicationContext().openFileInput(this.filename);
             int size = is.available();
             byte[] buffer = new byte[size];
@@ -57,7 +63,8 @@ class DataHandler {
             Log.i("CHROMA", "File " + this.filename + " was not found. Creating data with default values.");
             e.printStackTrace();
             saveMoodData(INITIAL_MOOD,INITIAL_MOOD,INITIAL_MOOD, "");
-            //saveMoneyData(new Array<Spending>)
+            // no saveMoneyData(new Array<Spending>) because if now "spendings" data can be found in the file
+            // we have no good reason to create an empty one before we actually write anything
             //...
 
         } catch (IOException e) {
@@ -72,6 +79,9 @@ class DataHandler {
 
 
     void writeDataToFile(Context ctx) {
+        // this method does the actual writing-to-file work
+        // no big deal, the OutputStream is used and it should go well
+        // and remain private to the app
         Log.i("CHROMA", "DataHandler is going to write the following data to file : " + this.data.toString());
 
         String string = this.data.toString();
@@ -88,7 +98,17 @@ class DataHandler {
         }
     }
 
+
+    /*
+    ########################################################
+    Mood section :
+        - saveMoodData
+        - getMoodData
+    ########################################################
+    */
     void saveMoodData(int v1, int v2, int v3, String txt) {
+        // method used by the MoodActivity to update the mood data with was was
+        // written in the view. Pretty simple !
         Log.i("CHROMA", "SaveMoodData was invoked.");
         try {
             this.data.put("mood_eval1", v1);
@@ -101,9 +121,13 @@ class DataHandler {
     }
 
     HashMap<String, String> getMoodData() {
+        // returns the mood data currently present in the file
+        // a HashMap is returned, instead of a JSONObject because I don't want any
+        // JSON logic in the activities (it belongs to the DataHandler only)
         Log.i("CHROMA", "getMoodData was invoked");
         HashMap<String, String> d = new HashMap<>();
 
+        // TODO : there is probably a more concise way to do this...
         try {
             d.put("eval1", String.valueOf(this.data.getInt("mood_eval1")));
         } catch (JSONException e) {
@@ -136,6 +160,24 @@ class DataHandler {
         return d;
     }
 
+
+    /*
+    ########################################################
+    Money section :
+        - saveMoneyData
+        - getSpendingsList
+    ########################################################
+    */
+
+    void saveMoneyData(List<Spending> l) {
+        Log.i("CHROMA", "SaveMoneyData was invoked.");
+        try {
+            this.data.put("spendings", l);
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+    }
+
     ArrayList<Spending> getSpendingsList() {
         ArrayList<Spending> s = new ArrayList<>();
         JSONArray jsonArray;
@@ -153,14 +195,5 @@ class DataHandler {
         }
 
         return s;
-    }
-
-    void saveMoneyData(List<Spending> l) {
-        Log.i("CHROMA", "SaveMoneyData was invoked.");
-        try {
-            this.data.put("spendings", l);
-        } catch (JSONException e) {
-            e.printStackTrace();
-        }
     }
 }
