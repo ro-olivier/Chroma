@@ -18,7 +18,7 @@ public class MainActivity extends AppCompatActivity {
 
     public static final String CURRENT_DATE = "com.example.chroma.current_date";
 
-    Date currentDate;
+    Date currentDate = new Date();
 
     ImageButton forwardButton;
     ImageButton backwardButton;
@@ -30,9 +30,6 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-
-        this.currentDate = new Date();
-        updateDateView();
 
         this.forwardButton = (ImageButton) findViewById(R.id.ButtonForwardDate);
         this.forwardButton.setOnClickListener(new View.OnClickListener() {
@@ -79,6 +76,13 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
+    }
+
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        updateDateView();
     }
 
     public void incrementDate() {
