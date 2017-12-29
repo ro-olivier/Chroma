@@ -92,6 +92,12 @@ public class MoneyActivity extends AppCompatActivity {
 
         this.spendingAdapter = new SpendingAdapter(MoneyActivity.this, this.spendings);
         this.spendingsListView.setAdapter(this.spendingAdapter);
+
+        /*
+        TODO : could be nice to add a "delete a spending" feature:
+        a long click on one of the spendings could open a small dialog with
+        an option to delete the spending.
+         */
     }
 
     private List<Spending> getSpendings(){
@@ -116,6 +122,7 @@ public class MoneyActivity extends AppCompatActivity {
 
         updateMoneyData();
         dh.writeDataToFile(getApplicationContext());
+        Toast.makeText(getApplicationContext(), "Saved!", Toast.LENGTH_SHORT).show();
     }
 
     private void updateMoneyData() {

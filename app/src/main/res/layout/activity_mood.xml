@@ -97,10 +97,12 @@
         <EditText
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:inputType="text"
+            android:inputType="textMultiLine|textCapSentences|textAutoCorrect"
             android:id="@+id/TextData"
             android:hint="@string/MoodHint"
-            android:gravity="top"/>
+            android:gravity="top"
+            android:scrollbars="vertical"
+            android:scrollbarFadeDuration="0"/>
 
 
     </LinearLayout>

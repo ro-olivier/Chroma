@@ -6,6 +6,7 @@ import android.util.Log;
 import android.widget.EditText;
 import android.widget.NumberPicker;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -70,6 +71,11 @@ public class MoodActivity extends AppCompatActivity {
         this.pickerMood1.setMinValue(MIN_MOOD);
         this.pickerMood2.setMinValue(MIN_MOOD);
         this.pickerMood3.setMinValue(MIN_MOOD);
+
+        this.pickerMood1.setWrapSelectorWheel(false);
+        this.pickerMood2.setWrapSelectorWheel(false);
+        this.pickerMood3.setWrapSelectorWheel(false);
+
     }
 
     private void updateDateView() {
@@ -89,6 +95,7 @@ public class MoodActivity extends AppCompatActivity {
 
         updateMoodData();
         dh.writeDataToFile(getApplicationContext());
+        Toast.makeText(getApplicationContext(), "Saved!", Toast.LENGTH_SHORT).show();
     }
 
 
