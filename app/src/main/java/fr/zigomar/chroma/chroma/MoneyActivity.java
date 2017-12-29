@@ -11,8 +11,11 @@ import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.io.FileOutputStream;
+import java.lang.reflect.Array;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
@@ -24,7 +27,7 @@ public class MoneyActivity extends AppCompatActivity {
 
     public static final String CURRENT_DATE = "com.example.chroma.current_date";
 
-    private JSONObject moneyData;
+    private JSONObject data;
     List<Spending> spendings;
 
     private Date currentDate = new Date();
@@ -81,6 +84,7 @@ public class MoneyActivity extends AppCompatActivity {
 
         // init : récupérer les dépenses courantes dans le JSON s'il en existe
         this.spendings = getSpendings();
+        //initData();
 
         this.spendingsListView = (ListView) findViewById(R.id.ListViewMoney);
 
@@ -101,5 +105,36 @@ public class MoneyActivity extends AppCompatActivity {
         String formattedDate = (new SimpleDateFormat("yyyy/MM/dd", Locale.FRANCE).format(this.currentDate));
         Log.i("CHROMA", "Updating date : " + formattedDate);
         dateView.setText(formattedDate);
+    }
+
+    @Override
+    protected void onStop() {
+        super.onStop();
+        Log.i("CHORMA", "Starting activity closing...");
+
+        JSONObject j = new JSONObject();
+        try {
+            j.put("spendings", this.spendings);
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+
+        String string = j.toString();
+
+        Log.i("CHROMA", "this.spendings = " + this.spendings);
+        Log.i("CHROMA", "this.spendings.toString() = " + this.spendings.toString());
+        Log.i("CHROMA", "j = " + j);
+        Log.i("CHROMA", "Received the data j.toString() + " + string);
+
+        FileOutputStream outputStream;
+
+        try {
+            Log.i("CHROMA", "Writing new values to file " + this.filename + " : " + string);
+            outputStream = openFileOutput(this.filename, MODE_PRIVATE);
+            outputStream.write(string.getBytes());
+            outputStream.close();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 }

@@ -1,6 +1,9 @@
 package fr.zigomar.chroma.chroma;
 
 
+import org.json.JSONException;
+import org.json.JSONObject;
+
 public class Spending {
     private String description;
     private String category;
@@ -22,6 +25,23 @@ public class Spending {
 
     public double getAmount() {
         return amount;
+    }
+
+    public JSONObject getSpendingAsJSON() {
+        JSONObject json = new JSONObject();
+        try {
+            json.put("spending_description", this.description);
+            json.put("spending_category", this.category);
+            json.put("spending_amount", this.amount);
+        } catch (JSONException a) {
+            return new JSONObject();
+        }
+
+        return json;
+    }
+
+    public String toString() {
+        return getSpendingAsJSON().toString();
     }
 
 }
