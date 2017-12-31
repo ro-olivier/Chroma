@@ -4,11 +4,22 @@
     <string name="app_name">Chroma</string>
     <string name="Option1">Mood</string>
     <string name="Option2">Money</string>
-    <string name="Option3">Misc</string>
-    <string name="Option4">Transport</string>
+    <string name="Option3">Alcohol</string>
+    <string name="Option4">Navigo</string>
+    <string name="Option5">Car</string>
+    <string name="Option6">...</string>
+    <string name="Option7">...</string>
+    <string name="Option8">...</string>
     <string name="Save">Save</string>
     <string name="MoodHint">Write a few words about your day…</string>
     <string name="AddMoney">Add</string>
+    <string name="HintDescSpending">Description...</string>
+    <string name="HintValue">0.00</string>
+    <string name="HintDescAlcohol">What did you drink...</string>
+    <string name="HintVolume">500</string>
+    <string name="HintDegree">5</string>
+    <string name="AlcoholUnit">%</string>
+    <string name="VolumeUnit">mL</string>
 
 
     <string-array name="spendingsCategories">

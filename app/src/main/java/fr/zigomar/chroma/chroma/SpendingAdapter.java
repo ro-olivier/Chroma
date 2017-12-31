@@ -12,7 +12,7 @@ import java.util.List;
 
 public class SpendingAdapter extends ArrayAdapter<Spending> {
 
-    public SpendingAdapter(Context context, List<Spending> spendings) {
+    SpendingAdapter(Context context, List<Spending> spendings) {
         super(context, 0, spendings);
     }
 
@@ -43,8 +43,8 @@ public class SpendingAdapter extends ArrayAdapter<Spending> {
     }
 
     private class SpendingViewHolder{
-        public TextView description;
-        public TextView category;
-        public TextView amount;
+        TextView description;
+        TextView category;
+        TextView amount;
     }
 }

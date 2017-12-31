@@ -25,6 +25,7 @@ public class MainActivity extends AppCompatActivity {
 
     Button moodButton;
     Button moneyButton;
+    Button alcoholButton;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -73,6 +74,18 @@ public class MainActivity extends AppCompatActivity {
                 Intent moneyIntent = new Intent (MainActivity.this, MoneyActivity.class);
                 moneyIntent.putExtra(CURRENT_DATE, currentDate.getTime());
                 startActivity(moneyIntent);
+            }
+        });
+
+        this.alcoholButton = (Button) findViewById(R.id.ButtonToOption3);
+        this.alcoholButton.setOnClickListener(new View.OnClickListener() {
+
+            @Override
+            public void onClick(View v) {
+                Log.i("CHROMA", "Switching to money activity");
+                Intent alcoholIntent = new Intent (MainActivity.this, AlcoholActivity.class);
+                alcoholIntent.putExtra(CURRENT_DATE, currentDate.getTime());
+                startActivity(alcoholIntent);
             }
         });
 

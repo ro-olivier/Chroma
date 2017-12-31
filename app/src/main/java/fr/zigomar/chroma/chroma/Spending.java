@@ -9,25 +9,25 @@ public class Spending {
     private String category;
     private double amount;
 
-    public Spending(String description, String category, double amount) {
+    Spending(String description, String category, double amount) {
         this.amount = amount;
         this.description = description;
         this.category = category;
     }
 
-    public String getDescription() {
+    String getDescription() {
         return description;
     }
 
-    public String getCategory() {
+    String getCategory() {
         return category;
     }
 
-    public double getAmount() {
+    double getAmount() {
         return amount;
     }
 
-    public JSONObject getSpendingAsJSON() {
+    private JSONObject getSpendingAsJSON() {
         JSONObject json = new JSONObject();
         try {
             json.put("spending_description", this.description);

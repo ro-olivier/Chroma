@@ -196,4 +196,40 @@ class DataHandler {
 
         return s;
     }
+
+        /*
+    ########################################################
+    Drink section :
+        - saveMoneyData
+        - getSpendingsList
+    ########################################################
+    */
+
+    void saveAlcoholData(List<Drink> l) {
+        Log.i("CHROMA", "SaveAlcoholData was invoked.");
+        try {
+            this.data.put("drinks", l);
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+    }
+
+    ArrayList<Drink> getDrinksList() {
+        ArrayList<Drink> s = new ArrayList<>();
+        JSONArray jsonArray;
+        try {
+            jsonArray = new JSONArray(this.data.get("drinks").toString());
+
+
+            for (int i = 0; i < jsonArray.length(); i++) {
+                JSONObject jso = jsonArray.getJSONObject(i);
+                s.add(new Drink(jso.getString("drink_description"), jso.getDouble("drink_volume"), jso.getDouble("drink_degree")));
+            }
+
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+
+        return s;
+    }
 }
