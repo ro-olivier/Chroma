@@ -20,6 +20,13 @@
     <string name="HintDegree">5</string>
     <string name="AlcoholUnit">%</string>
     <string name="VolumeUnit">mL</string>
+    <string name="RevertTransport">And back !!</string>
+    <string name="HintStation">St-Ambroise</string>
+    <string name="HintLine">M9</string>
+    <string name="AddStep">Add trip step</string>
+    <string name="AddTrip">Submit trip</string>
+    <string name="HintTripPrice">1.9</string>
+    <string name="TripCost">€</string>
 
 
     <string-array name="spendingsCategories">

@@ -80,7 +80,7 @@
                     android:inputType="numberDecimal"
                     android:background="#FAFAFA"
                     android:layout_marginStart="@dimen/activity_vertical_margin"
-                    android:gravity="center|right"
+                    android:gravity="center_vertical|end"
                     android:hint="@string/HintVolume"/>
 
                 <TextView
@@ -91,7 +91,7 @@
                     android:background="#FAFAFA"
                     android:paddingEnd="@dimen/activity_vertical_margin"
                     android:paddingStart="@dimen/activity_vertical_margin"
-                    android:gravity="center|left"
+                    android:gravity="center_vertical|start"
                     android:layout_weight="1"/>
 
                 <EditText
@@ -102,7 +102,7 @@
                     android:maxLines="1"
                     android:inputType="numberDecimal"
                     android:background="#FAFAFA"
-                    android:gravity="center|right"
+                    android:gravity="center_vertical|end"
                     android:hint="@string/HintDegree"/>
 
                 <TextView
@@ -114,7 +114,7 @@
                     android:layout_weight="1"
                     android:paddingEnd="@dimen/activity_vertical_margin"
                     android:paddingStart="@dimen/activity_vertical_margin"
-                    android:gravity="center|left"
+                    android:gravity="center_vertical|start"
                     />
 
                 <Button

@@ -29,6 +29,10 @@
         <activity
             android:name=".Activities.AlcoholActivity"
             android:parentActivityName=".Activities.MainActivity"/>
+
+        <activity
+            android:name=".Activities.TransportActivity"
+            android:parentActivityName=".Activities.MainActivity"/>
     </application>
 
 </manifest>

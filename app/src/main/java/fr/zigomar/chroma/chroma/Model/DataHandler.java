@@ -235,4 +235,6 @@ public class DataHandler {
 
         return s;
     }
+
+    // TODO : add a Trip section with the corresponding logic
 }
