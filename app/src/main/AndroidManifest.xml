@@ -9,7 +9,7 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <activity
-            android:name=".MainActivity"
+            android:name=".Activities.MainActivity"
             android:launchMode="singleTop">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -19,16 +19,16 @@
         </activity>
 
         <activity
-            android:name=".MoodActivity"
-            android:parentActivityName=".MainActivity"/>
+            android:name=".Activities.MoodActivity"
+            android:parentActivityName=".Activities.MainActivity"/>
 
         <activity
-            android:name=".MoneyActivity"
-            android:parentActivityName=".MainActivity"/>
+            android:name=".Activities.MoneyActivity"
+            android:parentActivityName=".Activities.MainActivity"/>
 
         <activity
-            android:name=".AlcoholActivity"
-            android:parentActivityName=".MainActivity"/>
+            android:name=".Activities.AlcoholActivity"
+            android:parentActivityName=".Activities.MainActivity"/>
     </application>
 
 </manifest>

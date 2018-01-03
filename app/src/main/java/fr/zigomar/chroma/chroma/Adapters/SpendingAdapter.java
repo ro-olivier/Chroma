@@ -1,4 +1,4 @@
-package fr.zigomar.chroma.chroma;
+package fr.zigomar.chroma.chroma.Adapters;
 
 
 import android.content.Context;
@@ -10,9 +10,12 @@ import android.widget.TextView;
 
 import java.util.List;
 
+import fr.zigomar.chroma.chroma.Model.Spending;
+import fr.zigomar.chroma.chroma.R;
+
 public class SpendingAdapter extends ArrayAdapter<Spending> {
 
-    SpendingAdapter(Context context, List<Spending> spendings) {
+    public SpendingAdapter(Context context, List<Spending> spendings) {
         super(context, 0, spendings);
     }
 

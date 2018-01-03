@@ -1,4 +1,4 @@
-package fr.zigomar.chroma.chroma;
+package fr.zigomar.chroma.chroma.Activities;
 
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
@@ -13,6 +13,8 @@ import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.Locale;
+
+import fr.zigomar.chroma.chroma.R;
 
 public class MainActivity extends AppCompatActivity {
 

@@ -1,4 +1,4 @@
-package fr.zigomar.chroma.chroma;
+package fr.zigomar.chroma.chroma.Adapters;
 
 
 import android.content.Context;
@@ -11,9 +11,12 @@ import android.widget.TextView;
 import java.text.DecimalFormat;
 import java.util.List;
 
+import fr.zigomar.chroma.chroma.Model.Drink;
+import fr.zigomar.chroma.chroma.R;
+
 public class DrinkAdapter extends ArrayAdapter<Drink> {
 
-    DrinkAdapter(Context context, List<Drink> drinks) {
+    public DrinkAdapter(Context context, List<Drink> drinks) {
         super(context, 0, drinks);
     }
 

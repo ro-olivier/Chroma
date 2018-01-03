@@ -1,4 +1,4 @@
-package fr.zigomar.chroma.chroma;
+package fr.zigomar.chroma.chroma.Model;
 
 
 import android.content.Context;
@@ -19,8 +19,11 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Locale;
 
+import fr.zigomar.chroma.chroma.Model.Drink;
+import fr.zigomar.chroma.chroma.Model.Spending;
 
-class DataHandler {
+
+public class DataHandler {
 
     //private Date currentDate;
     private String filename;
@@ -29,7 +32,7 @@ class DataHandler {
 
     private static final int INITIAL_MOOD = 5;
 
-    DataHandler(Context ctx, Date currentDate) {
+    public DataHandler(Context ctx, Date currentDate) {
         //this.currentDate = currentDate;
         this.filename = new SimpleDateFormat("yyyy-MM-dd", Locale.FRANCE).format(currentDate);
         this.data = new JSONObject();
@@ -78,7 +81,7 @@ class DataHandler {
     }
 
 
-    void writeDataToFile(Context ctx) {
+    public void writeDataToFile(Context ctx) {
         // this method does the actual writing-to-file work
         // no big deal, the OutputStream is used and it should go well
         // and remain private to the app
@@ -106,7 +109,7 @@ class DataHandler {
         - getMoodData
     ########################################################
     */
-    void saveMoodData(int v1, int v2, int v3, String txt) {
+    public void saveMoodData(int v1, int v2, int v3, String txt) {
         // method used by the MoodActivity to update the mood data with was was
         // written in the view. Pretty simple !
         Log.i("CHROMA", "SaveMoodData was invoked.");
@@ -120,7 +123,7 @@ class DataHandler {
         }
     }
 
-    HashMap<String, String> getMoodData() {
+    public HashMap<String, String> getMoodData() {
         // returns the mood data currently present in the file
         // a HashMap is returned, instead of a JSONObject because I don't want any
         // JSON logic in the activities (it belongs to the DataHandler only)
@@ -169,7 +172,7 @@ class DataHandler {
     ########################################################
     */
 
-    void saveMoneyData(List<Spending> l) {
+    public void saveMoneyData(List<Spending> l) {
         Log.i("CHROMA", "SaveMoneyData was invoked.");
         try {
             this.data.put("spendings", l);
@@ -178,7 +181,7 @@ class DataHandler {
         }
     }
 
-    ArrayList<Spending> getSpendingsList() {
+    public ArrayList<Spending> getSpendingsList() {
         ArrayList<Spending> s = new ArrayList<>();
         JSONArray jsonArray;
         try {
@@ -205,7 +208,7 @@ class DataHandler {
     ########################################################
     */
 
-    void saveAlcoholData(List<Drink> l) {
+    public void saveAlcoholData(List<Drink> l) {
         Log.i("CHROMA", "SaveAlcoholData was invoked.");
         try {
             this.data.put("drinks", l);
@@ -214,7 +217,7 @@ class DataHandler {
         }
     }
 
-    ArrayList<Drink> getDrinksList() {
+    public ArrayList<Drink> getDrinksList() {
         ArrayList<Drink> s = new ArrayList<>();
         JSONArray jsonArray;
         try {

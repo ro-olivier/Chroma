@@ -1,8 +1,7 @@
-package fr.zigomar.chroma.chroma;
+package fr.zigomar.chroma.chroma.Activities;
 
 
 import android.os.Bundle;
-import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
@@ -10,20 +9,15 @@ import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import java.text.SimpleDateFormat;
-import java.util.Date;
 import java.util.List;
-import java.util.Locale;
 
-public class AlcoholActivity extends AppCompatActivity {
+import fr.zigomar.chroma.chroma.Adapters.DrinkAdapter;
+import fr.zigomar.chroma.chroma.Model.Drink;
+import fr.zigomar.chroma.chroma.R;
 
-    public static final String CURRENT_DATE = "com.example.chroma.current_date";
-
-    private DataHandler dh;
+public class AlcoholActivity extends InputActivity {
 
     List<Drink> drinks;
-
-    private Date currentDate = new Date();
 
     private TextView descField;
     private TextView volumeField;
@@ -41,12 +35,8 @@ public class AlcoholActivity extends AppCompatActivity {
         // setting the view's layout
         setContentView(R.layout.activity_alcohol);
 
-        // update the date view at the top of the layout
-        this.currentDate.setTime(getIntent().getLongExtra(CURRENT_DATE, -1));
-        updateDateView();
-
-        // init the data handler
-        this.dh = new DataHandler(this.getApplicationContext(), this.currentDate);
+        // call inherited initiating method
+        init();
 
         // getting the views from their id
         this.descField = (TextView) findViewById(R.id.TextDescription);
@@ -91,14 +81,6 @@ public class AlcoholActivity extends AppCompatActivity {
     private List<Drink> getDrinks(){
         // getting the data is handle by the DataHandler
         return this.dh.getDrinksList();
-    }
-
-    private void updateDateView() {
-        // simple method to update the date view at the top of the screen
-        TextView dateView = (TextView) findViewById(R.id.DateTextView);
-        String formattedDate = (new SimpleDateFormat("yyyy/MM/dd", Locale.FRANCE).format(this.currentDate));
-        Log.i("CHROMA", "Updating date : " + formattedDate);
-        dateView.setText(formattedDate);
     }
 
     @Override

@@ -1,4 +1,4 @@
-package fr.zigomar.chroma.chroma;
+package fr.zigomar.chroma.chroma.Model;
 
 
 import org.json.JSONException;
@@ -11,15 +11,15 @@ public class Drink {
     private double degree;
     private double ua;
 
-    String getDescription() {
+    public String getDescription() {
         return description;
     }
 
-    double getUA() {
+    public double getUA() {
         return ua;
     }
 
-    Drink(String description, double volume, double degree) {
+    public Drink(String description, double volume, double degree) {
         this.description = description;
         this.volume = volume;
         this.degree = degree;

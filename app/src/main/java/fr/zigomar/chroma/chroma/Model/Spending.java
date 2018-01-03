@@ -1,4 +1,4 @@
-package fr.zigomar.chroma.chroma;
+package fr.zigomar.chroma.chroma.Model;
 
 
 import org.json.JSONException;
@@ -9,21 +9,21 @@ public class Spending {
     private String category;
     private double amount;
 
-    Spending(String description, String category, double amount) {
+    public Spending(String description, String category, double amount) {
         this.amount = amount;
         this.description = description;
         this.category = category;
     }
 
-    String getDescription() {
+    public String getDescription() {
         return description;
     }
 
-    String getCategory() {
+    public String getCategory() {
         return category;
     }
 
-    double getAmount() {
+    public double getAmount() {
         return amount;
     }
 

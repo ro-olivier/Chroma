@@ -1,7 +1,6 @@
-package fr.zigomar.chroma.chroma;
+package fr.zigomar.chroma.chroma.Activities;
 
 import android.os.Bundle;
-import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
 import android.widget.ArrayAdapter;
@@ -11,21 +10,16 @@ import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import java.text.SimpleDateFormat;
-import java.util.Date;
 import java.util.List;
-import java.util.Locale;
+
+import fr.zigomar.chroma.chroma.Adapters.SpendingAdapter;
+import fr.zigomar.chroma.chroma.Model.Spending;
+import fr.zigomar.chroma.chroma.R;
 
 
-public class MoneyActivity extends AppCompatActivity {
-
-    public static final String CURRENT_DATE = "com.example.chroma.current_date";
-
-    private DataHandler dh;
+public class MoneyActivity extends InputActivity {
 
     List<Spending> spendings;
-
-    private Date currentDate = new Date();
 
     private TextView descField;
     private Spinner catField;
@@ -43,12 +37,8 @@ public class MoneyActivity extends AppCompatActivity {
         // setting the view's layout
         setContentView(R.layout.activity_money);
 
-        // update the date view at the top of the layout
-        this.currentDate.setTime(getIntent().getLongExtra(CURRENT_DATE, -1));
-        updateDateView();
-
-        // init the data handler
-        this.dh = new DataHandler(this.getApplicationContext(), this.currentDate);
+        // call inherited initiating method
+        init();
 
         // getting the views from their id
         this.descField = (TextView) findViewById(R.id.TextDescription);
@@ -105,13 +95,6 @@ public class MoneyActivity extends AppCompatActivity {
         return this.dh.getSpendingsList();
     }
 
-    private void updateDateView() {
-        // simple method to update the date view at the top of the screen
-        TextView dateView = (TextView) findViewById(R.id.DateTextView);
-        String formattedDate = (new SimpleDateFormat("yyyy/MM/dd", Locale.FRANCE).format(this.currentDate));
-        Log.i("CHROMA", "Updating date : " + formattedDate);
-        dateView.setText(formattedDate);
-    }
 
     @Override
     protected void onStop() {
