@@ -127,26 +127,13 @@ public class DataHandler {
         Log.i("CHROMA", "getMoodData was invoked");
         HashMap<String, String> d = new HashMap<>();
 
-        // TODO : there is probably a more concise way to do this...
-        try {
-            d.put("eval1", String.valueOf(this.data.getInt("mood_eval1")));
-        } catch (JSONException e) {
-            e.printStackTrace();
-            d.put("eval1", "");
-        }
-
-        try {
-            d.put("eval2", String.valueOf(this.data.getInt("mood_eval2")));
-        } catch (JSONException e) {
-            e.printStackTrace();
-            d.put("eval2", "");
-        }
-
-        try {
-            d.put("eval3", String.valueOf(this.data.getInt("mood_eval3")));
-        } catch (JSONException e) {
-            e.printStackTrace();
-            d.put("eval3", "");
+        for (int i = 1; i < 4; i++) {
+            try {
+                d.put("eval" + i, String.valueOf(this.data.getInt("mood_eval" + i)));
+            } catch (JSONException e) {
+                e.printStackTrace();
+                d.put("eval" + i, "");
+            }
         }
 
         try {
