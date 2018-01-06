@@ -19,9 +19,6 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Locale;
 
-import fr.zigomar.chroma.chroma.Model.Drink;
-import fr.zigomar.chroma.chroma.Model.Spending;
-
 
 public class DataHandler {
 
@@ -209,7 +206,7 @@ public class DataHandler {
     */
 
     public void saveAlcoholData(List<Drink> l) {
-        Log.i("CHROMA", "SaveAlcoholData was invoked.");
+        Log.i("CHROMA", "SaveMoneyData was invoked.");
         try {
             this.data.put("drinks", l);
         } catch (JSONException e) {
@@ -236,5 +233,39 @@ public class DataHandler {
         return s;
     }
 
-    // TODO : add a Trip section with the corresponding logic
+        /*
+    ########################################################
+    Transport section :
+        - saveTransportData
+        - getTripsList
+    ########################################################
+    */
+
+    public void saveTransportData(List<Trip> l) {
+        Log.i("CHROMA", "SaveTransportData was invoked.");
+        try {
+            this.data.put("trips", l);
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public ArrayList<Trip> getTripsList() {
+        ArrayList<Trip> s = new ArrayList<>();
+        JSONArray jsonArray;
+        try {
+            jsonArray = new JSONArray(this.data.get("trips").toString());
+
+
+            for (int i = 0; i < jsonArray.length(); i++) {
+                JSONObject jso = jsonArray.getJSONObject(i);
+                s.add(new Trip(jso.getString("trip"), jso.getDouble("trip_cost")));
+            }
+
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+
+        return s;
+    }
 }
