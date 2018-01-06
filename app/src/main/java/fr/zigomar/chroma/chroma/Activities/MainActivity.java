@@ -103,9 +103,7 @@ public class MainActivity extends AppCompatActivity {
                 startActivity(transportIntent);
             }
         });
-
     }
-
 
     @Override
     protected void onResume() {

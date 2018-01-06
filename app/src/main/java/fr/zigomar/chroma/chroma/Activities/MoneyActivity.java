@@ -80,12 +80,6 @@ public class MoneyActivity extends InputActivity {
 
         this.spendingAdapter = new SpendingAdapter(MoneyActivity.this, this.spendings);
         spendingsListView.setAdapter(this.spendingAdapter);
-
-        /*
-        TODO : could be nice to add a "delete a spending" feature:
-        a long click on one of the spendings could open a small dialog with
-        an option to delete the spending.
-         */
     }
 
     private List<Spending> getSpendings(){
