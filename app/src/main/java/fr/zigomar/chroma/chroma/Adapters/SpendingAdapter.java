@@ -2,6 +2,7 @@ package fr.zigomar.chroma.chroma.Adapters;
 
 
 import android.content.Context;
+import android.support.annotation.NonNull;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -19,8 +20,9 @@ public class SpendingAdapter extends ArrayAdapter<Spending> {
         super(context, 0, spendings);
     }
 
+    @NonNull
     @Override
-    public View getView(int position, View convertView, ViewGroup parent) {
+    public View getView(int position, View convertView, @NonNull ViewGroup parent) {
 
         if(convertView == null){
             convertView = LayoutInflater.from(getContext()).inflate(R.layout.unit_spending, parent, false);
@@ -38,6 +40,7 @@ public class SpendingAdapter extends ArrayAdapter<Spending> {
         Spending spending = getItem(position);
 
         //il ne reste plus qu'à remplir notre vue
+        assert spending != null;
         viewHolder.description.setText(spending.getDescription());
         viewHolder.category.setText(spending.getCategory());
         viewHolder.amount.setText(String.valueOf(spending.getAmount()));

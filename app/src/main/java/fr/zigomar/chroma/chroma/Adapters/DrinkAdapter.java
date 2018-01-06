@@ -2,6 +2,7 @@ package fr.zigomar.chroma.chroma.Adapters;
 
 
 import android.content.Context;
+import android.support.annotation.NonNull;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -20,8 +21,9 @@ public class DrinkAdapter extends ArrayAdapter<Drink> {
         super(context, 0, drinks);
     }
 
+    @NonNull
     @Override
-    public View getView(int position, View convertView, ViewGroup parent) {
+    public View getView(int position, View convertView, @NonNull ViewGroup parent) {
 
         if(convertView == null){
             convertView = LayoutInflater.from(getContext()).inflate(R.layout.unit_alcohol, parent, false);
@@ -40,6 +42,7 @@ public class DrinkAdapter extends ArrayAdapter<Drink> {
         DecimalFormat df = new DecimalFormat("0.00");
 
         //il ne reste plus qu'à remplir notre vue
+        assert drink != null;
         viewHolder.description.setText(drink.getDescription());
         viewHolder.ua.setText(df.format(drink.getUA()));
 

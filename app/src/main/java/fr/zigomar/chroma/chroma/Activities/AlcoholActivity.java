@@ -1,6 +1,5 @@
 package fr.zigomar.chroma.chroma.Activities;
 
-
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -17,15 +16,14 @@ import fr.zigomar.chroma.chroma.R;
 
 public class AlcoholActivity extends InputActivity {
 
+    // the list holding the data
     List<Drink> drinks;
+    // the adapter managing the view of the data
+    private DrinkAdapter drinkAdapter;
 
     private TextView descField;
     private TextView volumeField;
     private TextView degreeField;
-    private Button addButton;
-    private ListView drinksListView;
-
-    private DrinkAdapter drinkAdapter;
 
     @Override
     protected void onCreate(final Bundle savedInstanceState) {
@@ -42,9 +40,9 @@ public class AlcoholActivity extends InputActivity {
         this.descField = (TextView) findViewById(R.id.TextDescription);
         this.volumeField = (TextView) findViewById(R.id.DrinkVolume);
         this.degreeField = (TextView) findViewById(R.id.DrinkDegree);
-        this.addButton = (Button) findViewById(R.id.AddButton);
+        Button addButton = (Button) findViewById(R.id.AddButton);
 
-        this.addButton.setOnClickListener(new View.OnClickListener() {
+        addButton.setOnClickListener(new View.OnClickListener() {
 
             @Override
             public void onClick(View v) {
@@ -71,15 +69,14 @@ public class AlcoholActivity extends InputActivity {
 
         // finishing up the setting of the adapter for the list view of the retrieve (and
         // new) drinks
-        this.drinksListView = (ListView) findViewById(R.id.ListViewAlcohol);
+        ListView drinksListView = (ListView) findViewById(R.id.ListViewAlcohol);
 
         this.drinkAdapter = new DrinkAdapter(AlcoholActivity.this, this.drinks);
-        this.drinksListView.setAdapter(this.drinkAdapter);
-
+        drinksListView.setAdapter(this.drinkAdapter);
     }
 
     private List<Drink> getDrinks(){
-        // getting the data is handle by the DataHandler
+        // getting the data is handled by the DataHandler
         return this.dh.getDrinksList();
     }
 

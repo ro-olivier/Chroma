@@ -16,18 +16,16 @@ import fr.zigomar.chroma.chroma.Adapters.SpendingAdapter;
 import fr.zigomar.chroma.chroma.Model.Spending;
 import fr.zigomar.chroma.chroma.R;
 
-
 public class MoneyActivity extends InputActivity {
 
+    // the list holding the data
     List<Spending> spendings;
+    // the adapter managing the view of the data
+    private SpendingAdapter spendingAdapter;
 
     private TextView descField;
     private Spinner catField;
     private TextView amountField;
-    private Button addButton;
-    private ListView spendingsListView;
-
-    private SpendingAdapter spendingAdapter;
 
     @Override
     protected void onCreate(final Bundle savedInstanceState) {
@@ -44,9 +42,9 @@ public class MoneyActivity extends InputActivity {
         this.descField = (TextView) findViewById(R.id.TextDescription);
         this.catField = (Spinner) findViewById(R.id.TextCategory);
         this.amountField = (TextView) findViewById(R.id.TextAmount);
-        this.addButton = (Button) findViewById(R.id.AddButton);
+        Button addButton = (Button) findViewById(R.id.AddButton);
 
-        this.addButton.setOnClickListener(new View.OnClickListener() {
+        addButton.setOnClickListener(new View.OnClickListener() {
 
             @Override
             public void onClick(View v) {
@@ -78,10 +76,10 @@ public class MoneyActivity extends InputActivity {
 
         // finishing up the setting of the adapter for the list view of the retrieve (and
         // new) spendings
-        this.spendingsListView = (ListView) findViewById(R.id.ListViewMoney);
+        ListView spendingsListView = (ListView) findViewById(R.id.ListViewMoney);
 
         this.spendingAdapter = new SpendingAdapter(MoneyActivity.this, this.spendings);
-        this.spendingsListView.setAdapter(this.spendingAdapter);
+        spendingsListView.setAdapter(this.spendingAdapter);
 
         /*
         TODO : could be nice to add a "delete a spending" feature:
@@ -91,10 +89,9 @@ public class MoneyActivity extends InputActivity {
     }
 
     private List<Spending> getSpendings(){
-        // getting the data is handle by the DataHandler
+        // getting the data is handled by the DataHandler
         return this.dh.getSpendingsList();
     }
-
 
     @Override
     protected void onStop() {

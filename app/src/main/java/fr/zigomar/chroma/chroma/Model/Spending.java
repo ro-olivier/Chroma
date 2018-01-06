@@ -1,6 +1,5 @@
 package fr.zigomar.chroma.chroma.Model;
 
-
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -43,5 +42,4 @@ public class Spending {
     public String toString() {
         return getSpendingAsJSON().toString();
     }
-
 }
