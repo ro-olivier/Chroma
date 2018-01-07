@@ -38,6 +38,7 @@
     <string name="TripStationMandatory">Station field cannot be blank.</string>
     <string name="TripLineMandatory">Line field cannot be blank.</string>
     <string name="TripCostMandatory">Trip cost is required.</string>
+    <string name="TripCannotRevertEmptyTrip">No trip to reverse.</string>
 
 
     <string-array name="spendingsCategories">

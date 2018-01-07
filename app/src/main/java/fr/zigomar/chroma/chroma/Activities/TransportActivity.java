@@ -147,23 +147,27 @@ public class TransportActivity extends InputActivity {
         revertTripButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Trip lastTrip = trips.get(trips.size() - 1);
+                if (trips.size() > 0) {
+                    Trip lastTrip = trips.get(trips.size() - 1);
 
-                ArrayList<Step> backward_steps = new ArrayList<>();
+                    ArrayList<Step> backward_steps = new ArrayList<>();
 
-                try {
-                    for (int index = lastTrip.getNumberOfSteps() - 1; index > 0; index--) {
+                    try {
+                        for (int index = lastTrip.getNumberOfSteps() - 1; index > 0; index--) {
 
                             backward_steps.add(new Step(lastTrip.getSteps().get(index).getStop(),
                                     lastTrip.getSteps().get(index - 1).getLine()));
+                        }
+
+                        backward_steps.add(new Step(lastTrip.getSteps().get(0).getStop()));
+                    } catch (Step.EmptyStationException | Step.EmptyLineException e) {
+                        e.printStackTrace();
                     }
 
-                    backward_steps.add(new Step(lastTrip.getSteps().get(0).getStop()));
-                } catch (Step.EmptyStationException | Step.EmptyLineException e) {
-                    e.printStackTrace();
+                    tripAdapter.add(new Trip(backward_steps, lastTrip.getCost()));
+                } else {
+                    Toast.makeText(getApplicationContext(), R.string.TripCannotRevertEmptyTrip, Toast.LENGTH_SHORT).show();
                 }
-
-                tripAdapter.add(new Trip(backward_steps, lastTrip.getCost()));
             }
         });
 
