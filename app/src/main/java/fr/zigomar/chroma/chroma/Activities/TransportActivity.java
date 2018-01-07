@@ -1,8 +1,11 @@
 package fr.zigomar.chroma.chroma.Activities;
 
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.LinearLayout;
@@ -10,7 +13,6 @@ import android.widget.ListView;
 import android.widget.Toast;
 
 import java.util.ArrayList;
-import java.util.List;
 
 import fr.zigomar.chroma.chroma.Adapters.TripAdapter;
 import fr.zigomar.chroma.chroma.Model.Step;
@@ -20,7 +22,7 @@ import fr.zigomar.chroma.chroma.R;
 public class TransportActivity extends InputActivity {
 
     // the list holding the data
-    List<Trip> trips;
+    ArrayList<Trip> trips;
     // the adapter managing the view of the data
     private TripAdapter tripAdapter;
 
@@ -109,6 +111,38 @@ public class TransportActivity extends InputActivity {
         this.tripAdapter = new TripAdapter(TransportActivity.this, this.trips);
         tripsListView.setAdapter(this.tripAdapter);
 
+        tripsListView.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
+            @Override
+            public boolean onItemLongClick(AdapterView<?> parent, View view, int position, long id) {
+                Log.i("CHROMA", "Clicked the " + position + "-th item.");
+
+                final int pos = position;
+                AlertDialog.Builder builder = new AlertDialog.Builder(view.getContext());
+
+                builder.setTitle(R.string.DeleteTitle);
+                builder.setMessage(R.string.DeleteItemQuestion);
+
+                builder.setPositiveButton(R.string.YES, new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        tripAdapter.remove(trips.get(pos));
+                        tripAdapter.notifyDataSetChanged();
+                        dialog.dismiss();
+                    }
+                });
+                builder.setNegativeButton(R.string.NO, new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        dialog.dismiss();
+                    }
+                });
+
+                AlertDialog alert = builder.create();
+                alert.show();
+                return true;
+            }
+        });
+
         Button revertTripButton = (Button) findViewById(R.id.RevertTransport);
         revertTripButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -135,7 +169,7 @@ public class TransportActivity extends InputActivity {
 
     }
 
-    private List<Trip> getTrips(){
+    private ArrayList<Trip> getTrips(){
         // getting the data is handled by the DataHandler
         return this.dh.getTripsList();
     }

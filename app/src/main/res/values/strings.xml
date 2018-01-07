@@ -27,6 +27,10 @@
     <string name="AddTrip">Submit trip</string>
     <string name="HintTripPrice">1.9</string>
     <string name="TripCost">€</string>
+    <string name="DeleteItemQuestion">Do you want to delete this item?</string>
+    <string name="DeleteTitle">DELETE</string>
+    <string name="YES">YES</string>
+    <string name="NO">NO</string>
 
 
     <string-array name="spendingsCategories">

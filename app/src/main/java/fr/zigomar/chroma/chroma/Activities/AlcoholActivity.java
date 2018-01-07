@@ -1,14 +1,17 @@
 package fr.zigomar.chroma.chroma.Activities;
 
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import java.util.List;
+import java.util.ArrayList;
 
 import fr.zigomar.chroma.chroma.Adapters.DrinkAdapter;
 import fr.zigomar.chroma.chroma.Model.Drink;
@@ -17,7 +20,7 @@ import fr.zigomar.chroma.chroma.R;
 public class AlcoholActivity extends InputActivity {
 
     // the list holding the data
-    List<Drink> drinks;
+    ArrayList<Drink> drinks;
     // the adapter managing the view of the data
     private DrinkAdapter drinkAdapter;
 
@@ -73,9 +76,41 @@ public class AlcoholActivity extends InputActivity {
 
         this.drinkAdapter = new DrinkAdapter(AlcoholActivity.this, this.drinks);
         drinksListView.setAdapter(this.drinkAdapter);
+
+        drinksListView.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
+            @Override
+            public boolean onItemLongClick(AdapterView<?> parent, View view, int position, long id) {
+                Log.i("CHROMA", "Clicked the " + position + "-th item.");
+
+                final int pos = position;
+                AlertDialog.Builder builder = new AlertDialog.Builder(view.getContext());
+
+                builder.setTitle(R.string.DeleteTitle);
+                builder.setMessage(R.string.DeleteItemQuestion);
+
+                builder.setPositiveButton(R.string.YES, new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        drinkAdapter.remove(drinks.get(pos));
+                        drinkAdapter.notifyDataSetChanged();
+                        dialog.dismiss();
+                    }
+                });
+                builder.setNegativeButton(R.string.NO, new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        dialog.dismiss();
+                    }
+                });
+
+                AlertDialog alert = builder.create();
+                alert.show();
+                return true;
+            }
+        });
     }
 
-    private List<Drink> getDrinks(){
+    private ArrayList<Drink> getDrinks(){
         // getting the data is handled by the DataHandler
         return this.dh.getDrinksList();
     }

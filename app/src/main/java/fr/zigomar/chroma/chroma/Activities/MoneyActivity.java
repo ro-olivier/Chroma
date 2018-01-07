@@ -1,8 +1,11 @@
 package fr.zigomar.chroma.chroma.Activities;
 
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ListView;
@@ -10,7 +13,7 @@ import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import java.util.List;
+import java.util.ArrayList;
 
 import fr.zigomar.chroma.chroma.Adapters.SpendingAdapter;
 import fr.zigomar.chroma.chroma.Model.Spending;
@@ -19,7 +22,7 @@ import fr.zigomar.chroma.chroma.R;
 public class MoneyActivity extends InputActivity {
 
     // the list holding the data
-    List<Spending> spendings;
+    ArrayList<Spending> spendings;
     // the adapter managing the view of the data
     private SpendingAdapter spendingAdapter;
 
@@ -66,7 +69,7 @@ public class MoneyActivity extends InputActivity {
         });
 
         // setting the spinner Adapter (for the spendings category)
-        ArrayAdapter<CharSequence> spinnerAdapter = ArrayAdapter.createFromResource(this,
+        final ArrayAdapter<CharSequence> spinnerAdapter = ArrayAdapter.createFromResource(this,
                 R.array.spendingsCategories, android.R.layout.simple_spinner_item);
         spinnerAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         this.catField.setAdapter(spinnerAdapter);
@@ -80,9 +83,42 @@ public class MoneyActivity extends InputActivity {
 
         this.spendingAdapter = new SpendingAdapter(MoneyActivity.this, this.spendings);
         spendingsListView.setAdapter(this.spendingAdapter);
+
+
+        spendingsListView.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
+            @Override
+            public boolean onItemLongClick(AdapterView<?> parent, View view, int position, long id) {
+                Log.i("CHROMA", "Clicked the " + position + "-th item.");
+
+                final int pos = position;
+                AlertDialog.Builder builder = new AlertDialog.Builder(view.getContext());
+
+                builder.setTitle(R.string.DeleteTitle);
+                builder.setMessage(R.string.DeleteItemQuestion);
+
+                builder.setPositiveButton(R.string.YES, new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        spendingAdapter.remove(spendings.get(pos));
+                        spendingAdapter.notifyDataSetChanged();
+                        dialog.dismiss();
+                    }
+                });
+                builder.setNegativeButton(R.string.NO, new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        dialog.dismiss();
+                    }
+                });
+
+                AlertDialog alert = builder.create();
+                alert.show();
+                return true;
+            }
+        });
     }
 
-    private List<Spending> getSpendings(){
+    private ArrayList<Spending> getSpendings(){
         // getting the data is handled by the DataHandler
         return this.dh.getSpendingsList();
     }
