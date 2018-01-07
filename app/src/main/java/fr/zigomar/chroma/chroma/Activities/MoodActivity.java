@@ -74,7 +74,7 @@ public class MoodActivity extends InputActivity {
 
         updateMoodData();
         dh.writeDataToFile(getApplicationContext());
-        Toast.makeText(getApplicationContext(), "Saved!", Toast.LENGTH_SHORT).show();
+        Toast.makeText(getApplicationContext(), R.string.Saved, Toast.LENGTH_SHORT).show();
     }
 
 

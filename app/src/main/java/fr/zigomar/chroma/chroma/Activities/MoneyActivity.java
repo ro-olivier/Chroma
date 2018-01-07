@@ -60,10 +60,10 @@ public class MoneyActivity extends InputActivity {
                         spendingAdapter.add(new Spending(d, c, a));
                         Log.i("CHROMA", "Currently " + spendings.size() + " spendings.");
                     } catch (NumberFormatException e) {
-                        Toast.makeText(getApplicationContext(), "Unable to parse the value.", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(getApplicationContext(), R.string.UnableToParse, Toast.LENGTH_SHORT).show();
                     }
                 } else {
-                    Toast.makeText(getApplicationContext(), "All three values are required.", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(getApplicationContext(), R.string.MissingDataThreeValuesRequired, Toast.LENGTH_SHORT).show();
                 }
             }
         });
@@ -132,7 +132,7 @@ public class MoneyActivity extends InputActivity {
 
         updateMoneyData();
         dh.writeDataToFile(getApplicationContext());
-        Toast.makeText(getApplicationContext(), "Saved!", Toast.LENGTH_SHORT).show();
+        Toast.makeText(getApplicationContext(), R.string.Saved, Toast.LENGTH_SHORT).show();
     }
 
     private void updateMoneyData() {

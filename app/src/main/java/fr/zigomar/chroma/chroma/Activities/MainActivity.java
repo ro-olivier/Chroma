@@ -85,7 +85,7 @@ public class MainActivity extends AppCompatActivity {
 
             @Override
             public void onClick(View v) {
-                Log.i("CHROMA", "Switching to money activity");
+                Log.i("CHROMA", "Switching to alcohol activity");
                 Intent alcoholIntent = new Intent (MainActivity.this, AlcoholActivity.class);
                 alcoholIntent.putExtra(CURRENT_DATE, currentDate.getTime());
                 startActivity(alcoholIntent);

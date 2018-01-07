@@ -59,10 +59,10 @@ public class AlcoholActivity extends InputActivity {
                         drinkAdapter.add(new Drink(d, vol, deg));
                         Log.i("CHROMA", "Currently " + drinks.size() + " drinks.");
                     } catch (NumberFormatException e) {
-                        Toast.makeText(getApplicationContext(), "Unable to parse the value.", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(getApplicationContext(), R.string.UnableToParse, Toast.LENGTH_SHORT).show();
                     }
                 } else {
-                    Toast.makeText(getApplicationContext(), "All values are required.", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(getApplicationContext(), R.string.MissingDataThreeValuesRequired, Toast.LENGTH_SHORT).show();
                 }
             }
         });
@@ -124,7 +124,7 @@ public class AlcoholActivity extends InputActivity {
 
         updateDrinkData();
         dh.writeDataToFile(getApplicationContext());
-        Toast.makeText(getApplicationContext(), "Saved!", Toast.LENGTH_SHORT).show();
+        Toast.makeText(getApplicationContext(), R.string.Saved, Toast.LENGTH_SHORT).show();
     }
 
     private void updateDrinkData() {

@@ -31,6 +31,13 @@
     <string name="DeleteTitle">DELETE</string>
     <string name="YES">YES</string>
     <string name="NO">NO</string>
+    <string name="UnableToParse">Unable to parse the value.</string>
+    <string name="MissingDataThreeValuesRequired">All three values are required.</string>
+    <string name="Saved">Saved!</string>
+    <string name="TripMinimumTwoStepsRequired">A minimum of two steps is required to register a trip.</string>
+    <string name="TripStationMandatory">Station field cannot be blank.</string>
+    <string name="TripLineMandatory">Line field cannot be blank.</string>
+    <string name="TripCostMandatory">Trip cost is required.</string>
 
 
     <string-array name="spendingsCategories">

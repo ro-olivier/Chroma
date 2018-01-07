@@ -79,24 +79,24 @@ public class TransportActivity extends InputActivity {
                             tripAdapter.add(new Trip(ar, cost));
                             Log.i("CHROMA", "Currently " + trips.size() + " trips.");
                         } else {
-                            Toast.makeText(getApplicationContext(), "A minimum of two steps is required to register a trip.", Toast.LENGTH_SHORT).show();
+                            Toast.makeText(getApplicationContext(), R.string.TripMinimumTwoStepsRequired, Toast.LENGTH_SHORT).show();
                         }
                     } catch (NumberFormatException e) {
-                        Toast.makeText(getApplicationContext(), "Unable to parse the value.", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(getApplicationContext(), R.string.UnableToParse, Toast.LENGTH_SHORT).show();
                     } catch (NullPointerException e) {
                         // NullPointer Exception can be thrown by the getChildCount method if no child has been added
                         // which happens if the "submit" button if clicked with data only for one step of the trip
-                        Toast.makeText(getApplicationContext(), "A minimum of two steps is required to register a trip.", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(getApplicationContext(), R.string.TripMinimumTwoStepsRequired, Toast.LENGTH_SHORT).show();
                     } catch (Step.EmptyStationException e){
                         // An exception is thrown if the name of the station is empty
-                        Toast.makeText(getApplicationContext(), "Station field cannot be blank.", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(getApplicationContext(), R.string.TripStationMandatory, Toast.LENGTH_SHORT).show();
                     } catch (Step.EmptyLineException e) {
                         // An exception is thrown if the name of the line is empty (except for the last step of the trip)
-                        Toast.makeText(getApplicationContext(), "Line field cannot be blank.", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(getApplicationContext(), R.string.TripLineMandatory, Toast.LENGTH_SHORT).show();
 
                     }
                 } else {
-                    Toast.makeText(getApplicationContext(), "Trip cost is required.", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(getApplicationContext(), R.string.TripCostMandatory, Toast.LENGTH_SHORT).show();
                 }
             }
         });
@@ -183,7 +183,7 @@ public class TransportActivity extends InputActivity {
 
         updateTransportData();
         dh.writeDataToFile(getApplicationContext());
-        Toast.makeText(getApplicationContext(), "Saved!", Toast.LENGTH_SHORT).show();
+        Toast.makeText(getApplicationContext(), R.string.Saved, Toast.LENGTH_SHORT).show();
     }
 
     private void updateTransportData() {
