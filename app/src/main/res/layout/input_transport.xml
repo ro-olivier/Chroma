@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <LinearLayout
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:minHeight="80dp"
+        android:orientation="vertical"
+        android:id="@+id/StepLinearLayout">
+
+        <include
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            layout="@layout/unit_input_tripstep" />
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="fill_parent"
+        android:layout_height="50dp"
+        android:orientation="horizontal"
+        android:layout_gravity="center"
+        android:layout_marginStart="@dimen/activity_vertical_margin"
+        android:layout_marginEnd="@dimen/activity_vertical_margin">
+
+        <EditText
+            android:layout_width="0dp"
+            android:layout_height="fill_parent"
+            android:layout_weight="3"
+            android:id="@+id/TripPrice"
+            android:hint="@string/HintTripPrice"
+            android:inputType="numberDecimal"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="fill_parent"
+            android:text="@string/TripCost"
+            android:gravity="center_vertical|start"/>
+
+        <Space
+            android:layout_width="0dp"
+            android:layout_height="fill_parent"
+            android:rotation="180"
+            android:layout_weight="1"
+            />
+        <Button
+            android:layout_width="0dp"
+            android:layout_height="fill_parent"
+            android:layout_weight="8"
+            android:id="@+id/AddStep"
+            android:text="@string/AddStep"/>
+
+        <Space
+            android:layout_width="0dp"
+            android:layout_height="fill_parent"
+            android:rotation="180"
+            android:layout_weight="1"
+            />
+
+        <Button
+            android:layout_height="fill_parent"
+            android:layout_width="0dp"
+            android:layout_weight="8"
+            android:id="@+id/AddButton"
+            android:text="@string/AddTrip"/>
+
+    </LinearLayout>
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="50dp"
+        android:id="@+id/RevertTransport"
+        android:text="@string/RevertTransport"
+        android:layout_gravity="center_horizontal"/>
+
+</LinearLayout>

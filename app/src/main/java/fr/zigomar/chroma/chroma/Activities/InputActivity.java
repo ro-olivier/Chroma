@@ -3,6 +3,8 @@ package fr.zigomar.chroma.chroma.Activities;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
+import android.view.View;
+import android.widget.ImageButton;
 import android.widget.TextView;
 
 import java.text.SimpleDateFormat;
@@ -34,6 +36,11 @@ public abstract class InputActivity extends AppCompatActivity {
 
         // init the data handler
         this.dh = new DataHandler(this.getApplicationContext(), this.currentDate);
+
+        ImageButton backwardDateButton = (ImageButton) findViewById(R.id.ButtonBackwardDate);
+        backwardDateButton.setVisibility(View.INVISIBLE);
+        ImageButton forwardDateButton = (ImageButton) findViewById(R.id.ButtonForwardDate);
+        forwardDateButton.setVisibility(View.INVISIBLE);
     }
 
     protected void updateDateView() {
