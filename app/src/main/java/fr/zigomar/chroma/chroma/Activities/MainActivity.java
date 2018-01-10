@@ -29,6 +29,7 @@ public class MainActivity extends AppCompatActivity {
     Button moneyButton;
     Button alcoholButton;
     Button transportButton;
+    Button carButton;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -101,6 +102,18 @@ public class MainActivity extends AppCompatActivity {
                 Intent transportIntent = new Intent (MainActivity.this, TransportActivity.class);
                 transportIntent.putExtra(CURRENT_DATE, currentDate.getTime());
                 startActivity(transportIntent);
+            }
+        });
+
+        this.carButton = (Button) findViewById(R.id.ButtonToOption5);
+        this.carButton.setOnClickListener(new View.OnClickListener() {
+
+            @Override
+            public void onClick(View v) {
+                Log.i("CHROMA", "Switching to car activity");
+                Intent carIntent = new Intent (MainActivity.this, CarActivity.class);
+                carIntent.putExtra(CURRENT_DATE, currentDate.getTime());
+                startActivity(carIntent);
             }
         });
     }

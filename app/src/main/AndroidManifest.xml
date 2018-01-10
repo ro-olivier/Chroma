@@ -37,6 +37,11 @@
             android:name=".Activities.TransportActivity"
             android:parentActivityName=".Activities.MainActivity"
             android:windowSoftInputMode="stateHidden"/>
+
+        <activity
+            android:name=".Activities.CarActivity"
+            android:parentActivityName=".Activities.MainActivity"
+            android:windowSoftInputMode="stateHidden"/>
     </application>
 
 </manifest>

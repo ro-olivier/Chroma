@@ -255,4 +255,42 @@ public class DataHandler {
 
         return s;
     }
+
+    public ArrayList<CarTrip> getCarTripsList() {
+        ArrayList<CarTrip> s = new ArrayList<>();
+        JSONArray jsonArray;
+        try {
+            jsonArray = new JSONArray(this.data.get("carTrips").toString());
+
+
+            for (int i = 0; i < jsonArray.length(); i++) {
+                JSONObject jso = jsonArray.getJSONObject(i);
+                if (jso.getBoolean("completed")) {
+                    // create completed carTrip
+                    s.add(new CarTrip(jso.getString("origin"), jso.getString("destination"),
+                            new Date(jso.getLong("startDate")), new Date(jso.getLong("endDate")),
+                            jso.getDouble("startKM"), jso.getDouble("endKM")));
+                } else {
+                    // create an uncompleted carTrip
+                    s.add(new CarTrip(jso.getString("origin"),
+                            new Date(jso.getLong("startDate")),
+                            jso.getDouble("startKM")));
+                }
+            }
+
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+
+        return s;
+    }
+
+    public void saveCarTripData(ArrayList<CarTrip> carTrips) {
+        Log.i("CHROMA", "SaveCarTripData was invoked.");
+        try {
+            this.data.put("carTrips", carTrips);
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+    }
 }

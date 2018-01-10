@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:layout_width="fill_parent"
+    android:layout_height="140dp"
+    android:paddingBottom="@dimen/activity_vertical_margin">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="60dp">
+
+        <EditText
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="6"
+            android:hint="@string/CarTripOriginHint"
+            android:id="@+id/carTrip_origin"/>
+
+        <EditText
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="4"
+            android:hint="@string/CarTripKMHint"
+            android:id="@+id/carTrip_KMbegin"
+            android:inputType="number"/>
+
+        <TimePicker
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="4"
+            android:hint="@string/CarTripTimeHint"
+            android:id="@+id/carTrip_TimeBegin"
+            android:timePickerMode="clock" />
+
+        <Button
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="4"
+            android:text="@string/TripSubmitStart"
+            android:id="@+id/carTrip_SubmitStart"/>
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="60dp">
+
+        <EditText
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="6"
+            android:hint="@string/CarTripDestinationHint"
+            android:id="@+id/carTrip_destination"/>
+
+        <EditText
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="4"
+            android:hint="@string/CarTripKMHint"
+            android:id="@+id/carTrip_KMEnd"
+            android:inputType="number"/>
+
+
+        <TimePicker
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="4"
+            android:hint="@string/CarTripTimeHint"
+            android:id="@+id/carTrip_TimeEnd"
+            android:timePickerMode="clock"/>
+
+        <Button
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="4"
+            android:text="@string/TripSubmitEnd"
+            android:id="@+id/carTrip_SubmitEnd"/>
+
+    </LinearLayout>
+</LinearLayout>
