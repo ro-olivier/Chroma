@@ -6,6 +6,7 @@ import android.util.Log;
 import android.view.View;
 import android.widget.ImageButton;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -28,6 +29,24 @@ public abstract class InputActivity extends AppCompatActivity {
         // calling inherited class constructor
         super.onCreate(savedInstanceState);
     }
+
+    @Override
+    protected void onStop() {
+        // surcharge the onStop() method to include a call to the method updating the data and then
+        // using the DataHandler to write it to file before closing
+        super.onStop();
+        Log.i("CHROMA","Starting activity closing...");
+        Log.i("CHROMA", this.getClass().getSimpleName());
+
+        saveData();
+        this.dh.writeDataToFile(getApplicationContext());
+        Toast.makeText(getApplicationContext(), R.string.Saved, Toast.LENGTH_SHORT).show();
+    }
+
+        // simply fetch the data from the views and save it into the DataHandler with the dedicated method
+        // each class inheriting from InputActivity has its own way of doing this and thus must override this method
+        //Log.i("CHROMA", "Updating the data object with current values in the views");
+    protected abstract void saveData();
 
     protected void init() {
         // update the date view at the top of the layout

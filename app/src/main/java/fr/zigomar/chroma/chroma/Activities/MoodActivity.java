@@ -44,7 +44,6 @@ public class MoodActivity extends InputActivity {
 
         // setting the data in the views
         initMoodData();
-
     }
 
     private void initViews() {
@@ -65,29 +64,6 @@ public class MoodActivity extends InputActivity {
 
     }
 
-    @Override
-    protected void onStop() {
-        // surcharge the onStop() method to include a call to the method updating the data and then
-        // using the DataHandler to write it to file before closing
-        super.onStop();
-        Log.i("CHROMA","Starting activity closing...");
-
-        updateMoodData();
-        dh.writeDataToFile(getApplicationContext());
-        Toast.makeText(getApplicationContext(), R.string.Saved, Toast.LENGTH_SHORT).show();
-    }
-
-
-
-    private void updateMoodData() {
-        // simply fetch the data from the views and save it into the DataHandler with the dedicated method
-        Log.i("CHROMA", "Updating the data object with current values in the views");
-        this.dh.saveMoodData(this.pickerMood1.getValue(),
-                this.pickerMood2.getValue(),
-                this.pickerMood3.getValue(),
-                this.textData.getText().toString());
-    }
-
     private void initMoodData() {
         // initialize the views with data coming from file (or defaults)
         // collection of data is managed by the DataHandler, this method only
@@ -102,7 +78,13 @@ public class MoodActivity extends InputActivity {
             Log.i("CHROMA", "Applying data retrieved from file to text field");
             this.textData.setText(data.get("txt"));
         }
-
     }
 
+    @Override
+    protected void saveData() {
+        this.dh.saveMoodData(this.pickerMood1.getValue(),
+                this.pickerMood2.getValue(),
+                this.pickerMood3.getValue(),
+                this.textData.getText().toString());
+    }
 }

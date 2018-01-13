@@ -124,18 +124,7 @@ public class MoneyActivity extends InputActivity {
     }
 
     @Override
-    protected void onStop() {
-        // surcharge the onStop() method to include a call to the method updating the data and then
-        // using the DataHandler to write it to file before closing
-        super.onStop();
-        Log.i("CHROMA","Starting activity closing...");
-
-        updateMoneyData();
-        dh.writeDataToFile(getApplicationContext());
-        Toast.makeText(getApplicationContext(), R.string.Saved, Toast.LENGTH_SHORT).show();
-    }
-
-    private void updateMoneyData() {
+    protected void saveData() {
         // simply pass the data to the DataHandler with the dedicated method
         Log.i("CHROMA", "Updating the data object with current spendings");
         this.dh.saveMoneyData(this.spendings);

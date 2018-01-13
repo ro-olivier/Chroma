@@ -14,8 +14,6 @@ import android.widget.TextView;
 import android.widget.TimePicker;
 import android.widget.Toast;
 
-import org.w3c.dom.Text;
-
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
@@ -110,19 +108,17 @@ public class CarActivity extends InputActivity {
                         double startKM = Double.parseDouble(startKM_str);
 
 
-                        if (getCarTrips().size() == 0) {
+                        if (carTrips.size() == 0) {
                             // no car trip registered, we can safely create a new one
                             tripNotification.setText(R.string.OngoingTrip);
                             carTripAdapter.add(new CarTrip(origin_str, cal.getTime(), startKM));
-                            updateCarTripsData();
                         } else {
                             // if there is at least a car trip, we need to check that the last one
                             // is complete : if it's not then we already have an ongoing trip and the user
                             // clicked the start button by mistake
-                            if (getCarTrips().get(getCarTrips().size() - 1).getCompleted()) {
+                            if (carTrips.get(carTrips.size() - 1).getCompleted()) {
                                 // safe to create a new one
                                 carTripAdapter.add(new CarTrip(origin_str, cal.getTime(), startKM));
-                                updateCarTripsData();
                             } else {
                                 Toast.makeText(getApplicationContext(), R.string.AlreadyACarTrip, Toast.LENGTH_SHORT).show();
                             }
@@ -169,9 +165,8 @@ public class CarActivity extends InputActivity {
                         double endKM = Double.parseDouble(endKM_str);
 
                         tripNotification.setText("");
-                        carTrips.get(0).endTrip(destination_str, cal.getTime(), endKM);
+                        carTrips.get(carTrips.size() - 1).endTrip(destination_str, cal.getTime(), endKM);
                         carTripAdapter.notifyDataSetChanged();
-                        updateCarTripsData();
 
                     } catch (NumberFormatException e) {
                         Toast.makeText(getApplicationContext(), R.string.UnableToParse, Toast.LENGTH_SHORT).show();
@@ -223,7 +218,6 @@ public class CarActivity extends InputActivity {
                 return true;
             }
         });
-
     }
 
     private ArrayList<CarTrip> getCarTrips(){
@@ -232,18 +226,7 @@ public class CarActivity extends InputActivity {
     }
 
     @Override
-    protected void onStop() {
-        // surcharge the onStop() method to include a call to the method updating the data and then
-        // using the DataHandler to write it to file before closing
-        super.onStop();
-        Log.i("CHROMA","Starting activity closing...");
-
-        updateCarTripsData();
-        dh.writeDataToFile(getApplicationContext());
-        Toast.makeText(getApplicationContext(), R.string.Saved, Toast.LENGTH_SHORT).show();
-    }
-
-    private void updateCarTripsData() {
+    protected void saveData() {
         // simply pass the data to the DataHandler with the dedicated method
         Log.i("CHROMA", "Updating the data object with current car trips");
         this.dh.saveCarTripData(this.carTrips);
