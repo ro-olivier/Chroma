@@ -53,12 +53,16 @@ public class CarTrip {
         return distance;
     }
     
-    public void endTrip(String endLocation, Date endDate, double endKM) {
-        this.endLocation = endLocation;
-        this.endDate = endDate;
-        this.endKM = endKM;
+    public void endTrip(String endLocation, Date endDate, double endKM) throws TripEndingError {
+        if (this.endLocation != null || this.endKM > 0 || this.endDate != null) {
+            throw new TripEndingError();
+        } else {
+            this.endLocation = endLocation;
+            this.endDate = endDate;
+            this.endKM = endKM;
 
-        completeTrip();
+            completeTrip();
+        }
     }
 
     private void completeTrip() {
@@ -75,14 +79,22 @@ public class CarTrip {
 
     private JSONObject getCarTripAsJSON() {
         JSONObject json = new JSONObject();
+
         try {
-            json.put("origin", this.startLocation);
-            json.put("destination", this.endLocation);
-            json.put("startDate", this.startDate.getTime());
-            json.put("endDate", this.endDate.getTime());
-            json.put("startKM", this.startKM);
-            json.put("endKM", this.endKM);
-            json.put("completed", this.completed);
+            if (this.getCompleted()) {
+                json.put("origin", this.startLocation);
+                json.put("destination", this.endLocation);
+                json.put("startDate", this.startDate.getTime());
+                json.put("endDate", this.endDate.getTime());
+                json.put("startKM", this.startKM);
+                json.put("endKM", this.endKM);
+                json.put("completed", this.completed);
+            } else {
+                json.put("origin", this.startLocation);
+                json.put("startDate", this.startDate.getTime());
+                json.put("startKM", this.startKM);
+                json.put("completed", this.completed);
+            }
         } catch (JSONException a) {
             return new JSONObject();
         }
@@ -92,5 +104,9 @@ public class CarTrip {
 
     public boolean getCompleted() {
         return this.completed;
+    }
+
+    public class TripEndingError extends Exception {
+        private TripEndingError() { System.out.println("Invalid carTrip ending attempt"); }
     }
 }

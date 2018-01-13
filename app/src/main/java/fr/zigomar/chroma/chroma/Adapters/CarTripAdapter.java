@@ -3,14 +3,13 @@ package fr.zigomar.chroma.chroma.Adapters;
 import android.annotation.SuppressLint;
 import android.content.Context;
 import android.support.annotation.NonNull;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.TextView;
 
-import java.text.DateFormat;
-import java.text.SimpleDateFormat;
 import java.util.List;
 import java.util.concurrent.TimeUnit;
 
@@ -42,11 +41,12 @@ public class CarTripAdapter extends ArrayAdapter<CarTrip> {
         }
 
         CarTrip carTrip = getItem(position);
-
+        Log.i("CHROMA", String.valueOf(position));
+        Log.i("CHROMA", carTrip.toString());
 
         //il ne reste plus qu'à remplir notre vue
-        assert carTrip != null;
         if (carTrip.getCompleted()) {
+            Log.i("CHROMA","CarTrip complete, can display");
             long h = TimeUnit.MILLISECONDS.toHours(carTrip.getDuration());
             long m = TimeUnit.MILLISECONDS.toMinutes(carTrip.getDuration()) - TimeUnit.HOURS.toMinutes(h);
             long s = TimeUnit.MILLISECONDS.toSeconds(carTrip.getDuration())
@@ -55,6 +55,11 @@ public class CarTripAdapter extends ArrayAdapter<CarTrip> {
             viewHolder.description.setText(carTrip.getDescription());
             viewHolder.duration.setText(String.format("%dh %dmin %ds",h,m,s));
             viewHolder.distance.setText(String.format("%s km", String.valueOf(carTrip.getDistance())));
+        } else {
+            Log.i("CHROMA","CarTrip uncomplete, cannot display");
+            viewHolder.description.setText("");
+            viewHolder.duration.setText("");
+            viewHolder.distance.setText("");
         }
 
         return convertView;

@@ -66,16 +66,7 @@ public class CarActivity extends InputActivity {
 
         this.tripNotification = (TextView) findViewById(R.id.TripNotification);
 
-        Calendar rightNow = Calendar.getInstance();
-        int currentHour = rightNow.get(Calendar.HOUR_OF_DAY);
-        int currentMinute = rightNow.get(Calendar.MINUTE);
-        if (Build.VERSION.SDK_INT < 23) {
-            this.startTime.setCurrentHour(currentHour);
-            this.startTime.setCurrentMinute(currentMinute);
-        } else {
-            this.startTime.setHour(currentHour);
-            this.startTime.setMinute(currentMinute);
-        }
+        resetView();
 
         startButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -116,6 +107,7 @@ public class CarActivity extends InputActivity {
                             // if there is at least a car trip, we need to check that the last one
                             // is complete : if it's not then we already have an ongoing trip and the user
                             // clicked the start button by mistake
+                            Log.i("CHROMA", carTrips.get(carTrips.size() - 1).toString());
                             if (carTrips.get(carTrips.size() - 1).getCompleted()) {
                                 // safe to create a new one
                                 carTripAdapter.add(new CarTrip(origin_str, cal.getTime(), startKM));
@@ -165,8 +157,13 @@ public class CarActivity extends InputActivity {
                         double endKM = Double.parseDouble(endKM_str);
 
                         tripNotification.setText("");
-                        carTrips.get(carTrips.size() - 1).endTrip(destination_str, cal.getTime(), endKM);
+                        try {
+                            carTrips.get(carTrips.size() - 1).endTrip(destination_str, cal.getTime(), endKM);
+                        } catch (CarTrip.TripEndingError e) {
+                            Toast.makeText(getApplicationContext(), R.string.UnableToEndTrip, Toast.LENGTH_SHORT).show();
+                        }
                         carTripAdapter.notifyDataSetChanged();
+                        resetView();
 
                     } catch (NumberFormatException e) {
                         Toast.makeText(getApplicationContext(), R.string.UnableToParse, Toast.LENGTH_SHORT).show();
@@ -218,6 +215,25 @@ public class CarActivity extends InputActivity {
                 return true;
             }
         });
+    }
+
+    private void resetView() {
+        this.destination.setText("");
+        this.origin.setText("");
+        this.endKM.setText("");
+        this.startKM.setText("");
+
+
+        Calendar rightNow = Calendar.getInstance();
+        int currentHour = rightNow.get(Calendar.HOUR_OF_DAY);
+        int currentMinute = rightNow.get(Calendar.MINUTE);
+        if (Build.VERSION.SDK_INT < 23) {
+            this.startTime.setCurrentHour(currentHour);
+            this.startTime.setCurrentMinute(currentMinute);
+        } else {
+            this.startTime.setHour(currentHour);
+            this.startTime.setMinute(currentMinute);
+        }
     }
 
     private ArrayList<CarTrip> getCarTrips(){
