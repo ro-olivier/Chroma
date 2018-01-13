@@ -10,10 +10,10 @@
     android:orientation="vertical">
 
     <include
-        layout="@layout/display_date" />
+        layout="@layout/display_date"/>
 
     <include
-        layout="@layout/input_transport" />
+        layout="@layout/input_transport"/>
 
     <ListView
         android:layout_width="fill_parent"

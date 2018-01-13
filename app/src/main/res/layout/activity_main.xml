@@ -13,7 +13,7 @@
     <include
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
-        layout="@layout/display_date" />
+        layout="@layout/display_date"/>
 
     <LinearLayout
         android:layout_width="fill_parent"
@@ -23,8 +23,7 @@
     <Space
         android:layout_width="0dp"
         android:layout_height="1dp"
-        android:layout_weight="1" >
-    </Space>
+        android:layout_weight="1"/>
 
     <Button
         android:id="@+id/ButtonToOption1"
@@ -33,13 +32,12 @@
         android:layout_weight="4"
         android:adjustViewBounds="true"
         android:text="@string/Option1"
-        android:gravity="center_horizontal|center_vertical" />
+        android:gravity="center_horizontal|center_vertical"/>
 
     <Space
         android:layout_width="0dp"
         android:layout_height="1dp"
-        android:layout_weight="1" >
-    </Space>
+        android:layout_weight="1"/>
 
     <Button
         android:id="@+id/ButtonToOption2"
@@ -48,13 +46,12 @@
         android:layout_weight="4"
         android:adjustViewBounds="true"
         android:text="@string/Option2"
-        android:gravity="center_horizontal|center_vertical" />
+        android:gravity="center_horizontal|center_vertical"/>
 
     <Space
         android:layout_width="0dp"
         android:layout_height="1dp"
-        android:layout_weight="1" >
-    </Space>
+        android:layout_weight="1"/>
 
     </LinearLayout>
 
@@ -67,8 +64,7 @@
         <Space
             android:layout_width="0dp"
             android:layout_height="1dp"
-            android:layout_weight="1">
-        </Space>
+            android:layout_weight="1"/>
 
         <Button
             android:id="@+id/ButtonToOption3"
@@ -77,13 +73,12 @@
             android:layout_weight="4"
             android:adjustViewBounds="true"
             android:gravity="center_horizontal|center_vertical"
-            android:text="@string/Option3" />
+            android:text="@string/Option3"/>
 
         <Space
             android:layout_width="0dp"
             android:layout_height="1dp"
-            android:layout_weight="1">
-        </Space>
+            android:layout_weight="1"/>
 
         <Button
             android:id="@+id/ButtonToOption4"
@@ -92,13 +87,12 @@
             android:layout_weight="4"
             android:adjustViewBounds="true"
             android:gravity="center_horizontal|center_vertical"
-            android:text="@string/Option4" />
+            android:text="@string/Option4"/>
 
         <Space
             android:layout_width="0dp"
             android:layout_height="1dp"
-            android:layout_weight="1">
-        </Space>
+            android:layout_weight="1"/>
 
     </LinearLayout>
 
@@ -111,8 +105,7 @@
         <Space
             android:layout_width="0dp"
             android:layout_height="1dp"
-            android:layout_weight="1">
-        </Space>
+            android:layout_weight="1"/>
 
         <Button
             android:id="@+id/ButtonToOption5"
@@ -121,13 +114,12 @@
             android:layout_weight="4"
             android:adjustViewBounds="true"
             android:gravity="center_horizontal|center_vertical"
-            android:text="@string/Option5" />
+            android:text="@string/Option5"/>
 
         <Space
             android:layout_width="0dp"
             android:layout_height="1dp"
-            android:layout_weight="1">
-        </Space>
+            android:layout_weight="1"/>
 
         <Button
             android:layout_width="0dp"
@@ -135,13 +127,12 @@
             android:layout_weight="4"
             android:adjustViewBounds="true"
             android:gravity="center_horizontal|center_vertical"
-            android:text="@string/Option6" />
+            android:text="@string/Option6"/>
 
         <Space
             android:layout_width="0dp"
             android:layout_height="1dp"
-            android:layout_weight="1">
-        </Space>
+            android:layout_weight="1"/>
 
     </LinearLayout>
 
@@ -154,8 +145,7 @@
         <Space
             android:layout_width="0dp"
             android:layout_height="1dp"
-            android:layout_weight="1">
-        </Space>
+            android:layout_weight="1"/>
 
         <Button
             android:layout_width="0dp"
@@ -163,13 +153,12 @@
             android:layout_weight="4"
             android:adjustViewBounds="true"
             android:gravity="center_horizontal|center_vertical"
-            android:text="@string/Option7" />
+            android:text="@string/Option7"/>
 
         <Space
             android:layout_width="0dp"
             android:layout_height="1dp"
-            android:layout_weight="1">
-        </Space>
+            android:layout_weight="1"/>
 
         <Button
             android:layout_width="0dp"
@@ -177,13 +166,12 @@
             android:layout_weight="4"
             android:adjustViewBounds="true"
             android:gravity="center_horizontal|center_vertical"
-            android:text="@string/Option8" />
+            android:text="@string/Option8"/>
 
         <Space
             android:layout_width="0dp"
             android:layout_height="1dp"
-            android:layout_weight="1">
-        </Space>
+            android:layout_weight="1"/>
 
     </LinearLayout>
 </LinearLayout>

@@ -62,7 +62,7 @@
             android:textSize="15sp"
             android:maxLines="1"
             android:inputType="text"
-            android:background="#FAFAFA" />
+            android:background="#FAFAFA"/>
 
         <EditText
             android:layout_width="0dp"

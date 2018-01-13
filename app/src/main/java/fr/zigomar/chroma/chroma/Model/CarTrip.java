@@ -27,7 +27,7 @@ public class CarTrip {
         this.startKM = beginKM;
     }
 
-    public CarTrip(String beginLocation, String endLocation,
+    CarTrip(String beginLocation, String endLocation,
                    Date beginDate, Date endDate,
                    double beginKM, double endKM) {
         this.startLocation = beginLocation;

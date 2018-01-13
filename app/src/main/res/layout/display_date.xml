@@ -37,7 +37,6 @@
         android:layout_height="match_parent"
         app:srcCompat="?attr/homeAsUpIndicator"
         android:rotation="180"
-        android:layout_weight="1"
-        />
+        android:layout_weight="1"/>
 
 </LinearLayout>

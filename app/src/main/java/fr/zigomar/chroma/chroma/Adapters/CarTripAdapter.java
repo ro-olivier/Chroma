@@ -3,7 +3,6 @@ package fr.zigomar.chroma.chroma.Adapters;
 import android.annotation.SuppressLint;
 import android.content.Context;
 import android.support.annotation.NonNull;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -44,7 +43,7 @@ public class CarTripAdapter extends ArrayAdapter<CarTrip> {
         CarTrip carTrip = getItem(position);
 
         //il ne reste plus qu'à remplir notre vue
-        if (carTrip.getCompleted()) {
+        if (carTrip != null && carTrip.getCompleted()) {
             long h = TimeUnit.MILLISECONDS.toHours(carTrip.getDuration());
             long m = TimeUnit.MILLISECONDS.toMinutes(carTrip.getDuration()) - TimeUnit.HOURS.toMinutes(h);
             long s = TimeUnit.MILLISECONDS.toSeconds(carTrip.getDuration())

@@ -33,7 +33,7 @@ public class Step {
         return this.stop;
     }
 
-    public boolean getEndOfTrip() {
+    boolean getEndOfTrip() {
         return this.endOfTrip;
     }
 
