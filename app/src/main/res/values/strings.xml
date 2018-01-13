@@ -19,13 +19,14 @@
     <string name="HintDegree">5</string>
     <string name="AlcoholUnit">%</string>
     <string name="VolumeUnit">mL</string>
+    <string name="KilometersUnit">km</string>
     <string name="RevertTransport">Revert last trip !</string>
     <string name="HintStation">St-Ambroise</string>
     <string name="HintLine">M9</string>
     <string name="AddStep">Add trip step</string>
     <string name="AddTrip">Submit trip</string>
     <string name="HintTripPrice">1.9</string>
-    <string name="TripCost">€</string>
+    <string name="Currency">€</string>
     <string name="DeleteItemQuestion">Do you want to delete this item?</string>
     <string name="DeleteTitle">DELETE</string>
     <string name="YES">YES</string>
@@ -46,6 +47,7 @@
     <string name="OngoingTrip">Trip started...</string>
     <string name="CarTripOriginHint">Paris</string>
     <string name="TripSubmitEnd">End</string>
+    <string name="UnableToEndTrip">Error ending car trip.</string>
 
 
     <string-array name="spendingsCategories">

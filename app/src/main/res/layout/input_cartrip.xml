@@ -7,14 +7,18 @@
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="60dp">
+        android:layout_height="35dp">
 
         <EditText
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_weight="6"
             android:hint="@string/CarTripOriginHint"
-            android:id="@+id/carTrip_origin"/>
+            android:id="@+id/carTrip_origin"
+            android:textSize="15sp"
+            android:maxLines="1"
+            android:inputType="text"
+            android:background="#FAFAFA"/>
 
         <EditText
             android:layout_width="0dp"
@@ -22,7 +26,19 @@
             android:layout_weight="4"
             android:hint="@string/CarTripKMHint"
             android:id="@+id/carTrip_KMbegin"
-            android:inputType="number"/>
+            android:textSize="15sp"
+            android:maxLines="1"
+            android:inputType="number"
+            android:background="#FAFAFA"
+            android:gravity="center_vertical|end"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:text="@string/KilometersUnit"
+            android:paddingEnd="@dimen/half_activity_vertical_margin"
+            android:paddingStart="@dimen/half_activity_vertical_margin"
+            android:gravity="center_vertical|start"/>
 
         <TimePicker
             android:layout_width="0dp"
@@ -30,7 +46,66 @@
             android:layout_weight="4"
             android:hint="@string/CarTripTimeHint"
             android:id="@+id/carTrip_TimeBegin"
-            android:timePickerMode="clock" />
+            android:background="#FAFAFA"/>
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="35dp">
+
+        <EditText
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="6"
+            android:hint="@string/CarTripDestinationHint"
+            android:id="@+id/carTrip_destination"
+            android:textSize="15sp"
+            android:maxLines="1"
+            android:inputType="text"
+            android:background="#FAFAFA" />
+
+        <EditText
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="4"
+            android:hint="@string/CarTripKMHint"
+            android:id="@+id/carTrip_KMEnd"
+            android:textSize="15sp"
+            android:maxLines="1"
+            android:inputType="number"
+            android:background="#FAFAFA"
+            android:gravity="center_vertical|end"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:text="@string/KilometersUnit"
+            android:paddingEnd="@dimen/half_activity_vertical_margin"
+            android:paddingStart="@dimen/half_activity_vertical_margin"
+            android:gravity="center_vertical|start"/>
+
+        <TimePicker
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="4"
+            android:hint="@string/CarTripTimeHint"
+            android:id="@+id/carTrip_TimeEnd"
+            android:background="#FAFAFA"/>
+    </LinearLayout>
+
+    <Space
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_weight="2"/>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="50dp">
+
+        <Space
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="2"/>
 
         <Button
             android:layout_width="0dp"
@@ -39,35 +114,10 @@
             android:text="@string/TripSubmitStart"
             android:id="@+id/carTrip_SubmitStart"/>
 
-    </LinearLayout>
-
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="60dp">
-
-        <EditText
+        <Space
             android:layout_width="0dp"
-            android:layout_height="match_parent"
-            android:layout_weight="6"
-            android:hint="@string/CarTripDestinationHint"
-            android:id="@+id/carTrip_destination"/>
-
-        <EditText
-            android:layout_width="0dp"
-            android:layout_height="match_parent"
-            android:layout_weight="4"
-            android:hint="@string/CarTripKMHint"
-            android:id="@+id/carTrip_KMEnd"
-            android:inputType="number"/>
-
-
-        <TimePicker
-            android:layout_width="0dp"
-            android:layout_height="match_parent"
-            android:layout_weight="4"
-            android:hint="@string/CarTripTimeHint"
-            android:id="@+id/carTrip_TimeEnd"
-            android:timePickerMode="clock"/>
+            android:layout_height="0dp"
+            android:layout_weight="1"/>
 
         <Button
             android:layout_width="0dp"
@@ -75,6 +125,11 @@
             android:layout_weight="4"
             android:text="@string/TripSubmitEnd"
             android:id="@+id/carTrip_SubmitEnd"/>
+
+        <Space
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:layout_weight="2"/>
 
     </LinearLayout>
 </LinearLayout>

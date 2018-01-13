@@ -33,6 +33,7 @@
             android:layout_width="0dp"
             android:layout_height="fill_parent"
             android:layout_weight="3"
+            android:textSize="15sp"
             android:id="@+id/DrinkVolume"
             android:maxLines="1"
             android:inputType="numberDecimal"
@@ -44,10 +45,11 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="fill_parent"
+            android:textSize="15sp"
             android:text="@string/VolumeUnit"
             android:background="#FAFAFA"
-            android:paddingEnd="@dimen/activity_vertical_margin"
-            android:paddingStart="@dimen/activity_vertical_margin"
+            android:paddingEnd="@dimen/half_activity_vertical_margin"
+            android:paddingStart="@dimen/half_activity_vertical_margin"
             android:gravity="center_vertical|start"
             android:layout_weight="1"/>
 
@@ -55,6 +57,7 @@
             android:layout_width="0dp"
             android:layout_height="fill_parent"
             android:layout_weight="3"
+            android:textSize="15sp"
             android:id="@+id/DrinkDegree"
             android:maxLines="1"
             android:inputType="numberDecimal"
@@ -66,16 +69,17 @@
             android:layout_width="wrap_content"
             android:layout_height="fill_parent"
             android:text="@string/AlcoholUnit"
+            android:textSize="15sp"
             android:background="#FAFAFA"
             android:layout_weight="1"
-            android:paddingEnd="@dimen/activity_vertical_margin"
-            android:paddingStart="@dimen/activity_vertical_margin"
+            android:paddingEnd="@dimen/half_activity_vertical_margin"
+            android:paddingStart="@dimen/half_activity_vertical_margin"
             android:gravity="center_vertical|start"
             />
 
         <Button
             android:layout_width="0dp"
-            android:layout_height="40dp"
+            android:layout_height="50dp"
             android:layout_weight="4"
             android:id="@+id/AddButton"
             android:text="@string/AddMoney"

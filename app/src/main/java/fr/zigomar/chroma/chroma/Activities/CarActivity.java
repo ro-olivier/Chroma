@@ -10,13 +10,11 @@ import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ListView;
-import android.widget.TextView;
 import android.widget.TimePicker;
 import android.widget.Toast;
 
 import java.util.ArrayList;
 import java.util.Calendar;
-import java.util.Date;
 
 import fr.zigomar.chroma.chroma.Adapters.CarTripAdapter;
 import fr.zigomar.chroma.chroma.Model.CarTrip;
@@ -34,9 +32,6 @@ public class CarActivity extends InputActivity {
     private EditText destination;
     private EditText endKM;
     private TimePicker endTime;
-    private Button startButton;
-    private Button endButton;
-    private TextView tripNotification;
 
     @Override
     protected void onCreate(final Bundle savedInstanceState) {
@@ -57,14 +52,12 @@ public class CarActivity extends InputActivity {
         this.origin = (EditText) findViewById(R.id.carTrip_origin);
         this.startKM = (EditText) findViewById(R.id.carTrip_KMbegin);
         this.startTime = (TimePicker) findViewById(R.id.carTrip_TimeBegin);
-        this.startButton = (Button) findViewById(R.id.carTrip_SubmitStart);
+        Button startButton = (Button) findViewById(R.id.carTrip_SubmitStart);
 
         this.destination = (EditText) findViewById(R.id.carTrip_destination);
         this.endKM = (EditText) findViewById(R.id.carTrip_KMEnd);
         this.endTime = (TimePicker) findViewById(R.id.carTrip_TimeEnd);
-        this.endButton = (Button) findViewById(R.id.carTrip_SubmitEnd);
-
-        this.tripNotification = (TextView) findViewById(R.id.TripNotification);
+        Button endButton = (Button) findViewById(R.id.carTrip_SubmitEnd);
 
         resetView();
 
@@ -73,8 +66,8 @@ public class CarActivity extends InputActivity {
             public void onClick(View v) {
                 String origin_str = origin.getText().toString();
                 String startKM_str = startKM.getText().toString();
-                int startTime_hours = 0;
-                int startTime_minutes = 0;
+                int startTime_hours;
+                int startTime_minutes;
                 if (Build.VERSION.SDK_INT < 23) {
                     startTime_minutes = startTime.getCurrentMinute();
                     startTime_hours = startTime.getCurrentHour();
@@ -83,7 +76,6 @@ public class CarActivity extends InputActivity {
                     startTime_hours = startTime.getHour();
                 }
 
-                Date now = new Date();
                 Calendar cal = Calendar.getInstance();
                 cal.set(Calendar.YEAR, Calendar.YEAR);
                 cal.set(Calendar.MONTH, Calendar.MONTH);
@@ -93,15 +85,12 @@ public class CarActivity extends InputActivity {
                 cal.set(Calendar.SECOND, Calendar.SECOND);
                 cal.set(Calendar.MILLISECOND, Calendar.MILLISECOND);
 
-
                 if (origin_str.length() > 0 && startKM_str.length() > 0) {
                     try {
                         double startKM = Double.parseDouble(startKM_str);
 
-
                         if (carTrips.size() == 0) {
                             // no car trip registered, we can safely create a new one
-                            tripNotification.setText(R.string.OngoingTrip);
                             carTripAdapter.add(new CarTrip(origin_str, cal.getTime(), startKM));
                         } else {
                             // if there is at least a car trip, we need to check that the last one
@@ -131,8 +120,8 @@ public class CarActivity extends InputActivity {
             public void onClick(View v) {
                 String destination_str = destination.getText().toString();
                 String endKM_str = endKM.getText().toString();
-                int endTime_hours = 0;
-                int endTime_minutes = 0;
+                int endTime_hours;
+                int endTime_minutes;
                 if (Build.VERSION.SDK_INT < 23) {
                     endTime_minutes = endTime.getCurrentMinute();
                     endTime_hours = endTime.getCurrentHour();
@@ -141,7 +130,6 @@ public class CarActivity extends InputActivity {
                     endTime_hours = endTime.getHour();
                 }
 
-                Date now = new Date();
                 Calendar cal = Calendar.getInstance();
                 cal.set(Calendar.YEAR, Calendar.YEAR);
                 cal.set(Calendar.MONTH, Calendar.MONTH);
@@ -151,12 +139,10 @@ public class CarActivity extends InputActivity {
                 cal.set(Calendar.SECOND, Calendar.SECOND);
                 cal.set(Calendar.MILLISECOND, Calendar.MILLISECOND);
 
-
                 if (destination_str.length() > 0 && endKM_str.length() > 0) {
                     try {
                         double endKM = Double.parseDouble(endKM_str);
 
-                        tripNotification.setText("");
                         try {
                             carTrips.get(carTrips.size() - 1).endTrip(destination_str, cal.getTime(), endKM);
                         } catch (CarTrip.TripEndingError e) {
@@ -171,7 +157,6 @@ public class CarActivity extends InputActivity {
                 } else {
                     Toast.makeText(getApplicationContext(), R.string.MissingDataThreeValuesRequired, Toast.LENGTH_SHORT).show();
                 }
-
             }
         });
 
@@ -222,7 +207,6 @@ public class CarActivity extends InputActivity {
         this.origin.setText("");
         this.endKM.setText("");
         this.startKM.setText("");
-
 
         Calendar rightNow = Calendar.getInstance();
         int currentHour = rightNow.get(Calendar.HOUR_OF_DAY);

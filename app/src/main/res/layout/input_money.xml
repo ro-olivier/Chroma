@@ -32,12 +32,22 @@
             android:layout_width="0dp"
             android:layout_height="fill_parent"
             android:layout_weight="2"
+            android:textSize="15sp"
             android:id="@+id/TextAmount"
             android:maxLines="1"
             android:inputType="numberDecimal"
             android:background="#FAFAFA"
-            android:layout_marginEnd="@dimen/activity_vertical_margin"
+            android:gravity="center_vertical|end"
             android:hint="@string/HintValue"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="fill_parent"
+            android:text="@string/Currency"
+            android:textSize="15sp"
+            android:paddingEnd="@dimen/activity_vertical_margin"
+            android:paddingStart="@dimen/half_activity_vertical_margin"
+            android:gravity="center_vertical|start"/>
 
     </LinearLayout>
 
@@ -50,6 +60,7 @@
             android:layout_width="0dp"
             android:layout_height="fill_parent"
             android:layout_weight="8"
+            android:textSize="15sp"
             android:id="@+id/TextCategory"
             android:maxLines="1"
             android:layout_marginStart="@dimen/activity_vertical_margin"/>

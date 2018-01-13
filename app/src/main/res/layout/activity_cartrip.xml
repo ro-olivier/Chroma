@@ -15,11 +15,6 @@
     <include
         layout="@layout/input_cartrip" />
 
-    <TextView
-        android:layout_width="match_parent"
-        android:layout_height="50dp"
-        android:id="@+id/TripNotification"/>
-
     <ListView
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"

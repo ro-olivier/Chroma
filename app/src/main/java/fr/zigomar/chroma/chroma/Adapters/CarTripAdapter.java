@@ -37,29 +37,28 @@ public class CarTripAdapter extends ArrayAdapter<CarTrip> {
             viewHolder.description = (TextView) convertView.findViewById(R.id.carTrip_description);
             viewHolder.duration = (TextView) convertView.findViewById(R.id.carTrip_duration);
             viewHolder.distance = (TextView) convertView.findViewById(R.id.carTrip_distance);
+            viewHolder.distanceUnit = (TextView) convertView.findViewById(R.id.carTrip_distanceUnit);
             convertView.setTag(viewHolder);
         }
 
         CarTrip carTrip = getItem(position);
-        Log.i("CHROMA", String.valueOf(position));
-        Log.i("CHROMA", carTrip.toString());
 
         //il ne reste plus qu'à remplir notre vue
         if (carTrip.getCompleted()) {
-            Log.i("CHROMA","CarTrip complete, can display");
             long h = TimeUnit.MILLISECONDS.toHours(carTrip.getDuration());
             long m = TimeUnit.MILLISECONDS.toMinutes(carTrip.getDuration()) - TimeUnit.HOURS.toMinutes(h);
             long s = TimeUnit.MILLISECONDS.toSeconds(carTrip.getDuration())
                         - TimeUnit.MINUTES.toSeconds(m)
                         - TimeUnit.HOURS.toSeconds(h);
             viewHolder.description.setText(carTrip.getDescription());
-            viewHolder.duration.setText(String.format("%dh %dmin %ds",h,m,s));
-            viewHolder.distance.setText(String.format("%s km", String.valueOf(carTrip.getDistance())));
+            viewHolder.duration.setText(String.format("%d:%d:%d",h,m,s));
+            viewHolder.distance.setText(String.valueOf(carTrip.getDistance()));
+            viewHolder.distanceUnit.setVisibility(View.VISIBLE);
         } else {
-            Log.i("CHROMA","CarTrip uncomplete, cannot display");
-            viewHolder.description.setText("");
+            viewHolder.description.setText(R.string.OngoingTrip);
             viewHolder.duration.setText("");
             viewHolder.distance.setText("");
+            viewHolder.distanceUnit.setVisibility(View.INVISIBLE);
         }
 
         return convertView;
@@ -69,5 +68,6 @@ public class CarTripAdapter extends ArrayAdapter<CarTrip> {
             TextView description;
             TextView duration;
             TextView distance;
+            TextView distanceUnit;
         }
 }
