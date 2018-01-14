@@ -20,7 +20,7 @@ import fr.zigomar.chroma.chroma.R;
 public class AlcoholActivity extends InputActivity {
 
     // the list holding the data
-    ArrayList<Drink> drinks;
+    private ArrayList<Drink> drinks;
     // the adapter managing the view of the data
     private DrinkAdapter drinkAdapter;
 
@@ -40,10 +40,10 @@ public class AlcoholActivity extends InputActivity {
         init();
 
         // getting the views from their id
-        this.descField = (TextView) findViewById(R.id.TextDescription);
-        this.volumeField = (TextView) findViewById(R.id.DrinkVolume);
-        this.degreeField = (TextView) findViewById(R.id.DrinkDegree);
-        Button addButton = (Button) findViewById(R.id.AddButton);
+        this.descField = findViewById(R.id.TextDescription);
+        this.volumeField = findViewById(R.id.DrinkVolume);
+        this.degreeField = findViewById(R.id.DrinkDegree);
+        Button addButton = findViewById(R.id.AddButton);
 
         addButton.setOnClickListener(new View.OnClickListener() {
 
@@ -72,7 +72,7 @@ public class AlcoholActivity extends InputActivity {
 
         // finishing up the setting of the adapter for the list view of the retrieve (and
         // new) drinks
-        ListView drinksListView = (ListView) findViewById(R.id.ListViewAlcohol);
+        ListView drinksListView = findViewById(R.id.ListViewAlcohol);
 
         this.drinkAdapter = new DrinkAdapter(AlcoholActivity.this, this.drinks);
         drinksListView.setAdapter(this.drinkAdapter);

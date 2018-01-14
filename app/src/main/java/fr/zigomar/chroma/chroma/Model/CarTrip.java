@@ -7,15 +7,15 @@ import java.util.Date;
 
 public class CarTrip {
 
-    private String startLocation;
+    private final String startLocation;
     private String endLocation;
     private String description;
 
-    private Date startDate;
+    private final Date startDate;
     private Date endDate;
     private long duration;
 
-    private double startKM;
+    private final double startKM;
     private double endKM;
     private double distance;
     

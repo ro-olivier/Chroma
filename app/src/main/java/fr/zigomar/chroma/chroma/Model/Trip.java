@@ -7,8 +7,8 @@ import java.util.ArrayList;
 
 public class Trip {
 
-    private ArrayList<Step> steps;
-    private double cost;
+    private final ArrayList<Step> steps;
+    private final double cost;
 
     public Trip(ArrayList<Step> steps, double cost) {
         this.steps = steps;

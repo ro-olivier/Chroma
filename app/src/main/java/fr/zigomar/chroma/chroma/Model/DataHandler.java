@@ -23,7 +23,7 @@ import java.util.Locale;
 public class DataHandler {
 
     //private Date currentDate;
-    private String filename;
+    private final String filename;
 
     private JSONObject data;
 
@@ -53,7 +53,8 @@ public class DataHandler {
             is  = ctx.getApplicationContext().openFileInput(this.filename);
             int size = is.available();
             byte[] buffer = new byte[size];
-            is.read(buffer);
+            int byte_read = is.read(buffer);
+            if (byte_read != size) { Log.i("CHROMA", "Did not read the complete file, or something else went wrong"); }
             is.close();
             this.data = new JSONObject(new String(buffer, "UTF-8"));
             Log.i("CHROMA", "Read currentDate file and obtained following data :" + this.data.toString());

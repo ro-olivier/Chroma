@@ -18,26 +18,17 @@ import fr.zigomar.chroma.chroma.R;
 
 public class MainActivity extends AppCompatActivity {
 
-    public static final String CURRENT_DATE = "com.example.chroma.current_date";
+    private static final String CURRENT_DATE = "com.example.chroma.current_date";
 
-    Date currentDate = new Date();
-
-    ImageButton forwardButton;
-    ImageButton backwardButton;
-
-    Button moodButton;
-    Button moneyButton;
-    Button alcoholButton;
-    Button transportButton;
-    Button carButton;
+    private Date currentDate = new Date();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        this.forwardButton = (ImageButton) findViewById(R.id.ButtonForwardDate);
-        this.forwardButton.setOnClickListener(new View.OnClickListener() {
+        ImageButton forwardButton = findViewById(R.id.ButtonForwardDate);
+        forwardButton.setOnClickListener(new View.OnClickListener() {
 
             @Override
             public void onClick(View v) {
@@ -46,8 +37,8 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
-        this.backwardButton = (ImageButton) findViewById(R.id.ButtonBackwardDate);
-        this.backwardButton.setOnClickListener(new View.OnClickListener() {
+        ImageButton backwardButton = findViewById(R.id.ButtonBackwardDate);
+        backwardButton.setOnClickListener(new View.OnClickListener() {
 
             @Override
             public void onClick(View v) {
@@ -56,8 +47,8 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
-        this.moodButton = (Button) findViewById(R.id.ButtonToOption1);
-        this.moodButton.setOnClickListener(new View.OnClickListener() {
+        Button moodButton = findViewById(R.id.ButtonToOption1);
+        moodButton.setOnClickListener(new View.OnClickListener() {
 
             @Override
             public void onClick(View v) {
@@ -69,8 +60,8 @@ public class MainActivity extends AppCompatActivity {
         });
 
 
-        this.moneyButton = (Button) findViewById(R.id.ButtonToOption2);
-        this.moneyButton.setOnClickListener(new View.OnClickListener() {
+        Button moneyButton = findViewById(R.id.ButtonToOption2);
+        moneyButton.setOnClickListener(new View.OnClickListener() {
 
             @Override
             public void onClick(View v) {
@@ -81,8 +72,8 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
-        this.alcoholButton = (Button) findViewById(R.id.ButtonToOption3);
-        this.alcoholButton.setOnClickListener(new View.OnClickListener() {
+        Button alcoholButton = findViewById(R.id.ButtonToOption3);
+        alcoholButton.setOnClickListener(new View.OnClickListener() {
 
             @Override
             public void onClick(View v) {
@@ -93,8 +84,8 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
-        this.transportButton = (Button) findViewById(R.id.ButtonToOption4);
-        this.transportButton.setOnClickListener(new View.OnClickListener() {
+        Button transportButton = findViewById(R.id.ButtonToOption4);
+        transportButton.setOnClickListener(new View.OnClickListener() {
 
             @Override
             public void onClick(View v) {
@@ -105,8 +96,8 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
-        this.carButton = (Button) findViewById(R.id.ButtonToOption5);
-        this.carButton.setOnClickListener(new View.OnClickListener() {
+        Button carButton = findViewById(R.id.ButtonToOption5);
+        carButton.setOnClickListener(new View.OnClickListener() {
 
             @Override
             public void onClick(View v) {
@@ -124,7 +115,7 @@ public class MainActivity extends AppCompatActivity {
         updateDateView();
     }
 
-    public void incrementDate() {
+    private void incrementDate() {
         Calendar c = Calendar.getInstance();
         c.setTime(currentDate);
         c.add(Calendar.DATE, 1);
@@ -132,7 +123,7 @@ public class MainActivity extends AppCompatActivity {
         Log.i("CHROMA", "Incrementing Date");
     }
 
-    public void decrementDate() {
+    private void decrementDate() {
         Calendar c = Calendar.getInstance();
         c.setTime(currentDate);
         c.add(Calendar.DATE, -1);
@@ -142,7 +133,7 @@ public class MainActivity extends AppCompatActivity {
 
     private void updateDateView() {
         // simple method to update the date view at the top of the screen
-        TextView dateView = (TextView) findViewById(R.id.DateTextView);
+        TextView dateView = findViewById(R.id.DateTextView);
         String formattedDate = (new SimpleDateFormat("yyyy/MM/dd", Locale.FRANCE).format(this.currentDate));
         Log.i("CHROMA", "Updating date : " + formattedDate);
         dateView.setText(formattedDate);

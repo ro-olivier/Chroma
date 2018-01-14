@@ -32,8 +32,8 @@ public class DrinkAdapter extends ArrayAdapter<Drink> {
         DrinkViewHolder viewHolder = (DrinkViewHolder) convertView.getTag();
         if(viewHolder == null){
             viewHolder = new DrinkViewHolder();
-            viewHolder.description = (TextView) convertView.findViewById(R.id.drink_description);
-            viewHolder.ua = (TextView) convertView.findViewById(R.id.drink_ua);
+            viewHolder.description = convertView.findViewById(R.id.drink_description);
+            viewHolder.ua = convertView.findViewById(R.id.drink_ua);
             convertView.setTag(viewHolder);
         }
 

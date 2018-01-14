@@ -31,9 +31,9 @@ public class SpendingAdapter extends ArrayAdapter<Spending> {
         SpendingViewHolder viewHolder = (SpendingViewHolder) convertView.getTag();
         if(viewHolder == null){
             viewHolder = new SpendingViewHolder();
-            viewHolder.description = (TextView) convertView.findViewById(R.id.spending_description);
-            viewHolder.category = (TextView) convertView.findViewById(R.id.spending_category);
-            viewHolder.amount = (TextView) convertView.findViewById(R.id.spending_amount);
+            viewHolder.description = convertView.findViewById(R.id.spending_description);
+            viewHolder.category = convertView.findViewById(R.id.spending_category);
+            viewHolder.amount = convertView.findViewById(R.id.spending_amount);
             convertView.setTag(viewHolder);
         }
 

@@ -22,7 +22,7 @@ import fr.zigomar.chroma.chroma.R;
 public class MoneyActivity extends InputActivity {
 
     // the list holding the data
-    ArrayList<Spending> spendings;
+    private ArrayList<Spending> spendings;
     // the adapter managing the view of the data
     private SpendingAdapter spendingAdapter;
 
@@ -42,10 +42,10 @@ public class MoneyActivity extends InputActivity {
         init();
 
         // getting the views from their id
-        this.descField = (TextView) findViewById(R.id.TextDescription);
-        this.catField = (Spinner) findViewById(R.id.TextCategory);
-        this.amountField = (TextView) findViewById(R.id.TextAmount);
-        Button addButton = (Button) findViewById(R.id.AddButton);
+        this.descField = findViewById(R.id.TextDescription);
+        this.catField = findViewById(R.id.TextCategory);
+        this.amountField = findViewById(R.id.TextAmount);
+        Button addButton = findViewById(R.id.AddButton);
 
         addButton.setOnClickListener(new View.OnClickListener() {
 
@@ -79,7 +79,7 @@ public class MoneyActivity extends InputActivity {
 
         // finishing up the setting of the adapter for the list view of the retrieve (and
         // new) spendings
-        ListView spendingsListView = (ListView) findViewById(R.id.ListViewMoney);
+        ListView spendingsListView = findViewById(R.id.ListViewMoney);
 
         this.spendingAdapter = new SpendingAdapter(MoneyActivity.this, this.spendings);
         spendingsListView.setAdapter(this.spendingAdapter);

@@ -31,8 +31,8 @@ public class TripAdapter extends ArrayAdapter<Trip> {
         TripViewHolder viewHolder = (TripViewHolder) convertView.getTag();
         if (viewHolder == null) {
             viewHolder = new TripViewHolder();
-            viewHolder.description = (TextView) convertView.findViewById(R.id.trip_description);
-            viewHolder.cost = (TextView) convertView.findViewById(R.id.trip_cost);
+            viewHolder.description = convertView.findViewById(R.id.trip_description);
+            viewHolder.cost = convertView.findViewById(R.id.trip_cost);
             convertView.setTag(viewHolder);
         }
 

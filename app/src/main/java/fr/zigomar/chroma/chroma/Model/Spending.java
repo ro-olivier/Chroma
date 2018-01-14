@@ -4,9 +4,9 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 public class Spending {
-    private String description;
-    private String category;
-    private double amount;
+    private final String description;
+    private final String category;
+    private final double amount;
 
     public Spending(String description, String category, double amount) {
         this.amount = amount;

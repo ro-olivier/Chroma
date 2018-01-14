@@ -44,7 +44,7 @@
     <string name="CarTripKMHint">12042</string>
     <string name="CarTripDestinationHint">Bangkok</string>
     <string name="AlreadyACarTrip">Cannot register a new car trip start before the current one is ended.</string>
-    <string name="OngoingTrip">Trip started...</string>
+    <string name="OngoingTrip">Trip started…</string>
     <string name="CarTripOriginHint">Paris</string>
     <string name="TripSubmitEnd">End</string>
     <string name="UnableToEndTrip">Error ending car trip.</string>

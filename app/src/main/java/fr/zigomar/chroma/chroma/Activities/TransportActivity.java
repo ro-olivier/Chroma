@@ -22,7 +22,7 @@ import fr.zigomar.chroma.chroma.R;
 public class TransportActivity extends InputActivity {
 
     // the list holding the data
-    ArrayList<Trip> trips;
+    private ArrayList<Trip> trips;
     // the adapter managing the view of the data
     private TripAdapter tripAdapter;
 
@@ -40,20 +40,20 @@ public class TransportActivity extends InputActivity {
         // call inherited initiating method
         init();
 
-        this.priceField = (EditText) findViewById(R.id.TripPrice);
+        this.priceField = findViewById(R.id.TripPrice);
 
-        Button addStepButton = (Button) findViewById(R.id.AddStep);
+        Button addStepButton = findViewById(R.id.AddStep);
         addStepButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                stepsList = (LinearLayout) findViewById(R.id.StepLinearLayout);
+                stepsList = findViewById(R.id.StepLinearLayout);
                 View child = getLayoutInflater().inflate(R.layout.unit_input_tripstep, null);
                 stepsList.addView(child);
 
             }
         });
 
-        Button addTripButton = (Button) findViewById(R.id.AddButton);
+        Button addTripButton = findViewById(R.id.AddButton);
         addTripButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -67,13 +67,13 @@ public class TransportActivity extends InputActivity {
 
                             for (int i = 0; i < childCount - 1; i++) {
                                 View child = stepsList.getChildAt(i);
-                                EditText station = (EditText) child.findViewById(R.id.Station);
-                                EditText line = (EditText) child.findViewById(R.id.Line);
+                                EditText station = child.findViewById(R.id.Station);
+                                EditText line = child.findViewById(R.id.Line);
                                 ar.add(new Step(station.getText().toString(), line.getText().toString()));
                             }
 
                             View child = stepsList.getChildAt(childCount - 1);
-                            EditText station = (EditText) child.findViewById(R.id.Station);
+                            EditText station = child.findViewById(R.id.Station);
                             ar.add(new Step(station.getText().toString()));
 
                             tripAdapter.add(new Trip(ar, cost));
@@ -106,7 +106,7 @@ public class TransportActivity extends InputActivity {
 
         // finishing up the setting of the adapter for the list view of the retrieved (and
         // new) trips
-        ListView tripsListView = (ListView) findViewById(R.id.ListViewTransport);
+        ListView tripsListView = findViewById(R.id.ListViewTransport);
 
         this.tripAdapter = new TripAdapter(TransportActivity.this, this.trips);
         tripsListView.setAdapter(this.tripAdapter);
@@ -143,7 +143,7 @@ public class TransportActivity extends InputActivity {
             }
         });
 
-        Button revertTripButton = (Button) findViewById(R.id.RevertTransport);
+        Button revertTripButton = findViewById(R.id.RevertTransport);
         revertTripButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

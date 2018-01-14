@@ -11,8 +11,8 @@ import fr.zigomar.chroma.chroma.R;
 
 public class MoodActivity extends InputActivity {
 
-    public static final int MIN_MOOD = 1;
-    public static final int MAX_MOOD = 9;
+    private static final int MIN_MOOD = 1;
+    private static final int MAX_MOOD = 9;
 
     private NumberPicker pickerMood1;
     private NumberPicker pickerMood2;
@@ -32,11 +32,11 @@ public class MoodActivity extends InputActivity {
         init();
 
         // getting the views from their id
-        this.pickerMood1 = (NumberPicker) findViewById(R.id.MoodPicker1);
-        this.pickerMood2 = (NumberPicker) findViewById(R.id.MoodPicker2);
-        this.pickerMood3 = (NumberPicker) findViewById(R.id.MoodPicker3);
+        this.pickerMood1 = findViewById(R.id.MoodPicker1);
+        this.pickerMood2 = findViewById(R.id.MoodPicker2);
+        this.pickerMood3 = findViewById(R.id.MoodPicker3);
 
-        this.textData = (EditText) findViewById(R.id.TextData);
+        this.textData = findViewById(R.id.TextData);
 
         // setting the parameters of the views
         initViews();

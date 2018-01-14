@@ -23,7 +23,7 @@ import fr.zigomar.chroma.chroma.R;
 public class CarActivity extends InputActivity {
 
     // the list holding the data
-    ArrayList<CarTrip> carTrips;
+    private ArrayList<CarTrip> carTrips;
     // the adapter managing the view of the data
     private CarTripAdapter carTripAdapter;
     private EditText origin;
@@ -49,15 +49,15 @@ public class CarActivity extends InputActivity {
 
 
         // getting the views from their id
-        this.origin = (EditText) findViewById(R.id.carTrip_origin);
-        this.startKM = (EditText) findViewById(R.id.carTrip_KMbegin);
-        this.startTime = (TimePicker) findViewById(R.id.carTrip_TimeBegin);
-        Button startButton = (Button) findViewById(R.id.carTrip_SubmitStart);
+        this.origin = findViewById(R.id.carTrip_origin);
+        this.startKM = findViewById(R.id.carTrip_KMbegin);
+        this.startTime = findViewById(R.id.carTrip_TimeBegin);
+        Button startButton = findViewById(R.id.carTrip_SubmitStart);
 
-        this.destination = (EditText) findViewById(R.id.carTrip_destination);
-        this.endKM = (EditText) findViewById(R.id.carTrip_KMEnd);
-        this.endTime = (TimePicker) findViewById(R.id.carTrip_TimeEnd);
-        Button endButton = (Button) findViewById(R.id.carTrip_SubmitEnd);
+        this.destination = findViewById(R.id.carTrip_destination);
+        this.endKM = findViewById(R.id.carTrip_KMEnd);
+        this.endTime = findViewById(R.id.carTrip_TimeEnd);
+        Button endButton = findViewById(R.id.carTrip_SubmitEnd);
 
         resetView();
 
@@ -164,7 +164,7 @@ public class CarActivity extends InputActivity {
 
         // finishing up the setting of the adapter for the list view of the retrieve (and
         // new) drinks
-        ListView carTripsListView = (ListView) findViewById(R.id.ListViewCarTrips);
+        ListView carTripsListView = findViewById(R.id.ListViewCarTrips);
 
         this.carTripAdapter = new CarTripAdapter(CarActivity.this, this.carTrips);
         carTripsListView.setAdapter(this.carTripAdapter);

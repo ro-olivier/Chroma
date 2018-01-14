@@ -5,10 +5,10 @@ import org.json.JSONObject;
 
 public class Drink {
 
-    private String description;
-    private double volume;
-    private double degree;
-    private double ua;
+    private final String description;
+    private final double volume;
+    private final double degree;
+    private final double ua;
 
     public String getDescription() {
         return description;

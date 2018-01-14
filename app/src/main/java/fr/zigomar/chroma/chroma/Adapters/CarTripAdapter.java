@@ -33,10 +33,10 @@ public class CarTripAdapter extends ArrayAdapter<CarTrip> {
         CarTripAdapter.CarTripViewHolder viewHolder = (CarTripAdapter.CarTripViewHolder) convertView.getTag();
         if(viewHolder == null){
             viewHolder = new CarTripAdapter.CarTripViewHolder();
-            viewHolder.description = (TextView) convertView.findViewById(R.id.carTrip_description);
-            viewHolder.duration = (TextView) convertView.findViewById(R.id.carTrip_duration);
-            viewHolder.distance = (TextView) convertView.findViewById(R.id.carTrip_distance);
-            viewHolder.distanceUnit = (TextView) convertView.findViewById(R.id.carTrip_distanceUnit);
+            viewHolder.description = convertView.findViewById(R.id.carTrip_description);
+            viewHolder.duration = convertView.findViewById(R.id.carTrip_duration);
+            viewHolder.distance = convertView.findViewById(R.id.carTrip_distance);
+            viewHolder.distanceUnit = convertView.findViewById(R.id.carTrip_distanceUnit);
             convertView.setTag(viewHolder);
         }
 
