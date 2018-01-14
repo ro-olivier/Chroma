@@ -1,8 +1,8 @@
 package fr.zigomar.chroma.chroma.Activities;
 
 import android.app.AlertDialog;
+import android.app.TimePickerDialog;
 import android.content.DialogInterface;
-import android.os.Build;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -15,6 +15,7 @@ import android.widget.Toast;
 
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.Date;
 
 import fr.zigomar.chroma.chroma.Adapters.CarTripAdapter;
 import fr.zigomar.chroma.chroma.Model.CarTrip;
@@ -28,10 +29,16 @@ public class CarActivity extends InputActivity {
     private CarTripAdapter carTripAdapter;
     private EditText origin;
     private EditText startKM;
-    private TimePicker startTime;
+    private EditText startTime;
     private EditText destination;
     private EditText endKM;
-    private TimePicker endTime;
+    private EditText endTime;
+
+    private int startHour;
+    private int startMinute;
+
+    private int endHour;
+    private int endMinute;
 
     @Override
     protected void onCreate(final Bundle savedInstanceState) {
@@ -51,39 +58,48 @@ public class CarActivity extends InputActivity {
         // getting the views from their id
         this.origin = findViewById(R.id.carTrip_origin);
         this.startKM = findViewById(R.id.carTrip_KMbegin);
-        this.startTime = findViewById(R.id.carTrip_TimeBegin);
+        this.startTime = findViewById(R.id.carTrip_TimeBeginDisplay);
         Button startButton = findViewById(R.id.carTrip_SubmitStart);
 
         this.destination = findViewById(R.id.carTrip_destination);
         this.endKM = findViewById(R.id.carTrip_KMEnd);
-        this.endTime = findViewById(R.id.carTrip_TimeEnd);
+        this.endTime = findViewById(R.id.carTrip_TimeEndDisplay);
         Button endButton = findViewById(R.id.carTrip_SubmitEnd);
 
         resetView();
+
+        startTime.setOnFocusChangeListener(new View.OnFocusChangeListener() {
+
+                @Override
+                public void onFocusChange(View v, boolean hasFocus) {
+                    if (hasFocus) {
+                        Calendar mcurrentTime = Calendar.getInstance();
+                        int hour = mcurrentTime.get(Calendar.HOUR_OF_DAY);
+                        int minute = mcurrentTime.get(Calendar.MINUTE);
+                        TimePickerDialog mTimePicker;
+                        mTimePicker = new TimePickerDialog(CarActivity.this, new TimePickerDialog.OnTimeSetListener() {
+                            @Override
+                            public void onTimeSet(TimePicker timePicker, int selectedHour, int selectedMinute) {
+
+                                String displayed_Time = String.valueOf(selectedHour) + ":" + String.valueOf(selectedMinute);
+                                startTime.setText(displayed_Time);
+                                startHour = selectedHour;
+                                startMinute = selectedMinute;
+                            }
+                        }, hour, minute, true);
+                        mTimePicker.setTitle("Select Time");
+                        mTimePicker.show();
+                    }
+                }
+        });
 
         startButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 String origin_str = origin.getText().toString();
                 String startKM_str = startKM.getText().toString();
-                int startTime_hours;
-                int startTime_minutes;
-                if (Build.VERSION.SDK_INT < 23) {
-                    startTime_minutes = startTime.getCurrentMinute();
-                    startTime_hours = startTime.getCurrentHour();
-                } else {
-                    startTime_minutes = startTime.getMinute();
-                    startTime_hours = startTime.getHour();
-                }
 
-                Calendar cal = Calendar.getInstance();
-                cal.set(Calendar.YEAR, Calendar.YEAR);
-                cal.set(Calendar.MONTH, Calendar.MONTH);
-                cal.set(Calendar.DAY_OF_MONTH, Calendar.DAY_OF_MONTH);
-                cal.set(Calendar.HOUR_OF_DAY, startTime_hours);
-                cal.set(Calendar.MINUTE, startTime_minutes);
-                cal.set(Calendar.SECOND, Calendar.SECOND);
-                cal.set(Calendar.MILLISECOND, Calendar.MILLISECOND);
+                Calendar cal = getCalWithTime(startHour, startMinute);
 
                 if (origin_str.length() > 0 && startKM_str.length() > 0) {
                     try {
@@ -115,29 +131,37 @@ public class CarActivity extends InputActivity {
             }
         });
 
+        endTime.setOnFocusChangeListener(new View.OnFocusChangeListener() {
+
+            @Override
+            public void onFocusChange(View v, boolean hasFocus) {
+                if (hasFocus) {
+                    Calendar mcurrentTime = Calendar.getInstance();
+                    int hour = mcurrentTime.get(Calendar.HOUR_OF_DAY);
+                    int minute = mcurrentTime.get(Calendar.MINUTE);
+                    TimePickerDialog mTimePicker;
+                    mTimePicker = new TimePickerDialog(CarActivity.this, new TimePickerDialog.OnTimeSetListener() {
+                        @Override
+                        public void onTimeSet(TimePicker timePicker, int selectedHour, int selectedMinute) {
+                            String displayed_Time = String.valueOf(selectedHour) + ":" + String.valueOf(selectedMinute);
+                            endTime.setText(displayed_Time);
+                            endHour = selectedHour;
+                            endMinute = selectedMinute;
+                        }
+                    }, hour, minute, true);
+                    mTimePicker.setTitle("Select Time");
+                    mTimePicker.show();
+                }
+            }
+        });
+
         endButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 String destination_str = destination.getText().toString();
                 String endKM_str = endKM.getText().toString();
-                int endTime_hours;
-                int endTime_minutes;
-                if (Build.VERSION.SDK_INT < 23) {
-                    endTime_minutes = endTime.getCurrentMinute();
-                    endTime_hours = endTime.getCurrentHour();
-                } else {
-                    endTime_minutes = endTime.getMinute();
-                    endTime_hours = endTime.getHour();
-                }
 
-                Calendar cal = Calendar.getInstance();
-                cal.set(Calendar.YEAR, Calendar.YEAR);
-                cal.set(Calendar.MONTH, Calendar.MONTH);
-                cal.set(Calendar.DAY_OF_MONTH, Calendar.DAY_OF_MONTH);
-                cal.set(Calendar.HOUR_OF_DAY, endTime_hours);
-                cal.set(Calendar.MINUTE, endTime_minutes);
-                cal.set(Calendar.SECOND, Calendar.SECOND);
-                cal.set(Calendar.MILLISECOND, Calendar.MILLISECOND);
+                Calendar cal = getCalWithTime(endHour, endMinute);
 
                 if (destination_str.length() > 0 && endKM_str.length() > 0) {
                     try {
@@ -145,11 +169,13 @@ public class CarActivity extends InputActivity {
 
                         try {
                             carTrips.get(carTrips.size() - 1).endTrip(destination_str, cal.getTime(), endKM);
+                            carTripAdapter.notifyDataSetChanged();
+                            resetView();
                         } catch (CarTrip.TripEndingError e) {
                             Toast.makeText(getApplicationContext(), R.string.UnableToEndTrip, Toast.LENGTH_SHORT).show();
+                        } catch (CarTrip.InvalidKMError e) {
+                            Toast.makeText(getApplicationContext(), R.string.InvalidEndKM, Toast.LENGTH_SHORT).show();
                         }
-                        carTripAdapter.notifyDataSetChanged();
-                        resetView();
 
                     } catch (NumberFormatException e) {
                         Toast.makeText(getApplicationContext(), R.string.UnableToParse, Toast.LENGTH_SHORT).show();
@@ -161,6 +187,21 @@ public class CarActivity extends InputActivity {
         });
 
         this.carTrips = getCarTrips();
+
+        if (this.carTrips.size() > 0) {
+            int last = this.carTrips.size() - 1;
+            CarTrip lastTrip = this.carTrips.get(last);
+
+            if (!lastTrip.getCompleted()) {
+                this.origin.setText(lastTrip.getStartLocation());
+                this.startKM.setText(String.valueOf(lastTrip.getStartKM()));
+                Date s = lastTrip.getStartDate();
+                Calendar cal = Calendar.getInstance();
+                cal.setTime(s);
+                String display_Time = String.valueOf(cal.get(Calendar.HOUR_OF_DAY)) + ":" + String.valueOf(cal.get(Calendar.MINUTE));
+                this.startTime.setText(display_Time);
+            }
+        }
 
         // finishing up the setting of the adapter for the list view of the retrieve (and
         // new) drinks
@@ -202,22 +243,25 @@ public class CarActivity extends InputActivity {
         });
     }
 
+    private Calendar getCalWithTime(int startHour, int startMinute) {
+        Calendar cal = Calendar.getInstance();
+        cal.set(Calendar.YEAR, Calendar.YEAR);
+        cal.set(Calendar.MONTH, Calendar.MONTH);
+        cal.set(Calendar.DAY_OF_MONTH, Calendar.DAY_OF_MONTH);
+        cal.set(Calendar.HOUR_OF_DAY, startHour);
+        cal.set(Calendar.MINUTE, startMinute);
+        cal.set(Calendar.SECOND, Calendar.SECOND);
+        cal.set(Calendar.MILLISECOND, Calendar.MILLISECOND);
+        return cal;
+    }
+
     private void resetView() {
         this.destination.setText("");
         this.origin.setText("");
         this.endKM.setText("");
         this.startKM.setText("");
-
-        Calendar rightNow = Calendar.getInstance();
-        int currentHour = rightNow.get(Calendar.HOUR_OF_DAY);
-        int currentMinute = rightNow.get(Calendar.MINUTE);
-        if (Build.VERSION.SDK_INT < 23) {
-            this.startTime.setCurrentHour(currentHour);
-            this.startTime.setCurrentMinute(currentMinute);
-        } else {
-            this.startTime.setHour(currentHour);
-            this.startTime.setMinute(currentMinute);
-        }
+        this.startTime.setText("");
+        this.endTime.setText("");
     }
 
     private ArrayList<CarTrip> getCarTrips(){

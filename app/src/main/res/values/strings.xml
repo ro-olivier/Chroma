@@ -40,15 +40,17 @@
     <string name="TripCostMandatory">Trip cost is required.</string>
     <string name="TripCannotRevertEmptyTrip">No trip to reverse.</string>
     <string name="TripSubmitStart">Start</string>
-    <string name="CarTripTimeHint">12:00</string>
-    <string name="CarTripKMHint">12042</string>
+    <string name="CarTripTimeBeginHint">11:00</string>
+    <string name="CarTripTimeEndHint">14:20</string>
+    <string name="CarTripKMBeginHint">0</string>
+    <string name="CarTripKMEndHint">10000</string>
     <string name="CarTripDestinationHint">Bangkok</string>
     <string name="AlreadyACarTrip">Cannot register a new car trip start before the current one is ended.</string>
     <string name="OngoingTrip">Trip started…</string>
     <string name="CarTripOriginHint">Paris</string>
     <string name="TripSubmitEnd">End</string>
     <string name="UnableToEndTrip">Error ending car trip.</string>
-
+    <string name="InvalidEndKM">What sorcery is this?!  Have you gone backwards?</string>
 
     <string-array name="spendingsCategories">
         <item>Drinks</item>

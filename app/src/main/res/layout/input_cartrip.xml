@@ -24,7 +24,7 @@
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_weight="4"
-            android:hint="@string/CarTripKMHint"
+            android:hint="@string/CarTripKMBeginHint"
             android:id="@+id/carTrip_KMbegin"
             android:textSize="15sp"
             android:maxLines="1"
@@ -40,13 +40,19 @@
             android:paddingStart="@dimen/half_activity_vertical_margin"
             android:gravity="center_vertical|start"/>
 
-        <TimePicker
+        <EditText
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_weight="4"
-            android:hint="@string/CarTripTimeHint"
-            android:id="@+id/carTrip_TimeBegin"
-            android:background="#FAFAFA"/>
+            android:textSize="15sp"
+            android:maxLines="1"
+            android:gravity="center"
+            android:hint="@string/CarTripTimeBeginHint"
+            android:id="@+id/carTrip_TimeBeginDisplay"
+            android:background="#FAFAFA"
+            android:focusableInTouchMode="true"
+            android:inputType="time"/>
+
     </LinearLayout>
 
     <LinearLayout
@@ -68,7 +74,7 @@
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_weight="4"
-            android:hint="@string/CarTripKMHint"
+            android:hint="@string/CarTripKMEndHint"
             android:id="@+id/carTrip_KMEnd"
             android:textSize="15sp"
             android:maxLines="1"
@@ -84,13 +90,18 @@
             android:paddingStart="@dimen/half_activity_vertical_margin"
             android:gravity="center_vertical|start"/>
 
-        <TimePicker
+        <EditText
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_weight="4"
-            android:hint="@string/CarTripTimeHint"
-            android:id="@+id/carTrip_TimeEnd"
-            android:background="#FAFAFA"/>
+            android:textSize="15sp"
+            android:maxLines="1"
+            android:gravity="center"
+            android:hint="@string/CarTripTimeEndHint"
+            android:id="@+id/carTrip_TimeEndDisplay"
+            android:background="#FAFAFA"
+            android:focusableInTouchMode="true"
+            android:inputType="time"/>
     </LinearLayout>
 
     <Space

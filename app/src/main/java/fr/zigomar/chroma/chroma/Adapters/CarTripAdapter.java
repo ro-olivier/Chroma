@@ -49,8 +49,9 @@ public class CarTripAdapter extends ArrayAdapter<CarTrip> {
             long s = TimeUnit.MILLISECONDS.toSeconds(carTrip.getDuration())
                         - TimeUnit.MINUTES.toSeconds(m)
                         - TimeUnit.HOURS.toSeconds(h);
+
             viewHolder.description.setText(carTrip.getDescription());
-            viewHolder.duration.setText(String.format("%d:%d:%d",h,m,s));
+            viewHolder.duration.setText(String.format("%02d:%02d:%02d",h,m,s));
             viewHolder.distance.setText(String.valueOf(carTrip.getDistance()));
             viewHolder.distanceUnit.setVisibility(View.VISIBLE);
         } else {

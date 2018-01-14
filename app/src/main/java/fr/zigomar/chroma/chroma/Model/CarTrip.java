@@ -7,6 +7,18 @@ import java.util.Date;
 
 public class CarTrip {
 
+    public String getStartLocation() {
+        return startLocation;
+    }
+
+    public Date getStartDate() {
+        return startDate;
+    }
+
+    public double getStartKM() {
+        return startKM;
+    }
+
     private final String startLocation;
     private String endLocation;
     private String description;
@@ -53,15 +65,17 @@ public class CarTrip {
         return distance;
     }
     
-    public void endTrip(String endLocation, Date endDate, double endKM) throws TripEndingError {
+    public void endTrip(String endLocation, Date endDate, double endKM) throws TripEndingError, InvalidKMError {
         if (this.endLocation != null || this.endKM > 0 || this.endDate != null) {
             throw new TripEndingError();
-        } else {
+        } else if (endKM > this.startKM) {
             this.endLocation = endLocation;
             this.endDate = endDate;
             this.endKM = endKM;
 
             completeTrip();
+        } else {
+            throw new InvalidKMError();
         }
     }
 
@@ -108,5 +122,9 @@ public class CarTrip {
 
     public class TripEndingError extends Exception {
         private TripEndingError() { System.out.println("Invalid carTrip ending attempt"); }
+    }
+
+    public class InvalidKMError extends Exception {
+        private InvalidKMError() { System.out.println("End KM lower than Begin KM"); }
     }
 }
