@@ -9,6 +9,7 @@ import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.TextView;
 
+import java.text.DecimalFormat;
 import java.util.List;
 
 import fr.zigomar.chroma.chroma.Model.Spending;
@@ -39,11 +40,13 @@ public class SpendingAdapter extends ArrayAdapter<Spending> {
 
         Spending spending = getItem(position);
 
+        DecimalFormat df = new DecimalFormat("0.00");
+
         //il ne reste plus qu'à remplir notre vue
         assert spending != null;
         viewHolder.description.setText(spending.getDescription());
         viewHolder.category.setText(spending.getCategory());
-        viewHolder.amount.setText(String.valueOf(spending.getAmount()));
+        viewHolder.amount.setText(df.format(spending.getAmount()));
 
         return convertView;
     }

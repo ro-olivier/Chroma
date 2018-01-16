@@ -9,6 +9,7 @@ import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.TextView;
 
+import java.text.DecimalFormat;
 import java.util.List;
 
 import fr.zigomar.chroma.chroma.Model.Earning;
@@ -38,10 +39,12 @@ public class EarningAdapter extends ArrayAdapter<Earning> {
 
         Earning earning = getItem(position);
 
+        DecimalFormat df = new DecimalFormat("0.00");
+
         //il ne reste plus qu'à remplir notre vue
         assert earning != null;
         viewHolder.description.setText(earning.getDescription());
-        viewHolder.amount.setText(String.valueOf(earning.getAmount()));
+        viewHolder.amount.setText(df.format(earning.getAmount()));
 
         return convertView;
     }

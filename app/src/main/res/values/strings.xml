@@ -18,6 +18,7 @@
     <string name="HintVolume">500</string>
     <string name="HintDegree">5</string>
     <string name="AlcoholUnit">%</string>
+    <string name="ua">ua</string>
     <string name="VolumeUnit">mL</string>
     <string name="KilometersUnit">km</string>
     <string name="RevertTransport">Revert last trip !</string>
