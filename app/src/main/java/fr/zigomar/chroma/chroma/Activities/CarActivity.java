@@ -99,7 +99,14 @@ public class CarActivity extends InputActivity {
                 String origin_str = origin.getText().toString();
                 String startKM_str = startKM.getText().toString();
 
-                Calendar cal = getCalWithTime(startHour, startMinute);
+                Calendar cal;
+                if (startHour == 0 && startMinute == 0) {
+                    // this ensures that if the TimePicker was not used we use "now" as the time for the trip
+                    cal = Calendar.getInstance();
+                    Toast.makeText(getApplicationContext(), R.string.UsingCurrentTime, Toast.LENGTH_SHORT).show();
+                } else {
+                    cal = getCalWithTime(startHour, startMinute);
+                }
 
                 if (origin_str.length() > 0 && startKM_str.length() > 0) {
                     try {
@@ -125,7 +132,7 @@ public class CarActivity extends InputActivity {
                         Toast.makeText(getApplicationContext(), R.string.UnableToParse, Toast.LENGTH_SHORT).show();
                     }
                 } else {
-                    Toast.makeText(getApplicationContext(), R.string.MissingDataThreeValuesRequired, Toast.LENGTH_SHORT).show();
+                    Toast.makeText(getApplicationContext(), R.string.MissingDataLocationAndKMRequired, Toast.LENGTH_SHORT).show();
                 }
 
             }
@@ -161,7 +168,15 @@ public class CarActivity extends InputActivity {
                 String destination_str = destination.getText().toString();
                 String endKM_str = endKM.getText().toString();
 
-                Calendar cal = getCalWithTime(endHour, endMinute);
+                Calendar cal;
+                if (startHour == 0 && startMinute == 0) {
+                    // this ensures that if the TimePicker was not used we use "now" as the time for the trip
+                    cal = Calendar.getInstance();
+                    Toast.makeText(getApplicationContext(), R.string.UsingCurrentTime, Toast.LENGTH_SHORT).show();
+
+                } else {
+                    cal = getCalWithTime(endHour, endMinute);
+                }
 
                 if (destination_str.length() > 0 && endKM_str.length() > 0) {
                     try {
@@ -181,7 +196,7 @@ public class CarActivity extends InputActivity {
                         Toast.makeText(getApplicationContext(), R.string.UnableToParse, Toast.LENGTH_SHORT).show();
                     }
                 } else {
-                    Toast.makeText(getApplicationContext(), R.string.MissingDataThreeValuesRequired, Toast.LENGTH_SHORT).show();
+                    Toast.makeText(getApplicationContext(), R.string.MissingDataLocationAndKMRequired, Toast.LENGTH_SHORT).show();
                 }
             }
         });

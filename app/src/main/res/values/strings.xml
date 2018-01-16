@@ -51,6 +51,8 @@
     <string name="TripSubmitEnd">End</string>
     <string name="UnableToEndTrip">Error ending car trip.</string>
     <string name="InvalidEndKM">What sorcery is this?!  Have you gone backwards?</string>
+    <string name="UsingCurrentTime">Using current time since no time was given.</string>
+    <string name="MissingDataLocationAndKMRequired">Location and KM count required.</string>
 
     <string-array name="spendingsCategories">
         <item>Drinks</item>
