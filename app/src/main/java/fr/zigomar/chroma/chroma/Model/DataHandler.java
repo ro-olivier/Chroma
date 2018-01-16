@@ -330,4 +330,40 @@ public class DataHandler {
 
         return s;
     }
+
+        /*
+    ########################################################
+    Money In section :
+        - saveMovieData
+        - getMovie
+    ########################################################
+    */
+
+    public void saveMovieData(List<Movie> l) {
+        Log.i("CHROMA", "SaveMovieData was invoked.");
+        try {
+            this.data.put("movies", l);
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public ArrayList<Movie> getMovies() {
+        ArrayList<Movie> s = new ArrayList<>();
+        JSONArray jsonArray;
+        try {
+            jsonArray = new JSONArray(this.data.get("movies").toString());
+
+
+            for (int i = 0; i < jsonArray.length(); i++) {
+                JSONObject jso = jsonArray.getJSONObject(i);
+                s.add(new Movie(jso.getString("title"), jso.getString("director"), jso.getString("description")));
+            }
+
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+
+        return s;
+    }
 }

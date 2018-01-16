@@ -8,7 +8,7 @@
     <string name="Option4">Navigo</string>
     <string name="Option5">Car</string>
     <string name="Option6">Money In</string>
-    <string name="Option7">…</string>
+    <string name="Option7">Movies</string>
     <string name="Option8">…</string>
     <string name="MoodHint">Write a few words about your day…</string>
     <string name="AddMoney">Add</string>
@@ -54,6 +54,12 @@
     <string name="InvalidEndKM">What sorcery is this?!  Have you gone backwards?</string>
     <string name="UsingCurrentTime">Using current time since no time was given.</string>
     <string name="MissingDataLocationAndKMRequired">Location and KM count required.</string>
+    <string name="HintAuthor">Author...</string>
+    <string name="HintTitle">Title...</string>
+    <string name="BookDescriptionHint">Write a few words about this book...</string>
+    <string name="HintReal">Director</string>
+    <string name="MovieDescriptionHint">Write a few words about this movie...</string>
+    <string name="AddMovie">Watch another movie !</string>
 
     <string-array name="spendingsCategories">
         <item>Drinks</item>

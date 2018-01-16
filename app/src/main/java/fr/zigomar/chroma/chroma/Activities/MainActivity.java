@@ -119,6 +119,18 @@ public class MainActivity extends AppCompatActivity {
                 startActivity(moneyInIntent);
             }
         });
+
+        Button movieButton = findViewById(R.id.ButtonToOption7);
+        movieButton.setOnClickListener(new View.OnClickListener() {
+
+            @Override
+            public void onClick(View v) {
+                Log.i("CHROMA", "Switching to money in activity");
+                Intent movieIntent = new Intent (MainActivity.this, MovieActivity.class);
+                movieIntent.putExtra(CURRENT_DATE, currentDate.getTime());
+                startActivity(movieIntent);
+            }
+        });
     }
 
     @Override
