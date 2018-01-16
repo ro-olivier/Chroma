@@ -294,4 +294,40 @@ public class DataHandler {
             e.printStackTrace();
         }
     }
+
+    /*
+    ########################################################
+    Money In section :
+        - saveMoneyInData
+        - getEarningsList
+    ########################################################
+    */
+
+    public void saveMoneyInData(List<Earning> l) {
+        Log.i("CHROMA", "SaveMoneyInData was invoked.");
+        try {
+            this.data.put("earnings", l);
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public ArrayList<Earning> getEarningsList() {
+        ArrayList<Earning> s = new ArrayList<>();
+        JSONArray jsonArray;
+        try {
+            jsonArray = new JSONArray(this.data.get("earnings").toString());
+
+
+            for (int i = 0; i < jsonArray.length(); i++) {
+                JSONObject jso = jsonArray.getJSONObject(i);
+                s.add(new Earning(jso.getString("earning_description"), jso.getDouble("spending_amount")));
+            }
+
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+
+        return s;
+    }
 }

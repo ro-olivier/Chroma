@@ -107,6 +107,18 @@ public class MainActivity extends AppCompatActivity {
                 startActivity(carIntent);
             }
         });
+
+        Button moneyInButton = findViewById(R.id.ButtonToOption6);
+        moneyInButton.setOnClickListener(new View.OnClickListener() {
+
+            @Override
+            public void onClick(View v) {
+                Log.i("CHROMA", "Switching to money in activity");
+                Intent moneyInIntent = new Intent (MainActivity.this, MoneyInActivity.class);
+                moneyInIntent.putExtra(CURRENT_DATE, currentDate.getTime());
+                startActivity(moneyInIntent);
+            }
+        });
     }
 
     @Override

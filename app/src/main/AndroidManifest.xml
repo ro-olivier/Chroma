@@ -43,6 +43,11 @@
             android:name=".Activities.CarActivity"
             android:parentActivityName=".Activities.MainActivity"
             android:windowSoftInputMode="stateHidden"/>
+
+        <activity
+            android:name=".Activities.MoneyInActivity"
+            android:parentActivityName=".Activities.MainActivity"
+            android:windowSoftInputMode="stateHidden"/>
     </application>
 
 </manifest>

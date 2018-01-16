@@ -3,11 +3,11 @@
 <resources>
     <string name="app_name">Chroma</string>
     <string name="Option1">Mood</string>
-    <string name="Option2">Money</string>
+    <string name="Option2">Money Out</string>
     <string name="Option3">Alcohol</string>
     <string name="Option4">Navigo</string>
     <string name="Option5">Car</string>
-    <string name="Option6">…</string>
+    <string name="Option6">Money In</string>
     <string name="Option7">…</string>
     <string name="Option8">…</string>
     <string name="MoodHint">Write a few words about your day…</string>
