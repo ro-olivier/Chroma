@@ -49,7 +49,6 @@ public class TransportActivity extends InputActivity {
                 stepsList = findViewById(R.id.StepLinearLayout);
                 View child = getLayoutInflater().inflate(R.layout.unit_input_tripstep, null);
                 stepsList.addView(child);
-
             }
         });
 
@@ -78,6 +77,7 @@ public class TransportActivity extends InputActivity {
 
                             tripAdapter.add(new Trip(ar, cost));
                             Log.i("CHROMA", "Currently " + trips.size() + " trips.");
+                            resetViews();
                         } else {
                             Toast.makeText(getApplicationContext(), R.string.TripMinimumTwoStepsRequired, Toast.LENGTH_SHORT).show();
                         }
@@ -170,6 +170,13 @@ public class TransportActivity extends InputActivity {
                 }
             }
         });
+
+    }
+
+    private void resetViews() {
+        stepsList.removeAllViews();
+        View child = getLayoutInflater().inflate(R.layout.unit_input_tripstep, null);
+        stepsList.addView(child);
 
     }
 
