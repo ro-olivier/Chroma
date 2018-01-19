@@ -321,7 +321,7 @@ public class DataHandler {
 
             for (int i = 0; i < jsonArray.length(); i++) {
                 JSONObject jso = jsonArray.getJSONObject(i);
-                s.add(new Earning(jso.getString("earning_description"), jso.getDouble("spending_amount")));
+                s.add(new Earning(jso.getString("earning_description"), jso.getDouble("earning_amount")));
             }
 
         } catch (JSONException e) {
