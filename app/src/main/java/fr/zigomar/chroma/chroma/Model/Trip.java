@@ -34,7 +34,7 @@ public class Trip {
         StringBuilder result = new StringBuilder();
         for (Step s : this.steps) {
             if (!s.getEndOfTrip()) {
-                result.append(s.getStop()).append("(").append(s.getLine()).append(") # ");
+                result.append(s.getStop()).append(" (").append(s.getLine()).append(") # ");
             } else {
                 result.append(s.getStop());
             }
