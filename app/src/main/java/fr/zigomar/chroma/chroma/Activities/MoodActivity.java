@@ -2,6 +2,7 @@ package fr.zigomar.chroma.chroma.Activities;
 
 import android.os.Bundle;
 import android.util.Log;
+import android.view.View;
 import android.widget.EditText;
 import android.widget.NumberPicker;
 
@@ -43,6 +44,18 @@ public class MoodActivity extends InputActivity {
 
         // setting the data in the views
         initMoodData();
+
+        textData.setOnFocusChangeListener(new View.OnFocusChangeListener() {
+
+            @Override
+            public void onFocusChange(View v, boolean hasFocus) {
+                if (hasFocus) {
+                    pickerMood1.setVisibility(View.GONE);
+                    pickerMood2.setVisibility(View.GONE);
+                    pickerMood3.setVisibility(View.GONE);
+                }
+            }
+        });
     }
 
     private void initViews() {
