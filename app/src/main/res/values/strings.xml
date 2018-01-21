@@ -60,6 +60,7 @@
     <string name="HintReal">Director</string>
     <string name="MovieDescriptionHint">Write a few words about this movie...</string>
     <string name="AddMovie">Watch another movie !</string>
+    <string name="MovieTitleAndNotesRequired">Title and description are required.</string>
 
     <string-array name="spendingsCategories">
         <item>Drinks</item>

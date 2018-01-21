@@ -7,11 +7,13 @@ public class Movie {
     private final String title;
     private final String director;
     private final String description;
+    private final float rating;
 
-    public Movie(String title, String director, String description) {
+    public Movie(String title, String director, String description, float rating) {
         this.title = title;
         this.description = description;
         this.director = director;
+        this.rating = rating;
     }
 
     public String getTitle() {
@@ -26,12 +28,17 @@ public class Movie {
         return description;
     }
 
+    public float getRating() {
+        return rating;
+    }
+
     private JSONObject getSpendingAsJSON() {
         JSONObject json = new JSONObject();
         try {
             json.put("title", this.title);
             json.put("director", this.director);
             json.put("description", this.description);
+            json.put("rating", String.valueOf(this.rating));
         } catch (JSONException a) {
             return new JSONObject();
         }

@@ -39,7 +39,6 @@
             android:layout_marginEnd="@dimen/activity_vertical_margin"
             android:hint="@string/HintReal"/>
 
-
     </LinearLayout>
 
     <EditText
@@ -50,6 +49,19 @@
         android:hint="@string/MovieDescriptionHint"
         android:gravity="top"
         android:scrollbars="vertical"
-        android:scrollbarFadeDuration="0"/>
+        android:scrollbarFadeDuration="0"
+        android:background="#FAFAFA"/>
+
+    <RatingBar
+        android:layout_gravity="center"
+        android:layout_width="wrap_content"
+        android:layout_height="50dp"
+        android:max="5"
+        android:id="@+id/MovieRating"
+        android:numStars="5"
+        android:stepSize="0.5"
+        android:rating="2.5"/>
+
+    <View style="@style/Divider"/>
 
 </LinearLayout>

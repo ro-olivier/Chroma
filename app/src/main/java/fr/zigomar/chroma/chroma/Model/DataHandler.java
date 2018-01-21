@@ -357,7 +357,7 @@ public class DataHandler {
 
             for (int i = 0; i < jsonArray.length(); i++) {
                 JSONObject jso = jsonArray.getJSONObject(i);
-                s.add(new Movie(jso.getString("title"), jso.getString("director"), jso.getString("description")));
+                s.add(new Movie(jso.getString("title"), jso.getString("director"), jso.getString("description"), Float.parseFloat(jso.getString("rating"))));
             }
 
         } catch (JSONException e) {
