@@ -32,6 +32,7 @@ public class Drink {
             json.put("drink_description", this.description);
             json.put("drink_volume", this.volume);
             json.put("drink_degree", this.degree);
+            json.put("drink_ua", this.ua);
         } catch (JSONException a) {
             return new JSONObject();
         }
