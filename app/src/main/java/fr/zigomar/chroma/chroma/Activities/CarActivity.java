@@ -1,5 +1,6 @@
 package fr.zigomar.chroma.chroma.Activities;
 
+import android.annotation.SuppressLint;
 import android.app.AlertDialog;
 import android.app.TimePickerDialog;
 import android.content.DialogInterface;
@@ -9,13 +10,17 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.LinearLayout;
 import android.widget.ListView;
+import android.widget.TextView;
 import android.widget.TimePicker;
 import android.widget.Toast;
 
+import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.concurrent.TimeUnit;
 
 import fr.zigomar.chroma.chroma.Adapters.CarTripAdapter;
 import fr.zigomar.chroma.chroma.Model.CarTrip;
@@ -185,6 +190,7 @@ public class CarActivity extends InputActivity {
                         try {
                             carTrips.get(carTrips.size() - 1).endTrip(destination_str, cal.getTime(), endKM);
                             carTripAdapter.notifyDataSetChanged();
+                            updateSummary();
                             resetView();
                         } catch (CarTrip.TripEndingError e) {
                             Toast.makeText(getApplicationContext(), R.string.UnableToEndTrip, Toast.LENGTH_SHORT).show();
@@ -202,6 +208,7 @@ public class CarActivity extends InputActivity {
         });
 
         this.carTrips = getCarTrips();
+        updateSummary();
 
         if (this.carTrips.size() > 0) {
             int last = this.carTrips.size() - 1;
@@ -241,6 +248,7 @@ public class CarActivity extends InputActivity {
                     public void onClick(DialogInterface dialog, int which) {
                         carTripAdapter.remove(carTrips.get(pos));
                         carTripAdapter.notifyDataSetChanged();
+                        updateSummary();
                         dialog.dismiss();
                     }
                 });
@@ -277,6 +285,48 @@ public class CarActivity extends InputActivity {
         this.startKM.setText("");
         this.startTime.setText("");
         this.endTime.setText("");
+    }
+
+    @SuppressLint("DefaultLocale")
+    private void updateSummary() {
+        LinearLayout data_summary = findViewById(R.id.data_summary);
+        data_summary.setVisibility(View.VISIBLE);
+
+        TextView field0_data = findViewById(R.id.data_summary_field0);
+        TextView field1_data = findViewById(R.id.data_summary_field1);
+        TextView field2_data = findViewById(R.id.data_summary_field2);
+        TextView field1_text = findViewById(R.id.data_summary_text1);
+        TextView field2_text = findViewById(R.id.data_summary_text2);
+
+        if (this.carTrips.size() > 0) {
+
+            field0_data.setText(R.string.Summary);
+
+            double distance_total = 0;
+            long duration_total = 0;
+            for (CarTrip d : this.carTrips) {
+                if (d.getCompleted()) {
+                    duration_total += d.getDuration();
+                    distance_total += d.getDistance();
+                }
+            }
+
+            long h = TimeUnit.MILLISECONDS.toHours(duration_total);
+            long m = TimeUnit.MILLISECONDS.toMinutes(duration_total) - TimeUnit.HOURS.toMinutes(h);
+            long s = TimeUnit.MILLISECONDS.toSeconds(duration_total)
+                    - TimeUnit.MINUTES.toSeconds(m)
+                    - TimeUnit.HOURS.toSeconds(h);
+
+            field1_data.setText(String.format("%02d:%02d:%02d",h,m,s));
+
+            DecimalFormat df = new DecimalFormat("0.00");
+            field2_data.setText(df.format(distance_total));
+
+            field2_text.setText(R.string.KilometersUnit);
+
+        } else {
+            data_summary.setVisibility(View.INVISIBLE);
+        }
     }
 
     private ArrayList<CarTrip> getCarTrips(){

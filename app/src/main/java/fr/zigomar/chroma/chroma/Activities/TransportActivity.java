@@ -10,8 +10,10 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.ListView;
+import android.widget.TextView;
 import android.widget.Toast;
 
+import java.text.DecimalFormat;
 import java.util.ArrayList;
 
 import fr.zigomar.chroma.chroma.Adapters.TripAdapter;
@@ -76,6 +78,7 @@ public class TransportActivity extends InputActivity {
                             ar.add(new Step(station.getText().toString()));
 
                             tripAdapter.add(new Trip(ar, cost));
+                            updateSummary();
                             Log.i("CHROMA", "Currently " + trips.size() + " trips.");
                             resetViews();
                         } else {
@@ -103,6 +106,7 @@ public class TransportActivity extends InputActivity {
 
         // init of the data : fetch trips data in the currentDate file if it exist
         this.trips = getTrips();
+        updateSummary();
 
         // finishing up the setting of the adapter for the list view of the retrieved (and
         // new) trips
@@ -127,6 +131,7 @@ public class TransportActivity extends InputActivity {
                     public void onClick(DialogInterface dialog, int which) {
                         tripAdapter.remove(trips.get(pos));
                         tripAdapter.notifyDataSetChanged();
+                        updateSummary();
                         dialog.dismiss();
                     }
                 });
@@ -165,6 +170,7 @@ public class TransportActivity extends InputActivity {
                     }
 
                     tripAdapter.add(new Trip(backward_steps, lastTrip.getCost()));
+                    updateSummary();
                 } else {
                     Toast.makeText(getApplicationContext(), R.string.TripCannotRevertEmptyTrip, Toast.LENGTH_SHORT).show();
                 }
@@ -178,6 +184,38 @@ public class TransportActivity extends InputActivity {
         View child = getLayoutInflater().inflate(R.layout.unit_input_tripstep, null);
         stepsList.addView(child);
 
+    }
+
+
+    private void updateSummary() {
+        LinearLayout data_summary = findViewById(R.id.data_summary);
+        data_summary.setVisibility(View.VISIBLE);
+
+        TextView field0_data = findViewById(R.id.data_summary_field0);
+        TextView field1_data = findViewById(R.id.data_summary_field1);
+        TextView field2_data = findViewById(R.id.data_summary_field2);
+        TextView field1_text = findViewById(R.id.data_summary_text1);
+        TextView field2_text = findViewById(R.id.data_summary_text2);
+
+        if (this.trips.size() > 0) {
+
+            field0_data.setText(R.string.Summary);
+
+            field1_data.setVisibility(View.INVISIBLE);
+            field1_text.setVisibility(View.INVISIBLE);
+
+            double amount_total = 0;
+            for (Trip d : this.trips) {
+                amount_total += d.getCost();
+            }
+            DecimalFormat df = new DecimalFormat("0.00");
+            field2_data.setText(df.format(amount_total));
+
+            field2_text.setText(R.string.Currency);
+
+        } else {
+            data_summary.setVisibility(View.INVISIBLE);
+        }
     }
 
     private ArrayList<Trip> getTrips(){

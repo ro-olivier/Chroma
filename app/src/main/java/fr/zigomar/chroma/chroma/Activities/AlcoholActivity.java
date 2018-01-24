@@ -7,10 +7,12 @@ import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.Button;
+import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import java.text.DecimalFormat;
 import java.util.ArrayList;
 
 import fr.zigomar.chroma.chroma.Adapters.DrinkAdapter;
@@ -57,6 +59,7 @@ public class AlcoholActivity extends InputActivity {
                         double vol = Double.parseDouble(vs);
                         double deg = Double.parseDouble(ds);
                         drinkAdapter.add(new Drink(d, vol, deg));
+                        updateSummary();
                         Log.i("CHROMA", "Currently " + drinks.size() + " drinks.");
                     } catch (NumberFormatException e) {
                         Toast.makeText(getApplicationContext(), R.string.UnableToParse, Toast.LENGTH_SHORT).show();
@@ -69,6 +72,7 @@ public class AlcoholActivity extends InputActivity {
 
         // init of the data : fetch drinks data in the currentDate file if it exist
         this.drinks = getDrinks();
+        updateSummary();
 
         // finishing up the setting of the adapter for the list view of the retrieve (and
         // new) drinks
@@ -93,6 +97,7 @@ public class AlcoholActivity extends InputActivity {
                     public void onClick(DialogInterface dialog, int which) {
                         drinkAdapter.remove(drinks.get(pos));
                         drinkAdapter.notifyDataSetChanged();
+                        updateSummary();
                         dialog.dismiss();
                     }
                 });
@@ -108,6 +113,37 @@ public class AlcoholActivity extends InputActivity {
                 return true;
             }
         });
+    }
+
+    private void updateSummary() {
+        LinearLayout data_summary = findViewById(R.id.data_summary);
+        data_summary.setVisibility(View.VISIBLE);
+
+        TextView field0_data = findViewById(R.id.data_summary_field0);
+        TextView field1_data = findViewById(R.id.data_summary_field1);
+        TextView field2_data = findViewById(R.id.data_summary_field2);
+        TextView field1_text = findViewById(R.id.data_summary_text1);
+        TextView field2_text = findViewById(R.id.data_summary_text2);
+
+        if (this.drinks.size() > 0) {
+
+            field0_data.setText(R.string.Summary);
+
+            field1_data.setVisibility(View.INVISIBLE);
+            field1_text.setVisibility(View.INVISIBLE);
+
+            double ua_total = 0;
+            for (Drink d : this.drinks) {
+                ua_total += d.getUA();
+            }
+            DecimalFormat df = new DecimalFormat("0.00");
+            field2_data.setText(df.format(ua_total));
+
+            field2_text.setText(R.string.ua);
+
+        } else {
+            data_summary.setVisibility(View.INVISIBLE);
+        }
     }
 
     private ArrayList<Drink> getDrinks(){

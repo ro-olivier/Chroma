@@ -7,10 +7,12 @@ import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.Button;
+import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import java.text.DecimalFormat;
 import java.util.ArrayList;
 
 import fr.zigomar.chroma.chroma.Adapters.EarningAdapter;
@@ -53,6 +55,7 @@ public class MoneyInActivity extends InputActivity {
                         Double a = Double.valueOf(amountField.getText().toString());
 
                         earningAdapter.add(new Earning(d, a));
+                        updateSummary();
                         Log.i("CHROMA", "Currently " + earnings.size() + " earnings.");
                     } catch (NumberFormatException e) {
                         Toast.makeText(getApplicationContext(), R.string.UnableToParse, Toast.LENGTH_SHORT).show();
@@ -65,6 +68,7 @@ public class MoneyInActivity extends InputActivity {
 
         // init of the data : fetch earnings data in the currentDate file if it exist
         this.earnings = getEarnings();
+        updateSummary();
 
         // finishing up the setting of the adapter for the list view of the retrieve (and
         // new) earnings
@@ -90,6 +94,7 @@ public class MoneyInActivity extends InputActivity {
                     public void onClick(DialogInterface dialog, int which) {
                         earningAdapter.remove(earnings.get(pos));
                         earningAdapter.notifyDataSetChanged();
+                        updateSummary();
                         dialog.dismiss();
                     }
                 });
@@ -105,6 +110,37 @@ public class MoneyInActivity extends InputActivity {
                 return true;
             }
         });
+    }
+
+    private void updateSummary() {
+        LinearLayout data_summary = findViewById(R.id.data_summary);
+        data_summary.setVisibility(View.VISIBLE);
+
+        TextView field0_data = findViewById(R.id.data_summary_field0);
+        TextView field1_data = findViewById(R.id.data_summary_field1);
+        TextView field2_data = findViewById(R.id.data_summary_field2);
+        TextView field1_text = findViewById(R.id.data_summary_text1);
+        TextView field2_text = findViewById(R.id.data_summary_text2);
+
+        if (this.earnings.size() > 0) {
+
+            field0_data.setText(R.string.Summary);
+
+            field1_data.setVisibility(View.INVISIBLE);
+            field1_text.setVisibility(View.INVISIBLE);
+
+            double amount_total = 0;
+            for (Earning d : this.earnings) {
+                amount_total += d.getAmount();
+            }
+            DecimalFormat df = new DecimalFormat("0.00");
+            field2_data.setText(df.format(amount_total));
+
+            field2_text.setText(R.string.Currency);
+
+        } else {
+            data_summary.setVisibility(View.INVISIBLE);
+        }
     }
 
     private ArrayList<Earning> getEarnings(){

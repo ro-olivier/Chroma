@@ -13,7 +13,7 @@
     <string name="MoodHint">Write a few words about your day…</string>
     <string name="AddMoney">Add</string>
     <string name="HintDescSpending">Description…</string>
-    <string name="HintValue">0.00</string>
+    <string name="HintValue">0,00</string>
     <string name="HintDescAlcohol">What did you drink…</string>
     <string name="HintVolume">500</string>
     <string name="HintDegree">5</string>
@@ -61,6 +61,7 @@
     <string name="MovieDescriptionHint">Write a few words about this movie...</string>
     <string name="AddMovie">Watch another movie !</string>
     <string name="MovieTitleAndNotesRequired">Title and description are required.</string>
+    <string name="Summary">Total :</string>
 
     <string-array name="spendingsCategories">
         <item>Drinks</item>
