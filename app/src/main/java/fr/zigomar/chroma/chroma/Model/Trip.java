@@ -51,7 +51,7 @@ public class Trip {
                 // not the last stop
                 int parenthese = step.indexOf("(");
                 try {
-                    result.add(new Step(step.substring(0, parenthese),
+                    result.add(new Step(step.substring(0, parenthese - 1),
                             step.substring(parenthese + 1, parenthese + 2 )));
                 } catch (Step.EmptyStationException | Step.EmptyLineException e) {
                     e.printStackTrace();
