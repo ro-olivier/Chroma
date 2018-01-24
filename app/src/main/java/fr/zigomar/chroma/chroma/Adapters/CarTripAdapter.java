@@ -9,6 +9,7 @@ import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.TextView;
 
+import java.text.DecimalFormat;
 import java.util.List;
 import java.util.concurrent.TimeUnit;
 
@@ -52,7 +53,10 @@ public class CarTripAdapter extends ArrayAdapter<CarTrip> {
 
             viewHolder.description.setText(carTrip.getDescription());
             viewHolder.duration.setText(String.format("%02d:%02d:%02d",h,m,s));
-            viewHolder.distance.setText(String.valueOf(carTrip.getDistance()));
+
+            DecimalFormat df = new DecimalFormat("0.00");
+
+            viewHolder.distance.setText(df.format(carTrip.getDistance()));
             viewHolder.distanceUnit.setVisibility(View.VISIBLE);
         } else {
             viewHolder.description.setText(R.string.OngoingTrip);
