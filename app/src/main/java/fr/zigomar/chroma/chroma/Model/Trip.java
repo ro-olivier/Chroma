@@ -49,10 +49,11 @@ public class Trip {
         for (String step : s.split(" # ")) {
             if (step.contains("(")) {
                 // not the last stop
-                int parenthese = step.indexOf("(");
+                int parenthese_open = step.indexOf("(");
+                int parenthese_close = step.indexOf(")");
                 try {
-                    result.add(new Step(step.substring(0, parenthese - 1),
-                            step.substring(parenthese + 1, parenthese + 2 )));
+                    result.add(new Step(step.substring(0, parenthese_open - 1),
+                            step.substring(parenthese_open + 1, parenthese_close)));
                 } catch (Step.EmptyStationException | Step.EmptyLineException e) {
                     e.printStackTrace();
                 }

@@ -71,6 +71,7 @@
         <item>Resto</item>
         <item>Santé</item>
         <item>Tech</item>
+        <item>Transport</item>
         <item>Other</item>
     </string-array>
 </resources>

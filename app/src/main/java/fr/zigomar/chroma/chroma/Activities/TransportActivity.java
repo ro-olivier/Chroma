@@ -184,6 +184,7 @@ public class TransportActivity extends InputActivity {
         View child = getLayoutInflater().inflate(R.layout.unit_input_tripstep, null);
         stepsList.addView(child);
 
+        priceField.setText("");
     }
 
 

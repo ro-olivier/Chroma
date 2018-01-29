@@ -60,6 +60,7 @@ public class AlcoholActivity extends InputActivity {
                         double deg = Double.parseDouble(ds);
                         drinkAdapter.add(new Drink(d, vol, deg));
                         updateSummary();
+                        resetViews();
                         Log.i("CHROMA", "Currently " + drinks.size() + " drinks.");
                     } catch (NumberFormatException e) {
                         Toast.makeText(getApplicationContext(), R.string.UnableToParse, Toast.LENGTH_SHORT).show();
@@ -113,6 +114,12 @@ public class AlcoholActivity extends InputActivity {
                 return true;
             }
         });
+    }
+
+    private void resetViews() {
+        degreeField.setText("");
+        descField.setText("");
+        volumeField.setText("");
     }
 
     private void updateSummary() {
