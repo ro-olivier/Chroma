@@ -62,6 +62,7 @@ public class MoneyActivity extends InputActivity {
                         spendingAdapter.add(new Spending(d, c, a));
                         updateSummary();
                         Log.i("CHROMA", "Currently " + spendings.size() + " spendings.");
+                        resetViews();
                     } catch (NumberFormatException e) {
                         Toast.makeText(getApplicationContext(), R.string.UnableToParse, Toast.LENGTH_SHORT).show();
                     }
@@ -121,6 +122,12 @@ public class MoneyActivity extends InputActivity {
                 return true;
             }
         });
+    }
+
+    private void resetViews() {
+        descField.setText("");
+        amountField.setText("");
+        catField.setSelection(0);
     }
 
 

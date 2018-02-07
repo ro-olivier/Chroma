@@ -9,7 +9,11 @@
     <string name="Option5">Car</string>
     <string name="Option6">Money In</string>
     <string name="Option7">Movies</string>
-    <string name="Option8">…</string>
+    <string name="Option8">Books</string>
+    <string name="Option9">Sleep</string>
+    <string name="Option10">Sport</string>
+    <string name="Option11">Velib</string>
+    <string name="Option12">…</string>
     <string name="MoodHint">Write a few words about your day…</string>
     <string name="AddMoney">Add</string>
     <string name="HintDescSpending">Description…</string>
@@ -62,6 +66,12 @@
     <string name="AddMovie">Watch another movie !</string>
     <string name="MovieTitleAndNotesRequired">Title and description are required.</string>
     <string name="Summary">Total :</string>
+    <string name="HintBookTitle">Book title...</string>
+    <string name="HintBookAuthor">Book author...</string>
+    <string name="AddBook">Add another book review !</string>
+    <string name="BookNotesRequired">Write at least one word...</string>
+    <string name="BookDetailsRequired">Book author and title are required.</string>
+    <string name="OpenBooksFileName">openBook.json</string>
 
     <string-array name="spendingsCategories">
         <item>Drinks</item>
@@ -69,7 +79,7 @@
         <item>Cadeaux/Dons</item>
         <item>Factures</item>
         <item>Resto</item>
-        <item>Santé</item>
+        <item>Santé &amp; Hygiène</item>
         <item>Tech</item>
         <item>Transport</item>
         <item>Other</item>
