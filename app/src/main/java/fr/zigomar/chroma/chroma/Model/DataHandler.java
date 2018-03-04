@@ -12,6 +12,8 @@ import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.text.DateFormat;
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
@@ -34,6 +36,14 @@ public class DataHandler {
         this.filename = new SimpleDateFormat("yyyy-MM-dd", Locale.FRANCE).format(currentDate);
         this.data = new JSONObject();
         initData(ctx);
+        Log.i("CHROMA", "Opened or created file " + this.filename);
+    }
+
+    public DataHandler(Context ctx, String filename) {
+        this.filename = filename;
+        this.data = new JSONObject();
+        initData(ctx);
+        Log.i("CHROMA", "Opened or created file " + this.filename);
     }
 
     /*
@@ -63,11 +73,6 @@ public class DataHandler {
             // the file does exist yet so we load the data with the default data for each section
             Log.i("CHROMA", "File " + this.filename + " was not found. Creating data with default values.");
             e.printStackTrace();
-            saveMoodData(INITIAL_MOOD,INITIAL_MOOD,INITIAL_MOOD, "");
-            // no saveMoneyData(new Array<Spending>) because if now "spendings" data can be found in the file
-            // we have no good reason to create an empty one before we actually write anything
-            //...
-
         } catch (IOException e) {
             e.printStackTrace();
 
@@ -77,7 +82,6 @@ public class DataHandler {
         }
 
     }
-
 
     public void writeDataToFile(Context ctx) {
         // this method does the actual writing-to-file work
@@ -98,7 +102,6 @@ public class DataHandler {
             e.printStackTrace();
         }
     }
-
 
     /*
     ########################################################
@@ -133,7 +136,7 @@ public class DataHandler {
                 d.put("eval" + i, String.valueOf(this.data.getInt("mood_eval" + i)));
             } catch (JSONException e) {
                 e.printStackTrace();
-                d.put("eval" + i, "");
+                d.put("eval" + i, String.valueOf(INITIAL_MOOD));
             }
         }
 
@@ -361,6 +364,48 @@ public class DataHandler {
             }
 
         } catch (JSONException e) {
+            e.printStackTrace();
+        }
+
+        return s;
+    }
+
+    /*
+    ########################################################
+    Book section :
+        - saveOpenBooksData (save data to file openBooks.json)
+        - getOpenBooksData (read data from file openBooks.json)
+    ########################################################
+    */
+
+    public void saveOpenBookData(List<Book> l) {
+        Log.i("CHROMA", "SaveNewBook was invoked.");
+        try {
+            this.data.put("books", l);
+            Log.i("CHROMA", l.toString());
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public ArrayList<Book> getOpenBooksData() {
+        ArrayList<Book> s = new ArrayList<>();
+        JSONArray jsonArray;
+        Log.i("CHROMA", this.data.toString());
+        DateFormat df = new SimpleDateFormat("EEE MMM dd kk:mm:ss z yyyy", Locale.ENGLISH);
+        try {
+            jsonArray = new JSONArray(this.data.get("books").toString());
+
+
+            for (int i = 0; i < jsonArray.length(); i++) {
+                JSONObject jso = jsonArray.getJSONObject(i);
+                s.add(new Book(jso.getString("title"), jso.getString("author"), df.parse(jso.getString("dateOpen"))));
+            }
+
+        } catch (JSONException e) {
+            e.printStackTrace();
+        } catch (ParseException e) {
+            Log.i("CHROMA", "Could not parse date in OpenBook.json file !");
             e.printStackTrace();
         }
 

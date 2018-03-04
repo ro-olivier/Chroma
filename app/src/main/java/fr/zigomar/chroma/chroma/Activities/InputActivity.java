@@ -20,9 +20,9 @@ public abstract class InputActivity extends AppCompatActivity {
 
     private static final String CURRENT_DATE = "com.example.chroma.current_date";
 
-    DataHandler dh;
+    protected DataHandler dh;
 
-    private final Date currentDate = new Date();
+    protected final Date currentDate = new Date();
 
     @Override
     protected void onCreate(final Bundle savedInstanceState) {
@@ -53,8 +53,10 @@ public abstract class InputActivity extends AppCompatActivity {
         this.currentDate.setTime(getIntent().getLongExtra(CURRENT_DATE, -1));
         updateDateView();
 
-        // init the data handler
-        this.dh = new DataHandler(this.getApplicationContext(), this.currentDate);
+        // init the data handler if not already set in the child class
+        if (this.dh == null) {
+            this.dh = new DataHandler(this.getApplicationContext(), this.currentDate);
+        }
 
         ImageButton backwardDateButton = findViewById(R.id.ButtonBackwardDate);
         backwardDateButton.setVisibility(View.INVISIBLE);

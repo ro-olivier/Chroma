@@ -58,20 +58,21 @@
     <string name="InvalidEndKM">What sorcery is this?!  Have you gone backwards?</string>
     <string name="UsingCurrentTime">Using current time since no time was given.</string>
     <string name="MissingDataLocationAndKMRequired">Location and KM count required.</string>
-    <string name="HintAuthor">Author...</string>
-    <string name="HintTitle">Title...</string>
-    <string name="BookDescriptionHint">Write a few words about this book...</string>
+    <string name="HintAuthor">Author…</string>
+    <string name="HintTitle">Title…</string>
+    <string name="BookDescriptionHint">Write a few words about this book…</string>
     <string name="HintReal">Director</string>
-    <string name="MovieDescriptionHint">Write a few words about this movie...</string>
+    <string name="MovieDescriptionHint">Write a few words about this movie…</string>
     <string name="AddMovie">Watch another movie !</string>
     <string name="MovieTitleAndNotesRequired">Title and description are required.</string>
     <string name="Summary">Total :</string>
-    <string name="HintBookTitle">Book title...</string>
-    <string name="HintBookAuthor">Book author...</string>
+    <string name="HintBookTitle">Book title…</string>
+    <string name="HintBookAuthor">Book author…</string>
     <string name="AddBook">Add another book review !</string>
-    <string name="BookNotesRequired">Write at least one word...</string>
+    <string name="BookNotesRequired">Write at least one word…</string>
     <string name="BookDetailsRequired">Book author and title are required.</string>
     <string name="OpenBooksFileName">openBook.json</string>
+    <string name="CurrentlyOpenBooks">Currently open books:</string>
 
     <string-array name="spendingsCategories">
         <item>Drinks</item>

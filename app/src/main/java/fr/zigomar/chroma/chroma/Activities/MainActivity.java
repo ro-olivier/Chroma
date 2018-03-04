@@ -131,6 +131,18 @@ public class MainActivity extends AppCompatActivity {
                 startActivity(movieIntent);
             }
         });
+
+        Button bookButton = findViewById(R.id.ButtonToOption8);
+        bookButton.setOnClickListener(new View.OnClickListener() {
+
+            @Override
+            public void onClick(View v) {
+                Log.i("CHROMA", "Switching to book activity");
+                Intent bookIntent = new Intent (MainActivity.this, NewBookActivity.class);
+                bookIntent.putExtra(CURRENT_DATE, currentDate.getTime());
+                startActivity(bookIntent);
+            }
+        });
     }
 
     @Override

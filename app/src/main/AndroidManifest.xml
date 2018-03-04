@@ -53,6 +53,11 @@
             android:name=".Activities.MovieActivity"
             android:parentActivityName=".Activities.MainActivity"
             android:windowSoftInputMode="stateHidden"/>
+
+        <activity
+            android:name=".Activities.NewBookActivity"
+            android:parentActivityName=".Activities.MainActivity"
+            android:windowSoftInputMode="stateHidden"/>
     </application>
 
 </manifest>
