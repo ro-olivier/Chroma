@@ -56,7 +56,13 @@
 
         <activity
             android:name=".Activities.NewBookActivity"
+            android:launchMode="singleTop"
             android:parentActivityName=".Activities.MainActivity"
+            android:windowSoftInputMode="stateHidden"/>
+
+        <activity
+            android:name=".Activities.BookReviewActivity"
+            android:parentActivityName=".Activities.NewBookActivity"
             android:windowSoftInputMode="stateHidden"/>
     </application>
 

@@ -18,7 +18,7 @@ import fr.zigomar.chroma.chroma.R;
 
 public abstract class InputActivity extends AppCompatActivity {
 
-    private static final String CURRENT_DATE = "com.example.chroma.current_date";
+    protected static final String CURRENT_DATE = "com.example.chroma.current_date";
 
     protected DataHandler dh;
 
@@ -64,7 +64,7 @@ public abstract class InputActivity extends AppCompatActivity {
         forwardDateButton.setVisibility(View.INVISIBLE);
     }
 
-    private void updateDateView() {
+    protected void updateDateView() {
         // simple method to update the date view at the top of the screen
         TextView dateView = findViewById(R.id.DateTextView);
         String formattedDate = (new SimpleDateFormat("yyyy/MM/dd", Locale.FRANCE).format(this.currentDate));

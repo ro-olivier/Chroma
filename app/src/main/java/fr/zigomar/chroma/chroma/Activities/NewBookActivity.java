@@ -1,8 +1,10 @@
 package fr.zigomar.chroma.chroma.Activities;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.ListView;
 import android.widget.TextView;
@@ -26,6 +28,7 @@ public class NewBookActivity extends InputActivity {
     protected void onCreate(final Bundle savedInstanceState) {
         // calling inherited class constructor
         super.onCreate(savedInstanceState);
+        Log.i("CHROMA", "onCreate New Book");
 
         this.dh = new DataHandler(this.getApplicationContext(),
                 getString(R.string.OpenBooksFileName));
@@ -60,8 +63,24 @@ public class NewBookActivity extends InputActivity {
         // new) spendings
         ListView openBooksView = findViewById(R.id.ListViewOpenBooks);
 
-        OpenBooksAdapter openBooksAdapter = new OpenBooksAdapter(NewBookActivity.this, this.openBooks);
+        final OpenBooksAdapter openBooksAdapter = new OpenBooksAdapter(NewBookActivity.this, this.openBooks);
         openBooksView.setAdapter(openBooksAdapter);
+
+        openBooksView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                Log.i("CHROMA", "Clicked the " + position + "-th item.");
+
+                Log.i("CHROMA", "Switching to book review activity");
+                Intent bookReviewIntent = new Intent (NewBookActivity.this, BookReviewActivity.class);
+                bookReviewIntent.putExtra(CURRENT_DATE, currentDate.getTime());
+                bookReviewIntent.putExtra("BOOK_TITLE", openBooks.get(position).getTitle());
+                bookReviewIntent.putExtra("BOOK_AUTHOR", openBooks.get(position).getAuthor());
+                bookReviewIntent.putExtra("BOOK_OPENDATE", openBooks.get(position).getDateOpen());
+                startActivityForResult(bookReviewIntent, 0);
+            }
+        });
     }
 
     @Override
@@ -70,5 +89,39 @@ public class NewBookActivity extends InputActivity {
         Log.i("CHROMA", "Updating the data object with current open books");
         dh.saveOpenBookData(openBooks);
     }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        Log.i("CHROMA", "onActivityResult");
+        //Log.i("CHROMA", String.valueOf(data.getLongExtra(CURRENT_DATE, -1)));
+        //this.currentDate.setTime(data.getLongExtra(CURRENT_DATE, -1));
+        super.updateDateView();
+    }
+
+    @Override
+    protected void onResume() {
+        Log.i("CHROMA", "onResume New Book");
+        super.onResume();
+    }
+
+    @Override
+    protected void onPause() {
+        Log.i("CHROMA", "onPause New Book");
+        super.onPause();
+    }
+
+
+    @Override
+    protected void onStop() {
+        Log.i("CHROMA", "onStop New Book");
+        super.onStop();
+    }
+
+    @Override
+    protected void onDestroy() {
+        Log.i("CHROMA", "onDestroy New Book");
+        super.onDestroy();
+    }
+
 }
 

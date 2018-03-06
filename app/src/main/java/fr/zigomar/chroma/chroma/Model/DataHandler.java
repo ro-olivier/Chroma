@@ -21,7 +21,6 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Locale;
 
-
 public class DataHandler {
 
     //private Date currentDate;
@@ -399,13 +398,62 @@ public class DataHandler {
 
             for (int i = 0; i < jsonArray.length(); i++) {
                 JSONObject jso = jsonArray.getJSONObject(i);
-                s.add(new Book(jso.getString("title"), jso.getString("author"), df.parse(jso.getString("dateOpen"))));
+                s.add(new Book(jso.getString("title"), jso.getString("author"), df.parse(jso.getString("date_opened"))));
             }
 
         } catch (JSONException e) {
             e.printStackTrace();
         } catch (ParseException e) {
             Log.i("CHROMA", "Could not parse date in OpenBook.json file !");
+            e.printStackTrace();
+        }
+
+        return s;
+    }
+
+    public void saveReviewedBooksData(List<Book> l) {
+        Log.i("CHROMA", "saveReviewedBooksData was invoked.");
+        try {
+            this.data.put("books", l);
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public ArrayList<Book> getReviewedBooks() {
+        ArrayList<Book> s = new ArrayList<>();
+        JSONArray jsonArray;
+        DateFormat df = new SimpleDateFormat("EEE MMM dd kk:mm:ss z yyyy", Locale.ENGLISH);
+
+        try {
+            jsonArray = new JSONArray(this.data.get("books").toString());
+
+
+            for (int i = 0; i < jsonArray.length(); i++) {
+                JSONObject jso = jsonArray.getJSONObject(i);
+                if (jso.get("date_finished") != null) {
+                    // we have a finished book
+                    s.add(new Book(jso.getString("title"),
+                            jso.getString("author"),
+                            df.parse(jso.getString("date_opened")),
+                            jso.getString("review"),
+                            df.parse(jso.getString("date_finished")),
+                            (float) jso.getDouble("rating")));
+                } else if (jso.getString("review") != null) {
+                    // we have an unfinished book with a review already written for this day
+                    s.add(new Book(jso.getString("title"),
+                            jso.getString("author"),
+                            df.parse(jso.getString("date_opened")),
+                            jso.getString("review")));
+                } else {
+                    // we have a unreviewed book
+                    s.add(new Book(jso.getString("title"),
+                            jso.getString("author"),
+                            df.parse(jso.getString("date_opened"))));
+                }
+            }
+
+        } catch (JSONException | ParseException e) {
             e.printStackTrace();
         }
 

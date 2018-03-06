@@ -60,7 +60,7 @@
     <string name="MissingDataLocationAndKMRequired">Location and KM count required.</string>
     <string name="HintAuthor">Author…</string>
     <string name="HintTitle">Title…</string>
-    <string name="BookDescriptionHint">Write a few words about this book…</string>
+    <string name="HintBookDescription">Write a few words about this book…</string>
     <string name="HintReal">Director</string>
     <string name="MovieDescriptionHint">Write a few words about this movie…</string>
     <string name="AddMovie">Watch another movie !</string>
@@ -73,6 +73,8 @@
     <string name="BookDetailsRequired">Book author and title are required.</string>
     <string name="OpenBooksFileName">openBook.json</string>
     <string name="CurrentlyOpenBooks">Currently open books:</string>
+    <string name="BookCloseQuestion">Close book?</string>
+    <string name="CannotReOpenBook">This book has been closed and cannot be reopened!</string>
 
     <string-array name="spendingsCategories">
         <item>Drinks</item>

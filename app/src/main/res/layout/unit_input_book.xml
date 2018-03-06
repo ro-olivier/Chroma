@@ -15,7 +15,7 @@
         android:layout_height="100dp"
         android:inputType="textMultiLine|textCapSentences|textAutoCorrect"
         android:id="@+id/BookTextData"
-        android:hint="@string/BookDescriptionHint"
+        android:hint="@string/HintBookDescription"
         android:gravity="top"
         android:scrollbars="vertical"
         android:scrollbarFadeDuration="0"
