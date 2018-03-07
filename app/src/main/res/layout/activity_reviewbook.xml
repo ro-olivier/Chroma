@@ -12,47 +12,8 @@
     <include
         layout="@layout/display_date"/>
 
-    <TextView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:id="@+id/BookTitle"/>
-
-    <TextView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:id="@+id/BookAuthor"/>
-
-    <TextView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:id="@+id/BookOpenDate"/>
-
-    <TextView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:id="@+id/BookCloseDate"/>
-
-    <CheckBox
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="@string/BookCloseQuestion"
-        android:id="@+id/BookCloseCheckBox"/>
-
-    <RatingBar
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:visibility="invisible"
-        android:layout_gravity="center"
-        android:id="@+id/BookRating"
-        android:max="5"
-        android:numStars="5"
-        android:stepSize="0.5" />
-
-    <EditText
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:id="@+id/BookNotes"
-        android:hint="@string/HintBookDescription"/>
+    <include
+        layout="@layout/input_book_review"/>
 
 
 </LinearLayout>
