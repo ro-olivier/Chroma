@@ -12,7 +12,7 @@
         android:textSize="15sp"
         android:id="@+id/Station"
         android:maxLines="1"
-        android:inputType="text"
+        android:inputType="text|textCapSentences|textAutoCorrect"
         android:background="#FAFAFA"
         android:layout_marginStart="@dimen/activity_vertical_margin"
         android:hint="@string/HintStation"/>

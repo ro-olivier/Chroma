@@ -17,7 +17,7 @@
             android:id="@+id/carTrip_origin"
             android:textSize="15sp"
             android:maxLines="1"
-            android:inputType="text"
+            android:inputType="text|textCapSentences|textAutoCorrect"
             android:background="#FAFAFA"/>
 
         <EditText
@@ -67,7 +67,7 @@
             android:id="@+id/carTrip_destination"
             android:textSize="15sp"
             android:maxLines="1"
-            android:inputType="text"
+            android:inputType="text|textCapSentences|textAutoCorrect"
             android:background="#FAFAFA"/>
 
         <EditText
