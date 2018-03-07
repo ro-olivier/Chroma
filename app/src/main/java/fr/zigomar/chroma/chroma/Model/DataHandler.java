@@ -391,7 +391,7 @@ public class DataHandler {
         ArrayList<Book> s = new ArrayList<>();
         JSONArray jsonArray;
         Log.i("CHROMA", this.data.toString());
-        DateFormat df = new SimpleDateFormat("EEE MMM dd kk:mm:ss z yyyy", Locale.ENGLISH);
+        DateFormat df = new SimpleDateFormat("yyyy/MM/dd", Locale.FRANCE);
         try {
             jsonArray = new JSONArray(this.data.get("books").toString());
 
@@ -423,7 +423,7 @@ public class DataHandler {
     public ArrayList<Book> getReviewedBooks() {
         ArrayList<Book> s = new ArrayList<>();
         JSONArray jsonArray;
-        DateFormat df = new SimpleDateFormat("EEE MMM dd kk:mm:ss z yyyy", Locale.ENGLISH);
+        DateFormat df = new SimpleDateFormat("yyyy/MM/dd", Locale.FRANCE);
 
         try {
             jsonArray = new JSONArray(this.data.get("books").toString());
@@ -431,7 +431,7 @@ public class DataHandler {
 
             for (int i = 0; i < jsonArray.length(); i++) {
                 JSONObject jso = jsonArray.getJSONObject(i);
-                if (jso.get("date_finished") != null) {
+                if (jso.has("date_finished")) {
                     // we have a finished book
                     s.add(new Book(jso.getString("title"),
                             jso.getString("author"),
@@ -439,7 +439,7 @@ public class DataHandler {
                             jso.getString("review"),
                             df.parse(jso.getString("date_finished")),
                             (float) jso.getDouble("rating")));
-                } else if (jso.getString("review") != null) {
+                } else if (jso.has("review")) {
                     // we have an unfinished book with a review already written for this day
                     s.add(new Book(jso.getString("title"),
                             jso.getString("author"),

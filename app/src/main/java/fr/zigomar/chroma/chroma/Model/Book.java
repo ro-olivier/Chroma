@@ -101,7 +101,7 @@ public class Book {
     public String getHash() { return hash; }
 
     private JSONObject getBookAsJSON() {
-        DateFormat df = new SimpleDateFormat("EEE MMM dd kk:mm:ss z yyyy", Locale.ENGLISH);
+        DateFormat df = new SimpleDateFormat("yyyy/MM/dd", Locale.FRANCE);
         JSONObject json = new JSONObject();
         try {
             json.put("hash", this.hash);
@@ -121,5 +121,16 @@ public class Book {
 
     public String toString() {
         return getBookAsJSON().toString();
+    }
+
+    public void updateReview(String notes) {
+        this.review = notes;
+    }
+
+    public void rateBook(String notes, Date closeDate, float rating) {
+        this.review = notes;
+        this.datefinished = closeDate;
+        this.rating = rating;
+        this.finished = true;
     }
 }
