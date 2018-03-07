@@ -171,7 +171,12 @@ public class MainActivity extends AppCompatActivity {
         // simple method to update the date view at the top of the screen
         TextView dateView = findViewById(R.id.DateTextView);
         String formattedDate = (new SimpleDateFormat("yyyy/MM/dd", Locale.FRANCE).format(this.currentDate));
-        Log.i("CHROMA", "Updating date : " + formattedDate);
         dateView.setText(formattedDate);
+
+        TextView dayView = findViewById(R.id.DayTextView);
+        String formattedDay = (new SimpleDateFormat("EEEE", Locale.ENGLISH).format(this.currentDate));
+        dayView.setText(formattedDay);
+
+        Log.i("CHROMA", "Updating date : " + formattedDate + " (" + formattedDay + ")");
     }
 }
