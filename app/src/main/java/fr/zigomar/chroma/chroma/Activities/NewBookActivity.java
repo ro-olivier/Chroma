@@ -1,5 +1,7 @@
 package fr.zigomar.chroma.chroma.Activities;
 
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
@@ -80,9 +82,43 @@ public class NewBookActivity extends InputActivity {
                     Log.i("CHROMA", "Added a new book !");
                     openBooks.add(new Book(title.getText().toString(), author.getText().toString(), currentDate));
                     openBooksAdapter.notifyDataSetChanged();
+                    resetViews();
                 } else {
                     Toast.makeText(getApplicationContext(), R.string.BookDetailsRequired, Toast.LENGTH_SHORT).show();
                 }
+            }
+        });
+
+
+        openBooksView.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
+            @Override
+            public boolean onItemLongClick(AdapterView<?> parent, View view, int position, long id) {
+                Log.i("CHROMA", "Clicked the " + position + "-th item.");
+
+                final int pos = position;
+                AlertDialog.Builder builder = new AlertDialog.Builder(view.getContext());
+
+                builder.setTitle(R.string.DeleteTitle);
+                builder.setMessage(R.string.DeleteItemQuestion);
+
+                builder.setPositiveButton(R.string.YES, new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        openBooksAdapter.remove(openBooks.get(pos));
+                        openBooksAdapter.notifyDataSetChanged();
+                        dialog.dismiss();
+                    }
+                });
+                builder.setNegativeButton(R.string.NO, new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        dialog.dismiss();
+                    }
+                });
+
+                AlertDialog alert = builder.create();
+                alert.show();
+                return true;
             }
         });
 
@@ -114,6 +150,11 @@ public class NewBookActivity extends InputActivity {
         } else {
             Log.i("CHROMA", "Received code : " + resultCode);
         }
+    }
+
+    private void resetViews() {
+        title.setText("");
+        author.setText("");
     }
 
     @Override

@@ -26,7 +26,7 @@
     <string name="VolumeUnit">mL</string>
     <string name="KilometersUnit">km</string>
     <string name="RevertTransport">Revert last trip !</string>
-    <string name="HintStation">St-Ambroise</string>
+    <string name="HintStation">Saint-Ambroise</string>
     <string name="HintLine">M9</string>
     <string name="AddStep">Add trip step</string>
     <string name="AddTrip">Submit trip</string>

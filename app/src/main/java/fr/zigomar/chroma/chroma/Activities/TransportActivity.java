@@ -1,5 +1,6 @@
 package fr.zigomar.chroma.chroma.Activities;
 
+import android.annotation.SuppressLint;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.os.Bundle;
@@ -44,12 +45,25 @@ public class TransportActivity extends InputActivity {
 
         this.priceField = findViewById(R.id.TripPrice);
 
+        // init of the data : fetch trips data in the currentDate file if it exist
+        this.trips = getTrips();
+        updateSummary();
+
+        if (trips.size() > 0) {
+            Log.i("CHROMA", "Trips is not empty, let's prefill the station");
+            stepsList = findViewById(R.id.StepLinearLayout);
+            View child = stepsList.findViewById(R.id.Station);
+            EditText station = child.findViewById(R.id.Station);
+            Trip lastTrip = trips.get(trips.size() - 1);
+            station.setText(lastTrip.getSteps().get(lastTrip.getNumberOfSteps() - 1).getStop());
+        }
+
         Button addStepButton = findViewById(R.id.AddStep);
         addStepButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 stepsList = findViewById(R.id.StepLinearLayout);
-                View child = getLayoutInflater().inflate(R.layout.unit_input_tripstep, null);
+                @SuppressLint("InflateParams") View child = getLayoutInflater().inflate(R.layout.unit_input_tripstep, null);
                 stepsList.addView(child);
             }
         });
@@ -63,7 +77,7 @@ public class TransportActivity extends InputActivity {
                     try {
                         double cost = Double.parseDouble(cost_str);
                         int childCount = stepsList.getChildCount();
-                        if ( childCount > 1) {
+                        if (childCount > 1) {
                             ArrayList<Step> ar = new ArrayList<>();
 
                             for (int i = 0; i < childCount - 1; i++) {
@@ -80,7 +94,7 @@ public class TransportActivity extends InputActivity {
                             tripAdapter.add(new Trip(ar, cost));
                             updateSummary();
                             Log.i("CHROMA", "Currently " + trips.size() + " trips.");
-                            resetViews();
+                            resetViews(station.getText().toString());
                         } else {
                             Toast.makeText(getApplicationContext(), R.string.TripMinimumTwoStepsRequired, Toast.LENGTH_SHORT).show();
                         }
@@ -103,10 +117,6 @@ public class TransportActivity extends InputActivity {
                 }
             }
         });
-
-        // init of the data : fetch trips data in the currentDate file if it exist
-        this.trips = getTrips();
-        updateSummary();
 
         // finishing up the setting of the adapter for the list view of the retrieved (and
         // new) trips
@@ -179,10 +189,13 @@ public class TransportActivity extends InputActivity {
 
     }
 
-    private void resetViews() {
+    private void resetViews(String s) {
         stepsList.removeAllViews();
-        View child = getLayoutInflater().inflate(R.layout.unit_input_tripstep, null);
+        @SuppressLint("InflateParams") View child = getLayoutInflater().inflate(R.layout.unit_input_tripstep, null);
         stepsList.addView(child);
+
+        EditText station = child.findViewById(R.id.Station);
+        station.setText(s);
 
         priceField.setText("");
     }
