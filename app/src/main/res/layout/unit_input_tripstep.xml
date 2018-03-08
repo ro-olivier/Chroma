@@ -5,7 +5,7 @@
     android:layout_height="20dp"
     android:layout_marginBottom="@dimen/half_activity_vertical_margin">
 
-    <EditText
+    <AutoCompleteTextView
         android:layout_width="0dp"
         android:layout_height="fill_parent"
         android:layout_weight="12"

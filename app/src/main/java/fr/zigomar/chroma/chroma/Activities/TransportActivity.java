@@ -2,11 +2,14 @@ package fr.zigomar.chroma.chroma.Activities;
 
 import android.annotation.SuppressLint;
 import android.app.AlertDialog;
+import android.content.Context;
 import android.content.DialogInterface;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
+import android.widget.AutoCompleteTextView;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.LinearLayout;
@@ -53,10 +56,15 @@ public class TransportActivity extends InputActivity {
             Log.i("CHROMA", "Trips is not empty, let's prefill the station");
             stepsList = findViewById(R.id.StepLinearLayout);
             View child = stepsList.findViewById(R.id.Station);
-            EditText station = child.findViewById(R.id.Station);
+            AutoCompleteTextView station = child.findViewById(R.id.Station);
             Trip lastTrip = trips.get(trips.size() - 1);
             station.setText(lastTrip.getSteps().get(lastTrip.getNumberOfSteps() - 1).getStop());
         }
+
+        ArrayAdapter<CharSequence> stationAdapter = ArrayAdapter.createFromResource(TransportActivity.this,
+                R.array.stations, R.layout.dropdown);
+        AutoCompleteTextView textView = findViewById(R.id.Station);
+        textView.setAdapter(stationAdapter);
 
         Button addStepButton = findViewById(R.id.AddStep);
         addStepButton.setOnClickListener(new View.OnClickListener() {
@@ -65,6 +73,11 @@ public class TransportActivity extends InputActivity {
                 stepsList = findViewById(R.id.StepLinearLayout);
                 @SuppressLint("InflateParams") View child = getLayoutInflater().inflate(R.layout.unit_input_tripstep, null);
                 stepsList.addView(child);
+
+                ArrayAdapter<CharSequence> stationAdapter = ArrayAdapter.createFromResource(TransportActivity.this,
+                        R.array.stations, R.layout.dropdown);
+                AutoCompleteTextView textView = child.findViewById(R.id.Station);
+                textView.setAdapter(stationAdapter);
             }
         });
 
@@ -82,13 +95,13 @@ public class TransportActivity extends InputActivity {
 
                             for (int i = 0; i < childCount - 1; i++) {
                                 View child = stepsList.getChildAt(i);
-                                EditText station = child.findViewById(R.id.Station);
+                                AutoCompleteTextView station = child.findViewById(R.id.Station);
                                 EditText line = child.findViewById(R.id.Line);
                                 ar.add(new Step(station.getText().toString(), line.getText().toString()));
                             }
 
                             View child = stepsList.getChildAt(childCount - 1);
-                            EditText station = child.findViewById(R.id.Station);
+                            AutoCompleteTextView station = child.findViewById(R.id.Station);
                             ar.add(new Step(station.getText().toString()));
 
                             tripAdapter.add(new Trip(ar, cost));
@@ -194,7 +207,7 @@ public class TransportActivity extends InputActivity {
         @SuppressLint("InflateParams") View child = getLayoutInflater().inflate(R.layout.unit_input_tripstep, null);
         stepsList.addView(child);
 
-        EditText station = child.findViewById(R.id.Station);
+        AutoCompleteTextView station = child.findViewById(R.id.Station);
         station.setText(s);
 
         priceField.setText("");
@@ -243,4 +256,6 @@ public class TransportActivity extends InputActivity {
         Log.i("CHROMA", "Updating the data object with current trips");
         this.dh.saveTransportData(this.trips);
     }
+
+    public static Context getInstance() { return new TransportActivity(); }
 }
