@@ -19,6 +19,8 @@ public class MoodActivity extends InputActivity {
     private NumberPicker pickerMood2;
     private NumberPicker pickerMood3;
 
+    private boolean pickersVisible = true;
+
     private EditText textData;
 
     @Override
@@ -37,6 +39,9 @@ public class MoodActivity extends InputActivity {
         this.pickerMood2 = findViewById(R.id.MoodPicker2);
         this.pickerMood3 = findViewById(R.id.MoodPicker3);
 
+        this.pickerMood3.setFocusable(true);
+        this.pickerMood3.setFocusableInTouchMode(true);
+
         this.textData = findViewById(R.id.TextData);
 
         // setting the parameters of the views
@@ -53,6 +58,7 @@ public class MoodActivity extends InputActivity {
                     pickerMood1.setVisibility(View.GONE);
                     pickerMood2.setVisibility(View.GONE);
                     pickerMood3.setVisibility(View.GONE);
+                    pickersVisible = false;
                 }
             }
         });
@@ -74,6 +80,16 @@ public class MoodActivity extends InputActivity {
         this.pickerMood2.setWrapSelectorWheel(false);
         this.pickerMood3.setWrapSelectorWheel(false);
 
+    }
+
+    @Override
+    public void onBackPressed() {
+        if (!this.pickersVisible) {
+            pickerMood1.setVisibility(View.VISIBLE);
+            pickerMood2.setVisibility(View.VISIBLE);
+            pickerMood3.setVisibility(View.VISIBLE);
+            pickersVisible = true;
+        }
     }
 
     private void initMoodData() {
