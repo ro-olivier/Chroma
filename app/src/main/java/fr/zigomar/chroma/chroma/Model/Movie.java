@@ -32,7 +32,7 @@ public class Movie {
         return rating;
     }
 
-    private JSONObject getSpendingAsJSON() {
+    public JSONObject getMovieAsJSON() {
         JSONObject json = new JSONObject();
         try {
             json.put("title", this.title);
@@ -47,6 +47,6 @@ public class Movie {
     }
 
     public String toString() {
-        return getSpendingAsJSON().toString();
+        return getMovieAsJSON().toString();
     }
 }

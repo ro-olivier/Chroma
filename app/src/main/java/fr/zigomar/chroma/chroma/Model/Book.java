@@ -100,7 +100,7 @@ public class Book {
 
     public String getHash() { return hash; }
 
-    private JSONObject getBookAsJSON() {
+    public JSONObject getBookAsJSON() {
         DateFormat df = new SimpleDateFormat("yyyy/MM/dd", Locale.FRANCE);
         JSONObject json = new JSONObject();
         try {

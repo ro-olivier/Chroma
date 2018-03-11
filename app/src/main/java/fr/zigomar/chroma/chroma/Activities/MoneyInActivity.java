@@ -16,7 +16,7 @@ import java.text.DecimalFormat;
 import java.util.ArrayList;
 
 import fr.zigomar.chroma.chroma.Adapters.EarningAdapter;
-import fr.zigomar.chroma.chroma.Model.Earning;
+import fr.zigomar.chroma.chroma.Model.Income;
 import fr.zigomar.chroma.chroma.R;
 
 public class MoneyInActivity extends InputActivity {
@@ -24,8 +24,8 @@ public class MoneyInActivity extends InputActivity {
     private TextView descField;
     private TextView amountField;
 
-    private ArrayList<Earning> earnings;
-    private EarningAdapter earningAdapter;
+    private ArrayList<Income> incomes;
+    private EarningAdapter incomeAdapter;
 
     @Override
     protected void onCreate(final Bundle savedInstanceState) {
@@ -45,9 +45,9 @@ public class MoneyInActivity extends InputActivity {
                     try {
                         Double a = Double.valueOf(amountField.getText().toString());
 
-                        earningAdapter.add(new Earning(d, a));
+                        incomeAdapter.add(new Income(d, a));
                         updateSummary();
-                        Log.i("CHROMA", "Currently " + earnings.size() + " earnings.");
+                        Log.i("CHROMA", "Currently " + incomes.size() + " incomes.");
                     } catch (NumberFormatException e) {
                         Toast.makeText(getApplicationContext(), R.string.UnableToParse, Toast.LENGTH_SHORT).show();
                     }
@@ -57,19 +57,19 @@ public class MoneyInActivity extends InputActivity {
             }
         });
 
-        // init of the data : fetch earnings data in the currentDate file if it exist
-        this.earnings = getEarnings();
+        // init of the data : fetch incomes data in the currentDate file if it exist
+        this.incomes = getIncomes();
         updateSummary();
 
         // finishing up the setting of the adapter for the list view of the retrieve (and
-        // new) earnings
-        ListView earningsListView = findViewById(R.id.ListViewMoney);
+        // new) incomes
+        ListView incomesListView = findViewById(R.id.ListViewMoney);
 
-        this.earningAdapter = new EarningAdapter(MoneyInActivity.this, this.earnings);
-        earningsListView.setAdapter(this.earningAdapter);
+        this.incomeAdapter = new EarningAdapter(MoneyInActivity.this, this.incomes);
+        incomesListView.setAdapter(this.incomeAdapter);
 
 
-        earningsListView.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
+        incomesListView.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
             @Override
             public boolean onItemLongClick(AdapterView<?> parent, View view, int position, long id) {
                 Log.i("CHROMA", "Clicked the " + position + "-th item.");
@@ -83,8 +83,8 @@ public class MoneyInActivity extends InputActivity {
                 builder.setPositiveButton(R.string.YES, new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
-                        earningAdapter.remove(earnings.get(pos));
-                        earningAdapter.notifyDataSetChanged();
+                        incomeAdapter.remove(incomes.get(pos));
+                        incomeAdapter.notifyDataSetChanged();
                         updateSummary();
                         dialog.dismiss();
                     }
@@ -113,7 +113,7 @@ public class MoneyInActivity extends InputActivity {
         TextView field1_text = findViewById(R.id.data_summary_text1);
         TextView field2_text = findViewById(R.id.data_summary_text2);
 
-        if (this.earnings.size() > 0) {
+        if (this.incomes.size() > 0) {
 
             field0_data.setText(R.string.Summary);
 
@@ -121,7 +121,7 @@ public class MoneyInActivity extends InputActivity {
             field1_text.setVisibility(View.INVISIBLE);
 
             double amount_total = 0;
-            for (Earning d : this.earnings) {
+            for (Income d : this.incomes) {
                 amount_total += d.getAmount();
             }
             DecimalFormat df = new DecimalFormat("0.00");
@@ -134,15 +134,15 @@ public class MoneyInActivity extends InputActivity {
         }
     }
 
-    private ArrayList<Earning> getEarnings(){
+    private ArrayList<Income> getIncomes(){
         // getting the data is handled by the DataHandler
-        return this.dh.getEarningsList();
+        return this.dh.getIncomesList();
     }
 
     @Override
     protected void saveData() {
         // simply pass the data to the DataHandler with the dedicated method
-        Log.i("CHROMA", "Updating the data object with current earnings");
-        this.dh.saveMoneyInData(this.earnings);
+        Log.i("CHROMA", "Updating the data object with current incomes");
+        this.dh.saveMoneyInData(this.incomes);
     }
 }

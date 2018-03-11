@@ -26,13 +26,13 @@ public class Drink {
         this.ua = 0.8*0.001*volume*degree;
     }
 
-    private JSONObject getDrinkAsJSON() {
+    public JSONObject getDrinkAsJSON() {
         JSONObject json = new JSONObject();
         try {
-            json.put("drink_description", this.description);
-            json.put("drink_volume", this.volume);
-            json.put("drink_degree", this.degree);
-            json.put("drink_ua", this.ua);
+            json.put("description", this.description);
+            json.put("volume", this.volume);
+            json.put("alcohol", this.degree);
+            json.put("ua", this.ua);
         } catch (JSONException a) {
             return new JSONObject();
         }

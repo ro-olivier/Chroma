@@ -76,6 +76,7 @@
     <string name="BookCloseQuestion">Close book?</string>
     <string name="CannotReOpenBook">This book has been closed and cannot be reopened!</string>
     <string name="export">Export data</string>
+    <string name="ExportOK">Data export was succesful.</string>
 
     <string-array name="spendingsCategories">
         <item>Drinks</item>

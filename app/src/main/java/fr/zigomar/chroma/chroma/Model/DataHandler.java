@@ -31,8 +31,7 @@ public class DataHandler {
     private static final int INITIAL_MOOD = 5;
 
     public DataHandler(Context ctx, Date currentDate) {
-        //this.currentDate = currentDate;
-        this.filename = new SimpleDateFormat("yyyy-MM-dd", Locale.FRANCE).format(currentDate);
+        this.filename = new SimpleDateFormat("yyyy-MM-dd", Locale.FRANCE).format(currentDate) + ".json";
         this.data = new JSONObject();
         initData(ctx);
         Log.i("CHROMA", "Opened or created file " + this.filename);
@@ -52,6 +51,7 @@ public class DataHandler {
             - writeToFile method
         ########################################################
      */
+
     private void initData(Context ctx) {
         Log.i("CHROMA", "Data init started.");
 
@@ -109,6 +109,7 @@ public class DataHandler {
         - getMoodData
     ########################################################
     */
+
     public void saveMoodData(int v1, int v2, int v3, String txt) {
         // method used by the MoodActivity to update the mood data with was was
         // written in the view. Pretty simple !
@@ -161,8 +162,12 @@ public class DataHandler {
 
     public void saveMoneyData(List<Spending> l) {
         Log.i("CHROMA", "SaveMoneyData was invoked.");
+        JSONArray jArray = new JSONArray();
+        for (Spending spending : l) {
+            jArray.put(spending.getSpendingAsJSON());
+        }
         try {
-            this.data.put("spendings", l);
+            this.data.put("spendings", jArray);
         } catch (JSONException e) {
             e.printStackTrace();
         }
@@ -177,7 +182,7 @@ public class DataHandler {
 
         for (int i = 0; i < jsonArray.length(); i++) {
             JSONObject jso = jsonArray.getJSONObject(i);
-            s.add(new Spending(jso.getString("spending_description"), jso.getString("spending_category"), jso.getDouble("spending_amount")));
+            s.add(new Spending(jso.getString("description"), jso.getString("category"), jso.getDouble("amount")));
         }
 
         } catch (JSONException e) {
@@ -187,18 +192,22 @@ public class DataHandler {
         return s;
     }
 
-        /*
+    /*
     ########################################################
     Drink section :
-        - saveMoneyData
-        - getSpendingsList
+        - saveAlcoholData
+        - getDrinksList
     ########################################################
     */
 
     public void saveAlcoholData(List<Drink> l) {
-        Log.i("CHROMA", "SaveMoneyData was invoked.");
+        Log.i("CHROMA", "SaveAlcoholData was invoked.");
+        JSONArray jArray = new JSONArray();
+        for (Drink drink : l) {
+            jArray.put(drink.getDrinkAsJSON());
+        }
         try {
-            this.data.put("drinks", l);
+            this.data.put("drinks", jArray);
         } catch (JSONException e) {
             e.printStackTrace();
         }
@@ -213,7 +222,7 @@ public class DataHandler {
 
             for (int i = 0; i < jsonArray.length(); i++) {
                 JSONObject jso = jsonArray.getJSONObject(i);
-                s.add(new Drink(jso.getString("drink_description"), jso.getDouble("drink_volume"), jso.getDouble("drink_degree")));
+                s.add(new Drink(jso.getString("description"), jso.getDouble("volume"), jso.getDouble("content")));
             }
 
         } catch (JSONException e) {
@@ -233,8 +242,12 @@ public class DataHandler {
 
     public void saveTransportData(List<Trip> l) {
         Log.i("CHROMA", "SaveTransportData was invoked.");
+        JSONArray jArray = new JSONArray();
+        for (Trip trip : l) {
+            jArray.put(trip.getTripAsJSON());
+        }
         try {
-            this.data.put("trips", l);
+            this.data.put("trips", jArray);
         } catch (JSONException e) {
             e.printStackTrace();
         }
@@ -249,7 +262,7 @@ public class DataHandler {
 
             for (int i = 0; i < jsonArray.length(); i++) {
                 JSONObject jso = jsonArray.getJSONObject(i);
-                s.add(new Trip(jso.getString("trip"), jso.getDouble("trip_cost")));
+                s.add(new Trip(jso.getString("trip"), jso.getDouble("cost")));
             }
 
         } catch (JSONException e) {
@@ -257,6 +270,27 @@ public class DataHandler {
         }
 
         return s;
+    }
+
+    /*
+    ########################################################
+    CarTrip section :
+        - saveCarTripData
+        - getCarTripsList
+    ########################################################
+    */
+
+    public void saveCarTripData(ArrayList<CarTrip> l) {
+        Log.i("CHROMA", "SaveCarTripData was invoked.");
+        JSONArray jArray = new JSONArray();
+        for (CarTrip carTrip : l) {
+            jArray.put(carTrip.getCarTripAsJSON());
+        }
+        try {
+            this.data.put("carTrips", jArray);
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
     }
 
     public ArrayList<CarTrip> getCarTripsList() {
@@ -288,42 +322,37 @@ public class DataHandler {
         return s;
     }
 
-    public void saveCarTripData(ArrayList<CarTrip> carTrips) {
-        Log.i("CHROMA", "SaveCarTripData was invoked.");
-        try {
-            this.data.put("carTrips", carTrips);
-        } catch (JSONException e) {
-            e.printStackTrace();
-        }
-    }
-
     /*
     ########################################################
     Money In section :
         - saveMoneyInData
-        - getEarningsList
+        - getIncomesList
     ########################################################
     */
 
-    public void saveMoneyInData(List<Earning> l) {
+    public void saveMoneyInData(List<Income> l) {
         Log.i("CHROMA", "SaveMoneyInData was invoked.");
+        JSONArray jArray = new JSONArray();
+        for (Income income : l) {
+            jArray.put(income.getIncomeAsJSON());
+        }
         try {
-            this.data.put("earnings", l);
+            this.data.put("incomes", jArray);
         } catch (JSONException e) {
             e.printStackTrace();
         }
     }
 
-    public ArrayList<Earning> getEarningsList() {
-        ArrayList<Earning> s = new ArrayList<>();
+    public ArrayList<Income> getIncomesList() {
+        ArrayList<Income> s = new ArrayList<>();
         JSONArray jsonArray;
         try {
-            jsonArray = new JSONArray(this.data.get("earnings").toString());
+            jsonArray = new JSONArray(this.data.get("incomes").toString());
 
 
             for (int i = 0; i < jsonArray.length(); i++) {
                 JSONObject jso = jsonArray.getJSONObject(i);
-                s.add(new Earning(jso.getString("earning_description"), jso.getDouble("earning_amount")));
+                s.add(new Income(jso.getString("description"), jso.getDouble("amount")));
             }
 
         } catch (JSONException e) {
@@ -333,24 +362,28 @@ public class DataHandler {
         return s;
     }
 
-        /*
+    /*
     ########################################################
     Money In section :
         - saveMovieData
-        - getMovie
+        - getMoviesList
     ########################################################
     */
 
     public void saveMovieData(List<Movie> l) {
         Log.i("CHROMA", "SaveMovieData was invoked.");
+        JSONArray jArray = new JSONArray();
+        for (Movie movie : l) {
+            jArray.put(movie.getMovieAsJSON());
+        }
         try {
-            this.data.put("movies", l);
+            this.data.put("movies", jArray);
         } catch (JSONException e) {
             e.printStackTrace();
         }
     }
 
-    public ArrayList<Movie> getMovies() {
+    public ArrayList<Movie> getMoviesList() {
         ArrayList<Movie> s = new ArrayList<>();
         JSONArray jsonArray;
         try {
@@ -374,14 +407,20 @@ public class DataHandler {
     Book section :
         - saveOpenBooksData (save data to file openBooks.json)
         - getOpenBooksData (read data from file openBooks.json)
+
+        - saveReviewedBooksData
+        - getReviewedBooksList
     ########################################################
     */
 
     public void saveOpenBookData(List<Book> l) {
         Log.i("CHROMA", "SaveNewBook was invoked.");
+        JSONArray jArray = new JSONArray();
+        for (Book book : l) {
+            jArray.put(book.getBookAsJSON());
+        }
         try {
-            this.data.put("books", l);
-            Log.i("CHROMA", l.toString());
+            this.data.put("books", jArray);
         } catch (JSONException e) {
             e.printStackTrace();
         }
@@ -413,14 +452,18 @@ public class DataHandler {
 
     public void saveReviewedBooksData(List<Book> l) {
         Log.i("CHROMA", "saveReviewedBooksData was invoked.");
+        JSONArray jArray = new JSONArray();
+        for (Book book : l) {
+            jArray.put(book.getBookAsJSON());
+        }
         try {
-            this.data.put("books", l);
+            this.data.put("books", jArray);
         } catch (JSONException e) {
             e.printStackTrace();
         }
     }
 
-    public ArrayList<Book> getReviewedBooks() {
+    public ArrayList<Book> getReviewedBooksList() {
         ArrayList<Book> s = new ArrayList<>();
         JSONArray jsonArray;
         DateFormat df = new SimpleDateFormat("yyyy/MM/dd", Locale.FRANCE);

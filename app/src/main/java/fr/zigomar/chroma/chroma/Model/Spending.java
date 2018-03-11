@@ -26,12 +26,12 @@ public class Spending {
         return amount;
     }
 
-    private JSONObject getSpendingAsJSON() {
+    public JSONObject getSpendingAsJSON() {
         JSONObject json = new JSONObject();
         try {
-            json.put("spending_description", this.description);
-            json.put("spending_category", this.category);
-            json.put("spending_amount", this.amount);
+            json.put("description", this.description);
+            json.put("category", this.category);
+            json.put("amount", this.amount);
         } catch (JSONException a) {
             return new JSONObject();
         }

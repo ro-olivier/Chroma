@@ -75,7 +75,7 @@ public class MovieActivity extends InputActivity {
 
     private ArrayList<Movie> getMovies(){
         // getting the data is handled by the DataHandler
-        return this.dh.getMovies();
+        return this.dh.getMoviesList();
     }
 
     @Override

@@ -91,7 +91,7 @@ public class CarTrip {
         return this.getCarTripAsJSON().toString();
     }
 
-    private JSONObject getCarTripAsJSON() {
+    public JSONObject getCarTripAsJSON() {
         JSONObject json = new JSONObject();
 
         try {

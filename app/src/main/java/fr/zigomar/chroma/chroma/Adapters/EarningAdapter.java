@@ -12,13 +12,13 @@ import android.widget.TextView;
 import java.text.DecimalFormat;
 import java.util.List;
 
-import fr.zigomar.chroma.chroma.Model.Earning;
+import fr.zigomar.chroma.chroma.Model.Income;
 import fr.zigomar.chroma.chroma.R;
 
-public class EarningAdapter extends ArrayAdapter<Earning> {
+public class EarningAdapter extends ArrayAdapter<Income> {
 
-    public EarningAdapter(Context context, List<Earning> earnings) {
-        super(context, 0, earnings);
+    public EarningAdapter(Context context, List<Income> incomes) {
+        super(context, 0, incomes);
     }
 
     @NonNull
@@ -37,14 +37,14 @@ public class EarningAdapter extends ArrayAdapter<Earning> {
             convertView.setTag(viewHolder);
         }
 
-        Earning earning = getItem(position);
+        Income income = getItem(position);
 
         DecimalFormat df = new DecimalFormat("0.00");
 
         //il ne reste plus qu'à remplir notre vue
-        assert earning != null;
-        viewHolder.description.setText(earning.getDescription());
-        viewHolder.amount.setText(df.format(earning.getAmount()));
+        assert income != null;
+        viewHolder.description.setText(income.getDescription());
+        viewHolder.amount.setText(df.format(income.getAmount()));
 
         return convertView;
     }

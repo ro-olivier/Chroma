@@ -3,11 +3,11 @@ package fr.zigomar.chroma.chroma.Model;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-public class Earning {
+public class Income {
     private final String description;
     private final double amount;
 
-    public Earning(String description, double amount) {
+    public Income(String description, double amount) {
         this.amount = amount;
         this.description = description;
     }
@@ -20,11 +20,11 @@ public class Earning {
         return amount;
     }
 
-    private JSONObject getEarningAsJSON() {
+    public JSONObject getIncomeAsJSON() {
         JSONObject json = new JSONObject();
         try {
-            json.put("earning_description", this.description);
-            json.put("earning_amount", this.amount);
+            json.put("description", this.description);
+            json.put("amount", this.amount);
         } catch (JSONException a) {
             return new JSONObject();
         }
@@ -33,6 +33,6 @@ public class Earning {
     }
 
     public String toString() {
-        return getEarningAsJSON().toString();
+        return getIncomeAsJSON().toString();
     }
 }

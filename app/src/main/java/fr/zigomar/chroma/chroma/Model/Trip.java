@@ -74,11 +74,11 @@ public class Trip {
         return this.getTripAsJSON().toString();
     }
 
-    private JSONObject getTripAsJSON() {
+    public JSONObject getTripAsJSON() {
         JSONObject json = new JSONObject();
         try {
             json.put("trip", this.tripString());
-            json.put("trip_cost", this.cost);
+            json.put("cost", this.cost);
         } catch (JSONException a) {
             return new JSONObject();
         }

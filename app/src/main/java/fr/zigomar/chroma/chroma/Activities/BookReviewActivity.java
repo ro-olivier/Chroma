@@ -67,7 +67,7 @@ public class BookReviewActivity extends InputActivity {
         }
 
         this.bookHash = getBookHash();
-        this.reviewedBooks = this.dh.getReviewedBooks();
+        this.reviewedBooks = this.dh.getReviewedBooksList();
 
         for (Book b : reviewedBooks) {
             if (Objects.equals(b.getHash(), this.bookHash)) {

@@ -18,6 +18,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -237,7 +238,7 @@ public class MainActivity extends AppCompatActivity {
                         if (byte_read != size) { Log.i("CHROMA", "Did not read the complete file, or something else went wrong"); }
                         is.close();
                         JSONObject temp = new JSONObject(new String(buffer, "UTF-8"));
-                        temp.put("timestamp", f.getName());
+                        temp.put("date", f.getName().substring(0,10));
                         data.put(temp);
                     } catch (IOException | JSONException e) {
                         e.printStackTrace();
@@ -247,7 +248,7 @@ public class MainActivity extends AppCompatActivity {
         }
 
         File exportFile = new File(Environment.getExternalStoragePublicDirectory(
-                Environment.DIRECTORY_DOCUMENTS), "export.json");
+                Environment.DIRECTORY_DOCUMENTS), "chroma_export.json");
         FileOutputStream stream = null;
         try {
             stream = new FileOutputStream(exportFile);
@@ -258,6 +259,7 @@ public class MainActivity extends AppCompatActivity {
             try {
                 if (stream != null) {
                     stream.close();
+                    Toast.makeText(getApplicationContext(), R.string.ExportOK, Toast.LENGTH_SHORT).show();
                 }
             } catch (IOException e) {
                 e.printStackTrace();
