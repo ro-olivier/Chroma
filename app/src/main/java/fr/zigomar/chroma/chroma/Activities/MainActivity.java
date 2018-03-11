@@ -1,25 +1,44 @@
 package fr.zigomar.chroma.chroma.Activities;
 
+import android.Manifest;
 import android.content.Intent;
+import android.content.pm.PackageManager;
+import android.os.Environment;
+import android.support.annotation.NonNull;
+import android.support.v4.app.ActivityCompat;
+import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.TextView;
 
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.io.File;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.InputStream;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.Locale;
+import java.util.Objects;
 
 import fr.zigomar.chroma.chroma.R;
 
 public class MainActivity extends AppCompatActivity {
 
     private static final String CURRENT_DATE = "com.example.chroma.current_date";
+    private static final int CHROMA_WRITE_EXTERNAL_STORAGE_PERMISSION = 100;
 
     private Date currentDate = new Date();
 
@@ -146,6 +165,104 @@ public class MainActivity extends AppCompatActivity {
                 startActivity(bookIntent);
             }
         });
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        MenuInflater inflater = getMenuInflater();
+        inflater.inflate(R.menu.toolbar, menu);
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+            case R.id.action_export:
+
+                if (ContextCompat.checkSelfPermission(this,
+                        Manifest.permission.WRITE_EXTERNAL_STORAGE)
+                        != PackageManager.PERMISSION_GRANTED) {
+
+                    ActivityCompat.requestPermissions(
+                            this,
+                            new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE},
+                            CHROMA_WRITE_EXTERNAL_STORAGE_PERMISSION);
+                } else {
+                    export();
+                }
+
+                return true;
+
+            default:
+                // If we got here, the user's action was not recognized.
+                // Invoke the superclass to handle it.
+                return super.onOptionsItemSelected(item);
+
+        }
+    }
+
+    @Override
+    public void onRequestPermissionsResult(int requestCode,
+                                           @NonNull String permissions[],
+                                           @NonNull int[] grantResults) {
+        switch (requestCode) {
+            case CHROMA_WRITE_EXTERNAL_STORAGE_PERMISSION: {
+
+                if (grantResults.length > 0
+                        && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+
+                    export();
+
+                } else {
+
+                    Log.i("CHROMA", "Permission refused, aborting.");
+                }
+            }
+        }
+    }
+
+    private void export() {
+
+
+        JSONArray data = new JSONArray();
+        for (File f: getFilesDir().listFiles()) {
+            if (f.isFile()) {
+                if (!Objects.equals(f.getName(), "openbooks.json")) {
+                    Log.i("CHROMA", "Processing " + f.getName());
+                    try {
+                        InputStream is = getApplicationContext().openFileInput(f.getName());
+                        int size = is.available();
+                        byte[] buffer = new byte[size];
+                        int byte_read = is.read(buffer);
+                        if (byte_read != size) { Log.i("CHROMA", "Did not read the complete file, or something else went wrong"); }
+                        is.close();
+                        JSONObject temp = new JSONObject(new String(buffer, "UTF-8"));
+                        temp.put("timestamp", f.getName());
+                        data.put(temp);
+                    } catch (IOException | JSONException e) {
+                        e.printStackTrace();
+                    }
+                }
+            }
+        }
+
+        File exportFile = new File(Environment.getExternalStoragePublicDirectory(
+                Environment.DIRECTORY_DOCUMENTS), "export.json");
+        FileOutputStream stream = null;
+        try {
+            stream = new FileOutputStream(exportFile);
+            stream.write(data.toString().getBytes());
+        } catch (IOException e) {
+            e.printStackTrace();
+        } finally {
+            try {
+                if (stream != null) {
+                    stream.close();
+                }
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
     }
 
     @Override

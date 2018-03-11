@@ -75,6 +75,7 @@
     <string name="CurrentlyOpenBooks">Currently open books:</string>
     <string name="BookCloseQuestion">Close book?</string>
     <string name="CannotReOpenBook">This book has been closed and cannot be reopened!</string>
+    <string name="export">Export data</string>
 
     <string-array name="spendingsCategories">
         <item>Drinks</item>
