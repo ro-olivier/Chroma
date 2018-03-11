@@ -30,17 +30,11 @@ public class NewBookActivity extends InputActivity {
 
     @Override
     protected void onCreate(final Bundle savedInstanceState) {
-        // calling inherited class constructor
-        super.onCreate(savedInstanceState);
-        Log.i("CHROMA", "onCreate New Book");
 
         this.dh = new DataHandler(this.getApplicationContext(),
                 getString(R.string.OpenBooksFileName));
 
-        // setting the view's layout, yay, we can see stuff on the screen!
-        setContentView(R.layout.activity_newbook);
-
-        init();
+        super.onCreate(savedInstanceState);
 
         this.title = findViewById(R.id.BookTitle);
         this.author = findViewById(R.id.BookAuthor);
@@ -77,7 +71,6 @@ public class NewBookActivity extends InputActivity {
             @Override
             public void onClick(View v) {
 
-
                 if (title.getText().toString().length() > 0 && author.getText().toString().length() > 0) {
                     Log.i("CHROMA", "Added a new book !");
                     openBooks.add(new Book(title.getText().toString(), author.getText().toString(), currentDate));
@@ -88,7 +81,6 @@ public class NewBookActivity extends InputActivity {
                 }
             }
         });
-
 
         openBooksView.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
             @Override
@@ -121,7 +113,6 @@ public class NewBookActivity extends InputActivity {
                 return true;
             }
         });
-
     }
 
     @Override
@@ -157,37 +148,4 @@ public class NewBookActivity extends InputActivity {
         author.setText("");
     }
 
-    @Override
-    protected void onResume() {
-        Log.i("CHROMA", "onResume New Book");
-        super.onResume();
-    }
-
-    @Override
-    protected void onPause() {
-        Log.i("CHROMA", "onPause New Book");
-        super.onPause();
-    }
-
-
-    @Override
-    protected void onStop() {
-        Log.i("CHROMA", "onStop New Book");
-        super.onStop();
-    }
-
-    @Override
-    protected void onDestroy() {
-        Log.i("CHROMA", "onDestroy New Book");
-        super.onDestroy();
-    }
-
-    @Override
-    protected void onNewIntent(Intent intent) {
-
-        super.onNewIntent(intent);
-        Log.i("CHROMA", "onNewIntent New Book");
-    }
-
 }
-

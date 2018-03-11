@@ -28,10 +28,6 @@ import fr.zigomar.chroma.chroma.R;
 
 public class CarActivity extends InputActivity {
 
-    // the list holding the data
-    private ArrayList<CarTrip> carTrips;
-    // the adapter managing the view of the data
-    private CarTripAdapter carTripAdapter;
     private EditText origin;
     private EditText startKM;
     private EditText startTime;
@@ -39,26 +35,20 @@ public class CarActivity extends InputActivity {
     private EditText endKM;
     private EditText endTime;
 
+    private ArrayList<CarTrip> carTrips;
+    private CarTripAdapter carTripAdapter;
+
     private int startHour;
     private int startMinute;
-
     private int endHour;
     private int endMinute;
 
     @Override
     protected void onCreate(final Bundle savedInstanceState) {
-        // calling inherited class constructor
         super.onCreate(savedInstanceState);
-
-        // setting the view's layout
-        setContentView(R.layout.activity_cartrip);
-
-        // call inherited initiating method
-        init();
 
         // init of the data : fetch drinks data in the currentDate file if it exist
         this.carTrips = getCarTrips();
-
 
         // getting the views from their id
         this.origin = findViewById(R.id.carTrip_origin);
@@ -124,7 +114,6 @@ public class CarActivity extends InputActivity {
                             // if there is at least a car trip, we need to check that the last one
                             // is complete : if it's not then we already have an ongoing trip and the user
                             // clicked the start button by mistake
-                            Log.i("CHROMA", carTrips.get(carTrips.size() - 1).toString());
                             if (carTrips.get(carTrips.size() - 1).getCompleted()) {
                                 // safe to create a new one
                                 carTripAdapter.add(new CarTrip(origin_str, cal.getTime(), startKM));
@@ -132,7 +121,6 @@ public class CarActivity extends InputActivity {
                                 Toast.makeText(getApplicationContext(), R.string.AlreadyACarTrip, Toast.LENGTH_SHORT).show();
                             }
                         }
-                        Log.i("CHROMA", "Currently " + carTrips.size() + " car trips.");
                     } catch (NumberFormatException e) {
                         Toast.makeText(getApplicationContext(), R.string.UnableToParse, Toast.LENGTH_SHORT).show();
                     }
@@ -235,7 +223,6 @@ public class CarActivity extends InputActivity {
         carTripsListView.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
             @Override
             public boolean onItemLongClick(AdapterView<?> parent, View view, int position, long id) {
-                Log.i("CHROMA", "Clicked the " + position + "-th item.");
 
                 final int pos = position;
                 AlertDialog.Builder builder = new AlertDialog.Builder(view.getContext());
@@ -295,7 +282,6 @@ public class CarActivity extends InputActivity {
         TextView field0_data = findViewById(R.id.data_summary_field0);
         TextView field1_data = findViewById(R.id.data_summary_field1);
         TextView field2_data = findViewById(R.id.data_summary_field2);
-        TextView field1_text = findViewById(R.id.data_summary_text1);
         TextView field2_text = findViewById(R.id.data_summary_text2);
 
         if (this.carTrips.size() > 0) {

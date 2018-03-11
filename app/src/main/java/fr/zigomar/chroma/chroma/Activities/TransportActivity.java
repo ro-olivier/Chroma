@@ -40,12 +40,6 @@ public class TransportActivity extends InputActivity {
         // calling inherited class constructor
         super.onCreate(savedInstanceState);
 
-        // setting the view's layout, yay, we can see stuff on the screen!
-        setContentView(R.layout.activity_transport);
-
-        // call inherited initiating method
-        init();
-
         this.priceField = findViewById(R.id.TripPrice);
 
         // init of the data : fetch trips data in the currentDate file if it exist
@@ -213,7 +207,6 @@ public class TransportActivity extends InputActivity {
         priceField.setText("");
     }
 
-
     private void updateSummary() {
         LinearLayout data_summary = findViewById(R.id.data_summary);
         data_summary.setVisibility(View.VISIBLE);
@@ -257,5 +250,4 @@ public class TransportActivity extends InputActivity {
         this.dh.saveTransportData(this.trips);
     }
 
-    public static Context getInstance() { return new TransportActivity(); }
 }

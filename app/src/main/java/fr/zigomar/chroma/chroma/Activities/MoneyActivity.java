@@ -23,25 +23,16 @@ import fr.zigomar.chroma.chroma.R;
 
 public class MoneyActivity extends InputActivity {
 
-    // the list holding the data
-    private ArrayList<Spending> spendings;
-    // the adapter managing the view of the data
-    private SpendingAdapter spendingAdapter;
-
     private TextView descField;
     private Spinner catField;
     private TextView amountField;
 
+    private ArrayList<Spending> spendings;
+    private SpendingAdapter spendingAdapter;
+
     @Override
     protected void onCreate(final Bundle savedInstanceState) {
-        // calling inherited class constructor
         super.onCreate(savedInstanceState);
-
-        // setting the view's layout
-        setContentView(R.layout.activity_money);
-
-        // call inherited initiating method
-        init();
 
         // getting the views from their id
         this.descField = findViewById(R.id.TextDescription);
@@ -61,7 +52,6 @@ public class MoneyActivity extends InputActivity {
 
                         spendingAdapter.add(new Spending(d, c, a));
                         updateSummary();
-                        Log.i("CHROMA", "Currently " + spendings.size() + " spendings.");
                         resetViews();
                     } catch (NumberFormatException e) {
                         Toast.makeText(getApplicationContext(), R.string.UnableToParse, Toast.LENGTH_SHORT).show();
@@ -93,7 +83,6 @@ public class MoneyActivity extends InputActivity {
         spendingsListView.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
             @Override
             public boolean onItemLongClick(AdapterView<?> parent, View view, int position, long id) {
-                Log.i("CHROMA", "Clicked the " + position + "-th item.");
 
                 final int pos = position;
                 AlertDialog.Builder builder = new AlertDialog.Builder(view.getContext());

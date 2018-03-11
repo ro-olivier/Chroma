@@ -2,6 +2,7 @@ package fr.zigomar.chroma.chroma.Activities;
 
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.Toolbar;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -26,6 +27,8 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        Toolbar myToolbar = findViewById(R.id.Toolbar);
+        setSupportActionBar(myToolbar);
 
         ImageButton forwardButton = findViewById(R.id.ButtonForwardDate);
         forwardButton.setOnClickListener(new View.OnClickListener() {
@@ -125,7 +128,7 @@ public class MainActivity extends AppCompatActivity {
 
             @Override
             public void onClick(View v) {
-                Log.i("CHROMA", "Switching to money in activity");
+                Log.i("CHROMA", "Switching to movie activity");
                 Intent movieIntent = new Intent (MainActivity.this, MovieActivity.class);
                 movieIntent.putExtra(CURRENT_DATE, currentDate.getTime());
                 startActivity(movieIntent);
@@ -156,7 +159,6 @@ public class MainActivity extends AppCompatActivity {
         c.setTime(currentDate);
         c.add(Calendar.DATE, 1);
         currentDate = c.getTime();
-        Log.i("CHROMA", "Incrementing Date");
     }
 
     private void decrementDate() {
@@ -164,7 +166,6 @@ public class MainActivity extends AppCompatActivity {
         c.setTime(currentDate);
         c.add(Calendar.DATE, -1);
         currentDate = c.getTime();
-        Log.i("CHROMA", "Decrementing Date");
     }
 
     private void updateDateView() {

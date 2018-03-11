@@ -1,65 +1,45 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:paddingBottom="@dimen/activity_vertical_margin"
-    android:paddingLeft="@dimen/activity_horizontal_margin"
-    android:paddingRight="@dimen/activity_horizontal_margin"
-    android:paddingTop="@dimen/activity_vertical_margin"
     android:orientation="vertical"
     tools:context="fr.zigomar.chroma.chroma.Activities.MainActivity">
 
     <include
-        android:layout_width="fill_parent"
+        layout="@layout/toolbar"/>
+
+    <LinearLayout
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        layout="@layout/display_date"/>
+        android:orientation="vertical"
+        android:paddingBottom="@dimen/activity_vertical_margin"
+        android:paddingLeft="@dimen/activity_horizontal_margin"
+        android:paddingRight="@dimen/activity_horizontal_margin"
+        android:paddingTop="@dimen/activity_vertical_margin">
 
-    <LinearLayout
-        android:layout_width="fill_parent"
-        android:layout_height="60dp"
-        android:orientation="horizontal"
-        android:layout_marginTop="25dp">
-    <Space
-        android:layout_width="0dp"
-        android:layout_height="1dp"
-        android:layout_weight="1"/>
+        <include
+            layout="@layout/display_date" />
 
-    <Button
-        android:id="@+id/ButtonToOption1"
-        android:layout_width="0dp"
-        android:layout_height="match_parent"
-        android:layout_weight="4"
-        android:adjustViewBounds="true"
-        android:text="@string/Option1"
-        android:gravity="center_horizontal|center_vertical"/>
+        <LinearLayout
+            android:layout_width="fill_parent"
+            android:layout_height="60dp"
+            android:orientation="horizontal"
+            android:layout_marginTop="25dp">
+        <Space
+            android:layout_width="0dp"
+            android:layout_height="1dp"
+            android:layout_weight="1"/>
 
-    <Space
-        android:layout_width="0dp"
-        android:layout_height="1dp"
-        android:layout_weight="1"/>
-
-    <Button
-        android:id="@+id/ButtonToOption2"
-        android:layout_width="0dp"
-        android:layout_height="match_parent"
-        android:layout_weight="4"
-        android:adjustViewBounds="true"
-        android:text="@string/Option2"
-        android:gravity="center_horizontal|center_vertical"/>
-
-    <Space
-        android:layout_width="0dp"
-        android:layout_height="1dp"
-        android:layout_weight="1"/>
-
-    </LinearLayout>
-
-    <LinearLayout
-        android:layout_width="fill_parent"
-        android:layout_height="60dp"
-        android:layout_marginTop="25dp"
-        android:orientation="horizontal">
+        <Button
+            android:id="@+id/ButtonToOption1"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="4"
+            android:adjustViewBounds="true"
+            android:text="@string/Option1"
+            android:gravity="center_horizontal|center_vertical"/>
 
         <Space
             android:layout_width="0dp"
@@ -67,114 +47,142 @@
             android:layout_weight="1"/>
 
         <Button
-            android:id="@+id/ButtonToOption3"
+            android:id="@+id/ButtonToOption2"
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_weight="4"
             android:adjustViewBounds="true"
-            android:gravity="center_horizontal|center_vertical"
-            android:text="@string/Option3"/>
+            android:text="@string/Option2"
+            android:gravity="center_horizontal|center_vertical"/>
 
         <Space
             android:layout_width="0dp"
             android:layout_height="1dp"
             android:layout_weight="1"/>
 
-        <Button
-            android:id="@+id/ButtonToOption4"
-            android:layout_width="0dp"
-            android:layout_height="match_parent"
-            android:layout_weight="4"
-            android:adjustViewBounds="true"
-            android:gravity="center_horizontal|center_vertical"
-            android:text="@string/Option4"/>
+        </LinearLayout>
 
-        <Space
-            android:layout_width="0dp"
-            android:layout_height="1dp"
-            android:layout_weight="1"/>
+        <LinearLayout
+            android:layout_width="fill_parent"
+            android:layout_height="60dp"
+            android:layout_marginTop="25dp"
+            android:orientation="horizontal">
 
-    </LinearLayout>
+            <Space
+                android:layout_width="0dp"
+                android:layout_height="1dp"
+                android:layout_weight="1"/>
 
-    <LinearLayout
-        android:layout_width="fill_parent"
-        android:layout_height="60dp"
-        android:layout_marginTop="25dp"
-        android:orientation="horizontal">
+            <Button
+                android:id="@+id/ButtonToOption3"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="4"
+                android:adjustViewBounds="true"
+                android:gravity="center_horizontal|center_vertical"
+                android:text="@string/Option3"/>
 
-        <Space
-            android:layout_width="0dp"
-            android:layout_height="1dp"
-            android:layout_weight="1"/>
+            <Space
+                android:layout_width="0dp"
+                android:layout_height="1dp"
+                android:layout_weight="1"/>
 
-        <Button
-            android:id="@+id/ButtonToOption5"
-            android:layout_width="0dp"
-            android:layout_height="match_parent"
-            android:layout_weight="4"
-            android:adjustViewBounds="true"
-            android:gravity="center_horizontal|center_vertical"
-            android:text="@string/Option5"/>
+            <Button
+                android:id="@+id/ButtonToOption4"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="4"
+                android:adjustViewBounds="true"
+                android:gravity="center_horizontal|center_vertical"
+                android:text="@string/Option4"/>
 
-        <Space
-            android:layout_width="0dp"
-            android:layout_height="1dp"
-            android:layout_weight="1"/>
+            <Space
+                android:layout_width="0dp"
+                android:layout_height="1dp"
+                android:layout_weight="1"/>
 
-        <Button
-            android:id="@+id/ButtonToOption6"
-            android:layout_width="0dp"
-            android:layout_height="match_parent"
-            android:layout_weight="4"
-            android:adjustViewBounds="true"
-            android:gravity="center_horizontal|center_vertical"
-            android:text="@string/Option6"/>
+        </LinearLayout>
 
-        <Space
-            android:layout_width="0dp"
-            android:layout_height="1dp"
-            android:layout_weight="1"/>
+        <LinearLayout
+            android:layout_width="fill_parent"
+            android:layout_height="60dp"
+            android:layout_marginTop="25dp"
+            android:orientation="horizontal">
 
-    </LinearLayout>
+            <Space
+                android:layout_width="0dp"
+                android:layout_height="1dp"
+                android:layout_weight="1"/>
 
-    <LinearLayout
-        android:layout_width="fill_parent"
-        android:layout_height="60dp"
-        android:layout_marginTop="25dp"
-        android:orientation="horizontal">
+            <Button
+                android:id="@+id/ButtonToOption5"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="4"
+                android:adjustViewBounds="true"
+                android:gravity="center_horizontal|center_vertical"
+                android:text="@string/Option5"/>
 
-        <Space
-            android:layout_width="0dp"
-            android:layout_height="1dp"
-            android:layout_weight="1"/>
+            <Space
+                android:layout_width="0dp"
+                android:layout_height="1dp"
+                android:layout_weight="1"/>
 
-        <Button
-            android:id="@+id/ButtonToOption7"
-            android:layout_width="0dp"
-            android:layout_height="match_parent"
-            android:layout_weight="4"
-            android:adjustViewBounds="true"
-            android:gravity="center_horizontal|center_vertical"
-            android:text="@string/Option7"/>
+            <Button
+                android:id="@+id/ButtonToOption6"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="4"
+                android:adjustViewBounds="true"
+                android:gravity="center_horizontal|center_vertical"
+                android:text="@string/Option6"/>
 
-        <Space
-            android:layout_width="0dp"
-            android:layout_height="1dp"
-            android:layout_weight="1"/>
+            <Space
+                android:layout_width="0dp"
+                android:layout_height="1dp"
+                android:layout_weight="1"/>
 
-        <Button
-            android:id="@+id/ButtonToOption8"
-            android:layout_width="0dp"
-            android:layout_height="match_parent"
-            android:layout_weight="4"
-            android:adjustViewBounds="true"
-            android:gravity="center_horizontal|center_vertical"
-            android:text="@string/Option8"/>
+        </LinearLayout>
 
-        <Space
-            android:layout_width="0dp"
-            android:layout_height="1dp"
-            android:layout_weight="1"/>
+        <LinearLayout
+            android:layout_width="fill_parent"
+            android:layout_height="60dp"
+            android:layout_marginTop="25dp"
+            android:orientation="horizontal">
 
+            <Space
+                android:layout_width="0dp"
+                android:layout_height="1dp"
+                android:layout_weight="1"/>
+
+            <Button
+                android:id="@+id/ButtonToOption7"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="4"
+                android:adjustViewBounds="true"
+                android:gravity="center_horizontal|center_vertical"
+                android:text="@string/Option7"/>
+
+            <Space
+                android:layout_width="0dp"
+                android:layout_height="1dp"
+                android:layout_weight="1"/>
+
+            <Button
+                android:id="@+id/ButtonToOption8"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="4"
+                android:adjustViewBounds="true"
+                android:gravity="center_horizontal|center_vertical"
+                android:text="@string/Option8"/>
+
+            <Space
+                android:layout_width="0dp"
+                android:layout_height="1dp"
+                android:layout_weight="1"/>
+
+        </LinearLayout>
     </LinearLayout>
 </LinearLayout>

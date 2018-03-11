@@ -21,24 +21,15 @@ import fr.zigomar.chroma.chroma.R;
 
 public class MoneyInActivity extends InputActivity {
 
-    // the list holding the data
-    private ArrayList<Earning> earnings;
-    // the adapter managing the view of the data
-    private EarningAdapter earningAdapter;
-
     private TextView descField;
     private TextView amountField;
 
+    private ArrayList<Earning> earnings;
+    private EarningAdapter earningAdapter;
+
     @Override
     protected void onCreate(final Bundle savedInstanceState) {
-        // calling inherited class constructor
         super.onCreate(savedInstanceState);
-
-        // setting the view's layout
-        setContentView(R.layout.activity_money_in);
-
-        // call inherited initiating method
-        init();
 
         // getting the views from their id
         this.descField = findViewById(R.id.TextDescription);

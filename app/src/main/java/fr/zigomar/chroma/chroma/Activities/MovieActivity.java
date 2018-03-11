@@ -1,5 +1,6 @@
 package fr.zigomar.chroma.chroma.Activities;
 
+import android.annotation.SuppressLint;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -17,7 +18,6 @@ import fr.zigomar.chroma.chroma.R;
 public class MovieActivity extends InputActivity {
 
     private LinearLayout moviesList;
-
     private ArrayList<EditText> titles = new ArrayList<>();
     private ArrayList<EditText> directors = new ArrayList<>();
     private ArrayList<EditText> notes = new ArrayList<>();
@@ -25,14 +25,7 @@ public class MovieActivity extends InputActivity {
 
     @Override
     protected void onCreate(final Bundle savedInstanceState) {
-        // calling inherited class constructor
         super.onCreate(savedInstanceState);
-
-        // setting the view's layout, yay, we can see stuff on the screen!
-        setContentView(R.layout.activity_movie);
-
-        // call inherited initiating method
-        init();
 
         titles.add((EditText) findViewById(R.id.MovieTitle));
         directors.add((EditText) findViewById(R.id.MovieDirector));
@@ -48,13 +41,12 @@ public class MovieActivity extends InputActivity {
 
                 if (checkData()) {
 
-                    View child = getLayoutInflater().inflate(R.layout.unit_input_movie, null);
+                    @SuppressLint("InflateParams") View child = getLayoutInflater().inflate(R.layout.unit_input_movie, null);
                     moviesList.addView(child);
                     titles.add((EditText) child.findViewById(R.id.MovieTitle));
                     directors.add((EditText) child.findViewById(R.id.MovieDirector));
                     notes.add((EditText) child.findViewById(R.id.MovieTextData));
                     ratings.add((RatingBar) child.findViewById(R.id.MovieRating));
-                    Log.i("CHROMA", "Added a movie !");
                 } else {
                     Toast.makeText(getApplicationContext(), R.string.MovieTitleAndNotesRequired, Toast.LENGTH_SHORT).show();
                 }
@@ -68,10 +60,9 @@ public class MovieActivity extends InputActivity {
             directors.get(i).setText(movies.get(i).getDirector());
             notes.get(i).setText(movies.get(i).getDescription());
             ratings.get(i).setRating(movies.get(i).getRating());
-            Log.i("CHROMA", "Added a movie !");
             if (i < movies.size() - 1) {
                 moviesList = findViewById(R.id.MovieLinearLayout);
-                View child = getLayoutInflater().inflate(R.layout.unit_input_movie, null);
+                @SuppressLint("InflateParams") View child = getLayoutInflater().inflate(R.layout.unit_input_movie, null);
                 moviesList.addView(child);
                 titles.add((EditText) child.findViewById(R.id.MovieTitle));
                 directors.add((EditText) child.findViewById(R.id.MovieDirector));
@@ -107,7 +98,6 @@ public class MovieActivity extends InputActivity {
 
     private boolean checkData() {
         int current_size = titles.size();
-        Log.i("CHROMA", "Currently " + current_size);
         for (int i = 0; i < current_size; i++) {
             int title_size = titles.get(i).getText().toString().length();
             int description_size = notes.get(i).getText().toString().length();
@@ -119,4 +109,3 @@ public class MovieActivity extends InputActivity {
         return true;
     }
 }
-

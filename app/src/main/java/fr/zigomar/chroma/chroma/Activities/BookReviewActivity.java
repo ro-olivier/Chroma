@@ -3,7 +3,6 @@ package fr.zigomar.chroma.chroma.Activities;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
-import android.view.MenuItem;
 import android.view.View;
 import android.widget.CheckBox;
 import android.widget.CompoundButton;
@@ -48,17 +47,10 @@ public class BookReviewActivity extends InputActivity {
 
     @Override
     protected void onCreate(final Bundle savedInstanceState) {
-        // calling inherited class constructor
         super.onCreate(savedInstanceState);
-        Log.i("CHROMA", "onCreate Book Review");
 
         Bundle extras = getIntent().getExtras();
         df = new SimpleDateFormat("yyyy/MM/dd", Locale.FRANCE);
-
-        // setting the view's layout, yay, we can see stuff on the screen!
-        setContentView(R.layout.activity_reviewbook);
-
-        init();
 
         title = findViewById(R.id.BookTitle);
         author = findViewById(R.id.BookAuthor);
@@ -77,19 +69,15 @@ public class BookReviewActivity extends InputActivity {
         this.bookHash = getBookHash();
         this.reviewedBooks = this.dh.getReviewedBooks();
 
-        Log.i("CHROMA", "Got " + this.reviewedBooks.size() + " reviewed books.");
         for (Book b : reviewedBooks) {
-            Log.i("CHROMA", b.getHash());
             if (Objects.equals(b.getHash(), this.bookHash)) {
                 this.reviewedBook = b;
                 this.reviewedBookIndex = this.reviewedBooks.indexOf(b);
-                Log.i("CHROMA", "It's a match !");
             }
         }
 
         if (this.reviewedBook != null) {
             if (reviewedBook.getReview() != null) {
-                Log.i("CHROMA", "Read review : " + reviewedBook.getReview());
                 notes.setText(reviewedBook.getReview());
             }
 
@@ -144,7 +132,7 @@ public class BookReviewActivity extends InputActivity {
             if (text != null) {
                 md.update(text.getBytes(StandardCharsets.UTF_8));
                 byte[] digest = md.digest();
-                String s = String.format( "%064x", new BigInteger(1, digest) );
+                String s = String.format("%064x", new BigInteger(1, digest));
                 Log.i("CHROMA", "Hash is = " + s);
                 return s;
             }
@@ -155,8 +143,8 @@ public class BookReviewActivity extends InputActivity {
 
     @Override
     protected void saveData() {
-        // simply pass the data to the DataHandler with the dedicated method
         Log.i("CHROMA", "Updating the data object with current reviewed books");
+
         if (this.reviewedBook == null) {
             if (this.closeBook.isChecked()) {
                 try {
@@ -166,8 +154,6 @@ public class BookReviewActivity extends InputActivity {
                             this.notes.getText().toString(),
                             this.df.parse(this.closeDate.getText().toString()),
                             this.rating.getRating());
-                    Log.i("CHROMA", "this.reviewedBook == null and closeBook is checked");
-                    Log.i("CHROMA", this.reviewedBook.toString());
                 } catch (ParseException e) {
                     e.printStackTrace();
                 }
@@ -177,18 +163,14 @@ public class BookReviewActivity extends InputActivity {
                             this.author.getText().toString(),
                             this.df.parse(this.openDate.getText().toString()),
                             this.notes.getText().toString());
-                    Log.i("CHROMA", "this.reviewedBook == null and closeBook is not checked");
-                    Log.i("CHROMA", this.reviewedBook.toString());
                 } catch (ParseException e) {
                     e.printStackTrace();
                 }
             }
+
             this.reviewedBooks.add(this.reviewedBook);
-            Log.i("CHROMA", "just added a review. Number of reviews for today : " + this.reviewedBooks.size() );
         } else {
-            Log.i("CHROMA", "Book review already existed, we need to update it.");
             if (this.closeBook.isChecked()) {
-                Log.i("CHROMA", "Book is finished, let's rate it!");
                 try {
                     this.reviewedBooks.get(this.reviewedBookIndex).rateBook(this.notes.getText().toString(),
                             this.df.parse(this.closeDate.getText().toString()),
@@ -197,65 +179,29 @@ public class BookReviewActivity extends InputActivity {
                     e.printStackTrace();
                 }
             } else {
-                Log.i("CHROMA", "Book is not finished yet, updating the review only!");
                 this.reviewedBooks.get(this.reviewedBookIndex).updateReview(this.notes.getText().toString());
             }
-            // here instead of adding the newly reviewed book we need to replace the previous one in the ArrayList !
         }
+
         this.dh.saveReviewedBooksData(this.reviewedBooks);
-    }
-
-
-    @Override
-    protected void onResume() {
-        Log.i("CHROMA", "onResume Book Review");
-        super.onResume();
-    }
-
-    @Override
-    protected void onPause() {
-        Log.i("CHROMA", "onPause Book Review");
-        super.onPause();
     }
 
     @Override
     public void onBackPressed() {
+
         Intent returnIntent = new Intent();
-        Log.i("CHROMA", "On back pressed");
-        Log.i("CHROMA", "Passing the result of the review back : " + this.closeBook.isChecked());
         returnIntent.putExtra(CURRENT_DATE, currentDate.getTime());
         returnIntent.putExtra("HASH", this.bookHash);
+
         if (this.closeBook.isChecked()) {
-            Log.i("CHROMA", "setting result to 200");
+            Log.i("CHROMA", "Setting result of BookReview Activity to 200");
             setResult(200, returnIntent);
         } else {
-            Log.i("CHROMA", "setting result to 201");
+            Log.i("CHROMA", "Setting result of BookReview Activity to 201");
             setResult(201, returnIntent);
         }
+
         super.onBackPressed();
-    }
-
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        switch (item.getItemId()) {
-            case android.R.id.home:
-                onBackPressed();
-                return true;
-        }
-        return super.onOptionsItemSelected(item);
-    }
-
-
-    @Override
-    protected void onStop() {
-        Log.i("CHROMA", "onStop Book Review");
-        super.onStop();
-    }
-
-    @Override
-    protected void onDestroy() {
-        Log.i("CHROMA", "onDestroy Book Review");
-        super.onDestroy();
     }
 
 }

@@ -21,25 +21,16 @@ import fr.zigomar.chroma.chroma.R;
 
 public class AlcoholActivity extends InputActivity {
 
-    // the list holding the data
-    private ArrayList<Drink> drinks;
-    // the adapter managing the view of the data
-    private DrinkAdapter drinkAdapter;
-
     private TextView descField;
     private TextView volumeField;
     private TextView degreeField;
 
+    private ArrayList<Drink> drinks;
+    private DrinkAdapter drinkAdapter;
+
     @Override
     protected void onCreate(final Bundle savedInstanceState) {
-        // calling inherited class constructor
         super.onCreate(savedInstanceState);
-
-        // setting the view's layout
-        setContentView(R.layout.activity_alcohol);
-
-        // call inherited initiating method
-        init();
 
         // getting the views from their id
         this.descField = findViewById(R.id.TextDescription);
@@ -61,7 +52,6 @@ public class AlcoholActivity extends InputActivity {
                         drinkAdapter.add(new Drink(d, vol, deg));
                         updateSummary();
                         resetViews();
-                        Log.i("CHROMA", "Currently " + drinks.size() + " drinks.");
                     } catch (NumberFormatException e) {
                         Toast.makeText(getApplicationContext(), R.string.UnableToParse, Toast.LENGTH_SHORT).show();
                     }
@@ -85,7 +75,6 @@ public class AlcoholActivity extends InputActivity {
         drinksListView.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
             @Override
             public boolean onItemLongClick(AdapterView<?> parent, View view, int position, long id) {
-                Log.i("CHROMA", "Clicked the " + position + "-th item.");
 
                 final int pos = position;
                 AlertDialog.Builder builder = new AlertDialog.Builder(view.getContext());

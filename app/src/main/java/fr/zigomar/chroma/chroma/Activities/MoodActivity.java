@@ -18,21 +18,13 @@ public class MoodActivity extends InputActivity {
     private NumberPicker pickerMood1;
     private NumberPicker pickerMood2;
     private NumberPicker pickerMood3;
+    private EditText textData;
 
     private boolean pickersVisible = true;
 
-    private EditText textData;
-
     @Override
     protected void onCreate(final Bundle savedInstanceState) {
-        // calling inherited class constructor
         super.onCreate(savedInstanceState);
-
-        // setting the view's layout, yay, we can see stuff on the screen!
-        setContentView(R.layout.activity_mood);
-
-        // call inherited initiating method
-        init();
 
         // getting the views from their id
         this.pickerMood1 = findViewById(R.id.MoodPicker1);
@@ -65,9 +57,6 @@ public class MoodActivity extends InputActivity {
     }
 
     private void initViews() {
-        // method used to set some parameters to the number picker views
-        // making it could be done directly in the layout XML file
-        Log.i("CHROMA", "Setting settings for the views.");
         this.pickerMood1.setMaxValue(MAX_MOOD);
         this.pickerMood2.setMaxValue(MAX_MOOD);
         this.pickerMood3.setMaxValue(MAX_MOOD);
@@ -103,7 +92,6 @@ public class MoodActivity extends InputActivity {
         this.pickerMood3.setValue(Integer.parseInt(data.get("eval3")));
 
         if (!data.get("txt").isEmpty()) {
-            Log.i("CHROMA", "Applying data retrieved from file to text field");
             this.textData.setText(data.get("txt"));
         }
     }
