@@ -71,7 +71,7 @@
     <string name="AddBook">Add another book review !</string>
     <string name="BookNotesRequired">Write at least one word…</string>
     <string name="BookDetailsRequired">Book author and title are required.</string>
-    <string name="OpenBooksFileName">openBook.json</string>
+    <string name="OpenBooksFileName">openbooks.json</string>
     <string name="CurrentlyOpenBooks">Currently open books:</string>
     <string name="BookCloseQuestion">Close book?</string>
     <string name="CannotReOpenBook">This book has been closed and cannot be reopened!</string>
@@ -81,6 +81,7 @@
     <string name="ExportFrom">Export data from:</string>
     <string name="ExportTo">Export up to:</string>
     <string name="WrongExportDates">Please select valid dates.</string>
+    <string name="FullExportFilename">chroma_full_export.json</string>
 
     <string-array name="spendingsCategories">
         <item>Drinks</item>

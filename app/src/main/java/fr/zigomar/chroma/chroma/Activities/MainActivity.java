@@ -267,7 +267,7 @@ public class MainActivity extends AppCompatActivity {
 
         for (File f: getFilesDir().listFiles()) {
             if (f.isFile()) {
-                if (!Objects.equals(f.getName(), "openbooks.json")) {
+                if (!Objects.equals(f.getName(), getString(R.string.OpenBooksFileName))) {
                     Log.i("CHROMA", f.getName());
                     available_dates.add(f.getName().substring(0,10));
                 }
@@ -309,7 +309,7 @@ public class MainActivity extends AppCompatActivity {
                 String filename = f.getName();
                 String filenameIntStr = filename.substring(0, 10);
 
-                if (!Objects.equals(filename, "openbooks.json")) {
+                if (!Objects.equals(filename, getString(R.string.OpenBooksFileName))) {
                     Log.i("CHROMA", "Processing file date : " + filename);
                     int filenameInt = Integer.parseInt(filenameIntStr.split("-")[0] + filenameIntStr.split("-")[1] + filenameIntStr.split("-")[2]);
 
@@ -375,7 +375,7 @@ public class MainActivity extends AppCompatActivity {
         for (File f: getFilesDir().listFiles()) {
             if (f.isFile()) {
                 String filename = f.getName();
-                if (!Objects.equals(filename, "openbooks.json")) {
+                if (!Objects.equals(filename, getString(R.string.OpenBooksFileName))) {
                     Log.i("CHROMA", "Processing " + filename);
                     try {
                         InputStream is = getApplicationContext().openFileInput(filename);
@@ -395,7 +395,7 @@ public class MainActivity extends AppCompatActivity {
         }
 
         File exportFile = new File(Environment.getExternalStoragePublicDirectory(
-                Environment.DIRECTORY_DOCUMENTS), "chroma_full_export.json");
+                Environment.DIRECTORY_DOCUMENTS), getString(R.string.FullExportFilename));
 
         Log.i("CHROMA", "Writing to : chroma_full_export.json");
 
