@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <PreferenceCategory
+        android:title="Data Encryption"
+        android:key="pref_encrypt">
+
+        <SwitchPreference
+            android:key="pref_encrypt_bool"
+            android:title="@string/pref_encryptTitle"
+            android:summary="@string/pref_encryptSummary"
+            android:defaultValue="false" />
+
+        <EditTextPreference
+            android:key="pref_encryptPWD"
+            android:title="@string/pref_encryptPWDTitle"
+            android:summary="@string/pref_encryptPWDSummary" />
+    </PreferenceCategory>
+
+    <MultiSelectListPreference
+        android:key="pref_toggle"
+        android:title="@string/pref_toggleTitle"
+        android:entries="@array/pref_toggleEntries"
+        android:entryValues="@array/pref_toggleEntryValues"
+        android:summary="@string/pref_toggleSummary"
+        android:defaultValue="@array/pref_toggleEntryValues"/>
+
+</PreferenceScreen>

@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string-array name="pref_toggleEntries">
+        <item>Mood</item>
+        <item>Money spent</item>
+        <item>Alcohol consumption</item>
+        <item>Public transportation</item>
+        <item>Car trips</item>
+        <item>Income</item>
+        <item>Movies</item>
+        <item>Books</item>
+    </string-array>
+
+    <string-array name="pref_toggleEntryValues">
+        <item>MoodActivity</item>
+        <item>MoneyActivity</item>
+        <item>AlcoholActivity</item>
+        <item>TransportActivity</item>
+        <item>CarActivity</item>
+        <item>MoneyInActivity</item>
+        <item>MovieActivity</item>
+        <item>NewBookActivity</item>
+    </string-array>
+</resources>

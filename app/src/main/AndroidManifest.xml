@@ -23,6 +23,11 @@
         </activity>
 
         <activity
+            android:name=".Activities.SettingsActivity"
+            android:parentActivityName=".Activities.MainActivity"
+            android:windowSoftInputMode="stateHidden"/>
+
+        <activity
             android:name=".Activities.MoodActivity"
             android:parentActivityName=".Activities.MainActivity"
             android:windowSoftInputMode="stateHidden"/>

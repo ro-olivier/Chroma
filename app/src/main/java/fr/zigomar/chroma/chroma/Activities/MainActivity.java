@@ -202,6 +202,12 @@ public class MainActivity extends AppCompatActivity {
 
                 return true;
 
+            case R.id.action_settings:
+                Log.i("CHROMA", "Switching to settings activity");
+                Intent settingIntent = new Intent (MainActivity.this, SettingsActivity.class);
+                startActivity(settingIntent);
+
+                return true;
             default:
                 return super.onOptionsItemSelected(item);
 

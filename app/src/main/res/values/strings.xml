@@ -82,6 +82,13 @@
     <string name="ExportTo">Export up to:</string>
     <string name="WrongExportDates">Please select valid dates.</string>
     <string name="FullExportFilename">chroma_full_export.json</string>
+    <string name="settings">Settings</string>
+    <string name="pref_encryptTitle">Encrypt data</string>
+    <string name="pref_encryptSummary">This is used to encrypt the exported data. If used, you must set a password below.</string>
+    <string name="pref_encryptPWDTitle">Encryption password</string>
+    <string name="pref_encryptPWDSummary">Please don\'t type password...</string>
+    <string name="pref_toggleTitle">Toggle activities</string>
+    <string name="pref_toggleSummary">Use this to show/hide activities on the main screen. Note that if you hide an activity, the corresponding data is not deleted.</string>
 
     <string-array name="spendingsCategories">
         <item>Drinks</item>
