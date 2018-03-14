@@ -22,167 +22,18 @@
         <include
             layout="@layout/display_date" />
 
-        <LinearLayout
-            android:layout_width="fill_parent"
-            android:layout_height="60dp"
-            android:orientation="horizontal"
-            android:layout_marginTop="25dp">
-        <Space
-            android:layout_width="0dp"
-            android:layout_height="1dp"
-            android:layout_weight="1"/>
-
-        <Button
-            android:id="@+id/ButtonToOption1"
-            android:layout_width="0dp"
+        <GridView
+            android:id="@+id/ButtonsGridView"
+            android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_weight="4"
-            android:adjustViewBounds="true"
-            android:text="@string/Option1"
-            android:gravity="center_horizontal|center_vertical"/>
+            android:columnWidth="160dp"
+            android:numColumns="auto_fit"
+            android:verticalSpacing="20dp"
+            android:horizontalSpacing="20dp"
+            android:stretchMode="columnWidth"
+            android:gravity="center"
+            android:paddingTop="@dimen/activity_horizontal_margin"
+            />
 
-        <Space
-            android:layout_width="0dp"
-            android:layout_height="1dp"
-            android:layout_weight="1"/>
-
-        <Button
-            android:id="@+id/ButtonToOption2"
-            android:layout_width="0dp"
-            android:layout_height="match_parent"
-            android:layout_weight="4"
-            android:adjustViewBounds="true"
-            android:text="@string/Option2"
-            android:gravity="center_horizontal|center_vertical"/>
-
-        <Space
-            android:layout_width="0dp"
-            android:layout_height="1dp"
-            android:layout_weight="1"/>
-
-        </LinearLayout>
-
-        <LinearLayout
-            android:layout_width="fill_parent"
-            android:layout_height="60dp"
-            android:layout_marginTop="25dp"
-            android:orientation="horizontal">
-
-            <Space
-                android:layout_width="0dp"
-                android:layout_height="1dp"
-                android:layout_weight="1"/>
-
-            <Button
-                android:id="@+id/ButtonToOption3"
-                android:layout_width="0dp"
-                android:layout_height="match_parent"
-                android:layout_weight="4"
-                android:adjustViewBounds="true"
-                android:gravity="center_horizontal|center_vertical"
-                android:text="@string/Option3"/>
-
-            <Space
-                android:layout_width="0dp"
-                android:layout_height="1dp"
-                android:layout_weight="1"/>
-
-            <Button
-                android:id="@+id/ButtonToOption4"
-                android:layout_width="0dp"
-                android:layout_height="match_parent"
-                android:layout_weight="4"
-                android:adjustViewBounds="true"
-                android:gravity="center_horizontal|center_vertical"
-                android:text="@string/Option4"/>
-
-            <Space
-                android:layout_width="0dp"
-                android:layout_height="1dp"
-                android:layout_weight="1"/>
-
-        </LinearLayout>
-
-        <LinearLayout
-            android:layout_width="fill_parent"
-            android:layout_height="60dp"
-            android:layout_marginTop="25dp"
-            android:orientation="horizontal">
-
-            <Space
-                android:layout_width="0dp"
-                android:layout_height="1dp"
-                android:layout_weight="1"/>
-
-            <Button
-                android:id="@+id/ButtonToOption5"
-                android:layout_width="0dp"
-                android:layout_height="match_parent"
-                android:layout_weight="4"
-                android:adjustViewBounds="true"
-                android:gravity="center_horizontal|center_vertical"
-                android:text="@string/Option5"/>
-
-            <Space
-                android:layout_width="0dp"
-                android:layout_height="1dp"
-                android:layout_weight="1"/>
-
-            <Button
-                android:id="@+id/ButtonToOption6"
-                android:layout_width="0dp"
-                android:layout_height="match_parent"
-                android:layout_weight="4"
-                android:adjustViewBounds="true"
-                android:gravity="center_horizontal|center_vertical"
-                android:text="@string/Option6"/>
-
-            <Space
-                android:layout_width="0dp"
-                android:layout_height="1dp"
-                android:layout_weight="1"/>
-
-        </LinearLayout>
-
-        <LinearLayout
-            android:layout_width="fill_parent"
-            android:layout_height="60dp"
-            android:layout_marginTop="25dp"
-            android:orientation="horizontal">
-
-            <Space
-                android:layout_width="0dp"
-                android:layout_height="1dp"
-                android:layout_weight="1"/>
-
-            <Button
-                android:id="@+id/ButtonToOption7"
-                android:layout_width="0dp"
-                android:layout_height="match_parent"
-                android:layout_weight="4"
-                android:adjustViewBounds="true"
-                android:gravity="center_horizontal|center_vertical"
-                android:text="@string/Option7"/>
-
-            <Space
-                android:layout_width="0dp"
-                android:layout_height="1dp"
-                android:layout_weight="1"/>
-
-            <Button
-                android:id="@+id/ButtonToOption8"
-                android:layout_width="0dp"
-                android:layout_height="match_parent"
-                android:layout_weight="4"
-                android:adjustViewBounds="true"
-                android:gravity="center_horizontal|center_vertical"
-                android:text="@string/Option8"/>
-
-            <Space
-                android:layout_width="0dp"
-                android:layout_height="1dp"
-                android:layout_weight="1"/>
-
-        </LinearLayout>
     </LinearLayout>
 </LinearLayout>

@@ -16,7 +16,8 @@ import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.Button;
+import android.widget.AdapterView;
+import android.widget.GridView;
 import android.widget.ImageButton;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -38,6 +39,7 @@ import java.util.Date;
 import java.util.Locale;
 import java.util.Objects;
 
+import fr.zigomar.chroma.chroma.Adapters.ImageAdapter;
 import fr.zigomar.chroma.chroma.Fragments.ExportDateFragment;
 import fr.zigomar.chroma.chroma.R;
 
@@ -55,6 +57,83 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
         Toolbar myToolbar = findViewById(R.id.Toolbar);
         setSupportActionBar(myToolbar);
+
+
+        Integer[] ids = {
+                R.drawable.emoticon, R.drawable.euro, R.drawable.cheers,
+                R.drawable.bus, R.drawable.car, R.drawable.payment,
+                R.drawable.movie, R.drawable.book };
+
+        final Integer[] ids_clone = ids.clone();
+
+        GridView gridview = findViewById(R.id.ButtonsGridView);
+        gridview.setAdapter(new ImageAdapter(this, ids));
+
+        gridview.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            public void onItemClick(AdapterView<?> parent, View v,
+                                    int position, long id) {
+
+                String choice = getResources().getResourceName(ids_clone[position]).split("/")[1];
+
+                switch (choice) {
+                    case "emoticon":
+                        Log.i("CHROMA", "Switching to mood activity");
+                        Intent moodIntent = new Intent (MainActivity.this, MoodActivity.class);
+                        moodIntent.putExtra(CURRENT_DATE, currentDate.getTime());
+                        startActivity(moodIntent);
+                        break;
+
+                    case "euro":
+                        Log.i("CHROMA", "Switching to money activity");
+                        Intent moneyIntent = new Intent (MainActivity.this, MoneyActivity.class);
+                        moneyIntent.putExtra(CURRENT_DATE, currentDate.getTime());
+                        startActivity(moneyIntent);
+                        break;
+
+                    case "cheers":
+                        Log.i("CHROMA", "Switching to alcohol activity");
+                        Intent alcoholIntent = new Intent (MainActivity.this, AlcoholActivity.class);
+                        alcoholIntent.putExtra(CURRENT_DATE, currentDate.getTime());
+                        startActivity(alcoholIntent);
+                        break;
+
+                    case "bus":
+                        Log.i("CHROMA", "Switching to transport activity");
+                        Intent transportIntent = new Intent (MainActivity.this, TransportActivity.class);
+                        transportIntent.putExtra(CURRENT_DATE, currentDate.getTime());
+                        startActivity(transportIntent);
+                        break;
+
+                    case "car":
+                        Log.i("CHROMA", "Switching to car activity");
+                        Intent carIntent = new Intent (MainActivity.this, CarActivity.class);
+                        carIntent.putExtra(CURRENT_DATE, currentDate.getTime());
+                        startActivity(carIntent);
+                        break;
+
+                    case "payment":
+                        Log.i("CHROMA", "Switching to money in activity");
+                        Intent moneyInIntent = new Intent (MainActivity.this, MoneyInActivity.class);
+                        moneyInIntent.putExtra(CURRENT_DATE, currentDate.getTime());
+                        startActivity(moneyInIntent);
+                        break;
+
+                    case "movie":
+                        Log.i("CHROMA", "Switching to movie activity");
+                        Intent movieIntent = new Intent (MainActivity.this, MovieActivity.class);
+                        movieIntent.putExtra(CURRENT_DATE, currentDate.getTime());
+                        startActivity(movieIntent);
+                        break;
+
+                    case "book":
+                        Log.i("CHROMA", "Switching to book activity");
+                        Intent bookIntent = new Intent (MainActivity.this, NewBookActivity.class);
+                        bookIntent.putExtra(CURRENT_DATE, currentDate.getTime());
+                        startActivity(bookIntent);
+                        break;
+                }
+            }
+        });
 
         ImageButton forwardButton = findViewById(R.id.ButtonForwardDate);
         forwardButton.setOnClickListener(new View.OnClickListener() {
@@ -76,103 +155,7 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
-        Button moodButton = findViewById(R.id.ButtonToOption1);
-        moodButton.setOnClickListener(new View.OnClickListener() {
-
-            @Override
-            public void onClick(View v) {
-                Log.i("CHROMA", "Switching to mood activity");
-                Intent moodIntent = new Intent (MainActivity.this, MoodActivity.class);
-                moodIntent.putExtra(CURRENT_DATE, currentDate.getTime());
-                startActivity(moodIntent);
-            }
-        });
-
-
-        Button moneyButton = findViewById(R.id.ButtonToOption2);
-        moneyButton.setOnClickListener(new View.OnClickListener() {
-
-            @Override
-            public void onClick(View v) {
-                Log.i("CHROMA", "Switching to money activity");
-                Intent moneyIntent = new Intent (MainActivity.this, MoneyActivity.class);
-                moneyIntent.putExtra(CURRENT_DATE, currentDate.getTime());
-                startActivity(moneyIntent);
-            }
-        });
-
-        Button alcoholButton = findViewById(R.id.ButtonToOption3);
-        alcoholButton.setOnClickListener(new View.OnClickListener() {
-
-            @Override
-            public void onClick(View v) {
-                Log.i("CHROMA", "Switching to alcohol activity");
-                Intent alcoholIntent = new Intent (MainActivity.this, AlcoholActivity.class);
-                alcoholIntent.putExtra(CURRENT_DATE, currentDate.getTime());
-                startActivity(alcoholIntent);
-            }
-        });
-
-        Button transportButton = findViewById(R.id.ButtonToOption4);
-        transportButton.setOnClickListener(new View.OnClickListener() {
-
-            @Override
-            public void onClick(View v) {
-                Log.i("CHROMA", "Switching to transport activity");
-                Intent transportIntent = new Intent (MainActivity.this, TransportActivity.class);
-                transportIntent.putExtra(CURRENT_DATE, currentDate.getTime());
-                startActivity(transportIntent);
-            }
-        });
-
-        Button carButton = findViewById(R.id.ButtonToOption5);
-        carButton.setOnClickListener(new View.OnClickListener() {
-
-            @Override
-            public void onClick(View v) {
-                Log.i("CHROMA", "Switching to car activity");
-                Intent carIntent = new Intent (MainActivity.this, CarActivity.class);
-                carIntent.putExtra(CURRENT_DATE, currentDate.getTime());
-                startActivity(carIntent);
-            }
-        });
-
-        Button moneyInButton = findViewById(R.id.ButtonToOption6);
-        moneyInButton.setOnClickListener(new View.OnClickListener() {
-
-            @Override
-            public void onClick(View v) {
-                Log.i("CHROMA", "Switching to money in activity");
-                Intent moneyInIntent = new Intent (MainActivity.this, MoneyInActivity.class);
-                moneyInIntent.putExtra(CURRENT_DATE, currentDate.getTime());
-                startActivity(moneyInIntent);
-            }
-        });
-
-        Button movieButton = findViewById(R.id.ButtonToOption7);
-        movieButton.setOnClickListener(new View.OnClickListener() {
-
-            @Override
-            public void onClick(View v) {
-                Log.i("CHROMA", "Switching to movie activity");
-                Intent movieIntent = new Intent (MainActivity.this, MovieActivity.class);
-                movieIntent.putExtra(CURRENT_DATE, currentDate.getTime());
-                startActivity(movieIntent);
-            }
-        });
-
-        Button bookButton = findViewById(R.id.ButtonToOption8);
-        bookButton.setOnClickListener(new View.OnClickListener() {
-
-            @Override
-            public void onClick(View v) {
-                Log.i("CHROMA", "Switching to book activity");
-                Intent bookIntent = new Intent (MainActivity.this, NewBookActivity.class);
-                bookIntent.putExtra(CURRENT_DATE, currentDate.getTime());
-                startActivity(bookIntent);
-            }
-        });
-    }
+        }
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
