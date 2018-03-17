@@ -63,7 +63,7 @@ public abstract class InputActivity extends AppCompatActivity {
                 break;
         }
 
-        Toolbar myToolbar = findViewById(R.id.Toolbar);
+        Toolbar myToolbar = findViewById(R.id.toolbar);
         setSupportActionBar(myToolbar);
         ActionBar ab = getSupportActionBar();
         if (ab != null) {
