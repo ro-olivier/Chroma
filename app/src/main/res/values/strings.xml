@@ -86,7 +86,7 @@
     <string name="pref_encryptTitle">Encrypt data</string>
     <string name="pref_encryptSummary">This is used to encrypt the exported data. If used, you must set a password below.</string>
     <string name="pref_encryptPWDTitle">Encryption password</string>
-    <string name="pref_encryptPWDSummary">Please don\'t type password...</string>
+    <string name="pref_encryptPWDSummary">Please don\'t type password…</string>
     <string name="pref_toggleTitle">Toggle activities</string>
     <string name="pref_toggleSummary">Use this to show/hide activities on the main screen. Note that if you hide an activity, the corresponding data is not deleted.</string>
 
@@ -103,947 +103,945 @@
     </string-array>
 
     <string-array name="stations">
-        <item>Bréguet-Sabin</item>
-        <item>Billancourt</item>
-        <item>Blanche</item>
-        <item>Bolivar</item>
-        <item>Alma-Marceau</item>
-        <item>Arts et Métiers</item>
-        <item>Assemblée Nationale</item>
-        <item>Aubervilliers-Pantin (4 Chemins)</item>
-        <item>Avron</item>
-        <item>Balard</item>
-        <item>Bastille</item>
-        <item>Bérault</item>
-        <item>Gare d\'Austerlitz</item>
-        <item>Duroc</item>
-        <item>Cambronne</item>
-        <item>Carrefour Pleyel</item>
-        <item>Censier-Daubenton</item>
-        <item>Charenton-Écoles</item>
-        <item>Chaussée d\'Antin (La Fayette)</item>
-        <item>Chemin Vert</item>
-        <item>Chevaleret</item>
-        <item>Corentin-Cariou</item>
-        <item>Garibaldi</item>
-        <item>Havre-Caumartin</item>
-        <item>Exelmans</item>
-        <item>Gare de l\'Est</item>
-        <item>Gare de Lyon</item>
-        <item>Invalides</item>
-        <item>Jacques Bonsergent</item>
-        <item>Jaurès</item>
-        <item>Marcadet-Poissonniers</item>
-        <item>Michel Bizot</item>
-        <item>La Tour Maubourg</item>
-        <item>Les Halles</item>
-        <item>Louis Blanc</item>
-        <item>Louise Michel</item>
-        <item>Madeleine</item>
-        <item>Mairie des Lilas</item>
-        <item>Mairie d\'Ivry</item>
-        <item>Maison Blanche</item>
-        <item>Père Lachaise</item>
-        <item>Mouton-Duvernet</item>
-        <item>Notre-Dame-de-Lorette</item>
-        <item>Oberkampf</item>
-        <item>Odéon</item>
-        <item>Opéra</item>
-        <item>Poissonnière</item>
-        <item>Pont de Levallois-Bécon</item>
-        <item>Pont de Neuilly (Avenue de Madrid)</item>
-        <item>Porte de Bagnolet</item>
-        <item>Télégraphe</item>
-        <item>Porte des Lilas</item>
-        <item>Porte d\'Italie</item>
-        <item>Pré Saint-Gervais</item>
-        <item>Quatre Septembre</item>
-        <item>Raspail</item>
-        <item>Réaumur Sébastopol</item>
-        <item>République</item>
-        <item>Richard Lenoir</item>
-        <item>Richelieu-Drouot</item>
-        <item>Rue de la Pompe (Av. G. Mandel)</item>
-        <item>Grands Boulevards (Rue Montmartre)</item>
-        <item>Saint-Jacques</item>
-        <item>Volontaires</item>
-        <item>Voltaire (Léon Blum)</item>
-        <item>Vavin</item>
-        <item>Les Courtilles-Asnières-Gennevilliers</item>
-        <item>Villejuif-Léo Lagrange</item>
-        <item>Villiers</item>
-        <item>Créteil-Pointe du Lac</item>
-        <item>Funiculaire Montmarte Station Haute</item>
-        <item>Bondy</item>
-        <item>Aulnay-sous-Bois</item>
-        <item>Drancy-Avenir</item>
-        <item>Cimetière de Saint-Denis</item>
-        <item>Escadrille Normandie-Niémen</item>
-        <item>Meudon-Sur-Seine</item>
-        <item>Stade Charléty (Porte de Gentilly)</item>
-        <item>Stade Géo André</item>
-        <item>Porte d\'Orléans</item>
-        <item>Gare de Saint-Denis</item>
-        <item>Les Mobiles</item>
-        <item>Gilbert Bonnemaison</item>
-        <item>Parc des Chanteraines</item>
-        <item>Les Courtilles</item>
-        <item>Parc Pierre Lagravère</item>
-        <item>Porte de la Chapelle</item>
-        <item>Les Flanades</item>
-        <item>Alcide d\'Orbigny</item>
-        <item>Coeur d\'Orly</item>
-        <item>Division Leclerc</item>
-        <item>Meudon-la-Forêt</item>
-        <item>Delaunay-Belleville</item>
-        <item>Pablo Néruda</item>
-        <item>Bobigny-Pablo Picasso</item>
-        <item>Alexandre Dumas</item>
-        <item>Avenue Émile Zola</item>
-        <item>Crimée</item>
-        <item>Denfert-Rochereau</item>
-        <item>École Militaire</item>
-        <item>Edgar Quinet</item>
-        <item>Église d\'Auteuil</item>
-        <item>Brochant</item>
-        <item>Buttes-Chaumont</item>
-        <item>Campo Formio</item>
-        <item>Chardon Lagache</item>
-        <item>Château d\'Eau</item>
-        <item>Château-Landon</item>
-        <item>Châtelet</item>
-        <item>Cluny-la Sorbonne</item>
-        <item>Saint-Lazare</item>
-        <item>Glacière</item>
-        <item>Franklin D.Roosevelt</item>
-        <item>Gabriel Péri-Asnières-Gennevilliers</item>
-        <item>Esplanade de la Défense</item>
-        <item>Europe</item>
-        <item>Faidherbe Chaligny</item>
-        <item>Gare du Nord</item>
-        <item>Jourdain</item>
-        <item>Jussieu</item>
-        <item>Montparnasse-Bienvenüe</item>
-        <item>Malesherbes</item>
-        <item>Marx Dormoy</item>
-        <item>Michel Ange-Molitor</item>
-        <item>Miromesnil</item>
-        <item>La Motte Picquet-Grenelle</item>
-        <item>Le Kremlin-Bicêtre</item>
-        <item>Ledru Rollin</item>
-        <item>Les Sablons (Jardin d\'acclimatation)</item>
-        <item>Liberté</item>
-        <item>Louvre-Rivoli</item>
-        <item>Ourcq</item>
-        <item>Nation</item>
-        <item>Pigalle</item>
-        <item>Place des Fêtes</item>
-        <item>Place Monge (Jardin des Plantes)</item>
-        <item>Notre-Dame-des-Champs</item>
-        <item>Pont Neuf (La Monnaie)</item>
-        <item>Porte de Clichy</item>
-        <item>Porte de la Villette</item>
-        <item>Sentier</item>
-        <item>Sèvres-Babylone</item>
-        <item>Simplon</item>
-        <item>Strasbourg-Saint-Denis</item>
-        <item>Sully-Morland</item>
-        <item>Temple</item>
-        <item>Porte de Pantin</item>
-        <item>Pyrénées</item>
-        <item>Rennes</item>
-        <item>Reuilly-Diderot</item>
-        <item>Riquet</item>
-        <item>Basilique de Saint-Denis</item>
-        <item>Saint-Georges</item>
-        <item>Saint-Germain-des-Prés</item>
-        <item>Saint-Maur</item>
-        <item>Trocadéro</item>
-        <item>Villejuif-Paul Vaillant-Couturier</item>
-        <item>Allée de la Tour Rendez-Vous</item>
-        <item>Auguste Delaune</item>
-        <item>Marché de Saint-Denis</item>
-        <item>La Défense - Grande Arche</item>
-        <item>Les Coquetiers</item>
-        <item>Les Moulineaux</item>
-        <item>Lycée Henri Sellier</item>
-        <item>Musée de Sèvres</item>
-        <item>Pont de Bondy</item>
-        <item>Porte d\'Ivry</item>
-        <item>Porte de Versailles</item>
-        <item>Les Béatus</item>
-        <item>Lacépède</item>
-        <item>Pont de Bezons</item>
-        <item>Faubourg de l\'Arche</item>
-        <item>Les Fauvelles</item>
-        <item>Victor Basch</item>
-        <item>Marie de Miribel</item>
-        <item>Porte Dorée</item>
-        <item>Boucicaut</item>
-        <item>Boulogne-Pont de Saint-Cloud</item>
         <item>Abbesses</item>
-        <item>Bibliothèque François Mitterrand</item>
+        <item>Ablon</item>
+        <item>Achères-Grand-Cormier</item>
+        <item>Achères-Ville</item>
+        <item>Adrienne Bolland</item>
+        <item>Aéroport Charles de Gaulle 1</item>
+        <item>Aéroport Charles de Gaulle 2 - TGV</item>
+        <item>Aéroport d\'Orly</item>
+        <item>Aéroport d\'Orly - Terminal Ouest</item>
+        <item>Aéroport d\'Orly - Terminal Sud</item>
+        <item>Alcide d\'Orbigny</item>
         <item>Alésia</item>
+        <item>Alexandra David-Néel</item>
+        <item>Alexandre Dumas</item>
+        <item>Allée de la Tour Rendez-Vous</item>
+        <item>Alma-Marceau</item>
+        <item>Anatole France</item>
+        <item>Andrésy</item>
+        <item>Angerville</item>
+        <item>Antony</item>
+        <item>Anvers</item>
+        <item>Arcueil-Cachan</item>
+        <item>Argenteuil</item>
         <item>Argentine</item>
+        <item>Arpajon</item>
+        <item>Arts et Métiers</item>
+        <item>Asnières</item>
+        <item>Assemblée Nationale</item>
+        <item>Athis-Mons</item>
+        <item>Auber</item>
+        <item>Aubergenville-Élisabethville</item>
+        <item>Aubervilliers-Pantin (4 Chemins)</item>
+        <item>Auguste Delaune</item>
+        <item>Auguste Perret</item>
+        <item>Aulnay-sous-Bois</item>
+        <item>Auneau</item>
+        <item>Austerlitz</item>
+        <item>Auvers-Sur-Oise</item>
+        <item>Av. Du Président Kennedy</item>
+        <item>Av. Foch</item>
+        <item>Av. Henri Martin</item>
+        <item>Avenue de France</item>
+        <item>Avenue Émile Zola</item>
+        <item>Avron</item>
+        <item>Bagneaux-Sur-Loing</item>
+        <item>Bagneux</item>
+        <item>Balard</item>
+        <item>Ballancourt</item>
         <item>Barbès-Rochechouart</item>
+        <item>Baron Le Roy</item>
+        <item>Basilique de Saint-Denis</item>
+        <item>Bastille</item>
+        <item>Baudelaire</item>
+        <item>Beauvais</item>
+        <item>Bécon-Les-Bruyères</item>
         <item>Bel Air</item>
         <item>Belleville</item>
+        <item>Bellevue</item>
+        <item>Belloy-Saint-Martin</item>
+        <item>Belvédère</item>
+        <item>Bérault</item>
         <item>Bercy</item>
-        <item>Corvisart</item>
-        <item>Créteil-Université</item>
-        <item>Croix de Chavaux (Jacques Duclos)</item>
-        <item>Daumesnil</item>
+        <item>Bessancourt</item>
+        <item>Beynes</item>
+        <item>Bibliothèque Francois Mitterrand</item>
+        <item>Bibliothèque François Mitterrand</item>
+        <item>Bièvres</item>
+        <item>Billancourt</item>
+        <item>Bir-Hakeim (Grenelle)</item>
+        <item>Blanche</item>
+        <item>Blanc-Mesnil</item>
+        <item>Blumenthal</item>
+        <item>Bobigny-Pablo Picasso</item>
+        <item>Bobigny-Pantin (Raymond Queneau)</item>
+        <item>Boigneville</item>
+        <item>Bois-Colombes</item>
+        <item>Bois-Le-Roi</item>
+        <item>Boissière</item>
+        <item>Boissise-Le-Roi</item>
+        <item>Boissy-L\'aillerie</item>
+        <item>Boissy-Saint-Leger</item>
+        <item>Bolivar</item>
+        <item>Bondy</item>
+        <item>Bonne Nouvelle</item>
+        <item>Bonneval</item>
+        <item>Bonnières</item>
+        <item>Boran-Sur-Oise</item>
+        <item>Botzaris</item>
+        <item>Boucicaut</item>
+        <item>Bouffémont-Moisselles</item>
+        <item>Bougival</item>
+        <item>Boulainvilliers</item>
+        <item>Boulogne-Jean Jaurès</item>
+        <item>Boulogne-Pont de Saint-Cloud</item>
+        <item>Bouray</item>
+        <item>Bourg-La-Reine</item>
+        <item>Bourron-Marlotte-Grez</item>
+        <item>Bourse</item>
+        <item>Boussy-Saint-Antoine</item>
+        <item>Boutigny-Sur-Essonne</item>
+        <item>Bréguet-Sabin</item>
+        <item>Bretagne</item>
+        <item>Brétigny</item>
+        <item>Breuillet-Bruyères-Le</item>
+        <item>Breuillet-Village</item>
+        <item>Bréval</item>
+        <item>Brimborion</item>
+        <item>Brochant</item>
+        <item>Brunoy</item>
+        <item>Bruyères-Sur-Oise</item>
+        <item>Bry-Sur-Marne</item>
+        <item>Bueil</item>
+        <item>Buno-Gironville</item>
+        <item>Bures-Sur-Yvette</item>
+        <item>Bussy-Saint-Georges</item>
+        <item>Butte du Chapeau Rouge</item>
+        <item>Butte Pinson</item>
+        <item>Buttes-Chaumont</item>
+        <item>Buzenval</item>
+        <item>Cadet</item>
+        <item>Cambronne</item>
+        <item>Campo Formio</item>
+        <item>Canal Saint-Denis</item>
         <item>Cardinal Lemoine</item>
+        <item>Caroline Aigle</item>
+        <item>Carrefour Pleyel</item>
+        <item>Censier-Daubenton</item>
+        <item>Centre de Châtillon</item>
+        <item>Cergy Le Haut</item>
+        <item>Cergy-Préfecture</item>
+        <item>Cergy-Saint-Christophe</item>
+        <item>Cernay</item>
+        <item>César</item>
+        <item>Cesson</item>
+        <item>Cezy</item>
+        <item>Chamarande</item>
+        <item>Champ De Courses D\'Enghien</item>
+        <item>Champ de Mars-Tour Eiffel</item>
+        <item>Champagne-Sur-Oise</item>
+        <item>Champagne-Sur-Seine</item>
+        <item>Champbenoist-Poigny</item>
+        <item>Champigny</item>
+        <item>Champigny-Sur-Yonne</item>
+        <item>Champs-Élysées-Clémenceau</item>
+        <item>Changis-Saint-Jean</item>
+        <item>Chanteloup-Les-Vignes</item>
+        <item>Chantilly-Gouvieux</item>
+        <item>Chaponval</item>
+        <item>Chardon Lagache</item>
+        <item>Charenton-Écoles</item>
+        <item>Charlebourg</item>
         <item>Charles de Gaulle-Étoile</item>
+        <item>Charles Michels</item>
+        <item>Charonne</item>
+        <item>Chars</item>
+        <item>Chartres</item>
+        <item>Chartrettes</item>
+        <item>Château d\'Eau</item>
+        <item>Château de Vincennes</item>
         <item>Château Rouge</item>
+        <item>Chateaudun</item>
+        <item>Château-Landon</item>
+        <item>Chateau-Thierry</item>
+        <item>Châtelet</item>
+        <item>Châtelet-Les Halles</item>
+        <item>Châtillon Montrouge</item>
         <item>Châtillon-Montrouge</item>
+        <item>Chatou-Croissy</item>
+        <item>Chaumont-En-Vexin</item>
+        <item>Chaussée d\'Antin (La Fayette)</item>
+        <item>Chaville R.D</item>
+        <item>Chaville R.G</item>
+        <item>Chaville-Vélizy</item>
+        <item>Chelles-Gournay</item>
+        <item>Chemin D\'antony</item>
+        <item>Chemin des Reniers</item>
+        <item>Chemin Vert</item>
+        <item>Chessy - Marne-La-Vallée</item>
+        <item>Chevaleret</item>
+        <item>Chezy-Sur-Marne</item>
+        <item>Chilly-Mazarin</item>
+        <item>Choisy-Le-Roi</item>
+        <item>Cimetière de Saint-Denis</item>
+        <item>Cité</item>
+        <item>Cité Universitaire</item>
+        <item>Clamart</item>
+        <item>Clichy-Levallois</item>
+        <item>Cluny-la Sorbonne</item>
+        <item>Coeur d\'Orly</item>
+        <item>Coignières</item>
+        <item>Colette Besson</item>
+        <item>Colombes</item>
+        <item>Colonel Fabien</item>
+        <item>Combs-La-Ville</item>
         <item>Commerce</item>
+        <item>Compans</item>
+        <item>Concorde</item>
+        <item>Conflans-Fin-D\'oise</item>
+        <item>Conflans-Sainte-Honorine</item>
         <item>Convention</item>
-        <item>Gambetta</item>
-        <item>Guy Môquet</item>
+        <item>Corbeil-Essonnes</item>
+        <item>Corentin Celton</item>
+        <item>Corentin-Cariou</item>
+        <item>Cormeilles-En-Parisis</item>
+        <item>Corvisart</item>
+        <item>Cosmonautes</item>
+        <item>Couilly-Saint-Germain</item>
+        <item>Coulommiers</item>
+        <item>Cour Saint-Émilion</item>
+        <item>Courbevoie</item>
+        <item>Courcelles</item>
+        <item>Courcelle-Sur-Yvette</item>
+        <item>Couronnes</item>
+        <item>Crécy-En-Brie-Chapelle</item>
+        <item>Creil</item>
+        <item>Crepy-En-Valois</item>
+        <item>Creteil Pompadour</item>
+        <item>Créteil-L\'Échat (Hôpital Mondor)</item>
+        <item>Créteil-Pointe du Lac</item>
+        <item>Créteil-Préfecture (Hôtel de Ville)</item>
+        <item>Créteil-Université</item>
+        <item>Crimée</item>
+        <item>Croix de Chavaux (Jacques Duclos)</item>
+        <item>Crouy-Sur-Ourcq</item>
+        <item>Dammartin-Juilly-Saint</item>
+        <item>Danton</item>
+        <item>Danube</item>
+        <item>Daumesnil</item>
+        <item>Delaunay-Belleville</item>
+        <item>Delphine Seyrig</item>
+        <item>Denfert-Rochereau</item>
+        <item>Desnouettes</item>
+        <item>Deuil-Montmagny</item>
+        <item>Dewoitine</item>
+        <item>Didot</item>
+        <item>Division Leclerc</item>
+        <item>Domaine Chérioux</item>
+        <item>Domont</item>
+        <item>Dordives</item>
+        <item>Dourdan</item>
+        <item>Dourdan-La-Forêt</item>
+        <item>Drancy</item>
+        <item>Drancy-Avenir</item>
+        <item>Dreux</item>
+        <item>Dugommier</item>
+        <item>Dupleix</item>
+        <item>Duroc</item>
+        <item>École Militaire</item>
+        <item>École Vétérinaire de Maisons-Alfort</item>
+        <item>Écouen-Ézanville</item>
+        <item>Edgar Quinet</item>
+        <item>Église d\'Auteuil</item>
+        <item>Église de Pantin</item>
+        <item>Égly</item>
+        <item>Ella Fitzgerald</item>
+        <item>Émerainville-Pontault-Combault</item>
+        <item>Enghien-Les-Bains</item>
+        <item>Epernon</item>
+        <item>Epinay-Orgemont</item>
+        <item>Épinay-Sur-Orge</item>
+        <item>Epinay-sur-Seine</item>
+        <item>Épinay-Villetaneuse</item>
+        <item>Épluches</item>
+        <item>Épône-Mézières</item>
+        <item>Éragny-Neuville</item>
+        <item>Ermont-Eaubonne</item>
+        <item>Ermont-Halte</item>
+        <item>Esbly</item>
+        <item>Escadrille Normandie-Niémen</item>
+        <item>Esplanade de la Défense</item>
+        <item>Essonnes-Robinson</item>
+        <item>Étampes</item>
+        <item>Étienne Marcel</item>
+        <item>Etigny-Veron</item>
+        <item>Étréchy</item>
+        <item>Europe</item>
+        <item>Evreux</item>
+        <item>Évry</item>
+        <item>Évry-Courcouronnes</item>
+        <item>Exelmans</item>
+        <item>Faidherbe Chaligny</item>
+        <item>Falguière</item>
+        <item>Faremoutiers-Pommeuse</item>
+        <item>Faubourg de l\'Arche</item>
         <item>Félix Faure</item>
+        <item>Ferrieres Fontenay</item>
+        <item>Ferte-Milon</item>
         <item>Filles du Calvaire</item>
-        <item>Montparnasse Bienvenüe</item>
+        <item>Fontainebleau-Avon</item>
+        <item>Fontaine-Le-Port</item>
+        <item>Fontaine-Michalon</item>
+        <item>Fontenay-Aux-Roses</item>
+        <item>Fontenay-Le-Fleury</item>
+        <item>Fontenay-Sous-Bois</item>
+        <item>Fort d\'Aubervilliers</item>
+        <item>Franconville-Le Plessis-Bouchard</item>
+        <item>Franklin D.Roosevelt</item>
+        <item>Freinville-Sevran</item>
+        <item>Frépillon</item>
+        <item>Front Populaire</item>
+        <item>Funiculaire Montmarte Station Basse</item>
+        <item>Funiculaire Montmarte Station Haute</item>
+        <item>Gabriel Péri-Asnières-Gennevilliers</item>
+        <item>Gagny</item>
+        <item>Gaïté</item>
+        <item>Gallieni (Parc de Bagnolet)</item>
+        <item>Gambetta</item>
+        <item>Garancières-La Queue</item>
+        <item>Garches-Marnes-La</item>
+        <item>Gare d\'Austerlitz</item>
+        <item>Gare d\'Epinay Villetaneuse</item>
+        <item>Gare d\'Epinay-sur-Seine</item>
+        <item>Gare de Dugny - La Courneuve</item>
+        <item>Gare de Gennevilliers</item>
+        <item>Gare de l\'Est</item>
+        <item>Gare de Lyon</item>
+        <item>Gare de Pierrefitte Stains</item>
+        <item>Gare de Saint-Denis</item>
+        <item>Gare de Stains La Cerisaie</item>
+        <item>Gare de Villetaneuse - Université</item>
+        <item>Gare du Bourget</item>
+        <item>Gare du Nord</item>
+        <item>Gargan</item>
+        <item>Gargenville</item>
+        <item>Garges-Sarcelles</item>
+        <item>Garibaldi</item>
+        <item>Gaston Roulaud</item>
+        <item>Gazeran</item>
+        <item>Gennevilliers</item>
+        <item>Gentilly</item>
+        <item>Georges Brassens</item>
+        <item>Georges Millandy</item>
+        <item>Georges Pompidou</item>
+        <item>George-V</item>
+        <item>Gif-Sur-Yvette</item>
+        <item>Gilbert Bonnemaison</item>
+        <item>Gilles-Guainville</item>
+        <item>Gisors</item>
+        <item>Glacière</item>
+        <item>Goncourt (Hôpital Saint-Louis)</item>
+        <item>Goussainville</item>
+        <item>Grand-Bourg</item>
+        <item>Grands Boulevards (Rue Montmartre)</item>
+        <item>Gravigny-Balizy</item>
+        <item>Gretz-Armainvilliers</item>
+        <item>Grigny-Centre</item>
+        <item>Groslay</item>
+        <item>Gros-Noyer-Saint</item>
+        <item>Guérard-La-Celle</item>
+        <item>Guillerval</item>
+        <item>Guy Môquet</item>
+        <item>Guynemer</item>
+        <item>Haussmann-Saint-Lazare</item>
+        <item>Havre-Caumartin</item>
+        <item>Hélène Boucher</item>
+        <item>Henri Farmann</item>
+        <item>Herblay</item>
+        <item>Héricy</item>
+        <item>Hoche</item>
+        <item>Hôpital Avicenne</item>
+        <item>Hôpital Béclère</item>
+        <item>Hôpital Delafontaine</item>
+        <item>Hôpital Robert Debré</item>
+        <item>Hôtel de Ville</item>
+        <item>Hôtel de Ville - Maison de la Culture</item>
+        <item>Hôtel de Ville de la Courneuve</item>
+        <item>Houdan</item>
+        <item>Houilles-Carrières-Sur</item>
+        <item>Iéna</item>
+        <item>Igny</item>
+        <item>Inovel Parc Nord</item>
+        <item>Invalides</item>
+        <item>Isles-Armentières-Congis</item>
+        <item>Issou-Porcheville</item>
+        <item>Issy</item>
+        <item>Issy-Val de Seine</item>
+        <item>Issy-Val-de-Seine - RER</item>
+        <item>Ivry-Sur-Seine</item>
+        <item>Jacqueline Auriol</item>
+        <item>Jacques Bonsergent</item>
+        <item>Jacques Prévert</item>
+        <item>Jacques-Henri Lartigue</item>
         <item>Jasmin</item>
+        <item>Jaurès</item>
+        <item>Javel</item>
+        <item>Javel-André Citroën</item>
+        <item>Jean Moulin</item>
+        <item>Jean Rostand</item>
+        <item>Jean Vilar</item>
+        <item>Joigny</item>
+        <item>Joinville-Le-Pont</item>
+        <item>Joncherolles</item>
+        <item>Jourdain</item>
+        <item>Jouy</item>
+        <item>Jouy-En-Josas</item>
         <item>Jules Joffrin</item>
+        <item>Jussieu</item>
+        <item>Juvisy</item>
+        <item>Juziers</item>
         <item>Kléber</item>
+        <item>L\'Abbaye</item>
+        <item>L\'étang-La-Ville</item>
+        <item>L\'Ile-Saint-Denis</item>
+        <item>L\'isle-Adam-Parmain</item>
+        <item>L\'Onde</item>
+        <item>La Barre-Ormesson</item>
+        <item>La Belle Epine</item>
+        <item>La Borne Blanche</item>
+        <item>La Celle-Saint-Cloud</item>
         <item>La Chapelle</item>
         <item>La Courneuve 8 Mai 1945</item>
-        <item>Malakoff-Plateau de Vanves</item>
-        <item>Maraîchers</item>
-        <item>Maubert-Mutualité</item>
-        <item>Mirabeau</item>
-        <item>Monceau</item>
-        <item>Montgallet</item>
+        <item>La Courneuve-Aubervilliers</item>
+        <item>La Croix-De-Berny-Fresnes</item>
+        <item>La Défense - Grande Arche</item>
+        <item>La Ferme</item>
+        <item>La Ferté-Alais</item>
+        <item>La Ferté-Sous-Jouarre</item>
+        <item>La Fourche</item>
+        <item>La Fraternelle</item>
+        <item>La Frette-Montigny</item>
+        <item>La Garenne-Colombes</item>
+        <item>La Grande Paroisse</item>
+        <item>La Hacquinière</item>
+        <item>La Motte Picquet-Grenelle</item>
+        <item>La Muette</item>
+        <item>La Norville-Saint-Germain-Lès-A.</item>
+        <item>La Noue</item>
+        <item>La Plaine-Stade de France</item>
+        <item>La Remise à Jorelle</item>
+        <item>La Tour Maubourg</item>
+        <item>La Varenne-Chennevières</item>
+        <item>La Verrière</item>
+        <item>La Villetertre</item>
+        <item>La Villette-Saint-Prest</item>
+        <item>Lacépède</item>
+        <item>Lagny-Thorigny</item>
         <item>Lamarck-Caulaincourt</item>
+        <item>Lamartine</item>
+        <item>Laplace</item>
+        <item>Lardy</item>
+        <item>Laroche-Migennes</item>
+        <item>Laumière</item>
+        <item>Le Bourget</item>
+        <item>Le Bras-De-Fer</item>
+        <item>Le Chénay-Gagny</item>
+        <item>Le Coudray-Montceaux</item>
+        <item>Le Guichet</item>
+        <item>Le Kremlin-Bicêtre</item>
+        <item>Le Luth</item>
+        <item>Le Mée</item>
+        <item>Le Parc-De-Saint-Maur</item>
+        <item>Le Peletier</item>
+        <item>Le Perray</item>
+        <item>Le Plessis-Belleville</item>
+        <item>Le Plessis-Chenet</item>
+        <item>Le Raincy-Villemomble-Montfermeil</item>
+        <item>Le Stade</item>
+        <item>Le Val-D\'or</item>
+        <item>Le Vert-De-Maisons</item>
+        <item>Le Vésinet-Centre</item>
+        <item>Le Vésinet-Le Pecq</item>
+        <item>Le Village</item>
+        <item>Ledru Rollin</item>
+        <item>Les Agnettes-Asnières-Gennevilliers</item>
+        <item>Les Ardoines</item>
+        <item>Les Baconnets</item>
+        <item>Les Béatus</item>
+        <item>Les Boullereaux-Champigny</item>
+        <item>Les Cholettes</item>
+        <item>Les Clairières-De-Verneuil</item>
+        <item>Les Coquetiers</item>
+        <item>Les Coteaux</item>
+        <item>Les Courtilles</item>
+        <item>Les Courtilles-Asnières-Gennevilliers</item>
+        <item>Les Fauvelles</item>
+        <item>Les Flanades</item>
         <item>Les Gobelins</item>
+        <item>Les Grésillons</item>
+        <item>Les Halles</item>
+        <item>Les Lochères</item>
+        <item>Les Milons</item>
+        <item>Les Mobiles</item>
+        <item>Les Moulineaux</item>
+        <item>Les Mureaux</item>
+        <item>Les Noues</item>
+        <item>Les Pavillons-sous-Bois</item>
+        <item>Les Sablons (Jardin d\'acclimatation)</item>
+        <item>Les Saules</item>
+        <item>Les Vallées</item>
+        <item>Les Yvris-Noisy-Le-Grand</item>
+        <item>Les-Essarts-Le</item>
+        <item>Liancourt-Saint-Pierre</item>
+        <item>Libération</item>
+        <item>Liberté</item>
+        <item>Liège</item>
+        <item>Lieusaint-Moissy</item>
+        <item>Limay</item>
+        <item>Livry-Sur-Seine</item>
+        <item>Lizy-Sur-Ourcq</item>
+        <item>Lognes</item>
+        <item>Longjumeau</item>
+        <item>Longueville</item>
+        <item>Louis Blanc</item>
+        <item>Louise Michel</item>
+        <item>Lourmel</item>
+        <item>Louveciennes</item>
+        <item>Louvois</item>
+        <item>Louvre-Rivoli</item>
+        <item>Louvres</item>
+        <item>Lozère</item>
+        <item>Luxembourg</item>
+        <item>Luzarches</item>
+        <item>Lycée Henri Sellier</item>
         <item>Mabillon</item>
-        <item>Mairie de Clichy</item>
-        <item>Mairie de Saint-Ouen</item>
+        <item>Madeleine</item>
+        <item>Magenta</item>
+        <item>Mail de la Plaine</item>
+        <item>Maintenon</item>
         <item>Mairie d\'Issy</item>
-        <item>Palais Royal-Musée du Louvre</item>
-        <item>Parmentier</item>
-        <item>Pereire-Levallois</item>
+        <item>Mairie d\'Ivry</item>
+        <item>Mairie de Clichy</item>
+        <item>Mairie de Montreuil</item>
+        <item>Mairie de Montrouge</item>
+        <item>Mairie de Pierrefitte</item>
+        <item>Mairie de Saint-Ouen</item>
+        <item>Mairie de Vélizy</item>
+        <item>Mairie de Villeneuve-la-Garenne</item>
+        <item>Mairie des Lilas</item>
+        <item>Maison Blanche</item>
+        <item>Maisons-Alfort-Alfortville</item>
+        <item>Maisons-Alfort-Les Juilliottes</item>
+        <item>Maisons-Alfort-Stade</item>
+        <item>Maisons-Laffitte</item>
+        <item>Maisse</item>
+        <item>Malakoff-Plateau de Vanves</item>
+        <item>Malakoff-Rue Étienne Dolet</item>
+        <item>Malesherbes</item>
+        <item>Mantes-La-Jolie</item>
+        <item>Mantes-Station</item>
+        <item>Maraîchers</item>
+        <item>Marcadet-Poissonniers</item>
+        <item>Marcel Sembat</item>
+        <item>Marché de Saint-Denis</item>
+        <item>Marchezais Broue</item>
+        <item>Mareil-Marly</item>
+        <item>Mareil-Sur-Mauldre</item>
+        <item>Mareuil-Sur-Ourcq</item>
+        <item>Marie de Miribel</item>
+        <item>Marles-En-Brie</item>
+        <item>Marly-Le-Roi</item>
+        <item>Marolles-En-Hurepoix</item>
+        <item>Marx Dormoy</item>
+        <item>Maryse Bastié</item>
+        <item>Massy-Palaiseau</item>
+        <item>Massy-Verrières</item>
+        <item>Maubert-Mutualité</item>
+        <item>Maule</item>
+        <item>Maurecourt</item>
+        <item>Maurice Lachâtre</item>
+        <item>Meaux</item>
+        <item>Melun</item>
+        <item>Ménilmontant</item>
+        <item>Mennecy</item>
+        <item>Mériel</item>
+        <item>Méry-Val d\'Oise</item>
+        <item>Meudon</item>
+        <item>Meudon-la-Forêt</item>
+        <item>Meudon-Sur-Seine</item>
+        <item>Meudon-Val-Fleury</item>
+        <item>Meulan-Hardricourt</item>
+        <item>Michel Ange-Auteuil</item>
+        <item>Michel Ange-Molitor</item>
+        <item>Michel Bizot</item>
+        <item>Mirabeau</item>
+        <item>Miromesnil</item>
+        <item>Mitry-Claye</item>
+        <item>Monceau</item>
+        <item>Monnerville</item>
+        <item>Montargis</item>
+        <item>Montempoivre</item>
+        <item>Montereau</item>
+        <item>Montfort-L\'amaury-Méré</item>
+        <item>Montgallet</item>
+        <item>Montgeron-Crosne</item>
+        <item>Montgeroult-Courcelles</item>
+        <item>Montigny-Beauchamp</item>
+        <item>Montigny-Sur-Loing</item>
+        <item>Montparnasse</item>
+        <item>Montparnasse Bienvenüe</item>
+        <item>Montparnasse-Bienvenüe</item>
+        <item>Montreuil</item>
+        <item>Montry-Condé</item>
+        <item>Montsoult-Maffliers</item>
+        <item>Montsouris</item>
+        <item>Moret-Veneux-Les</item>
+        <item>Mormant</item>
+        <item>Mortcerf</item>
+        <item>Moulin Vert</item>
+        <item>Moulin-Galant</item>
+        <item>Mouroux</item>
+        <item>Mouton-Duvernet</item>
+        <item>Musée D\'orsay</item>
+        <item>Musée de Sèvres</item>
+        <item>Nangis</item>
+        <item>Nanterre-Préfecture</item>
+        <item>Nanterre-Université</item>
+        <item>Nanterre-Ville</item>
+        <item>Nanteuil-Le-Haudouin</item>
+        <item>Nanteuil-Saâcy</item>
+        <item>Nation</item>
         <item>Nationale</item>
+        <item>Nemours-Saint-Pierre</item>
+        <item>Neuilly-Plaisance</item>
+        <item>Neuville Université</item>
+        <item>Nézel-Aulnay</item>
+        <item>Nogent-L\'artaud-Charly</item>
+        <item>Nogent-Le-Perreux</item>
+        <item>Nogent-Sur-Marne</item>
+        <item>Nointel-Mours</item>
+        <item>Noise-Le-Grand-Mont d\'Est</item>
+        <item>Noisiel</item>
+        <item>Noisy-Champs</item>
+        <item>Noisy-Le-Roi</item>
+        <item>Noisy-Le-Sec</item>
+        <item>Noisy-le-Sec - RER</item>
+        <item>Notre-Dame-de-Lorette</item>
+        <item>Notre-Dame-des-Champs</item>
+        <item>Oberkampf</item>
+        <item>Odéon</item>
+        <item>Olympiades</item>
+        <item>Opéra</item>
+        <item>Orangis-Bois de l\'Épine</item>
+        <item>Orgerus-Béhoust</item>
+        <item>Orly Ville</item>
+        <item>Ormoy-Villers</item>
+        <item>Orry-La-Ville</item>
+        <item>Orsay-Ville</item>
+        <item>Osny</item>
+        <item>Ourcq</item>
+        <item>Ozoir-La-Ferrière</item>
+        <item>Pablo Néruda</item>
+        <item>Palais Royal-Musée du Louvre</item>
+        <item>Palaiseau</item>
+        <item>Palaiseau-Villebon</item>
+        <item>Pantin</item>
+        <item>Parc André Malraux</item>
+        <item>Parc de Saint-Cloud</item>
+        <item>Parc des Chanteraines</item>
+        <item>Parc Des Expositions</item>
+        <item>Parc Pierre Lagravère</item>
+        <item>Parc PR</item>
+        <item>Parc-De-Sceaux</item>
+        <item>Paris-Bercy</item>
+        <item>Parmentier</item>
+        <item>Passy</item>
+        <item>Pasteur</item>
+        <item>Paul Eluard</item>
+        <item>Paul Valéry</item>
+        <item>Pavé Blanc</item>
+        <item>Pelleport</item>
+        <item>Père Lachaise</item>
+        <item>Pereire-Levallois</item>
+        <item>Pernéty</item>
+        <item>Persan-Beaumont</item>
+        <item>Petit Noisy</item>
+        <item>Petit Pierrefitte</item>
+        <item>Petit-Jouy-Les</item>
+        <item>Petit-Vaux</item>
         <item>Philippe Auguste</item>
         <item>Picpus</item>
         <item>Pierre Curie</item>
-        <item>Place de Clichy</item>
-        <item>Pont Marie (Cité des Arts)</item>
-        <item>Porte Dauphine</item>
-        <item>Porte d\'Auteuil</item>
-        <item>Porte de Champerret</item>
-        <item>Porte de Montreuil</item>
-        <item>Saint-Sébastien-Froissart</item>
-        <item>Saint-Sulpice</item>
-        <item>Ségur</item>
-        <item>Stalingrad</item>
-        <item>Porte de Saint-Ouen</item>
-        <item>Quai de la Rapée</item>
-        <item>Reuilly Diderot</item>
-        <item>Rome</item>
-        <item>Rue du Bac</item>
-        <item>Saint-François-Xavier</item>
-        <item>Saint-Mandé</item>
-        <item>Vaneau</item>
-        <item>Vaugirard (Adolphe Chériou)</item>
-        <item>Les Agnettes-Asnières-Gennevilliers</item>
-        <item>Tuileries</item>
-        <item>Victor Hugo</item>
-        <item>Belvédère</item>
-        <item>Cosmonautes</item>
-        <item>Danton</item>
-        <item>Gargan</item>
-        <item>Hôpital Avicenne</item>
-        <item>Jacques-Henri Lartigue</item>
-        <item>La Ferme</item>
-        <item>La Remise à Jorelle</item>
-        <item>Les Coteaux</item>
-        <item>Les Milons</item>
-        <item>Les Pavillons-sous-Bois</item>
-        <item>Pont du Garigliano</item>
-        <item>Jean Moulin</item>
-        <item>Bonne Nouvelle</item>
-        <item>Botzaris</item>
-        <item>Rue des Boulets</item>
-        <item>Bourse</item>
-        <item>Bir-Hakeim (Grenelle)</item>
-        <item>Bobigny-Pantin (Raymond Queneau)</item>
-        <item>Anatole France</item>
-        <item>Anvers</item>
-        <item>Courcelles</item>
-        <item>Couronnes</item>
-        <item>Dugommier</item>
-        <item>Dupleix</item>
-        <item>Buzenval</item>
-        <item>Cadet</item>
-        <item>Champs-Élysées-Clémenceau</item>
-        <item>Charles Michels</item>
-        <item>Château de Vincennes</item>
-        <item>Cité</item>
-        <item>Colonel Fabien</item>
-        <item>Concorde</item>
-        <item>Corentin Celton</item>
-        <item>Hôtel de Ville</item>
-        <item>Étienne Marcel</item>
-        <item>Javel-André Citroën</item>
-        <item>Malakoff-Rue Étienne Dolet</item>
-        <item>Marcel Sembat</item>
-        <item>Ménilmontant</item>
-        <item>Michel Ange-Auteuil</item>
-        <item>La Muette</item>
-        <item>Laumière</item>
-        <item>Le Peletier</item>
-        <item>Maisons-Alfort-Les Juilliottes</item>
-        <item>Pasteur</item>
-        <item>Place d\'Italie</item>
-        <item>Pont de Sèvres</item>
-        <item>Porte de Charenton</item>
-        <item>Porte de Choisy</item>
-        <item>Porte de Clignancourt</item>
-        <item>Saint-Paul (le Marais)</item>
-        <item>Saint-Philippe du Roule</item>
-        <item>Saint-Placide</item>
-        <item>Porte de Saint-Cloud</item>
-        <item>Pyramides</item>
-        <item>Rambuteau</item>
-        <item>Ranelagh</item>
-        <item>Robespierre</item>
-        <item>Saint-Augustin</item>
-        <item>Saint-Denis-Porte de Paris</item>
-        <item>Saint-Denis-Université</item>
-        <item>Saint-Fargeau</item>
-        <item>Saint-Michel</item>
-        <item>Varenne</item>
-        <item>Tolbiac</item>
-        <item>Trinité d\'Estienne d\'Orves</item>
-        <item>Villejuif-Louis Aragon</item>
-        <item>Mairie de Montrouge</item>
-        <item>Funiculaire Montmarte Station Basse</item>
-        <item>Cité Universitaire</item>
-        <item>Gaston Roulaud</item>
-        <item>Hôtel de Ville de la Courneuve</item>
-        <item>Six routes</item>
-        <item>Maurice Lachâtre</item>
-        <item>L\'Abbaye</item>
-        <item>Libération</item>
-        <item>Noisy-le-Sec - RER</item>
-        <item>Porte de Brancion</item>
-        <item>Suresnes-Longchamp</item>
-        <item>Porte de Vanves</item>
-        <item>Blumenthal</item>
-        <item>Mairie de Villeneuve-la-Garenne</item>
-        <item>Boulogne-Jean Jaurès</item>
-        <item>Boissière</item>
-        <item>Cour Saint-Émilion</item>
-        <item>Créteil-L\'Échat (Hôpital Mondor)</item>
-        <item>Créteil-Préfecture (Hôtel de Ville)</item>
-        <item>Danube</item>
-        <item>École Vétérinaire de Maisons-Alfort</item>
-        <item>Église de Pantin</item>
-        <item>Charonne</item>
-        <item>George-V</item>
-        <item>Goncourt (Hôpital Saint-Louis)</item>
-        <item>Fort d\'Aubervilliers</item>
-        <item>Gaïté</item>
-        <item>Gallieni (Parc de Bagnolet)</item>
-        <item>Hoche</item>
-        <item>Falguière</item>
-        <item>Iéna</item>
-        <item>La Fourche</item>
-        <item>Liège</item>
-        <item>Lourmel</item>
-        <item>Mairie de Montreuil</item>
-        <item>Maisons-Alfort-Stade</item>
-        <item>Passy</item>
-        <item>Pelleport</item>
-        <item>Pernéty</item>
-        <item>Porte Maillot</item>
-        <item>Plaisance</item>
-        <item>Sèvres-Lecourbe</item>
-        <item>Solférino</item>
-        <item>Ternes</item>
-        <item>Porte de Vincennes</item>
-        <item>Quai de la Gare</item>
-        <item>Saint-Ambroise</item>
-        <item>Saint-Marcel</item>
-        <item>Wagram</item>
-        <item>Olympiades</item>
-        <item>Front Populaire</item>
-        <item>Georges Brassens</item>
-        <item>Desnouettes</item>
-        <item>Didot</item>
-        <item>Brimborion</item>
-        <item>Freinville-Sevran</item>
-        <item>Hôpital Delafontaine</item>
-        <item>Hôtel de Ville - Maison de la Culture</item>
-        <item>Issy-Val-de-Seine - RER</item>
-        <item>Jean Rostand</item>
-        <item>Parc de Saint-Cloud</item>
-        <item>Petit Noisy</item>
-        <item>Montsouris</item>
-        <item>Henri Farmann</item>
-        <item>Villetaneuse-Université</item>
-        <item>Rose Bertin</item>
-        <item>Epinay-sur-Seine</item>
-        <item>L\'Ile-Saint-Denis</item>
-        <item>La Noue</item>
-        <item>Gare de Gennevilliers</item>
-        <item>Timbaud</item>
-        <item>Avenue de France</item>
-        <item>Canal Saint-Denis</item>
-        <item>Colette Besson</item>
-        <item>Garges-Sarcelles</item>
-        <item>Mairie de Pierrefitte</item>
-        <item>Suzanne Valadon</item>
-        <item>Guynemer</item>
-        <item>Porte de l\'Essonne</item>
-        <item>Ella Fitzgerald</item>
-        <item>Les Lochères</item>
-        <item>Joncherolles</item>
-        <item>Lamartine</item>
-        <item>Porte de Thiais</item>
-        <item>Hélène Boucher</item>
-        <item>Mail de la Plaine</item>
-        <item>Georges Millandy</item>
-        <item>Jean Vilar</item>
-        <item>Poterne des Peupliers</item>
-        <item>Rougemont-Chanteloup</item>
-        <item>Porte d\'Issy</item>
-        <item>Suzanne Lenglen</item>
-        <item>Théâtre Gérard Philipe</item>
-        <item>Epinay-Orgemont</item>
-        <item>Chemin des Reniers</item>
-        <item>Le Village</item>
-        <item>Charlebourg</item>
-        <item>Adrienne Bolland</item>
-        <item>Séverine</item>
-        <item>Montempoivre</item>
-        <item>Baron Le Roy</item>
-        <item>Maryse Bastié</item>
-        <item>Butte du Chapeau Rouge</item>
-        <item>Les Cholettes</item>
-        <item>Jacques Prévert</item>
-        <item>Petit Pierrefitte</item>
-        <item>Moulin Vert</item>
-        <item>Auguste Perret</item>
-        <item>La Belle Epine</item>
-        <item>Aéroport d\'Orly</item>
-        <item>L\'Onde</item>
-        <item>Parc André Malraux</item>
-        <item>Soleil Levant</item>
-        <item>Dewoitine</item>
-        <item>Paul Eluard</item>
-        <item>César</item>
-        <item>Le Luth</item>
-        <item>Jacqueline Auriol</item>
-        <item>Alexandra David-Néel</item>
-        <item>Hôpital Robert Debré</item>
-        <item>Delphine Seyrig</item>
-        <item>Rosa Parks</item>
-        <item>Porte d\'Aubervilliers</item>
-        <item>Paul Valéry</item>
-        <item>Butte Pinson</item>
-        <item>Roger Sémat</item>
-        <item>Baudelaire</item>
-        <item>Porte de Rungis</item>
-        <item>Robert Schuman</item>
-        <item>Caroline Aigle</item>
-        <item>Hôpital Béclère</item>
-        <item>Pavé Blanc</item>
-        <item>Georges Pompidou</item>
-        <item>Vélizy 2</item>
-        <item>Mairie de Vélizy</item>
-        <item>Châtillon Montrouge</item>
-        <item>Domaine Chérioux</item>
-        <item>Bretagne</item>
-        <item>Place de la Logistique</item>
-        <item>Saarinen</item>
-        <item>La Fraternelle</item>
-        <item>Robert Wagner</item>
-        <item>Vauban</item>
-        <item>Centre de Châtillon</item>
-        <item>Inovel Parc Nord</item>
-        <item>Louvois</item>
         <item>Pierre de Geyter</item>
-        <item>Gare de Stains La Cerisaie</item>
-        <item>Gare de Dugny - La Courneuve</item>
-        <item>Gare de Pierrefitte Stains</item>
-        <item>Gare d\'Epinay-sur-Seine</item>
-        <item>Gare d\'Epinay Villetaneuse</item>
-        <item>Gare de Villetaneuse - Université</item>
-        <item>Gare du Bourget</item>
-        <item>Terminal 1</item>
-        <item>Aéroport Charles de Gaulle 1</item>
-        <item>Terminal 2 - Gare TGV</item>
-        <item>Aéroport Charles de Gaulle 2 - TGV</item>
-        <item>Av. Foch</item>
-        <item>Av. Henri Martin</item>
-        <item>Viroflay R.G</item>
-        <item>Viroflay R.D</item>
-        <item>Av. Du Président Kennedy</item>
-        <item>Chaville R.G</item>
-        <item>Sèvres R.G</item>
-        <item>Chaville R.D</item>
-        <item>La Norville-Saint-Germain-Lès-A.</item>
-        <item>Versailles R.D</item>
-        <item>Parc PR</item>
-        <item>Station PX</item>
-        <item>Terminal 3 - Roissypole</item>
-        <item>Saint-Ouen-L\'Aumône (Quartier de l\'Eglise)</item>
-        <item>Aéroport d\'Orly - Terminal Sud</item>
-        <item>Aéroport d\'Orly - Terminal Ouest</item>
-        <item>Chessy - Marne-La-Vallée</item>
-        <item>Antony</item>
-        <item>Bonnières</item>
-        <item>Bouffémont-Moisselles</item>
-        <item>Bouray</item>
-        <item>Bois-Colombes</item>
-        <item>Boissise-Le-Roi</item>
-        <item>Boissy-L\'aillerie</item>
-        <item>Arpajon</item>
-        <item>Bellevue</item>
-        <item>Domont</item>
-        <item>Drancy</item>
-        <item>Égly</item>
-        <item>Ermont-Eaubonne</item>
-        <item>Bréval</item>
-        <item>Bry-Sur-Marne</item>
-        <item>Bussy-Saint-Georges</item>
-        <item>Cergy-Préfecture</item>
-        <item>Cergy-Saint-Christophe</item>
-        <item>Changis-Saint-Jean</item>
-        <item>Chanteloup-Les-Vignes</item>
-        <item>Chatou-Croissy</item>
-        <item>Chaville-Vélizy</item>
-        <item>Chilly-Mazarin</item>
-        <item>Choisy-Le-Roi</item>
-        <item>Conflans-Fin-D\'oise</item>
-        <item>Gentilly</item>
-        <item>Gif-Sur-Yvette</item>
-        <item>Héricy</item>
-        <item>Ermont-Halte</item>
-        <item>Étréchy</item>
-        <item>Évry-Courcouronnes</item>
-        <item>Fontenay-Aux-Roses</item>
-        <item>Igny</item>
-        <item>Issy</item>
-        <item>Javel</item>
-        <item>Juvisy</item>
-        <item>Maisse</item>
-        <item>Mantes-La-Jolie</item>
-        <item>Mantes-Station</item>
-        <item>Massy-Verrières</item>
-        <item>Meudon-Val-Fleury</item>
-        <item>Mitry-Claye</item>
-        <item>Laplace</item>
-        <item>Longjumeau</item>
-        <item>Maisons-Alfort-Alfortville</item>
-        <item>Palaiseau</item>
-        <item>Palaiseau-Villebon</item>
-        <item>Nemours-Saint-Pierre</item>
-        <item>Nogent-Le-Perreux</item>
-        <item>Noisiel</item>
-        <item>Montgeron-Crosne</item>
-        <item>Mormant</item>
+        <item>Pierrefitte-Stains</item>
+        <item>Pierrelaye</item>
+        <item>Pigalle</item>
+        <item>Place d\'Italie</item>
+        <item>Place de Clichy</item>
+        <item>Place de la Logistique</item>
+        <item>Place des Fêtes</item>
+        <item>Place Monge (Jardin des Plantes)</item>
+        <item>Plaisance</item>
+        <item>Plaisir-Grignon</item>
         <item>Plaisir-Les-Clayes</item>
+        <item>Poissonnière</item>
         <item>Poissy</item>
+        <item>Pont de Bezons</item>
+        <item>Pont de Bondy</item>
+        <item>Pont De L\'alma</item>
+        <item>Pont de Levallois-Bécon</item>
+        <item>Pont de Neuilly (Avenue de Madrid)</item>
+        <item>Pont de Sèvres</item>
+        <item>Pont du Garigliano</item>
+        <item>Pont Marie (Cité des Arts)</item>
+        <item>Pont Neuf (La Monnaie)</item>
+        <item>Pont-Cardinet</item>
+        <item>Pont-De-Rungis-Aéroport d\'Orly</item>
         <item>Ponthierry-Pringy</item>
         <item>Pontoise</item>
+        <item>Pont-Petit</item>
+        <item>Pont-Sur-Yonne</item>
         <item>Porchefontaine</item>
-        <item>Osny</item>
-        <item>Saint-Michel-Sur</item>
-        <item>Saint-Rémy-Lès</item>
-        <item>Sarcelles-Saint-Brice</item>
-        <item>Sartrouville</item>
-        <item>Sucy-Bonneuil</item>
-        <item>Suresnes-Mont-Valérien</item>
+        <item>Port Royal</item>
+        <item>Porte d\'Aubervilliers</item>
+        <item>Porte d\'Auteuil</item>
+        <item>Porte d\'Issy</item>
+        <item>Porte d\'Italie</item>
+        <item>Porte d\'Ivry</item>
+        <item>Porte d\'Orléans</item>
+        <item>Porte Dauphine</item>
+        <item>Porte de Bagnolet</item>
+        <item>Porte de Brancion</item>
+        <item>Porte de Champerret</item>
+        <item>Porte de Charenton</item>
+        <item>Porte de Choisy</item>
+        <item>Porte de Clichy</item>
+        <item>Porte de Clignancourt</item>
+        <item>Porte de l\'Essonne</item>
+        <item>Porte de la Chapelle</item>
+        <item>Porte de la Villette</item>
+        <item>Porte de Montreuil</item>
+        <item>Porte de Pantin</item>
+        <item>Porte de Rungis</item>
+        <item>Porte de Saint-Cloud</item>
+        <item>Porte de Saint-Ouen</item>
+        <item>Porte de Thiais</item>
+        <item>Porte de Vanves</item>
+        <item>Porte de Versailles</item>
+        <item>Porte de Vincennes</item>
+        <item>Porte des Lilas</item>
+        <item>Porte Dorée</item>
+        <item>Porte Maillot</item>
+        <item>Porte-De-Clichy</item>
+        <item>Poterne des Peupliers</item>
+        <item>Pré Saint-Gervais</item>
+        <item>Precy-Sur-Oise</item>
         <item>Presles-Courcelles</item>
         <item>Provins</item>
         <item>Puteaux</item>
-        <item>Rosny-Sous-Bois</item>
-        <item>Saint-Denis</item>
-        <item>Saint-Gratien</item>
-        <item>Saint-Mammès</item>
-        <item>Vosves</item>
-        <item>Vaux-Sur-Seine</item>
-        <item>Vernou-Sur-Seine</item>
-        <item>Thieux-Nantouillet</item>
-        <item>Tournan</item>
-        <item>Bourg-La-Reine</item>
-        <item>Boussy-Saint-Antoine</item>
-        <item>Bièvres</item>
-        <item>Bois-Le-Roi</item>
-        <item>Boissy-Saint-Leger</item>
-        <item>Crouy-Sur-Ourcq</item>
-        <item>Arcueil-Cachan</item>
-        <item>Athis-Mons</item>
-        <item>Ballancourt</item>
-        <item>Bécon-Les-Bruyères</item>
-        <item>Bessancourt</item>
-        <item>Cormeilles-En-Parisis</item>
-        <item>Coulommiers</item>
-        <item>Courbevoie</item>
-        <item>Épinay-Sur-Orge</item>
-        <item>Épluches</item>
-        <item>Épône-Mézières</item>
-        <item>Breuillet-Bruyères-Le</item>
-        <item>Bruyères-Sur-Oise</item>
-        <item>Buno-Gironville</item>
-        <item>Champagne-Sur-Seine</item>
-        <item>Champbenoist-Poigny</item>
-        <item>Chelles-Gournay</item>
-        <item>Colombes</item>
-        <item>Combs-La-Ville</item>
-        <item>Gennevilliers</item>
-        <item>Grigny-Centre</item>
-        <item>Fontenay-Le-Fleury</item>
-        <item>Frépillon</item>
-        <item>Garches-Marnes-La</item>
-        <item>Guérard-La-Celle</item>
-        <item>Guillerval</item>
-        <item>Haussmann-Saint-Lazare</item>
-        <item>Étampes</item>
-        <item>Faremoutiers-Pommeuse</item>
-        <item>Fontaine-Michalon</item>
-        <item>Montparnasse</item>
-        <item>Houilles-Carrières-Sur</item>
-        <item>Mareil-Marly</item>
-        <item>Maurecourt</item>
-        <item>Montereau</item>
-        <item>Lagny-Thorigny</item>
-        <item>Lieusaint-Moissy</item>
-        <item>Livry-Sur-Seine</item>
-        <item>Lizy-Sur-Ourcq</item>
-        <item>Louvres</item>
-        <item>Magenta</item>
-        <item>Nanteuil-Saâcy</item>
-        <item>Nézel-Aulnay</item>
-        <item>Montigny-Sur-Loing</item>
-        <item>Montry-Condé</item>
-        <item>Nanterre-Préfecture</item>
-        <item>Nanterre-Université</item>
-        <item>Noisy-Le-Roi</item>
-        <item>Orgerus-Béhoust</item>
-        <item>Orry-La-Ville</item>
-        <item>Pont-Cardinet</item>
-        <item>Saint-Quentin-En</item>
-        <item>Savigny-Le-Temple</item>
-        <item>Sevran-Livry</item>
-        <item>Survilliers-Fosses</item>
+        <item>Pyramides</item>
+        <item>Pyrénées</item>
+        <item>Quai de la Gare</item>
+        <item>Quai de la Rapée</item>
+        <item>Quatre Septembre</item>
+        <item>Rambouillet</item>
+        <item>Rambuteau</item>
+        <item>Ranelagh</item>
+        <item>Raspail</item>
+        <item>Réaumur Sébastopol</item>
+        <item>Rennes</item>
+        <item>République</item>
+        <item>Reuilly Diderot</item>
+        <item>Reuilly-Diderot</item>
+        <item>Richard Lenoir</item>
+        <item>Richelieu-Drouot</item>
+        <item>Riquet</item>
+        <item>Ris-Orangis</item>
+        <item>Robert Schuman</item>
+        <item>Robert Wagner</item>
+        <item>Robespierre</item>
         <item>Robinson</item>
-        <item>Saint-Cloud</item>
-        <item>Saint-Germain-En</item>
-        <item>Saint-Germain-Grande</item>
-        <item>Bourron-Marlotte-Grez</item>
-        <item>Brétigny</item>
-        <item>Blanc-Mesnil</item>
-        <item>Achères-Grand-Cormier</item>
-        <item>Andrésy</item>
-        <item>Angerville</item>
-        <item>Asnières</item>
-        <item>Auber</item>
-        <item>Auvers-Sur-Oise</item>
-        <item>Bagneaux-Sur-Loing</item>
-        <item>Couilly-Saint-Germain</item>
-        <item>Courcelle-Sur-Yvette</item>
-        <item>Deuil-Montmagny</item>
-        <item>Dourdan-La-Forêt</item>
-        <item>Bures-Sur-Yvette</item>
-        <item>Cesson</item>
-        <item>Chaponval</item>
-        <item>Chars</item>
-        <item>Clichy-Levallois</item>
-        <item>Coignières</item>
-        <item>Compans</item>
-        <item>Gravigny-Balizy</item>
-        <item>Gretz-Armainvilliers</item>
-        <item>Houdan</item>
-        <item>Issou-Porcheville</item>
-        <item>Joinville-Le-Pont</item>
-        <item>Maisons-Laffitte</item>
-        <item>Massy-Palaiseau</item>
-        <item>Meaux</item>
-        <item>Melun</item>
-        <item>Monnerville</item>
-        <item>Les-Essarts-Le</item>
-        <item>Limay</item>
-        <item>Luxembourg</item>
-        <item>Luzarches</item>
-        <item>Neuilly-Plaisance</item>
-        <item>Petit-Jouy-Les</item>
-        <item>Montgeroult-Courcelles</item>
-        <item>Montreuil</item>
-        <item>Mouroux</item>
-        <item>Plaisir-Grignon</item>
-        <item>Saint-Ouen-L\'aumône</item>
-        <item>Savigny-Sur-Orge</item>
-        <item>Sermaise</item>
-        <item>Seugy</item>
-        <item>Bougival</item>
-        <item>Aubergenville-Élisabethville</item>
-        <item>Bagneux</item>
-        <item>Crécy-En-Brie-Chapelle</item>
-        <item>Austerlitz</item>
-        <item>Dourdan</item>
-        <item>Émerainville-Pontault-Combault</item>
-        <item>Épinay-Villetaneuse</item>
-        <item>Brunoy</item>
-        <item>Cernay</item>
-        <item>Chamarande</item>
-        <item>Champigny</item>
-        <item>Chartrettes</item>
-        <item>Conflans-Sainte-Honorine</item>
-        <item>Gazeran</item>
-        <item>Herblay</item>
-        <item>Essonnes-Robinson</item>
-        <item>Évry</item>
-        <item>Mareil-Sur-Mauldre</item>
-        <item>Mennecy</item>
-        <item>Mériel</item>
-        <item>Meudon</item>
-        <item>Montfort-L\'amaury-Méré</item>
-        <item>L\'étang-La-Ville</item>
-        <item>L\'isle-Adam-Parmain</item>
-        <item>Lozère</item>
-        <item>Ozoir-La-Ferrière</item>
-        <item>Pantin</item>
-        <item>Nogent-Sur-Marne</item>
-        <item>Nointel-Mours</item>
-        <item>Noisy-Champs</item>
-        <item>Petit-Vaux</item>
-        <item>Pierrefitte-Stains</item>
-        <item>Pierrelaye</item>
-        <item>Montsoult-Maffliers</item>
-        <item>Mortcerf</item>
-        <item>Moulin-Galant</item>
-        <item>Saint-Ouen</item>
-        <item>Sevran-Beaudottes</item>
-        <item>Sèvres-Ville-D\'avray</item>
-        <item>Tacoignières-Richebourg</item>
-        <item>Porte-De-Clichy</item>
+        <item>Roger Sémat</item>
+        <item>Roissy-En-Brie</item>
+        <item>Rome</item>
+        <item>Rosa Parks</item>
+        <item>Rose Bertin</item>
+        <item>Rosny-Bois-Perrier</item>
+        <item>Rosny-Sous-Bois</item>
+        <item>Rosny-Sur-Seine</item>
+        <item>Rougemont-Chanteloup</item>
+        <item>Rue de la Pompe (Av. G. Mandel)</item>
+        <item>Rue des Boulets</item>
+        <item>Rue du Bac</item>
+        <item>Rueil-Malmaison</item>
+        <item>Rungis-La Queue</item>
+        <item>Saarinen</item>
+        <item>Saint-Ambroise</item>
+        <item>Saint-Augustin</item>
         <item>Saint-Chéron</item>
+        <item>Saint-Cloud</item>
+        <item>Saint-Cyr</item>
+        <item>Saint-Denis</item>
+        <item>Saint-Denis-Porte de Paris</item>
+        <item>Saint-Denis-Université</item>
         <item>Sainte-Colombe-Septveilles</item>
         <item>Sainte-Geneviève-Des</item>
-        <item>Villiers-Sur-Marne-Trévise</item>
-        <item>Versailles-Chantiers</item>
-        <item>Boulainvilliers</item>
-        <item>Boutigny-Sur-Essonne</item>
-        <item>Boigneville</item>
-        <item>Ablon</item>
-        <item>Achères-Ville</item>
-        <item>Argenteuil</item>
-        <item>Belloy-Saint-Martin</item>
-        <item>Beynes</item>
-        <item>Dammartin-Juilly-Saint</item>
-        <item>Écouen-Ézanville</item>
-        <item>Enghien-Les-Bains</item>
-        <item>Éragny-Neuville</item>
-        <item>Breuillet-Village</item>
-        <item>Champagne-Sur-Oise</item>
-        <item>Clamart</item>
-        <item>Corbeil-Essonnes</item>
-        <item>Gargenville</item>
-        <item>Goussainville</item>
-        <item>Grand-Bourg</item>
-        <item>Groslay</item>
-        <item>Fontenay-Sous-Bois</item>
-        <item>Gagny</item>
-        <item>Marly-Le-Roi</item>
-        <item>Gros-Noyer-Saint</item>
-        <item>Esbly</item>
-        <item>Fontainebleau-Avon</item>
-        <item>Fontaine-Le-Port</item>
-        <item>Isles-Armentières-Congis</item>
-        <item>Ivry-Sur-Seine</item>
-        <item>Jouy-En-Josas</item>
-        <item>Juziers</item>
-        <item>Marles-En-Brie</item>
-        <item>Marolles-En-Hurepoix</item>
-        <item>Maule</item>
-        <item>Meulan-Hardricourt</item>
-        <item>Lardy</item>
-        <item>Lognes</item>
-        <item>Longueville</item>
-        <item>Louveciennes</item>
-        <item>Parc-De-Sceaux</item>
-        <item>Persan-Beaumont</item>
-        <item>Nanterre-Ville</item>
-        <item>Santeuil-Le-Perchay</item>
-        <item>Montigny-Beauchamp</item>
-        <item>Moret-Veneux-Les</item>
-        <item>Nangis</item>
-        <item>Noisy-Le-Sec</item>
-        <item>Orsay-Ville</item>
-        <item>Pont-Petit</item>
-        <item>Saint-Ouen-L\'aumône</item>
-        <item>Sannois</item>
-        <item>Sceaux</item>
-        <item>Trappes</item>
-        <item>Us</item>
-        <item>Viarmes</item>
-        <item>Villeneuve-Triage</item>
-        <item>Villennes-Sur-Seine</item>
-        <item>Gilles-Guainville</item>
-        <item>Evreux</item>
-        <item>Saint-Piat</item>
-        <item>Sens</item>
-        <item>Champigny-Sur-Yonne</item>
-        <item>Cezy</item>
-        <item>Joigny</item>
-        <item>Chantilly-Gouvieux</item>
-        <item>Precy-Sur-Oise</item>
-        <item>Trie-Chateau</item>
-        <item>Crepy-En-Valois</item>
-        <item>Val-D\'europe</item>
-        <item>Valmondois</item>
-        <item>Vauboyen</item>
-        <item>Thun-Le-Paradis</item>
-        <item>Torcy</item>
-        <item>Vert-Galant</item>
-        <item>Pont-Sur-Yonne</item>
-        <item>Villeneuve-Sur-Yonne</item>
-        <item>Dordives</item>
-        <item>Gisors</item>
-        <item>Ferte-Milon</item>
-        <item>Chezy-Sur-Marne</item>
-        <item>Souppes-Château-Landon</item>
-        <item>Ris-Orangis</item>
-        <item>Rosny-Bois-Perrier</item>
-        <item>Rueil-Malmaison</item>
-        <item>Saint-Cyr</item>
-        <item>Saint-Maur-Créteil</item>
-        <item>Villiers-Montbarbin</item>
-        <item>Vincennes</item>
-        <item>Vitry-Sur-Seine</item>
-        <item>Vanves-Malakoff</item>
-        <item>Vaucelles</item>
-        <item>Vernouillet-Verneuil</item>
-        <item>Trilport</item>
-        <item>Vaires-Torcy</item>
-        <item>Val-De-Fontenay</item>
-        <item>Villaines</item>
-        <item>Bueil</item>
-        <item>Epernon</item>
-        <item>Vernon</item>
-        <item>Chateaudun</item>
-        <item>Etigny-Veron</item>
+        <item>Saint-Fargeau</item>
+        <item>Saint-François-Xavier</item>
+        <item>Saint-Georges</item>
+        <item>Saint-Germain-Bel-Fourqueux</item>
+        <item>Saint-Germain-des-Prés</item>
+        <item>Saint-Germain-En</item>
+        <item>Saint-Germain-Grande</item>
+        <item>Saint-Gratien</item>
+        <item>Saint-Jacques</item>
         <item>Saint-Julien-Du</item>
-        <item>Montargis</item>
-        <item>Liancourt-Saint-Pierre</item>
+        <item>Saint-Lazare</item>
+        <item>Saint-Leu Desserent</item>
+        <item>Saint-Leu-La</item>
+        <item>Saint-Mammès</item>
+        <item>Saint-Mandé</item>
+        <item>Saint-Marcel</item>
+        <item>Saint-Martin-D\'étampes</item>
+        <item>Saint-Maur</item>
+        <item>Saint-Maur-Créteil</item>
+        <item>Saint-Michel</item>
+        <item>Saint-Michel Notre Dâme</item>
+        <item>Saint-Michel-Sur</item>
+        <item>Saint-Nom-La-Forêt-De-Marly</item>
+        <item>Saint-Ouen</item>
+        <item>Saint-Ouen-L\'aumône</item>
+        <item>Saint-Ouen-L\'Aumône (Quartier de l\'Eglise)</item>
+        <item>Saint-Paul (le Marais)</item>
+        <item>Saint-Philippe du Roule</item>
+        <item>Saint-Piat</item>
+        <item>Saint-Placide</item>
+        <item>Saint-Quentin-En</item>
+        <item>Saint-Rémy-Lès</item>
+        <item>Saint-Sébastien-Froissart</item>
+        <item>Saint-Sulpice</item>
+        <item>Sannois</item>
+        <item>Santeuil-Le-Perchay</item>
+        <item>Sarcelles-Saint-Brice</item>
+        <item>Sartrouville</item>
+        <item>Savigny-Le-Temple</item>
+        <item>Savigny-Sur-Orge</item>
+        <item>Sceaux</item>
+        <item>Ségur</item>
+        <item>Sens</item>
+        <item>Sentier</item>
+        <item>Sermaise</item>
+        <item>Seugy</item>
+        <item>Séverine</item>
+        <item>Sevran-Beaudottes</item>
+        <item>Sevran-Livry</item>
+        <item>Sèvres R.G</item>
+        <item>Sèvres-Babylone</item>
+        <item>Sèvres-Lecourbe</item>
+        <item>Sèvres-Ville-D\'avray</item>
+        <item>Simplon</item>
+        <item>Six routes</item>
+        <item>Soleil Levant</item>
+        <item>Solférino</item>
+        <item>Souppes-Château-Landon</item>
+        <item>Stade Charléty (Porte de Gentilly)</item>
+        <item>Stade de France-Saint-Denis</item>
+        <item>Stade Géo André</item>
+        <item>Stalingrad</item>
+        <item>Station PX</item>
+        <item>Strasbourg-Saint-Denis</item>
+        <item>Sucy-Bonneuil</item>
+        <item>Sully-Morland</item>
+        <item>Suresnes-Longchamp</item>
+        <item>Suresnes-Mont-Valérien</item>
+        <item>Survilliers-Fosses</item>
+        <item>Suzanne Lenglen</item>
+        <item>Suzanne Valadon</item>
+        <item>Tacoignières-Richebourg</item>
+        <item>Taverny</item>
+        <item>Télégraphe</item>
+        <item>Temple</item>
+        <item>Terminal 1</item>
+        <item>Terminal 2 - Gare TGV</item>
+        <item>Terminal 3 - Roissypole</item>
+        <item>Ternes</item>
+        <item>Théâtre Gérard Philipe</item>
+        <item>Thieux-Nantouillet</item>
+        <item>Thomery</item>
+        <item>Thun-Le-Paradis</item>
+        <item>Timbaud</item>
+        <item>Tolbiac</item>
+        <item>Torcy</item>
+        <item>Tournan</item>
+        <item>Trappes</item>
+        <item>Trie-Chateau</item>
+        <item>Triel-Sur-Seine</item>
+        <item>Trilport</item>
+        <item>Trinité d\'Estienne d\'Orves</item>
+        <item>Trocadéro</item>
+        <item>Tuileries</item>
+        <item>Us</item>
+        <item>Vaires-Torcy</item>
+        <item>Val D\'argenteuil</item>
+        <item>Val-D\'europe</item>
+        <item>Val-De-Fontenay</item>
+        <item>Valmondois</item>
+        <item>Vaneau</item>
+        <item>Vanves-Malakoff</item>
+        <item>Varenne</item>
+        <item>Vauban</item>
+        <item>Vauboyen</item>
+        <item>Vaucelles</item>
+        <item>Vaucresson</item>
+        <item>Vaugirard (Adolphe Chériou)</item>
+        <item>Vaux-Sur-Seine</item>
+        <item>Vavin</item>
+        <item>Vélizy 2</item>
+        <item>Verneuil-L\'étang</item>
+        <item>Vernon</item>
+        <item>Vernouillet-Verneuil</item>
+        <item>Vernou-Sur-Seine</item>
+        <item>Versailles Chateau</item>
+        <item>Versailles R.D</item>
+        <item>Versailles-Chantiers</item>
+        <item>Vert-Galant</item>
+        <item>Viarmes</item>
+        <item>Victor Basch</item>
+        <item>Victor Hugo</item>
         <item>Vigneux-Sur-Seine</item>
         <item>Villabé</item>
+        <item>Villaines</item>
+        <item>Villejuif-Léo Lagrange</item>
+        <item>Villejuif-Louis Aragon</item>
+        <item>Villejuif-Paul Vaillant-Couturier</item>
+        <item>Villeneuve-La-Guyard</item>
+        <item>Villeneuve-Le-Roi</item>
+        <item>Villeneuve-Saint-Georges</item>
+        <item>Villeneuve-Sur-Yonne</item>
+        <item>Villeneuve-Triage</item>
+        <item>Villennes-Sur-Seine</item>
         <item>Villeparisis-Mitry-Le</item>
         <item>Villepinte</item>
         <item>Villepreux-Les-Clayes</item>
+        <item>Villetaneuse-Université</item>
+        <item>Villiers</item>
         <item>Villiers-Le-Bel-Arnouville</item>
-        <item>Beauvais</item>
-        <item>Chartres</item>
-        <item>Jouy</item>
-        <item>Auneau</item>
-        <item>Bonneval</item>
-        <item>Villeneuve-La-Guyard</item>
-        <item>Paris-Bercy</item>
-        <item>Dreux</item>
-        <item>Creil</item>
-        <item>Boran-Sur-Oise</item>
-        <item>Chaumont-En-Vexin</item>
-        <item>Ormoy-Villers</item>
-        <item>Nogent-L\'artaud-Charly</item>
-        <item>Chateau-Thierry</item>
-        <item>Mareuil-Sur-Ourcq</item>
-        <item>Taverny</item>
-        <item>Rambouillet</item>
-        <item>Roissy-En-Brie</item>
-        <item>Rosny-Sur-Seine</item>
-        <item>Saint-Germain-Bel-Fourqueux</item>
-        <item>Saint-Leu-La</item>
-        <item>Saint-Martin-D\'étampes</item>
-        <item>Viry-Châtillon</item>
-        <item>Vulaines-Sur-Seine</item>
-        <item>Yerres</item>
-        <item>Vaucresson</item>
-        <item>Verneuil-L\'étang</item>
-        <item>Saint-Nom-La-Forêt-De-Marly</item>
-        <item>Thomery</item>
-        <item>Triel-Sur-Seine</item>
-        <item>Villeneuve-Le-Roi</item>
-        <item>Villeneuve-Saint-Georges</item>
-        <item>Maintenon</item>
-        <item>Voves</item>
-        <item>Laroche-Migennes</item>
-        <item>Nanteuil-Le-Haudouin</item>
-        <item>La Hacquinière</item>
-        <item>La Verrière</item>
-        <item>Les Baconnets</item>
-        <item>Les Grésillons</item>
-        <item>Les Mureaux</item>
-        <item>Parc Des Expositions</item>
-        <item>Musée D\'orsay</item>
-        <item>Port Royal</item>
-        <item>Champ De Courses D\'Enghien</item>
-        <item>La Borne Blanche</item>
-        <item>La Grande Paroisse</item>
-        <item>Les Ardoines</item>
-        <item>Orly Ville</item>
-        <item>Chemin D\'antony</item>
-        <item>Les Noues</item>
-        <item>Les Vallées</item>
-        <item>Neuville Université</item>
-        <item>Le Guichet</item>
-        <item>Le Perray</item>
-        <item>Versailles Chateau</item>
-        <item>Bibliothèque Francois Mitterrand</item>
-        <item>Le Bourget</item>
-        <item>Le Mée</item>
-        <item>Le Stade</item>
-        <item>Les Saules</item>
-        <item>Pont De L\'alma</item>
-        <item>Ferrieres Fontenay</item>
-        <item>Val D\'argenteuil</item>
-        <item>Marchezais Broue</item>
-        <item>La Villetertre</item>
-        <item>Creteil Pompadour</item>
-        <item>Cergy Le Haut</item>
-        <item>Issy-Val de Seine</item>
-        <item>Orangis-Bois de l\'Épine</item>
-        <item>Saint-Michel Notre Dâme</item>
-        <item>La Défense-Grande Arche</item>
-        <item>Le Vésinet-Le Pecq</item>
-        <item>Champ de Mars-Tour Eiffel</item>
-        <item>La Plaine-Stade de France</item>
-        <item>Stade de France-Saint-Denis</item>
-        <item>Franconville-Le Plessis-Bouchard</item>
-        <item>La Courneuve-Aubervilliers</item>
-        <item>La Croix-De-Berny-Fresnes</item>
-        <item>Le Parc-De-Saint-Maur</item>
-        <item>Le Raincy-Villemomble-Montfermeil</item>
-        <item>Les Boullereaux-Champigny</item>
-        <item>Le Chénay-Gagny</item>
-        <item>La Garenne-Colombes</item>
-        <item>Le Plessis-Chenet</item>
-        <item>Le Vésinet-Centre</item>
-        <item>Châtelet-Les Halles</item>
-        <item>Le Vert-De-Maisons</item>
-        <item>Le Coudray-Montceaux</item>
-        <item>La Ferté-Sous-Jouarre</item>
-        <item>La Varenne-Chennevières</item>
-        <item>Le Bras-De-Fer</item>
-        <item>Pont-De-Rungis-Aéroport d\'Orly</item>
-        <item>Rungis-La Queue</item>
-        <item>Garancières-La Queue</item>
-        <item>La Barre-Ormesson</item>
-        <item>La Celle-Saint-Cloud</item>
-        <item>Noise-Le-Grand-Mont d\'Est</item>
-        <item>Méry-Val d\'Oise</item>
-        <item>La Ferté-Alais</item>
-        <item>La Frette-Montigny</item>
-        <item>Les Clairières-De-Verneuil</item>
-        <item>Les Yvris-Noisy-Le-Grand</item>
+        <item>Villiers-Montbarbin</item>
         <item>Villiers-Neuphle Pontchartrain</item>
-        <item>Le Val-D\'or</item>
-        <item>Le Plessis-Belleville</item>
-        <item>La Villette-Saint-Prest</item>
-        <item>Saint-Leu Desserent</item>
+        <item>Villiers-Sur-Marne-Trévise</item>
+        <item>Vincennes</item>
+        <item>Viroflay R.D</item>
+        <item>Viroflay R.G</item>
+        <item>Viry-Châtillon</item>
+        <item>Vitry-Sur-Seine</item>
+        <item>Volontaires</item>
+        <item>Voltaire (Léon Blum)</item>
+        <item>Vosves</item>
+        <item>Voves</item>
+        <item>Vulaines-Sur-Seine</item>
+        <item>Wagram</item>
+        <item>Yerres</item>
     </string-array>
 </resources>
