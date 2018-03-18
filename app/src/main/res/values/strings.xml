@@ -89,6 +89,8 @@
     <string name="pref_encryptPWDSummary">Please don\'t type password…</string>
     <string name="pref_toggleTitle">Toggle activities</string>
     <string name="pref_toggleSummary">Use this to show/hide activities on the main screen. Note that if you hide an activity, the corresponding data is not deleted.</string>
+    <string name="ExportKO_NOPWDProvided">Export failed: encryption is activated but no password has been provided.</string>
+    <string name="ExportOKWithEncryption">Data export (with encryption) was successful.</string>
 
     <string-array name="spendingsCategories">
         <item>Drinks</item>

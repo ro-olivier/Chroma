@@ -14,6 +14,7 @@ import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.os.Bundle;
+import android.util.Base64OutputStream;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -32,9 +33,15 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.io.File;
+import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
+import java.security.InvalidAlgorithmParameterException;
+import java.security.InvalidKeyException;
+import java.security.NoSuchAlgorithmException;
+import java.security.spec.InvalidKeySpecException;
+import java.security.spec.KeySpec;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -44,7 +51,17 @@ import java.util.Date;
 import java.util.HashSet;
 import java.util.Locale;
 import java.util.Objects;
+import java.util.Random;
 import java.util.Set;
+
+import javax.crypto.Cipher;
+import javax.crypto.CipherOutputStream;
+import javax.crypto.NoSuchPaddingException;
+import javax.crypto.SecretKey;
+import javax.crypto.SecretKeyFactory;
+import javax.crypto.spec.IvParameterSpec;
+import javax.crypto.spec.PBEKeySpec;
+import javax.crypto.spec.SecretKeySpec;
 
 import fr.zigomar.chroma.chroma.adapters.ImageAdapter;
 import fr.zigomar.chroma.chroma.fragments.ExportDateFragment;
@@ -290,35 +307,15 @@ public class MainActivity extends AppCompatActivity {
             exportFilename = "chroma_export_" + beginDate + ".json";
         }
 
-        Log.i("CHROMA", "Writing to : " + exportFilename);
-
-        File exportFile = new File(Environment.getExternalStoragePublicDirectory(
-                Environment.DIRECTORY_DOCUMENTS), exportFilename);
-
-        FileOutputStream stream = null;
-        try {
-            stream = new FileOutputStream(exportFile);
-            stream.write(data.toString().getBytes());
-        } catch (IOException e) {
-            e.printStackTrace();
-        } finally {
-            try {
-                if (stream != null) {
-                    stream.close();
-                    Toast.makeText(getApplicationContext(), R.string.ExportOK, Toast.LENGTH_SHORT).show();
-                }
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
-        }
+        writeExportFile(data, exportFilename);
     }
 
     private void export() {
 
-        Log.i("CHROMA", "export was called");
+        Log.i("CHROMA", "Full Export was called");
 
         JSONArray data = new JSONArray();
-        for (File f: getFilesDir().listFiles()) {
+        for (File f : getFilesDir().listFiles()) {
             if (f.isFile()) {
                 String filename = f.getName();
                 if (!Objects.equals(filename, getString(R.string.OpenBooksFileName))) {
@@ -328,10 +325,12 @@ public class MainActivity extends AppCompatActivity {
                         int size = is.available();
                         byte[] buffer = new byte[size];
                         int byte_read = is.read(buffer);
-                        if (byte_read != size) { Log.i("CHROMA", "Did not read the complete file, or something else went wrong"); }
+                        if (byte_read != size) {
+                            Log.i("CHROMA", "Did not read the complete file, or something else went wrong");
+                        }
                         is.close();
                         JSONObject temp = new JSONObject(new String(buffer, "UTF-8"));
-                        temp.put("date", filename.substring(0,10));
+                        temp.put("date", filename.substring(0, 10));
                         data.put(temp);
                     } catch (IOException | JSONException e) {
                         e.printStackTrace();
@@ -340,25 +339,81 @@ public class MainActivity extends AppCompatActivity {
             }
         }
 
+        writeExportFile(data, getString(R.string.FullExportFilename));
+
+    }
+
+    private void writeExportFile(JSONArray data, String filename) {
+
+        Log.i("CHROMA", "Writing to : " + filename);
+
         File exportFile = new File(Environment.getExternalStoragePublicDirectory(
-                Environment.DIRECTORY_DOCUMENTS), getString(R.string.FullExportFilename));
+                Environment.DIRECTORY_DOCUMENTS), filename);
 
-        Log.i("CHROMA", "Writing to : chroma_full_export.json");
-
-        FileOutputStream stream = null;
+        FileOutputStream fostream = null;
         try {
-            stream = new FileOutputStream(exportFile);
-            stream.write(data.toString().getBytes());
-        } catch (IOException e) {
+            fostream = new FileOutputStream(exportFile);
+        } catch (FileNotFoundException e) {
             e.printStackTrace();
-        } finally {
+        }
+        CipherOutputStream cstream;
+
+        SharedPreferences sharedPref = PreferenceManager.getDefaultSharedPreferences(this);
+        if (sharedPref.getBoolean(SettingsActivity.KEY_PREF_ENC, false)) {
+
+            String password = sharedPref.getString(SettingsActivity.KEY_PREF_PWD, "");
+            if (password.length() == 0) {
+                Toast.makeText(getApplicationContext(), R.string.ExportKO_NOPWDProvided, Toast.LENGTH_SHORT).show();
+            } else {
+
+                byte[] b = new byte[16];
+                new Random().nextBytes(b);
+
+                try {
+                    final SecretKeyFactory factory = SecretKeyFactory.getInstance("PBKDF2WithHmacSHA256");
+                    final KeySpec spec = new PBEKeySpec(password.toCharArray(), "CHROMA_SALT".getBytes(), 65536, 256);
+                    final SecretKey tmp = factory.generateSecret(spec);
+                    final SecretKey key = new SecretKeySpec(tmp.getEncoded(), "AES");
+                    final IvParameterSpec IV = new IvParameterSpec(b);
+                    final Cipher cipher;
+
+                    cipher = Cipher.getInstance("AES/GCM/NoPadding");
+                    cipher.init(Cipher.ENCRYPT_MODE, key, IV);
+                    cstream = new CipherOutputStream(fostream, cipher);
+                    try {
+                        cstream.write(data.toString().getBytes());
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    } finally {
+                        try {
+                            cstream.close();
+                            Toast.makeText(getApplicationContext(), R.string.ExportOKWithEncryption, Toast.LENGTH_SHORT).show();
+                        } catch (IOException e) {
+                            e.printStackTrace();
+                        }
+                    }
+
+                } catch (InvalidKeySpecException | NoSuchAlgorithmException | NoSuchPaddingException | InvalidAlgorithmParameterException | InvalidKeyException e) {
+                    e.printStackTrace();
+                }
+
+            }
+        } else {
             try {
-                if (stream != null) {
-                    stream.close();
-                    Toast.makeText(getApplicationContext(), R.string.ExportOK, Toast.LENGTH_SHORT).show();
+                if (fostream != null) {
+                    fostream.write(data.toString().getBytes());
                 }
             } catch (IOException e) {
                 e.printStackTrace();
+            } finally {
+                try {
+                    if (fostream != null) {
+                        fostream.close();
+                        Toast.makeText(getApplicationContext(), R.string.ExportOK, Toast.LENGTH_SHORT).show();
+                    }
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
             }
         }
     }
