@@ -17,8 +17,8 @@
         <item>AlcoholActivity</item>
         <item>TransportActivity</item>
         <item>CarActivity</item>
-        <item>MoneyInActivity</item>
+        <item>IncomeActivity</item>
         <item>MovieActivity</item>
-        <item>NewBookActivity</item>
+        <item>BookActivity</item>
     </string-array>
 </resources>

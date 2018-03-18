@@ -15,9 +15,9 @@ import java.util.List;
 import fr.zigomar.chroma.chroma.Model.Income;
 import fr.zigomar.chroma.chroma.R;
 
-public class EarningAdapter extends ArrayAdapter<Income> {
+public class IncomeAdapter extends ArrayAdapter<Income> {
 
-    public EarningAdapter(Context context, List<Income> incomes) {
+    public IncomeAdapter(Context context, List<Income> incomes) {
         super(context, 0, incomes);
     }
 

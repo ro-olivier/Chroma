@@ -20,7 +20,7 @@ import fr.zigomar.chroma.chroma.Model.Book;
 import fr.zigomar.chroma.chroma.Model.DataHandler;
 import fr.zigomar.chroma.chroma.R;
 
-public class NewBookActivity extends InputActivity {
+public class BookActivity extends InputActivity {
 
     private TextView title;
     private TextView author;
@@ -46,7 +46,7 @@ public class NewBookActivity extends InputActivity {
         // new) spendings
         ListView openBooksView = findViewById(R.id.ListViewOpenBooks);
 
-        this.openBooksAdapter = new OpenBooksAdapter(NewBookActivity.this, this.openBooks);
+        this.openBooksAdapter = new OpenBooksAdapter(BookActivity.this, this.openBooks);
         openBooksView.setAdapter(this.openBooksAdapter);
 
         openBooksView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
@@ -56,7 +56,7 @@ public class NewBookActivity extends InputActivity {
                 Log.i("CHROMA", "Clicked the " + position + "-th item.");
 
                 Log.i("CHROMA", "Switching to book review activity");
-                Intent bookReviewIntent = new Intent (NewBookActivity.this, BookReviewActivity.class);
+                Intent bookReviewIntent = new Intent (BookActivity.this, BookReviewActivity.class);
                 bookReviewIntent.putExtra(CURRENT_DATE, currentDate.getTime());
                 bookReviewIntent.putExtra("BOOK_TITLE", openBooks.get(position).getTitle());
                 bookReviewIntent.putExtra("BOOK_AUTHOR", openBooks.get(position).getAuthor());

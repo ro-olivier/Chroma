@@ -222,7 +222,7 @@ public class DataHandler {
 
             for (int i = 0; i < jsonArray.length(); i++) {
                 JSONObject jso = jsonArray.getJSONObject(i);
-                s.add(new Drink(jso.getString("description"), jso.getDouble("volume"), jso.getDouble("content")));
+                s.add(new Drink(jso.getString("description"), jso.getDouble("volume"), jso.getDouble("alcohol")));
             }
 
         } catch (JSONException e) {

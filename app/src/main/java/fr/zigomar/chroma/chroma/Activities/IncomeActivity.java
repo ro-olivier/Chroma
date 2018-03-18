@@ -15,17 +15,17 @@ import android.widget.Toast;
 import java.text.DecimalFormat;
 import java.util.ArrayList;
 
-import fr.zigomar.chroma.chroma.Adapters.EarningAdapter;
+import fr.zigomar.chroma.chroma.Adapters.IncomeAdapter;
 import fr.zigomar.chroma.chroma.Model.Income;
 import fr.zigomar.chroma.chroma.R;
 
-public class MoneyInActivity extends InputActivity {
+public class IncomeActivity extends InputActivity {
 
     private TextView descField;
     private TextView amountField;
 
     private ArrayList<Income> incomes;
-    private EarningAdapter incomeAdapter;
+    private IncomeAdapter incomeAdapter;
 
     @Override
     protected void onCreate(final Bundle savedInstanceState) {
@@ -65,7 +65,7 @@ public class MoneyInActivity extends InputActivity {
         // new) incomes
         ListView incomesListView = findViewById(R.id.ListViewMoney);
 
-        this.incomeAdapter = new EarningAdapter(MoneyInActivity.this, this.incomes);
+        this.incomeAdapter = new IncomeAdapter(IncomeActivity.this, this.incomes);
         incomesListView.setAdapter(this.incomeAdapter);
 
 

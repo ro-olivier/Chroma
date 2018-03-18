@@ -355,8 +355,8 @@ public class MainActivity extends AppCompatActivity {
 
         //Integer[] ids = {
         //        R.drawable.moodactivity, R.drawable.moneyactivity, R.drawable.alcoholactivity,
-        //        R.drawable.transportactivity, R.drawable.caractivity, R.drawable.moneyinactivity,
-        //        R.drawable.movieactivity, R.drawable.newbookactivity };
+        //        R.drawable.transportactivity, R.drawable.caractivity, R.drawable.incomeactivity,
+        //        R.drawable.movieactivity, R.drawable.bookactivity };
 
         int[] ids = new int[ids_array.size()];
         for (int i=0; i < ids.length; i++) {

@@ -29,39 +29,11 @@ public abstract class InputActivity extends AppCompatActivity {
     protected void onCreate(final Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        switch (this.getClass().getName()) {
-            case "fr.zigomar.chroma.chroma.Activities.MoodActivity":
-                setContentView(R.layout.activity_mood);
-                break;
+        String className = this.getClass().getSimpleName();
+        String cleanClassName = className.replace("Activity", "");
+        String layoutResName = "activity_" + cleanClassName.toLowerCase();
 
-            case "fr.zigomar.chroma.chroma.Activities.MoneyActivity":
-                setContentView(R.layout.activity_money);
-                break;
-
-            case "fr.zigomar.chroma.chroma.Activities.MoneyInActivity":
-                setContentView(R.layout.activity_money_in);
-                break;
-
-            case "fr.zigomar.chroma.chroma.Activities.AlcoholActivity":
-                setContentView(R.layout.activity_alcohol);
-                break;
-
-            case "fr.zigomar.chroma.chroma.Activities.CarActivity":
-                setContentView(R.layout.activity_cartrip);
-                break;
-
-            case "fr.zigomar.chroma.chroma.Activities.NewBookActivity":
-                setContentView(R.layout.activity_newbook);
-                break;
-
-            case "fr.zigomar.chroma.chroma.Activities.TransportActivity":
-                setContentView(R.layout.activity_transport);
-                break;
-
-            case "fr.zigomar.chroma.chroma.Activities.MovieActivity":
-                setContentView(R.layout.activity_movie);
-                break;
-        }
+        setContentView(getResources().getIdentifier(layoutResName, "layout", this.getApplicationContext().getPackageName()));
 
         Toolbar myToolbar = findViewById(R.id.toolbar);
         setSupportActionBar(myToolbar);
