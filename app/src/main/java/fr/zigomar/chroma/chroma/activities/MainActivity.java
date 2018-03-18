@@ -3,6 +3,7 @@ package fr.zigomar.chroma.chroma.activities;
 import android.Manifest;
 import android.app.DatePickerDialog;
 import android.app.DialogFragment;
+import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
@@ -14,7 +15,6 @@ import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.os.Bundle;
-import android.util.Base64OutputStream;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -368,16 +368,21 @@ public class MainActivity extends AppCompatActivity {
 
                 byte[] b = new byte[16];
                 new Random().nextBytes(b);
+                String iv_str = android.util.Base64.encodeToString(b, android.util.Base64.DEFAULT);
 
                 try {
-                    final SecretKeyFactory factory = SecretKeyFactory.getInstance("PBKDF2WithHmacSHA256");
-                    final KeySpec spec = new PBEKeySpec(password.toCharArray(), "CHROMA_SALT".getBytes(), 65536, 256);
+                    final String keyGenAlgorithm = "PBKDF2WithHmacSHA256";
+                    final String salt = "CHROMA_SALT";
+                    final String cipherAlgorithm = "AES/GCM/NoPadding";
+
+                    final SecretKeyFactory factory = SecretKeyFactory.getInstance(keyGenAlgorithm);
+                    final KeySpec spec = new PBEKeySpec(password.toCharArray(), salt.getBytes(), 65536, 256);
                     final SecretKey tmp = factory.generateSecret(spec);
-                    final SecretKey key = new SecretKeySpec(tmp.getEncoded(), "AES");
+                    final SecretKey key = new SecretKeySpec(tmp.getEncoded(), cipherAlgorithm.split("/")[0]);
                     final IvParameterSpec IV = new IvParameterSpec(b);
                     final Cipher cipher;
 
-                    cipher = Cipher.getInstance("AES/GCM/NoPadding");
+                    cipher = Cipher.getInstance(cipherAlgorithm);
                     cipher.init(Cipher.ENCRYPT_MODE, key, IV);
                     cstream = new CipherOutputStream(fostream, cipher);
                     try {
@@ -387,6 +392,7 @@ public class MainActivity extends AppCompatActivity {
                     } finally {
                         try {
                             cstream.close();
+                            saveEncryptionParams(keyGenAlgorithm, salt, iv_str, cipherAlgorithm);
                             Toast.makeText(getApplicationContext(), R.string.ExportOKWithEncryption, Toast.LENGTH_SHORT).show();
                         } catch (IOException e) {
                             e.printStackTrace();
@@ -416,6 +422,19 @@ public class MainActivity extends AppCompatActivity {
                 }
             }
         }
+    }
+
+    private void saveEncryptionParams(String keyGenAlgorithm, String salt, String iv, String cipherAlgorithm) throws IOException {
+        FileOutputStream outputStream;
+        outputStream = getApplicationContext().openFileOutput(
+                getResources().getString(R.string.EncryptionParamsFile), Context.MODE_PRIVATE);
+        String data_to_file = "Encryption parameters for file exported and encrypted on " + new Date().toString() + "\n\n" +
+                "keyGenAlgorithm = " + keyGenAlgorithm + "\n" +
+                "salt = " + salt + "\n" +
+                "cipherAlgorithm = " + cipherAlgorithm + "\n" +
+                "iv = " + iv;
+        outputStream.write(data_to_file.getBytes());
+        outputStream.close();
     }
 
     @Override
