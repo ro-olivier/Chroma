@@ -1,6 +1,7 @@
 package fr.zigomar.chroma.chroma.activities;
 
 import android.Manifest;
+import android.app.DatePickerDialog;
 import android.app.DialogFragment;
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -19,8 +20,10 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
+import android.widget.DatePicker;
 import android.widget.GridView;
 import android.widget.ImageButton;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -84,7 +87,32 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
-        }
+        LinearLayout displayDateLayout = findViewById(R.id.display_date);
+        displayDateLayout.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Calendar c = Calendar.getInstance();
+                c.setTime(currentDate);
+                int year = c.get(Calendar.YEAR);
+                int month = c.get(Calendar.MONTH);
+                int day = c.get(Calendar.DAY_OF_MONTH);
+
+                DatePickerDialog datePicker;
+                datePicker = new DatePickerDialog(MainActivity.this, new DatePickerDialog.OnDateSetListener() {
+                    @Override
+                    public void onDateSet(DatePicker datePicker, int year, int month, int day) {
+                        Calendar c = Calendar.getInstance();
+                        c.set(year, month, day);
+                        currentDate = c.getTime();
+                        updateDateView();
+                    }
+                }, year, month, day);
+                datePicker.setTitle("Select Date");
+                datePicker.show();
+            }
+        });
+
+    }
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -376,7 +404,7 @@ public class MainActivity extends AppCompatActivity {
 
                 String capitalized_activity = choice.replaceFirst("activity", "Activity");
                 String capitalized_choice = capitalized_activity.substring(0, 1).toUpperCase() + capitalized_activity.substring(1);
-                String className = "fr.zigomar.chroma.chroma.Activities." + capitalized_choice;
+                String className = "fr.zigomar.chroma.chroma.activities." + capitalized_choice;
 
                 Log.i("CHROMA", "Switching to " + choice + " (transformed to " + capitalized_choice + ")");
 
