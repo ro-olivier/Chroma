@@ -153,7 +153,12 @@ public class MainActivity extends AppCompatActivity {
                             CHROMA_WRITE_EXTERNAL_STORAGE_PERMISSION_FULL_EXPORT);
                 } else {
                     Log.i("CHROMA", "Permission already granted, proceeding with export()");
-                    export();
+                    new Thread(new Runnable() {
+                        public void run() {
+                            Log.i("CHROMA", "I'm in a new Thread !");
+                            export();
+                        }
+                    }).start();
                 }
 
                 return true;
@@ -198,7 +203,12 @@ public class MainActivity extends AppCompatActivity {
                 if (grantResults.length > 0
                         && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
                     Log.i("CHROMA", "Received permission CHROMA_WRITE_EXTERNAL_STORAGE_PERMISSION_FULL_EXPORT");
-                    export();
+                    new Thread(new Runnable() {
+                        public void run() {
+                            Log.i("CHROMA", "I'm in a new Thread !");
+                            export();
+                        }
+                    }).start();
 
                 } else {
 
@@ -272,7 +282,7 @@ public class MainActivity extends AppCompatActivity {
                 String filename = f.getName();
                 String filenameIntStr = filename.substring(0, 10);
 
-                if (!Objects.equals(filename, getString(R.string.OpenBooksFileName))) {
+                if (!Objects.equals(filename, getString(R.string.OpenBooksFileName)) && !Objects.equals(filename, getString(R.string.EncryptionParamsFile))) {
                     Log.i("CHROMA", "Processing file date : " + filename);
                     int filenameInt = Integer.parseInt(filenameIntStr.split("-")[0] + filenameIntStr.split("-")[1] + filenameIntStr.split("-")[2]);
 
@@ -318,7 +328,7 @@ public class MainActivity extends AppCompatActivity {
         for (File f : getFilesDir().listFiles()) {
             if (f.isFile()) {
                 String filename = f.getName();
-                if (!Objects.equals(filename, getString(R.string.OpenBooksFileName))) {
+                if (!Objects.equals(filename, getString(R.string.OpenBooksFileName)) && !Objects.equals(filename, getString(R.string.EncryptionParamsFile))) {
                     Log.i("CHROMA", "Processing " + filename);
                     try {
                         InputStream is = getApplicationContext().openFileInput(filename);
@@ -363,7 +373,13 @@ public class MainActivity extends AppCompatActivity {
 
             String password = sharedPref.getString(SettingsActivity.KEY_PREF_PWD, "");
             if (password.length() == 0) {
-                Toast.makeText(getApplicationContext(), R.string.ExportKO_NOPWDProvided, Toast.LENGTH_SHORT).show();
+                MainActivity.this.runOnUiThread(new Runnable()
+                {
+                    public void run()
+                    {
+                        Toast.makeText(getApplicationContext(), R.string.ExportKO_NOPWDProvided, Toast.LENGTH_SHORT).show();
+                    }
+                });
             } else {
 
                 byte[] b = new byte[16];
@@ -393,7 +409,13 @@ public class MainActivity extends AppCompatActivity {
                         try {
                             cstream.close();
                             saveEncryptionParams(keyGenAlgorithm, salt, iv_str, cipherAlgorithm);
-                            Toast.makeText(getApplicationContext(), R.string.ExportOKWithEncryption, Toast.LENGTH_SHORT).show();
+                            MainActivity.this.runOnUiThread(new Runnable()
+                            {
+                                public void run()
+                                {
+                                    Toast.makeText(getApplicationContext(), R.string.ExportOKWithEncryption, Toast.LENGTH_SHORT).show();
+                                }
+                            });
                         } catch (IOException e) {
                             e.printStackTrace();
                         }
@@ -415,7 +437,13 @@ public class MainActivity extends AppCompatActivity {
                 try {
                     if (fostream != null) {
                         fostream.close();
-                        Toast.makeText(getApplicationContext(), R.string.ExportOK, Toast.LENGTH_SHORT).show();
+                        MainActivity.this.runOnUiThread(new Runnable()
+                        {
+                            public void run()
+                            {
+                                Toast.makeText(getApplicationContext(), R.string.ExportOK, Toast.LENGTH_SHORT).show();
+                            }
+                        });
                     }
                 } catch (IOException e) {
                     e.printStackTrace();

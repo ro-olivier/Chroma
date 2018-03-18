@@ -55,14 +55,18 @@ public class ExportDateFragment extends DialogFragment {
             @Override
             public void onClick(View v) {
 
-                int begin = startPicker.getValue();
-                int end = endPicker.getValue();
+                final int begin = startPicker.getValue();
+                final int end = endPicker.getValue();
 
                 if (begin > end) {
                     Toast.makeText(getActivity(), R.string.WrongExportDates, Toast.LENGTH_SHORT).show();
                 } else {
-                    MainActivity callingActivity = (MainActivity) getActivity();
-                    callingActivity.exportOnReceiveExportDates(valid_dates[begin], valid_dates[end]);
+                    final MainActivity callingActivity = (MainActivity) getActivity();
+                    new Thread(new Runnable() {
+                        public void run() {
+                            callingActivity.exportOnReceiveExportDates(valid_dates[begin], valid_dates[end]);
+                        }
+                    }).start();
                     getDialog().dismiss();
                 }
 
