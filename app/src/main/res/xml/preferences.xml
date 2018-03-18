@@ -6,7 +6,7 @@
         android:key="pref_encrypt">
 
         <SwitchPreference
-            android:key="pref_encrypt_bool"
+            android:key="pref_encrypt"
             android:title="@string/pref_encryptTitle"
             android:summary="@string/pref_encryptSummary"
             android:defaultValue="false" />

@@ -3,8 +3,10 @@ package fr.zigomar.chroma.chroma.Activities;
 import android.Manifest;
 import android.app.DialogFragment;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
 import android.os.Environment;
+import android.preference.PreferenceManager;
 import android.support.annotation.NonNull;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.ContextCompat;
@@ -36,8 +38,10 @@ import java.util.Calendar;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.Date;
+import java.util.HashSet;
 import java.util.Locale;
 import java.util.Objects;
+import java.util.Set;
 
 import fr.zigomar.chroma.chroma.Adapters.ImageAdapter;
 import fr.zigomar.chroma.chroma.Fragments.ExportDateFragment;
@@ -58,82 +62,7 @@ public class MainActivity extends AppCompatActivity {
         Toolbar myToolbar = findViewById(R.id.toolbar);
         setSupportActionBar(myToolbar);
 
-
-        Integer[] ids = {
-                R.drawable.emoticon, R.drawable.euro, R.drawable.cheers,
-                R.drawable.bus, R.drawable.car, R.drawable.payment,
-                R.drawable.movie, R.drawable.book };
-
-        final Integer[] ids_clone = ids.clone();
-
-        GridView gridview = findViewById(R.id.ButtonsGridView);
-        gridview.setAdapter(new ImageAdapter(this, ids));
-
-        gridview.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            public void onItemClick(AdapterView<?> parent, View v,
-                                    int position, long id) {
-
-                String choice = getResources().getResourceName(ids_clone[position]).split("/")[1];
-
-                switch (choice) {
-                    case "emoticon":
-                        Log.i("CHROMA", "Switching to mood activity");
-                        Intent moodIntent = new Intent (MainActivity.this, MoodActivity.class);
-                        moodIntent.putExtra(CURRENT_DATE, currentDate.getTime());
-                        startActivity(moodIntent);
-                        break;
-
-                    case "euro":
-                        Log.i("CHROMA", "Switching to money activity");
-                        Intent moneyIntent = new Intent (MainActivity.this, MoneyActivity.class);
-                        moneyIntent.putExtra(CURRENT_DATE, currentDate.getTime());
-                        startActivity(moneyIntent);
-                        break;
-
-                    case "cheers":
-                        Log.i("CHROMA", "Switching to alcohol activity");
-                        Intent alcoholIntent = new Intent (MainActivity.this, AlcoholActivity.class);
-                        alcoholIntent.putExtra(CURRENT_DATE, currentDate.getTime());
-                        startActivity(alcoholIntent);
-                        break;
-
-                    case "bus":
-                        Log.i("CHROMA", "Switching to transport activity");
-                        Intent transportIntent = new Intent (MainActivity.this, TransportActivity.class);
-                        transportIntent.putExtra(CURRENT_DATE, currentDate.getTime());
-                        startActivity(transportIntent);
-                        break;
-
-                    case "car":
-                        Log.i("CHROMA", "Switching to car activity");
-                        Intent carIntent = new Intent (MainActivity.this, CarActivity.class);
-                        carIntent.putExtra(CURRENT_DATE, currentDate.getTime());
-                        startActivity(carIntent);
-                        break;
-
-                    case "payment":
-                        Log.i("CHROMA", "Switching to money in activity");
-                        Intent moneyInIntent = new Intent (MainActivity.this, MoneyInActivity.class);
-                        moneyInIntent.putExtra(CURRENT_DATE, currentDate.getTime());
-                        startActivity(moneyInIntent);
-                        break;
-
-                    case "movie":
-                        Log.i("CHROMA", "Switching to movie activity");
-                        Intent movieIntent = new Intent (MainActivity.this, MovieActivity.class);
-                        movieIntent.putExtra(CURRENT_DATE, currentDate.getTime());
-                        startActivity(movieIntent);
-                        break;
-
-                    case "book":
-                        Log.i("CHROMA", "Switching to book activity");
-                        Intent bookIntent = new Intent (MainActivity.this, NewBookActivity.class);
-                        bookIntent.putExtra(CURRENT_DATE, currentDate.getTime());
-                        startActivity(bookIntent);
-                        break;
-                }
-            }
-        });
+        PreferenceManager.setDefaultValues(this, R.xml.preferences, false);
 
         ImageButton forwardButton = findViewById(R.id.ButtonForwardDate);
         forwardButton.setOnClickListener(new View.OnClickListener() {
@@ -409,6 +338,59 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onResume() {
         super.onResume();
+        Log.i("CHROMA", "Resume main activity !");
+
+        SharedPreferences sharedPref = PreferenceManager.getDefaultSharedPreferences(this);
+        Set<String> activated_activities = sharedPref.getStringSet(SettingsActivity.KEY_PREF_ACTIVATED_ACTIVITIES, new HashSet<String>());
+
+        Log.i("CHROMA", "Size of set returned from Preferences: " + activated_activities.size());
+
+        ArrayList<Integer> ids_array = new ArrayList<>();
+        for (String s: activated_activities) {
+            int id = getResources().getIdentifier(s.toLowerCase(), "drawable", this.getApplicationContext().getPackageName());
+            ids_array.add(id);
+            Log.i("CHROMA", "Adding the following activity class the the list from Preferences: " + s);
+            Log.i("CHROMA", "id: " + id);
+        }
+
+        //Integer[] ids = {
+        //        R.drawable.moodactivity, R.drawable.moneyactivity, R.drawable.alcoholactivity,
+        //        R.drawable.transportactivity, R.drawable.caractivity, R.drawable.moneyinactivity,
+        //        R.drawable.movieactivity, R.drawable.newbookactivity };
+
+        int[] ids = new int[ids_array.size()];
+        for (int i=0; i < ids.length; i++) {
+            ids[i] = ids_array.get(i);
+        }
+
+        final int[] ids_clone = ids.clone();
+
+        GridView gridview = findViewById(R.id.ButtonsGridView);
+        gridview.setAdapter(new ImageAdapter(this, ids));
+
+        gridview.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            public void onItemClick(AdapterView<?> parent, View v,
+                                    int position, long id) {
+
+                String choice = getResources().getResourceName(ids_clone[position]).split("/")[1];
+
+                String capitalized_activity = choice.replaceFirst("activity", "Activity");
+                String capitalized_choice = capitalized_activity.substring(0, 1).toUpperCase() + capitalized_activity.substring(1);
+                String className = "fr.zigomar.chroma.chroma.Activities." + capitalized_choice;
+
+                Log.i("CHROMA", "Switching to " + choice + " (transformed to " + capitalized_choice + ")");
+
+                Intent newIntent;
+                try {
+                    newIntent = new Intent(MainActivity.this, Class.forName(className));
+                    newIntent.putExtra(CURRENT_DATE, currentDate.getTime());
+                    startActivity(newIntent);
+                } catch (ClassNotFoundException e) {
+                    e.printStackTrace();
+                }
+            }
+        });
+
         updateDateView();
     }
 

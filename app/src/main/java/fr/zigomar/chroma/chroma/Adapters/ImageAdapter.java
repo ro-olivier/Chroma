@@ -10,9 +10,9 @@ import android.widget.ImageView;
 public class ImageAdapter extends BaseAdapter {
 
     private Context adapterContext;
-    private Integer[] mThumbsIds;
+    private int[] mThumbsIds;
 
-    public ImageAdapter(Context c, Integer[] ids) {
+    public ImageAdapter(Context c, int[] ids) {
         this.adapterContext = c;
         this.mThumbsIds = ids;
     }

@@ -12,6 +12,11 @@ import fr.zigomar.chroma.chroma.R;
 public class SettingsActivity extends AppCompatActivity {
 
     Toolbar toolbar;
+
+    public static final String KEY_PREF_ENC = "pref_encrypt";
+    public static final String KEY_PREF_PWD = "pref_encryptPWD";
+    public static final String KEY_PREF_ACTIVATED_ACTIVITIES = "pref_toggle";
+
     @Override
     protected void onCreate(final Bundle savedInstanceState)
     {
