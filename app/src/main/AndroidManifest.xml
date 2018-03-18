@@ -13,7 +13,7 @@
         android:fullBackupContent="@xml/backup_descriptor">
 
         <activity
-            android:name=".Activities.MainActivity"
+            android:name=".activities.MainActivity"
             android:launchMode="singleTop">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -23,54 +23,54 @@
         </activity>
 
         <activity
-            android:name=".Activities.SettingsActivity"
-            android:parentActivityName=".Activities.MainActivity"
+            android:name=".activities.SettingsActivity"
+            android:parentActivityName=".activities.MainActivity"
             android:windowSoftInputMode="stateHidden"/>
 
         <activity
-            android:name=".Activities.MoodActivity"
-            android:parentActivityName=".Activities.MainActivity"
+            android:name=".activities.MoodActivity"
+            android:parentActivityName=".activities.MainActivity"
             android:windowSoftInputMode="stateHidden"/>
 
         <activity
-            android:name=".Activities.MoneyActivity"
-            android:parentActivityName=".Activities.MainActivity"
+            android:name=".activities.MoneyActivity"
+            android:parentActivityName=".activities.MainActivity"
             android:windowSoftInputMode="stateHidden"/>
 
         <activity
-            android:name=".Activities.AlcoholActivity"
-            android:parentActivityName=".Activities.MainActivity"
+            android:name=".activities.AlcoholActivity"
+            android:parentActivityName=".activities.MainActivity"
             android:windowSoftInputMode="stateHidden"/>
 
         <activity
-            android:name=".Activities.TransportActivity"
-            android:parentActivityName=".Activities.MainActivity"
+            android:name=".activities.TransportActivity"
+            android:parentActivityName=".activities.MainActivity"
             android:windowSoftInputMode="stateHidden"/>
 
         <activity
-            android:name=".Activities.CarActivity"
-            android:parentActivityName=".Activities.MainActivity"
+            android:name=".activities.CarActivity"
+            android:parentActivityName=".activities.MainActivity"
             android:windowSoftInputMode="stateHidden"/>
 
         <activity
-            android:name=".Activities.IncomeActivity"
-            android:parentActivityName=".Activities.MainActivity"
+            android:name=".activities.IncomeActivity"
+            android:parentActivityName=".activities.MainActivity"
             android:windowSoftInputMode="stateHidden"/>
 
         <activity
-            android:name=".Activities.MovieActivity"
-            android:parentActivityName=".Activities.MainActivity"
+            android:name=".activities.MovieActivity"
+            android:parentActivityName=".activities.MainActivity"
             android:windowSoftInputMode="stateHidden"/>
 
         <activity
-            android:name=".Activities.BookActivity"
+            android:name=".activities.BookActivity"
             android:launchMode="singleTop"
-            android:parentActivityName=".Activities.MainActivity"
+            android:parentActivityName=".activities.MainActivity"
             android:windowSoftInputMode="stateHidden"/>
 
         <activity
-            android:name=".Activities.BookReviewActivity"
-            android:parentActivityName=".Activities.BookActivity"
+            android:name=".activities.BookReviewActivity"
+            android:parentActivityName=".activities.BookActivity"
             android:windowSoftInputMode="stateHidden"/>
     </application>
 
