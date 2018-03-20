@@ -11,6 +11,7 @@ import android.widget.Toast;
 
 import fr.zigomar.chroma.chroma.activities.MainActivity;
 import fr.zigomar.chroma.chroma.R;
+import fr.zigomar.chroma.chroma.asynctasks.ExportDataTask;
 
 public class ExportDateFragment extends DialogFragment {
 
@@ -62,11 +63,8 @@ public class ExportDateFragment extends DialogFragment {
                     Toast.makeText(getActivity(), R.string.WrongExportDates, Toast.LENGTH_SHORT).show();
                 } else {
                     final MainActivity callingActivity = (MainActivity) getActivity();
-                    new Thread(new Runnable() {
-                        public void run() {
-                            callingActivity.exportOnReceiveExportDates(valid_dates[begin], valid_dates[end]);
-                        }
-                    }).start();
+
+                    new ExportDataTask(callingActivity.getApplicationContext()).execute(valid_dates[begin], valid_dates[end]);
                     getDialog().dismiss();
                 }
 
