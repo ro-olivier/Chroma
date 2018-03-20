@@ -40,11 +40,9 @@ public class CarActivity extends InputActivity {
 
     private int startHour;
     private int startMinute;
-    private Button startButton;
 
     private int endHour;
     private int endMinute;
-    private Button endButton;
 
     @Override
     protected void onCreate(final Bundle savedInstanceState) {
@@ -57,18 +55,20 @@ public class CarActivity extends InputActivity {
         this.origin = findViewById(R.id.carTrip_origin);
         this.startKM = findViewById(R.id.carTrip_KMbegin);
         this.startTime = findViewById(R.id.carTrip_TimeBeginDisplay);
-        this.startButton = findViewById(R.id.carTrip_SubmitStart);
+        Button startButton = findViewById(R.id.carTrip_SubmitStart);
 
         this.destination = findViewById(R.id.carTrip_destination);
         this.endKM = findViewById(R.id.carTrip_KMEnd);
         this.endTime = findViewById(R.id.carTrip_TimeEndDisplay);
-        this.endButton = findViewById(R.id.carTrip_SubmitEnd);
+        Button endButton = findViewById(R.id.carTrip_SubmitEnd);
 
         resetView();
 
-        this.startTime.setOnFocusChangeListener(new customOnFocusChangeListener());
+        this.startTime.setOnFocusChangeListener(new customOnFocusChangeListenerForTime());
 
-        this.startButton.setOnClickListener(new View.OnClickListener() {
+        this.startKM.setOnFocusChangeListener(new customOnFocusChangeListenerForDistance());
+
+        startButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 String origin_str = origin.getText().toString();
@@ -111,16 +111,18 @@ public class CarActivity extends InputActivity {
             }
         });
 
-        this.endTime.setOnFocusChangeListener(new customOnFocusChangeListener());
+        this.endTime.setOnFocusChangeListener(new customOnFocusChangeListenerForTime());
 
-        this.endButton.setOnClickListener(new View.OnClickListener() {
+        this.endKM.setOnFocusChangeListener(new customOnFocusChangeListenerForDistance());
+
+        endButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 String destination_str = destination.getText().toString();
                 String endKM_str = endKM.getText().toString();
 
                 Calendar cal;
-                if (startHour == 0 && startMinute == 0) {
+                if (endHour == 0 && endMinute == 0) {
                     // this ensures that if the TimePicker was not used we use "now" as the time for the trip
                     cal = Calendar.getInstance();
                     Toast.makeText(getApplicationContext(), R.string.UsingCurrentTime, Toast.LENGTH_SHORT).show();
@@ -166,7 +168,7 @@ public class CarActivity extends InputActivity {
                 Date s = lastTrip.getStartDate();
                 Calendar cal = Calendar.getInstance();
                 cal.setTime(s);
-                String display_Time = String.valueOf(cal.get(Calendar.HOUR_OF_DAY)) + ":" + String.valueOf(cal.get(Calendar.MINUTE));
+                String display_Time = getDisplayTime(cal.get(Calendar.HOUR_OF_DAY), cal.get(Calendar.MINUTE));
                 this.startTime.setText(display_Time);
             }
         }
@@ -257,13 +259,13 @@ public class CarActivity extends InputActivity {
 
             long h = TimeUnit.MILLISECONDS.toHours(duration_total);
             long m = TimeUnit.MILLISECONDS.toMinutes(duration_total) - TimeUnit.HOURS.toMinutes(h);
-            long s = TimeUnit.MILLISECONDS.toSeconds(duration_total)
-                    - TimeUnit.MINUTES.toSeconds(m)
-                    - TimeUnit.HOURS.toSeconds(h);
+            //long s = TimeUnit.MILLISECONDS.toSeconds(duration_total)
+            //        - TimeUnit.MINUTES.toSeconds(m)
+            //        - TimeUnit.HOURS.toSeconds(h);
 
-            field1_data.setText(String.format("%02d:%02d:%02d",h,m,s));
+            field1_data.setText(String.format("%02d:%02d",h,m));
 
-            DecimalFormat df = new DecimalFormat("0.00");
+            DecimalFormat df = new DecimalFormat("0.0");
             field2_data.setText(df.format(distance_total));
 
             field2_text.setText(R.string.KilometersUnit);
@@ -285,7 +287,29 @@ public class CarActivity extends InputActivity {
         this.dh.saveCarTripData(this.carTrips);
     }
 
-    private class customOnFocusChangeListener implements View.OnFocusChangeListener {
+    private class customOnFocusChangeListenerForDistance implements View.OnFocusChangeListener {
+
+        EditText edtxt;
+        @Override
+        public void onFocusChange(View v, boolean hasFocus) {
+            this.edtxt = (EditText) v;
+            String resultString;
+            if (!hasFocus) {
+                String distanceStr = this.edtxt.getText().toString();
+                if (distanceStr.split("\\.").length > 1) {
+                    String wholePart = distanceStr.split("\\.")[0];
+                    String decimalPart = distanceStr.split("\\.")[1];
+
+                    resultString = wholePart + "." + decimalPart.substring(0, 1);
+                } else {
+                    resultString = distanceStr + ".0";
+                }
+                this.edtxt.setText(resultString);
+            }
+        }
+    }
+
+    private class customOnFocusChangeListenerForTime implements View.OnFocusChangeListener {
 
         protected View v;
         @Override
@@ -306,19 +330,7 @@ public class CarActivity extends InputActivity {
         private class customOnTimeSetListener implements TimePickerDialog.OnTimeSetListener {
             @Override
             public void onTimeSet(TimePicker timePicker, int selectedHour, int selectedMinute) {
-                String displayed_Time;
-
-                if (selectedHour < 10) {
-                    if (selectedMinute < 10) {
-                        displayed_Time = "0" + String.valueOf(selectedHour) + ":0" + String.valueOf(selectedMinute);
-                    } else {
-                        displayed_Time = "0" + String.valueOf(selectedHour) + ":" + String.valueOf(selectedMinute);
-                    }
-                } else if (selectedMinute < 10) {
-                    displayed_Time = String.valueOf(selectedHour) + ":0" + String.valueOf(selectedMinute);
-                } else {
-                    displayed_Time = String.valueOf(selectedHour) + ":" + String.valueOf(selectedMinute);
-                }
+                String displayed_Time = getDisplayTime(selectedHour, selectedMinute);
 
                 if (v.getId() == R.id.carTrip_TimeBeginDisplay) {
                     startTime.setText(displayed_Time);
@@ -330,6 +342,20 @@ public class CarActivity extends InputActivity {
                     endMinute = selectedMinute;
                 }
             }
+        }
+    }
+
+    public String getDisplayTime(int hour, int minute) {
+        if (hour < 10) {
+            if (minute < 10) {
+                return "0" + String.valueOf(hour) + ":0" + String.valueOf(minute);
+            } else {
+                return "0" + String.valueOf(hour) + ":" + String.valueOf(minute);
+            }
+        } else if (minute < 10) {
+            return String.valueOf(hour) + ":0" + String.valueOf(minute);
+        } else {
+            return String.valueOf(hour) + ":" + String.valueOf(minute);
         }
     }
 }
