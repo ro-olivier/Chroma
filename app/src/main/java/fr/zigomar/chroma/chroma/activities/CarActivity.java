@@ -40,8 +40,11 @@ public class CarActivity extends InputActivity {
 
     private int startHour;
     private int startMinute;
+    private Button startButton;
+
     private int endHour;
     private int endMinute;
+    private Button endButton;
 
     @Override
     protected void onCreate(final Bundle savedInstanceState) {
@@ -54,41 +57,18 @@ public class CarActivity extends InputActivity {
         this.origin = findViewById(R.id.carTrip_origin);
         this.startKM = findViewById(R.id.carTrip_KMbegin);
         this.startTime = findViewById(R.id.carTrip_TimeBeginDisplay);
-        Button startButton = findViewById(R.id.carTrip_SubmitStart);
+        this.startButton = findViewById(R.id.carTrip_SubmitStart);
 
         this.destination = findViewById(R.id.carTrip_destination);
         this.endKM = findViewById(R.id.carTrip_KMEnd);
         this.endTime = findViewById(R.id.carTrip_TimeEndDisplay);
-        Button endButton = findViewById(R.id.carTrip_SubmitEnd);
+        this.endButton = findViewById(R.id.carTrip_SubmitEnd);
 
         resetView();
 
-        startTime.setOnFocusChangeListener(new View.OnFocusChangeListener() {
+        this.startTime.setOnFocusChangeListener(new customOnFocusChangeListener());
 
-                @Override
-                public void onFocusChange(View v, boolean hasFocus) {
-                    if (hasFocus) {
-                        Calendar mcurrentTime = Calendar.getInstance();
-                        int hour = mcurrentTime.get(Calendar.HOUR_OF_DAY);
-                        int minute = mcurrentTime.get(Calendar.MINUTE);
-                        TimePickerDialog mTimePicker;
-                        mTimePicker = new TimePickerDialog(CarActivity.this, new TimePickerDialog.OnTimeSetListener() {
-                            @Override
-                            public void onTimeSet(TimePicker timePicker, int selectedHour, int selectedMinute) {
-
-                                String displayed_Time = String.valueOf(selectedHour) + ":" + String.valueOf(selectedMinute);
-                                startTime.setText(displayed_Time);
-                                startHour = selectedHour;
-                                startMinute = selectedMinute;
-                            }
-                        }, hour, minute, true);
-                        mTimePicker.setTitle("Select Time");
-                        mTimePicker.show();
-                    }
-                }
-        });
-
-        startButton.setOnClickListener(new View.OnClickListener() {
+        this.startButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 String origin_str = origin.getText().toString();
@@ -131,31 +111,9 @@ public class CarActivity extends InputActivity {
             }
         });
 
-        endTime.setOnFocusChangeListener(new View.OnFocusChangeListener() {
+        this.endTime.setOnFocusChangeListener(new customOnFocusChangeListener());
 
-            @Override
-            public void onFocusChange(View v, boolean hasFocus) {
-                if (hasFocus) {
-                    Calendar mcurrentTime = Calendar.getInstance();
-                    int hour = mcurrentTime.get(Calendar.HOUR_OF_DAY);
-                    int minute = mcurrentTime.get(Calendar.MINUTE);
-                    TimePickerDialog mTimePicker;
-                    mTimePicker = new TimePickerDialog(CarActivity.this, new TimePickerDialog.OnTimeSetListener() {
-                        @Override
-                        public void onTimeSet(TimePicker timePicker, int selectedHour, int selectedMinute) {
-                            String displayed_Time = String.valueOf(selectedHour) + ":" + String.valueOf(selectedMinute);
-                            endTime.setText(displayed_Time);
-                            endHour = selectedHour;
-                            endMinute = selectedMinute;
-                        }
-                    }, hour, minute, true);
-                    mTimePicker.setTitle("Select Time");
-                    mTimePicker.show();
-                }
-            }
-        });
-
-        endButton.setOnClickListener(new View.OnClickListener() {
+        this.endButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 String destination_str = destination.getText().toString();
@@ -325,5 +283,53 @@ public class CarActivity extends InputActivity {
         // simply pass the data to the DataHandler with the dedicated method
         Log.i("CHROMA", "Updating the data object with current car trips");
         this.dh.saveCarTripData(this.carTrips);
+    }
+
+    private class customOnFocusChangeListener implements View.OnFocusChangeListener {
+
+        protected View v;
+        @Override
+        public void onFocusChange(View v, boolean hasFocus) {
+            this.v = v;
+            if (hasFocus) {
+                Calendar mcurrentTime = Calendar.getInstance();
+                int hour = mcurrentTime.get(Calendar.HOUR_OF_DAY);
+                int minute = mcurrentTime.get(Calendar.MINUTE);
+                TimePickerDialog mTimePicker;
+                mTimePicker = new TimePickerDialog(CarActivity.this,
+                        new customOnTimeSetListener(), hour, minute, true);
+                mTimePicker.setTitle("Select Time");
+                mTimePicker.show();
+            }
+        }
+
+        private class customOnTimeSetListener implements TimePickerDialog.OnTimeSetListener {
+            @Override
+            public void onTimeSet(TimePicker timePicker, int selectedHour, int selectedMinute) {
+                String displayed_Time;
+
+                if (selectedHour < 10) {
+                    if (selectedMinute < 10) {
+                        displayed_Time = "0" + String.valueOf(selectedHour) + ":0" + String.valueOf(selectedMinute);
+                    } else {
+                        displayed_Time = "0" + String.valueOf(selectedHour) + ":" + String.valueOf(selectedMinute);
+                    }
+                } else if (selectedMinute < 10) {
+                    displayed_Time = String.valueOf(selectedHour) + ":0" + String.valueOf(selectedMinute);
+                } else {
+                    displayed_Time = String.valueOf(selectedHour) + ":" + String.valueOf(selectedMinute);
+                }
+
+                if (v.getId() == R.id.carTrip_TimeBeginDisplay) {
+                    startTime.setText(displayed_Time);
+                    startHour = selectedHour;
+                    startMinute = selectedMinute;
+                } else if (v.getId() == R.id.carTrip_TimeEndDisplay) {
+                    endTime.setText(displayed_Time);
+                    endHour = selectedHour;
+                    endMinute = selectedMinute;
+                }
+            }
+        }
     }
 }

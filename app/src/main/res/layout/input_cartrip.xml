@@ -50,8 +50,7 @@
             android:hint="@string/CarTripTimeBeginHint"
             android:id="@+id/carTrip_TimeBeginDisplay"
             android:background="#FAFAFA"
-            android:focusableInTouchMode="true"
-            android:inputType="time"/>
+            android:focusableInTouchMode="true" />
 
     </LinearLayout>
 
@@ -100,8 +99,7 @@
             android:hint="@string/CarTripTimeEndHint"
             android:id="@+id/carTrip_TimeEndDisplay"
             android:background="#FAFAFA"
-            android:focusableInTouchMode="true"
-            android:inputType="time"/>
+            android:focusableInTouchMode="true"/>
     </LinearLayout>
 
     <Space
