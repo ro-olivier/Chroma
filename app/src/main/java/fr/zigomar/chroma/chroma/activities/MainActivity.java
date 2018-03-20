@@ -53,6 +53,8 @@ import java.util.Locale;
 import java.util.Objects;
 import java.util.Random;
 import java.util.Set;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 import javax.crypto.Cipher;
 import javax.crypto.CipherOutputStream;
@@ -237,10 +239,13 @@ public class MainActivity extends AppCompatActivity {
 
     private void getDateAndExport() {
         ArrayList<String> available_dates = new ArrayList<>();
+        Pattern validDataFilename = Pattern.compile("((?:19|20)\\d\\d)-(0[1-9]|1[012])[- /.](0[1-9]|[12][0-9]|3[01]).json");
 
         for (File f: getFilesDir().listFiles()) {
             if (f.isFile()) {
-                if (!Objects.equals(f.getName(), getString(R.string.OpenBooksFileName))) {
+                Matcher matcher = validDataFilename.matcher(f.getName());
+
+                if (matcher.matches()) {
                     Log.i("CHROMA", f.getName());
                     available_dates.add(f.getName().substring(0,10));
                 }
@@ -252,8 +257,8 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public int compare(String o1, String o2) {
 
-                int val1 = Integer.parseInt(o1.split("-")[0] + o1.split("-")[1] + o1.split("-")[2]);
-                int val2 = Integer.parseInt(o2.split("-")[0] + o2.split("-")[1] + o2.split("-")[2]);
+                int val1 = dataFilenameFromStringToInt(o1);
+                int val2 = dataFilenameFromStringToInt(o2);
 
                 if (val1 < val2) {
                     return -1;
@@ -267,6 +272,10 @@ public class MainActivity extends AppCompatActivity {
 
         DialogFragment newFragment = ExportDateFragment.newInstance(available_dates.toArray( available_dates_array ));
         newFragment.show(getFragmentManager(), "dialog");
+    }
+
+    public int dataFilenameFromStringToInt(String filename) {
+        return Integer.parseInt(filename.split("-")[0] + filename.split("-")[1] + filename.split("-")[2]);
     }
 
     public void exportOnReceiveExportDates(String beginDate, String endDate) {
@@ -284,7 +293,7 @@ public class MainActivity extends AppCompatActivity {
 
                 if (!Objects.equals(filename, getString(R.string.OpenBooksFileName)) && !Objects.equals(filename, getString(R.string.EncryptionParamsFile))) {
                     Log.i("CHROMA", "Processing file date : " + filename);
-                    int filenameInt = Integer.parseInt(filenameIntStr.split("-")[0] + filenameIntStr.split("-")[1] + filenameIntStr.split("-")[2]);
+                    int filenameInt = dataFilenameFromStringToInt(filenameIntStr);
 
                     if (filenameInt >= beginDateInt && filenameInt <= endDateInt) {
                         Log.i("CHROMA", "Reading data from file : " + filename);
@@ -325,10 +334,14 @@ public class MainActivity extends AppCompatActivity {
         Log.i("CHROMA", "Full Export was called");
 
         JSONArray data = new JSONArray();
+        Pattern validDataFilename = Pattern.compile("((?:19|20)\\d\\d)-(0[1-9]|1[012])[- /.](0[1-9]|[12][0-9]|3[01]).json");
+
         for (File f : getFilesDir().listFiles()) {
             if (f.isFile()) {
                 String filename = f.getName();
-                if (!Objects.equals(filename, getString(R.string.OpenBooksFileName)) && !Objects.equals(filename, getString(R.string.EncryptionParamsFile))) {
+                Matcher matcher = validDataFilename.matcher(filename);
+
+                if (matcher.matches()) {
                     Log.i("CHROMA", "Processing " + filename);
                     try {
                         InputStream is = getApplicationContext().openFileInput(filename);
