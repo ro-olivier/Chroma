@@ -37,6 +37,8 @@ public class BookReviewActivity extends InputActivity {
     private RatingBar rating;
     private CheckBox closeBook;
 
+    private boolean inputsVisible = true;
+
     private Book reviewedBook;
 
     private ArrayList<Book> reviewedBooks;
@@ -44,6 +46,8 @@ public class BookReviewActivity extends InputActivity {
     private DateFormat df;
     private int reviewedBookIndex;
     private String bookHash;
+
+    private boolean bookAlreadyClosed = false;
 
     @Override
     protected void onCreate(final Bundle savedInstanceState) {
@@ -90,6 +94,7 @@ public class BookReviewActivity extends InputActivity {
             }
 
             if (reviewedBook.getFinished()) {
+                bookAlreadyClosed = true;
                 closeBook.setChecked(true);
                 rating.setVisibility(View.VISIBLE);
             }
@@ -100,11 +105,30 @@ public class BookReviewActivity extends InputActivity {
             @Override
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
                 if (isChecked) {
+                    closeDate.setVisibility(View.VISIBLE);
                     closeDate.setText(df.format(currentDate));
                     rating.setVisibility(View.VISIBLE);
-                } else {
+                } else if (bookAlreadyClosed) {
                     closeBook.setChecked(true);
                     Toast.makeText(getApplicationContext(), R.string.CannotReOpenBook, Toast.LENGTH_SHORT).show();
+                } else {
+                    closeDate.setText("");
+                    rating.setVisibility(View.INVISIBLE);
+                }
+            }
+        });
+
+        this.notes.setOnFocusChangeListener(new View.OnFocusChangeListener() {
+            @Override
+            public void onFocusChange(View v, boolean hasFocus) {
+                if (hasFocus) {
+                    title.setVisibility(View.GONE);
+                    author.setVisibility(View.GONE);
+                    openDate.setVisibility(View.GONE);
+                    closeBook.setVisibility(View.GONE);
+                    rating.setVisibility(View.GONE);
+                    closeDate.setVisibility(View.GONE);
+                    inputsVisible = false;
                 }
             }
         });
@@ -189,19 +213,38 @@ public class BookReviewActivity extends InputActivity {
     @Override
     public void onBackPressed() {
 
-        Intent returnIntent = new Intent();
-        returnIntent.putExtra(CURRENT_DATE, currentDate.getTime());
-        returnIntent.putExtra("HASH", this.bookHash);
+        if (!this.inputsVisible) {
+            title.setVisibility(View.VISIBLE);
+            author.setVisibility(View.VISIBLE);
+            openDate.setVisibility(View.VISIBLE);
+            closeBook.setVisibility(View.VISIBLE);
+            rating.setVisibility(View.INVISIBLE);
+            closeDate.setVisibility(View.INVISIBLE);
 
-        if (this.closeBook.isChecked()) {
-            Log.i("CHROMA", "Setting result of BookReview Activity to 200");
-            setResult(200, returnIntent);
+            if (closeBook.isChecked()) {
+                closeBook.setVisibility(View.VISIBLE);
+                rating.setVisibility(View.VISIBLE);
+                closeDate.setVisibility(View.VISIBLE);
+            }
+
+            inputsVisible = true;
+
         } else {
-            Log.i("CHROMA", "Setting result of BookReview Activity to 201");
-            setResult(201, returnIntent);
-        }
 
-        super.onBackPressed();
+            Intent returnIntent = new Intent();
+            returnIntent.putExtra(CURRENT_DATE, currentDate.getTime());
+            returnIntent.putExtra("HASH", this.bookHash);
+
+            if (this.closeBook.isChecked()) {
+                Log.i("CHROMA", "Setting result of BookReview Activity to 200");
+                setResult(200, returnIntent);
+            } else {
+                Log.i("CHROMA", "Setting result of BookReview Activity to 201");
+                setResult(201, returnIntent);
+            }
+
+            super.onBackPressed();
+        }
     }
 
 }

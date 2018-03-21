@@ -77,6 +77,8 @@ public class MoodActivity extends InputActivity {
             pickerMood2.setVisibility(View.VISIBLE);
             pickerMood3.setVisibility(View.VISIBLE);
             pickersVisible = true;
+        } else {
+            super.onBackPressed();
         }
     }
 

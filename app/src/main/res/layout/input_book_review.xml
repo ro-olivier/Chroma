@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     android:orientation="vertical"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
@@ -41,11 +42,20 @@
         android:numStars="5"
         android:stepSize="0.5" />
 
+    <LinearLayout
+        android:focusable="true"
+        android:focusableInTouchMode="true"
+        android:layout_width="0px"
+        android:layout_height="0px"
+        tools:ignore="UselessLeaf" />
+
     <EditText
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:id="@+id/BookNotes"
-        android:inputType="text|textCapSentences|textAutoComplete"
-        android:hint="@string/HintBookDescription"/>
+        android:inputType="textMultiLine|textCapSentences|textAutoCorrect"
+        android:hint="@string/HintBookDescription"
+        android:scrollbars="vertical"
+        android:scrollbarFadeDuration="0"/>
 
 </LinearLayout>
