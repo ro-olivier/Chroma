@@ -9,6 +9,7 @@
         <item>Income</item>
         <item>Movies</item>
         <item>Books</item>
+        <item>Sleep</item>
     </string-array>
 
     <string-array name="pref_toggleEntryValues">
@@ -20,5 +21,6 @@
         <item>IncomeActivity</item>
         <item>MovieActivity</item>
         <item>BookActivity</item>
+        <item>SleepActivity</item>
     </string-array>
 </resources>

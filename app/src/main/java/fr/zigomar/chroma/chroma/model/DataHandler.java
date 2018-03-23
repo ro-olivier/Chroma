@@ -502,4 +502,53 @@ public class DataHandler {
 
         return s;
     }
+
+    /*
+    ########################################################
+    Sleep section :
+        - saveSleepData()
+        - getSleepData()
+    ########################################################
+    */
+
+    public void saveSleepData(int v1, int v2, int v3, int v4, String txt, int sleep_time) {
+        Log.i("CHROMA", "SaveSleepData was invoked.");
+        try {
+            this.data.put("sleep_begin_hour", v1);
+            this.data.put("sleep_begin_minute", v2);
+            this.data.put("sleep_end_hour", v3);
+            this.data.put("sleep_end_minute", v4);
+            this.data.put("sleep_text", txt);
+            this.data.put("minutes_slept", sleep_time);
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+
+    }
+
+    public HashMap<String, String> getSleepData() {
+
+        Log.i("CHROMA", "getSleepData was invoked");
+        HashMap<String, String> d = new HashMap<>();
+
+        try {
+            d.put("sleep_begin_hour", String.valueOf(this.data.getInt("sleep_begin_hour")));
+            d.put("sleep_begin_minute", String.valueOf(this.data.getInt("sleep_begin_minute")));
+            d.put("sleep_end_hour", String.valueOf(this.data.getInt("sleep_end_hour")));
+            d.put("sleep_end_minute", String.valueOf(this.data.getInt("sleep_end_minute")));
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+
+        try {
+            d.put("txt", this.data.getString("sleep_text"));
+        } catch (JSONException e) {
+            e.printStackTrace();
+            d.put("txt", "");
+        }
+
+        Log.i("CHROMA", "Returning : " + d.toString());
+        return d;
+    }
+
 }

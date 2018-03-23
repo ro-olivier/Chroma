@@ -72,6 +72,11 @@
             android:name=".activities.BookReviewActivity"
             android:parentActivityName=".activities.BookActivity"
             android:windowSoftInputMode="stateHidden"/>
+
+        <activity
+            android:name=".activities.SleepActivity"
+            android:parentActivityName=".activities.MainActivity"
+            android:windowSoftInputMode="stateHidden"/>
     </application>
 
 </manifest>

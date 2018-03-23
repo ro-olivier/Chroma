@@ -95,6 +95,9 @@
     <string name="ExportKO">Export failed.</string>
     <string name="ExportKO_EncryptionParamWriteFailed">Export failed: could not write encryption details to secure storage.</string>
     <string name="ExportKO_InvalidNumberOfArguments">Export failed: export task was not called properly.</string>
+    <string name="SleepHint">How was your night?</string>
+    <string name="BedTime">Bedtime:</string>
+    <string name="WakeUpTime">Wake up time:</string>
 
     <string-array name="spendingsCategories">
         <item>Drinks</item>
