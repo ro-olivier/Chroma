@@ -98,6 +98,10 @@
     <string name="SleepHint">How was your night?</string>
     <string name="BedTime">Bedtime:</string>
     <string name="WakeUpTime">Wake up time:</string>
+    <string name="pref_sleep_startTitle">Hour when to start detecting airplane-mode \"on\"</string>
+    <string name="pref_sleep_endTitle">Hour when to start detecting airplane-mode \"off\"</string>
+    <string name="pref_sleep_startSummary">After this hour, the sleep monitor will start listening for airplane-mode \"on\" to register your bedtime.</string>
+    <string name="pref_sleep_endSummary">After this hour, the sleep monitor will start listening for airplane-mode \"off\" to register your wakeup time.</string>
 
     <string-array name="spendingsCategories">
         <item>Drinks</item>

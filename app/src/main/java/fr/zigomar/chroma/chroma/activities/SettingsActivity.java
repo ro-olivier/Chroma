@@ -16,6 +16,8 @@ public class SettingsActivity extends AppCompatActivity {
     public static final String KEY_PREF_ENC = "pref_encrypt";
     public static final String KEY_PREF_PWD = "pref_encryptPWD";
     public static final String KEY_PREF_ACTIVATED_ACTIVITIES = "pref_toggle";
+    public static final String KEY_PREF_SLEEP_AIRPLANE_OFF = "pref_sleep_off";
+    public static final String KEY_PREF_SLEEP_AIRPLANE_ON = "pref_sleep_on";
 
     @Override
     protected void onCreate(final Bundle savedInstanceState)

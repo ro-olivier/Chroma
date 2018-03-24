@@ -25,4 +25,26 @@
         android:summary="@string/pref_toggleSummary"
         android:defaultValue="@array/pref_toggleEntryValues"/>
 
+    <PreferenceCategory
+        android:title="Sleep Monitoring"
+        android:key="pref_sleep">
+
+        <ListPreference
+            android:key="pref_sleep_on"
+            android:title="@string/pref_sleep_startTitle"
+            android:summary="@string/pref_sleep_startSummary"
+            android:defaultValue="22"
+            android:entries="@array/hours"
+            android:entryValues="@array/hours"/>
+
+        <ListPreference
+            android:key="pref_sleep_off"
+            android:title="@string/pref_sleep_endTitle"
+            android:summary="@string/pref_sleep_endSummary"
+            android:defaultValue="7"
+            android:entries="@array/hours"
+            android:entryValues="@array/hours"/>
+
+    </PreferenceCategory>
+
 </PreferenceScreen>

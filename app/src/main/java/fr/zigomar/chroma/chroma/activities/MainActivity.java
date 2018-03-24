@@ -3,9 +3,12 @@ package fr.zigomar.chroma.chroma.activities;
 import android.Manifest;
 import android.app.DatePickerDialog;
 import android.app.DialogFragment;
+import android.content.BroadcastReceiver;
 import android.content.Intent;
+import android.content.IntentFilter;
 import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
+import android.net.ConnectivityManager;
 import android.preference.PreferenceManager;
 import android.support.annotation.NonNull;
 import android.support.v4.app.ActivityCompat;
@@ -40,6 +43,7 @@ import java.util.regex.Pattern;
 
 import fr.zigomar.chroma.chroma.adapters.ImageAdapter;
 import fr.zigomar.chroma.chroma.asynctasks.ExportDataTask;
+import fr.zigomar.chroma.chroma.broadcast_receivers.AirplaneBroadcastReceiver;
 import fr.zigomar.chroma.chroma.fragments.ExportDateFragment;
 import fr.zigomar.chroma.chroma.R;
 
@@ -104,6 +108,11 @@ public class MainActivity extends AppCompatActivity {
                 datePicker.show();
             }
         });
+
+        BroadcastReceiver br = new AirplaneBroadcastReceiver();
+        IntentFilter filter = new IntentFilter(ConnectivityManager.CONNECTIVITY_ACTION);
+        filter.addAction(Intent.ACTION_AIRPLANE_MODE_CHANGED);
+        getApplicationContext().registerReceiver(br, filter);
 
     }
 

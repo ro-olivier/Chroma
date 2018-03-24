@@ -522,7 +522,26 @@ public class DataHandler {
         } catch (JSONException e) {
             e.printStackTrace();
         }
+    }
 
+    public void saveBedtime(int hour, int minute) {
+        Log.i("CHROMA", "saveBedtime was invoked.");
+        try {
+            this.data.put("bedtime_hour", hour);
+            this.data.put("bedtime_minute", minute);
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public void saveWakeuptime(int hour, int minute) {
+        Log.i("CHROMA", "saveWakeuptime was invoked.");
+        try {
+            this.data.put("wakeuptime_hour", hour);
+            this.data.put("wakeuptime_minute", minute);
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
     }
 
     public HashMap<String, String> getSleepData() {
