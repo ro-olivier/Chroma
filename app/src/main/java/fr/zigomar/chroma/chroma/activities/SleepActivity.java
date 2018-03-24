@@ -24,6 +24,8 @@ public class SleepActivity extends InputActivity {
 
     private EditText notes;
 
+    private static final int MINUTES_INTERVAL = 5;
+
     @Override
     protected void onCreate(final Bundle savedInstanceState) {
         // calling inherited class constructor
@@ -34,9 +36,9 @@ public class SleepActivity extends InputActivity {
         this.endHour = findViewById(R.id.SleepEndHourPicker);
         this.endMinute = findViewById(R.id.SleepEndMinutePicker);
 
-        confPicker(this.beginMinute, 60, 5);
+        confPicker(this.beginMinute, 60, MINUTES_INTERVAL);
         confPicker(this.beginHour, 24, 1);
-        confPicker(this.endMinute, 60, 5);
+        confPicker(this.endMinute, 60, MINUTES_INTERVAL);
         confPicker(this.endHour, 24, 1);
 
         this.pickersVisible = true;
@@ -87,9 +89,11 @@ public class SleepActivity extends InputActivity {
         }
 
         if (data.get("sleep_begin_minute") != null) {
-            this.beginMinute.setValue(Integer.parseInt(data.get("sleep_begin_minute")));
+            int value = Integer.parseInt(data.get("sleep_begin_minute"));
+            int index = value / MINUTES_INTERVAL;
+            this.beginMinute.setValue(index);
         } else {
-            this.beginMinute.setValue(30);
+            this.beginMinute.setValue(Integer.parseInt(this.beginMinute.getDisplayedValues()[6]));
         }
 
         if (data.get("sleep_end_hour") != null) {
@@ -99,9 +103,11 @@ public class SleepActivity extends InputActivity {
         }
 
         if (data.get("sleep_end_minute") != null) {
-            this.endMinute.setValue(Integer.parseInt(data.get("sleep_end_minute")));
+            int value = Integer.parseInt(data.get("sleep_end_minute"));
+            int index = value / MINUTES_INTERVAL;
+            this.endMinute.setValue(index);
         } else {
-            this.endMinute.setValue(30);
+            this.beginMinute.setValue(Integer.parseInt(this.endMinute.getDisplayedValues()[6]));
         }
 
         if (!data.get("txt").isEmpty()) {
@@ -151,9 +157,9 @@ public class SleepActivity extends InputActivity {
         // simply pass the data to the DataHandler with the dedicated method
         Log.i("CHROMA", "Updating the data object with current sleep data");
         this.dh.saveSleepData(this.beginHour.getValue(),
-                this.beginMinute.getValue(),
+                Integer.parseInt(this.beginMinute.getDisplayedValues()[this.beginMinute.getValue()]),
                 this.endHour.getValue(),
-                this.endMinute.getValue(),
+                Integer.parseInt(this.endMinute.getDisplayedValues()[this.endMinute.getValue()]),
                 this.notes.getText().toString());
     }
 }
