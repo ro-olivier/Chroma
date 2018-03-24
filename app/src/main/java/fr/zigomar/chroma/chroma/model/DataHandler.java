@@ -511,15 +511,14 @@ public class DataHandler {
     ########################################################
     */
 
-    public void saveSleepData(int v1, int v2, int v3, int v4, String txt, int sleep_time) {
+    public void saveSleepData(int v1, int v2, int v3, int v4, String txt) {
         Log.i("CHROMA", "SaveSleepData was invoked.");
         try {
-            this.data.put("sleep_begin_hour", v1);
-            this.data.put("sleep_begin_minute", v2);
-            this.data.put("sleep_end_hour", v3);
-            this.data.put("sleep_end_minute", v4);
+            this.data.put("bedtime_hour", v1);
+            this.data.put("bedtime_minute", v2);
+            this.data.put("wakeuptime_hour", v3);
+            this.data.put("wakeuptime_minute", v4);
             this.data.put("sleep_text", txt);
-            this.data.put("minutes_slept", sleep_time);
         } catch (JSONException e) {
             e.printStackTrace();
         }
@@ -532,10 +531,10 @@ public class DataHandler {
         HashMap<String, String> d = new HashMap<>();
 
         try {
-            d.put("sleep_begin_hour", String.valueOf(this.data.getInt("sleep_begin_hour")));
-            d.put("sleep_begin_minute", String.valueOf(this.data.getInt("sleep_begin_minute")));
-            d.put("sleep_end_hour", String.valueOf(this.data.getInt("sleep_end_hour")));
-            d.put("sleep_end_minute", String.valueOf(this.data.getInt("sleep_end_minute")));
+            d.put("sleep_begin_hour", String.valueOf(this.data.getInt("bedtime_hour")));
+            d.put("sleep_begin_minute", String.valueOf(this.data.getInt("bedtime_minute")));
+            d.put("sleep_end_hour", String.valueOf(this.data.getInt("wakeuptime_hour")));
+            d.put("sleep_end_minute", String.valueOf(this.data.getInt("wakeuptime_minute")));
         } catch (JSONException e) {
             e.printStackTrace();
         }

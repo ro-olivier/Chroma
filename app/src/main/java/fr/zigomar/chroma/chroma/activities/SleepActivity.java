@@ -154,7 +154,6 @@ public class SleepActivity extends InputActivity {
                 this.beginMinute.getValue(),
                 this.endHour.getValue(),
                 this.endMinute.getValue(),
-                this.notes.getText().toString(),
-                computeSleepTime());
+                this.notes.getText().toString());
     }
 }
