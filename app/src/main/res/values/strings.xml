@@ -108,6 +108,12 @@
     <string name="AlcoholComment">Optionnal comment</string>
     <string name="MissingAlcoholDescription">Please specify what you drank.</string>
     <string name="Cancel">Cancel</string>
+    <string name="pref_saveModeTitle">Save mode</string>
+    <string name="pref_saveModeSummaryOn">Implicit Save is On: data will automatically be saved when you exit an activity, unless you cancel it.</string>
+    <string name="pref_saveModeSummaryOff">Implicit Save is Off: you will have to explicitly save data when exiting an activity, otherwise it won\'t be saved.</string>
+    <string name="pref_saveModeOn">On</string>
+    <string name="pref_saveModeOff">Off</string>
+    <string name="Save">Save data</string>
 
     <string-array name="spendingsCategories">
         <item>Drinks</item>

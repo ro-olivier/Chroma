@@ -1,6 +1,8 @@
 package fr.zigomar.chroma.chroma.activities;
 
+import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.app.ActionBar;
 import android.support.v7.widget.Toolbar;
@@ -67,16 +69,39 @@ public abstract class InputActivity extends AppCompatActivity {
     public boolean onCreateOptionsMenu(Menu menu) {
         MenuInflater inflater = getMenuInflater();
         inflater.inflate(R.menu.input_toolbar, menu);
+
+        SharedPreferences sharedPref = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
+        if (sharedPref.getBoolean(SettingsActivity.KEY_PREF_SAVE_MODE, true)) {
+            Log.i("CHROMA", "pref is true");
+            menu.findItem(R.id.explicit_save).setEnabled(false);
+            menu.findItem(R.id.explicit_save).setVisible(false);
+        } else {
+            Log.i("CHROMA", "pref is false");
+            menu.findItem(R.id.cancel_activity).setEnabled(false);
+            menu.findItem(R.id.cancel_activity).setVisible(false);
+        }
+
         return true;
     }
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
-            case R.id.cancel_save:
+            case R.id.cancel_activity:
                 Log.i("CHROMA", "User canceled the current activity, do not save");
                 this.cancelDoNotSave = true;
                 this.finish();
+                return true;
+
+            case R.id.explicit_save:
+                Log.i("CHROMA", "Explicit save requested by the user");
+                saveData();
+                this.dh.writeDataToFile(getApplicationContext());
+                Toast.makeText(getApplicationContext(), R.string.Saved, Toast.LENGTH_SHORT).show();
+                return true;
+
+            case android.R.id.home:
+                onBackPressed();
                 return true;
 
             default:
@@ -89,14 +114,19 @@ public abstract class InputActivity extends AppCompatActivity {
         // surcharge the onStop() method to include a call to the method updating the data and then
         // using the DataHandler to write it to file before closing
         super.onStop();
-        Log.i("CHROMA","Starting activity closing... : " + this.getClass().getSimpleName());
+        Log.i("CHROMA", "Starting activity closing... : " + this.getClass().getSimpleName());
 
-        if (!cancelDoNotSave) {
-            saveData();
-            this.dh.writeDataToFile(getApplicationContext());
-            Toast.makeText(getApplicationContext(), R.string.Saved, Toast.LENGTH_SHORT).show();
+        SharedPreferences sharedPref = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
+        if (sharedPref.getBoolean(SettingsActivity.KEY_PREF_SAVE_MODE, true)) {
+            if (!cancelDoNotSave) {
+                saveData();
+                this.dh.writeDataToFile(getApplicationContext());
+                Toast.makeText(getApplicationContext(), R.string.Saved, Toast.LENGTH_SHORT).show();
+            } else {
+                Log.i("CHROMA", "SaveData aborted because cancel button");
+            }
         } else {
-            Log.i("CHROMA", "SaveData aborted because cancel button");
+            Log.i("CHROMA", "OnStop didn't save because the pref explicit save is off");
         }
     }
 

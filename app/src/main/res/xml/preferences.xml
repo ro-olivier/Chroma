@@ -2,6 +2,29 @@
 <PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android">
 
     <PreferenceCategory
+        android:title="General"
+        android:key="pref_general">
+
+        <SwitchPreference
+            android:key="pref_saveMode"
+            android:title="@string/pref_saveModeTitle"
+            android:summaryOn="@string/pref_saveModeSummaryOn"
+            android:summaryOff="@string/pref_saveModeSummaryOff"
+            android:switchTextOn="@string/pref_saveModeOn"
+            android:switchTextOff="@string/pref_saveModeOff"
+            android:defaultValue="true"/>
+
+        <MultiSelectListPreference
+            android:key="pref_toggle"
+            android:title="@string/pref_toggleTitle"
+            android:entries="@array/pref_toggleEntries"
+            android:entryValues="@array/pref_toggleEntryValues"
+            android:summary="@string/pref_toggleSummary"
+            android:defaultValue="@array/pref_toggleEntryValues"/>
+
+    </PreferenceCategory>
+
+    <PreferenceCategory
         android:title="Data Encryption"
         android:key="pref_encrypt">
 
@@ -15,15 +38,8 @@
             android:key="pref_encryptPWD"
             android:title="@string/pref_encryptPWDTitle"
             android:summary="@string/pref_encryptPWDSummary" />
-    </PreferenceCategory>
 
-    <MultiSelectListPreference
-        android:key="pref_toggle"
-        android:title="@string/pref_toggleTitle"
-        android:entries="@array/pref_toggleEntries"
-        android:entryValues="@array/pref_toggleEntryValues"
-        android:summary="@string/pref_toggleSummary"
-        android:defaultValue="@array/pref_toggleEntryValues"/>
+    </PreferenceCategory>
 
     <PreferenceCategory
         android:title="Sleep Monitoring"
