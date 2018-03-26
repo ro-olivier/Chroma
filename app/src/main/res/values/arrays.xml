@@ -10,6 +10,7 @@
         <item>Movies</item>
         <item>Books</item>
         <item>Sleep</item>
+        <item>Sex</item>
     </string-array>
 
     <string-array name="pref_toggleEntryValues">
@@ -22,6 +23,7 @@
         <item>MovieActivity</item>
         <item>BookActivity</item>
         <item>SleepActivity</item>
+        <item>SexActivity</item>
     </string-array>
 
     <string-array name="hours">

@@ -364,7 +364,7 @@ public class DataHandler {
 
     /*
     ########################################################
-    Money In section :
+    Movie section :
         - saveMovieData
         - getMoviesList
     ########################################################
@@ -569,4 +569,44 @@ public class DataHandler {
         return d;
     }
 
+
+    /*
+    ########################################################
+    Sex section :
+        - saveBaiseData
+        - getBaisesList
+    ########################################################
+    */
+
+    public void saveBaiseData(List<Baise> l) {
+        Log.i("CHROMA", "SaveBaiseData was invoked.");
+        JSONArray jArray = new JSONArray();
+        for (Baise baise: l) {
+            jArray.put(baise.getBaiseAsJSON());
+        }
+        try {
+            this.data.put("baise", jArray);
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public ArrayList<Baise> getBaisesList() {
+        ArrayList<Baise> s = new ArrayList<>();
+        JSONArray jsonArray;
+        try {
+            jsonArray = new JSONArray(this.data.get("baises").toString());
+
+
+            for (int i = 0; i < jsonArray.length(); i++) {
+                JSONObject jso = jsonArray.getJSONObject(i);
+                s.add(new Baise(jso.getString("partner"), jso.getString("notes"), Float.parseFloat(jso.getString("rating"))));
+            }
+
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+
+        return s;
+    }
 }

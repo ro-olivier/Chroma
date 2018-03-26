@@ -114,6 +114,10 @@
     <string name="pref_saveModeOn">On</string>
     <string name="pref_saveModeOff">Off</string>
     <string name="Save">Save data</string>
+    <string name="SexComment">Optionnal comment…</string>
+    <string name="HintPartner">With whom?</string>
+    <string name="PartnerRequired">At least tell us who it was…</string>
+    <string name="AddSex">I got lucky again!</string>
 
     <string-array name="spendingsCategories">
         <item>Drinks</item>

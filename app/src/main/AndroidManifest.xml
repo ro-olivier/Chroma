@@ -79,6 +79,11 @@
             android:name=".activities.SleepActivity"
             android:parentActivityName=".activities.MainActivity"
             android:windowSoftInputMode="stateHidden"/>
+
+        <activity
+            android:name=".activities.SexActivity"
+            android:parentActivityName=".activities.MainActivity"
+            android:windowSoftInputMode="stateHidden"/>
     </application>
 
 </manifest>

@@ -28,12 +28,12 @@ public class MovieActivity extends InputActivity {
     protected void onCreate(final Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        titles.add((EditText) findViewById(R.id.MovieTitle));
-        directors.add((EditText) findViewById(R.id.MovieDirector));
-        notes.add((EditText) findViewById(R.id.MovieTextData));
-        ratings.add((RatingBar) findViewById(R.id.MovieRating));
+        this.titles.add((EditText) findViewById(R.id.MovieTitle));
+        this.directors.add((EditText) findViewById(R.id.MovieDirector));
+        this.notes.add((EditText) findViewById(R.id.MovieTextData));
+        this.ratings.add((RatingBar) findViewById(R.id.MovieRating));
 
-        moviesList = findViewById(R.id.MovieLinearLayout);
+        this.moviesList = findViewById(R.id.MovieLinearLayout);
 
         Button addStepButton = findViewById(R.id.AddButton);
         addStepButton.setOnClickListener(new View.OnClickListener() {
@@ -57,18 +57,18 @@ public class MovieActivity extends InputActivity {
         ArrayList<Movie> movies = getMovies();
 
         for (int i = 0; i < movies.size(); i++) {
-            titles.get(i).setText(movies.get(i).getTitle());
-            directors.get(i).setText(movies.get(i).getDirector());
-            notes.get(i).setText(movies.get(i).getDescription());
-            ratings.get(i).setRating(movies.get(i).getRating());
+            this.titles.get(i).setText(movies.get(i).getTitle());
+            this.directors.get(i).setText(movies.get(i).getDirector());
+            this.notes.get(i).setText(movies.get(i).getDescription());
+            this.ratings.get(i).setRating(movies.get(i).getRating());
             if (i < movies.size() - 1) {
-                moviesList = findViewById(R.id.MovieLinearLayout);
+                this.moviesList = findViewById(R.id.MovieLinearLayout);
                 @SuppressLint("InflateParams") View child = getLayoutInflater().inflate(R.layout.unit_input_movie, null);
-                moviesList.addView(child);
-                titles.add((EditText) child.findViewById(R.id.MovieTitle));
-                directors.add((EditText) child.findViewById(R.id.MovieDirector));
-                notes.add((EditText) child.findViewById(R.id.MovieTextData));
-                ratings.add((RatingBar) child.findViewById(R.id.MovieRating));
+                this.moviesList.addView(child);
+                this.titles.add((EditText) child.findViewById(R.id.MovieTitle));
+                this.directors.add((EditText) child.findViewById(R.id.MovieDirector));
+                this.notes.add((EditText) child.findViewById(R.id.MovieTextData));
+                this.ratings.add((RatingBar) child.findViewById(R.id.MovieRating));
             }
         }
     }
@@ -86,11 +86,11 @@ public class MovieActivity extends InputActivity {
 
         ArrayList<Movie> movies = new ArrayList<>();
         // assuming we have as many elements in the three ArrayList titles directors and notes
-        for (int i = 0; i < titles.size(); i++) {
-            movies.add(new Movie(titles.get(i).getText().toString(),
-                    directors.get(i).getText().toString(),
-                    notes.get(i).getText().toString(),
-                    ratings.get(i).getRating()
+        for (int i = 0; i < this.titles.size(); i++) {
+            movies.add(new Movie(this.titles.get(i).getText().toString(),
+                    this.directors.get(i).getText().toString(),
+                    this.notes.get(i).getText().toString(),
+                    this.ratings.get(i).getRating()
             ));
         }
         this.dh.saveMovieData(movies);
@@ -98,10 +98,10 @@ public class MovieActivity extends InputActivity {
 
 
     private boolean checkData() {
-        int current_size = titles.size();
+        int current_size = this.titles.size();
         for (int i = 0; i < current_size; i++) {
-            int title_size = titles.get(i).getText().toString().length();
-            int description_size = notes.get(i).getText().toString().length();
+            int title_size = this.titles.get(i).getText().toString().length();
+            int description_size = this.notes.get(i).getText().toString().length();
             if (title_size == 0 || description_size == 0) {
                 return false;
             }
