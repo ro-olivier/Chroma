@@ -4,6 +4,7 @@ import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.Button;
@@ -144,5 +145,11 @@ public class IncomeActivity extends InputActivity {
         // simply pass the data to the DataHandler with the dedicated method
         Log.i("CHROMA", "Updating the data object with current incomes");
         this.dh.saveMoneyInData(this.incomes);
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        super.onOptionsItemSelected(item);
+        return true;
     }
 }

@@ -5,6 +5,7 @@ import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
@@ -349,5 +350,11 @@ public class AlcoholActivity extends InputActivity {
         // simply pass the data to the DataHandler with the dedicated method
         Log.i("CHROMA", "Updating the data object with current drinks");
         this.dh.saveAlcoholData(this.drinks);
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        super.onOptionsItemSelected(item);
+        return true;
     }
 }

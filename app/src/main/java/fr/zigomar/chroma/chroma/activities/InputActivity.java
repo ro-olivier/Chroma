@@ -5,6 +5,9 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.app.ActionBar;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.ImageButton;
 import android.widget.TextView;
@@ -22,6 +25,8 @@ public abstract class InputActivity extends AppCompatActivity {
     protected static final String CURRENT_DATE = "com.example.chroma.current_date";
 
     protected DataHandler dh;
+
+    protected boolean cancelDoNotSave = false;
 
     protected final Date currentDate = new Date();
 
@@ -59,15 +64,40 @@ public abstract class InputActivity extends AppCompatActivity {
     }
 
     @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        MenuInflater inflater = getMenuInflater();
+        inflater.inflate(R.menu.input_toolbar, menu);
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+            case R.id.cancel_save:
+                Log.i("CHROMA", "User canceled the current activity, do not save");
+                this.cancelDoNotSave = true;
+                this.finish();
+                return true;
+
+            default:
+                return super.onOptionsItemSelected(item);
+        }
+    }
+
+    @Override
     protected void onStop() {
         // surcharge the onStop() method to include a call to the method updating the data and then
         // using the DataHandler to write it to file before closing
         super.onStop();
         Log.i("CHROMA","Starting activity closing... : " + this.getClass().getSimpleName());
 
-        saveData();
-        this.dh.writeDataToFile(getApplicationContext());
-        Toast.makeText(getApplicationContext(), R.string.Saved, Toast.LENGTH_SHORT).show();
+        if (!cancelDoNotSave) {
+            saveData();
+            this.dh.writeDataToFile(getApplicationContext());
+            Toast.makeText(getApplicationContext(), R.string.Saved, Toast.LENGTH_SHORT).show();
+        } else {
+            Log.i("CHROMA", "SaveData aborted because cancel button");
+        }
     }
 
         // simply fetch the data from the views and save it into the DataHandler with the dedicated method

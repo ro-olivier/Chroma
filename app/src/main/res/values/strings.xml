@@ -107,6 +107,7 @@
     <string name="MissingAlcoholVolume">Please specify the volume of your drink.</string>
     <string name="AlcoholComment">Optionnal comment</string>
     <string name="MissingAlcoholDescription">Please specify what you drank.</string>
+    <string name="Cancel">Cancel</string>
 
     <string-array name="spendingsCategories">
         <item>Drinks</item>

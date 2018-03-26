@@ -1,6 +1,7 @@
 package fr.zigomar.chroma.chroma.activities;
 
 import android.os.Bundle;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.NumberPicker;
@@ -103,5 +104,11 @@ public class MoodActivity extends InputActivity {
                 this.pickerMood2.getValue(),
                 this.pickerMood3.getValue(),
                 this.textData.getText().toString());
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        super.onOptionsItemSelected(item);
+        return true;
     }
 }

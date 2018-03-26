@@ -3,6 +3,7 @@ package fr.zigomar.chroma.chroma.activities;
 import android.annotation.SuppressLint;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.NumberPicker;
@@ -161,5 +162,11 @@ public class SleepActivity extends InputActivity {
                 this.endHour.getValue(),
                 Integer.parseInt(this.endMinute.getDisplayedValues()[this.endMinute.getValue()]),
                 this.notes.getText().toString());
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        super.onOptionsItemSelected(item);
+        return true;
     }
 }

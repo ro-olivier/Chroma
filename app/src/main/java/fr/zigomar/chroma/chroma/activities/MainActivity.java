@@ -119,7 +119,7 @@ public class MainActivity extends AppCompatActivity {
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         MenuInflater inflater = getMenuInflater();
-        inflater.inflate(R.menu.toolbar, menu);
+        inflater.inflate(R.menu.main_toolbar, menu);
         return true;
     }
 
@@ -168,9 +168,9 @@ public class MainActivity extends AppCompatActivity {
                 startActivity(settingIntent);
 
                 return true;
+
             default:
                 return super.onOptionsItemSelected(item);
-
         }
     }
 
