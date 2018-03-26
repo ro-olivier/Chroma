@@ -50,4 +50,100 @@
         <item>22</item>
         <item>23</item>
     </string-array>
+
+    <string-array name="genericDrinks">
+        <item>Pint</item>
+        <item>Can</item>
+        <item>Demi</item>
+        <item>Glass</item>
+        <item>Bottle</item>
+        <item>Other</item>
+    </string-array>
+
+    <string-array name="beers">
+        <item>1664</item>
+        <item>1664 Blanche</item>
+        <item>Affligem blonde</item>
+        <item>Affligem double</item>
+        <item>Affligem triple</item>
+        <item>Big Job IPA</item>
+        <item>Carlsberg</item>
+        <item>Chouffe</item>
+        <item>Ch\'ti</item>
+        <item>Cuvée des Trolls</item>
+        <item>Despérados</item>
+        <item>Duvel</item>
+        <item>Gallia IPA</item>
+        <item>Goudale</item>
+        <item>Grim ambrée</item>
+        <item>Grim blonde</item>
+        <item>Heineken</item>
+        <item>Hapkin</item>
+        <item>Hopbuckler IPA</item>
+        <item>Jeanlain ambrée</item>
+        <item>Jenlain blonde</item>
+        <item>Kwak</item>
+        <item>Leffe Ambrée</item>
+        <item>Leffe blonde</item>
+        <item>Leffe Nectar</item>
+        <item>Leffe Triple</item>
+        <item>Maredsout Triple</item>
+        <item>Pelforth blonde</item>
+        <item>Pelforth brune</item>
+        <item>Stella Artois</item>
+        <item>Triple Karmeliet</item>
+    </string-array>
+
+    <string-array name="beer_alcohol">
+        <item>5.5</item>
+        <item>5</item>
+        <item>6.7</item>
+        <item>6.8</item>
+        <item>8.5</item>
+        <item>7.2</item>
+        <item>5</item>
+        <item>8</item>
+        <item>6.4</item>
+        <item>7</item>
+        <item>5.9</item>
+        <item>8.5</item>
+        <item>4.7</item>
+        <item>7.2</item>
+        <item>6.5</item>
+        <item>6.7</item>
+        <item>5</item>
+        <item>8.5</item>
+        <item>6.2</item>
+        <item>7.5</item>
+        <item>7.5</item>
+        <item>8.4</item>
+        <item>7.1</item>
+        <item>6.6</item>
+        <item>5.5</item>
+        <item>8.5</item>
+        <item>10</item>
+        <item>5.8</item>
+        <item>6.5</item>
+        <item>5</item>
+        <item>8.4</item>
+    </string-array>
+
+    <string-array name="glass">
+        <item>Red wine</item>
+        <item>White wine</item>
+        <item>Other</item>
+    </string-array>
+
+    <string-array name="bottle">
+        <item>Red Wine</item>
+        <item>White Wine</item>
+        <item>Other</item>
+    </string-array>
+    <string-array name="bottle_division">
+        <item>2 persons</item>
+        <item>3 persons</item>
+        <item>4 persons</item>
+        <item>5 persons</item>
+        <item>6 persons</item>
+    </string-array>
 </resources>

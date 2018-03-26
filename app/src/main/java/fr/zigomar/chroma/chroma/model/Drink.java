@@ -18,8 +18,20 @@ public class Drink {
         return ua;
     }
 
-    public Drink(String description, double volume, double degree) {
+    Drink(String description, double volume, double degree) {
         this.description = description;
+        this.volume = volume;
+        this.degree = degree;
+
+        this.ua = 0.8*0.001*volume*degree;
+    }
+
+    public Drink(String description, String comments, double volume, double degree) {
+        if (comments.length() > 0) {
+            this.description = description + " (" + comments + ")";
+        } else {
+            this.description = description;
+        }
         this.volume = volume;
         this.degree = degree;
 

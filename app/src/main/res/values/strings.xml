@@ -102,6 +102,11 @@
     <string name="pref_sleep_endTitle">Hour when to start detecting airplane-mode \"off\"</string>
     <string name="pref_sleep_startSummary">After this hour, the sleep monitor will start listening for airplane-mode \"on\" to register your bedtime.</string>
     <string name="pref_sleep_endSummary">After this hour, the sleep monitor will start listening for airplane-mode \"off\" to register your wakeup time.</string>
+    <string name="of">of</string>
+    <string name="MissingAlcoholContent">Please specify the ABV of your drink.</string>
+    <string name="MissingAlcoholVolume">Please specify the volume of your drink.</string>
+    <string name="AlcoholComment">Optionnal comment</string>
+    <string name="MissingAlcoholDescription">Please specify what you drank.</string>
 
     <string-array name="spendingsCategories">
         <item>Drinks</item>
