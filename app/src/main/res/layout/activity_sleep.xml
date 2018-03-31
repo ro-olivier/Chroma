@@ -24,10 +24,28 @@
             android:layout_height="wrap_content"
             layout="@layout/display_date"/>
 
+        <EditText
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:id="@+id/placeHolder"
+            android:inputType="text"/>
+
+        <EditText
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:inputType="textMultiLine|textCapSentences|textAutoCorrect"
+            android:id="@+id/TextData"
+            android:hint="@string/SleepHint"
+            android:gravity="top"
+            android:scrollbars="vertical"
+            android:scrollbarFadeDuration="0"
+            android:lines="5"/>
+
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="@string/WakeUpTime"/>
+            android:text="@string/WakeUpTime"
+            android:id="@+id/wakeupTextView"/>
 
         <LinearLayout
             android:layout_width="fill_parent"
@@ -68,7 +86,8 @@
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="@string/BedTime"/>
+            android:text="@string/BedTime"
+            android:id="@+id/bedtimeTextView"/>
 
         <LinearLayout
             android:layout_width="fill_parent"
@@ -106,15 +125,7 @@
 
         </LinearLayout>
 
-        <EditText
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:inputType="textMultiLine|textCapSentences|textAutoCorrect"
-            android:id="@+id/TextData"
-            android:hint="@string/SleepHint"
-            android:gravity="top"
-            android:scrollbars="vertical"
-            android:scrollbarFadeDuration="0"/>
+
 
     </LinearLayout>
 </LinearLayout>

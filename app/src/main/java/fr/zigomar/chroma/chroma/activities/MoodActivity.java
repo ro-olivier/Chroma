@@ -1,6 +1,7 @@
 package fr.zigomar.chroma.chroma.activities;
 
 import android.os.Bundle;
+import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.EditText;
@@ -51,6 +52,13 @@ public class MoodActivity extends InputActivity {
                     pickerMood2.setVisibility(View.GONE);
                     pickerMood3.setVisibility(View.GONE);
                     pickersVisible = false;
+
+                    textData.post(new Runnable() {
+                        @Override
+                        public void run() {
+                            textData.setSelection(textData.getText().length());
+                        }
+                    });
                 }
             }
         });

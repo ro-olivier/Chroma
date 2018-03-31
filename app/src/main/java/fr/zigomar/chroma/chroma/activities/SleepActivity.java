@@ -6,7 +6,9 @@ import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.EditText;
+import android.widget.LinearLayout;
 import android.widget.NumberPicker;
+import android.widget.TextView;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -20,6 +22,9 @@ public class SleepActivity extends InputActivity {
     private NumberPicker beginMinute;
     private NumberPicker endHour;
     private NumberPicker endMinute;
+
+    private TextView wakeupText;
+    private TextView bedtimeText;
 
     private boolean pickersVisible;
 
@@ -37,6 +42,9 @@ public class SleepActivity extends InputActivity {
         this.endHour = findViewById(R.id.SleepEndHourPicker);
         this.endMinute = findViewById(R.id.SleepEndMinutePicker);
 
+        this.wakeupText = findViewById(R.id.wakeupTextView);
+        this.bedtimeText = findViewById(R.id.bedtimeTextView);
+
         confPicker(this.beginMinute, 60, MINUTES_INTERVAL);
         confPicker(this.beginHour, 24, 1);
         confPicker(this.endMinute, 60, MINUTES_INTERVAL);
@@ -45,6 +53,9 @@ public class SleepActivity extends InputActivity {
         this.pickersVisible = true;
 
         this.notes = findViewById(R.id.TextData);
+        EditText placeholder = findViewById(R.id.placeHolder);
+
+        placeholder.requestFocus();
 
         this.notes.setOnFocusChangeListener(new View.OnFocusChangeListener() {
             @Override
@@ -54,7 +65,21 @@ public class SleepActivity extends InputActivity {
                     beginHour.setVisibility(View.GONE);
                     endHour.setVisibility(View.GONE);
                     endMinute.setVisibility(View.GONE);
-                    pickersVisible = true;
+                    wakeupText.setVisibility(View.GONE);
+                    bedtimeText.setVisibility(View.GONE);
+
+                    //notes.setLayoutParams(new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT,
+                     //       notes.getMaxHeight()));
+                    notes.setLines(12);
+
+                    pickersVisible = false;
+
+                    notes.post(new Runnable() {
+                        @Override
+                        public void run() {
+                            notes.setSelection(notes.getText().length());
+                        }
+                    });
                 }
             }
         });
@@ -123,6 +148,13 @@ public class SleepActivity extends InputActivity {
             this.beginHour.setVisibility(View.VISIBLE);
             this.endHour.setVisibility(View.VISIBLE);
             this.endMinute.setVisibility(View.VISIBLE);
+            this.wakeupText.setVisibility(View.VISIBLE);
+            this.bedtimeText.setVisibility(View.VISIBLE);
+
+            //notes.setLayoutParams(new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT,
+             //       notes.getMinHeight()));
+            notes.setLines(5);
+
             this.pickersVisible = true;
         } else {
             super.onBackPressed();

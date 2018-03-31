@@ -297,6 +297,7 @@ public class AlcoholActivity extends InputActivity {
         this.degreeField.setText("");
         this.volumeField.setText("");
         this.detailsField.setText("");
+        this.commentField.setText("");
         this.detailsField.setVisibility(View.INVISIBLE);
         this.sharedLayout.setVisibility(View.INVISIBLE);
         this.valueLayout.setVisibility(View.INVISIBLE);

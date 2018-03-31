@@ -188,6 +188,7 @@ public class TransportActivity extends InputActivity {
 
                     tripAdapter.add(new Trip(backward_steps, lastTrip.getCost()));
                     updateSummary();
+                    resetViews(lastTrip.getSteps().get(0).getStop());
                 } else {
                     Toast.makeText(getApplicationContext(), R.string.TripCannotRevertEmptyTrip, Toast.LENGTH_SHORT).show();
                 }
