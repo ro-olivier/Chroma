@@ -8,8 +8,10 @@ import android.preference.PreferenceManager;
 import android.util.Log;
 import android.widget.Toast;
 
+import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.Locale;
 import java.util.Objects;
 
 import fr.zigomar.chroma.chroma.R;
@@ -62,9 +64,15 @@ public class AirplaneBroadcastReceiver extends BroadcastReceiver {
                     // Do something !
                     Log.i("CHROMA", "I'm going to write data in today's file ! (wakeup time)");
                     DataHandler dh = new DataHandler(context, new Date());
-                    dh.saveWakeuptime(roundedHour, roundedMinute);
-                    dh.writeDataToFile(context);
-                    Toast.makeText(context, R.string.Saved, Toast.LENGTH_SHORT).show();
+                    String wakeuptimeData = new SimpleDateFormat("yyyy-MM-dd", Locale.FRANCE).format(currentDate) + " " +
+                            roundedHour + ":" + roundedMinute;
+                    if (!dh.isWakeupTimeSet()) {
+                        dh.saveWakeuptime(wakeuptimeData);
+                        dh.writeDataToFile(context);
+                        Toast.makeText(context, R.string.Saved, Toast.LENGTH_SHORT).show();
+                    } else {
+                        Log.i("CHROMA", "Aborted because the airplane broadcast receiver already set the wakeup time");
+                    }
                     // create DataHandler with correct date (should be today all the time,
                     // as we will never finished a night before the end of a day!
                     // call dh.saveWakeuptime
@@ -77,6 +85,7 @@ public class AirplaneBroadcastReceiver extends BroadcastReceiver {
                 Log.i("CHROMA", "RoundedMinute is:" + roundedMinute);
                 Log.i("CHROMA", "RoundedHour is:" + roundedHour);
                 if (currentHour >= limit_on  || currentHour < limit_off) {
+
                     // do something !
                     Log.i("CHROMA", "I'm going to write data in today's file ! (bedtime)");
                     Date day;
@@ -88,10 +97,16 @@ public class AirplaneBroadcastReceiver extends BroadcastReceiver {
                         calForDH.add(Calendar.DATE, -1);
                         day = calForDH.getTime();
                     }
+                    String bedtimeData = new SimpleDateFormat("yyyy-MM-dd", Locale.FRANCE).format(day) + " " +
+                            roundedHour + ":" + roundedMinute;
                     DataHandler dh = new DataHandler(context, day);
-                    dh.saveBedtime(roundedHour, roundedMinute);
-                    dh.writeDataToFile(context);
-                    Toast.makeText(context, R.string.Saved, Toast.LENGTH_SHORT).show();
+                    if (!dh.isBedtimeTimeSet()) {
+                        dh.saveBedtime(bedtimeData);
+                        dh.writeDataToFile(context);
+                        Toast.makeText(context, R.string.Saved, Toast.LENGTH_SHORT).show();
+                    } else {
+                        Log.i("CHROMA", "Aborted because the airplane broadcast receiver already set the bedtime");
+                    }
                     // create DataHandler with correct date (should be today all the time,
                     // as we will never finished a night before the end of a day!
                     // call dh.saveBedtime

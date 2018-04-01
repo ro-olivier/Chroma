@@ -511,7 +511,7 @@ public class DataHandler {
     ########################################################
     */
 
-    public void saveSleepData(int v1, int v2, int v3, int v4, String txt) {
+    /*public void saveSleepData(int v1, int v2, int v3, int v4, String txt) {
         Log.i("CHROMA", "SaveSleepData was invoked.");
         try {
             this.data.put("bedtime_hour", v1);
@@ -523,8 +523,19 @@ public class DataHandler {
             e.printStackTrace();
         }
     }
+    */
 
-    public void saveBedtime(int hour, int minute) {
+    public void saveSleepData(String wakeupData, String bedtimeData, String txt) {
+        try {
+            this.data.put("wakeup-time", wakeupData);
+            this.data.put("bedtime", bedtimeData);
+            this.data.put("sleep_text", txt);
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+    }
+
+    /*public void saveBedtime(int hour, int minute) {
         Log.i("CHROMA", "saveBedtime was invoked.");
         try {
             this.data.put("bedtime_hour", hour);
@@ -533,12 +544,34 @@ public class DataHandler {
             e.printStackTrace();
         }
     }
+    */
 
-    public void saveWakeuptime(int hour, int minute) {
+    public void saveBedtime(String bedtimeData) {
+        Log.i("CHROMA", "saveBedtime was invoked.");
+        try {
+            this.data.put("bedtime", bedtimeData);
+            this.data.put("bedtimeIsSet", "true");
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+    }
+
+    /*public void saveWakeuptime(int hour, int minute) {
         Log.i("CHROMA", "saveWakeuptime was invoked.");
         try {
             this.data.put("wakeuptime_hour", hour);
             this.data.put("wakeuptime_minute", minute);
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+    }
+    */
+
+    public void saveWakeuptime(String wakeupData) {
+        Log.i("CHROMA", "saveWakeuptime was invoked.");
+        try {
+            this.data.put("wakeup-time", wakeupData);
+            this.data.put("wakeup-timeIsSet", "true");
         } catch (JSONException e) {
             e.printStackTrace();
         }
@@ -550,10 +583,13 @@ public class DataHandler {
         HashMap<String, String> d = new HashMap<>();
 
         try {
-            d.put("sleep_begin_hour", String.valueOf(this.data.getInt("bedtime_hour")));
-            d.put("sleep_begin_minute", String.valueOf(this.data.getInt("bedtime_minute")));
-            d.put("sleep_end_hour", String.valueOf(this.data.getInt("wakeuptime_hour")));
-            d.put("sleep_end_minute", String.valueOf(this.data.getInt("wakeuptime_minute")));
+            //d.put("sleep_begin_hour", String.valueOf(this.data.getInt("bedtime_hour")));
+            //d.put("sleep_begin_minute", String.valueOf(this.data.getInt("bedtime_minute")));
+            //d.put("sleep_end_hour", String.valueOf(this.data.getInt("wakeuptime_hour")));
+            //d.put("sleep_end_minute", String.valueOf(this.data.getInt("wakeuptime_minute")));
+
+            d.put("wakeupData", String.valueOf(this.data.getString("wakeup-time")));
+            d.put("bedtimeData", String.valueOf(this.data.getString("bedtime")));
         } catch (JSONException e) {
             e.printStackTrace();
         }
@@ -567,6 +603,25 @@ public class DataHandler {
 
         Log.i("CHROMA", "Returning : " + d.toString());
         return d;
+    }
+
+
+    public boolean isWakeupTimeSet() {
+        try {
+            return this.data.getBoolean("wakeup-timeIsSet");
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+        return false;
+    }
+
+    public boolean isBedtimeTimeSet() {
+        try {
+            return this.data.getBoolean("bedtimeIsSet");
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+        return false;
     }
 
 
