@@ -1,6 +1,7 @@
 package fr.zigomar.chroma.chroma.activities;
 
 import android.Manifest;
+import android.annotation.SuppressLint;
 import android.app.DatePickerDialog;
 import android.app.DialogFragment;
 import android.content.BroadcastReceiver;
@@ -9,6 +10,7 @@ import android.content.IntentFilter;
 import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
 import android.net.ConnectivityManager;
+import android.os.Environment;
 import android.preference.PreferenceManager;
 import android.support.annotation.NonNull;
 import android.support.v4.app.ActivityCompat;
@@ -306,6 +308,8 @@ public class MainActivity extends AppCompatActivity {
         });
 
         updateDateView();
+
+        checkPeriodExport();
     }
 
     private void incrementDate() {
@@ -337,5 +341,97 @@ public class MainActivity extends AppCompatActivity {
 
     private int dataFilenameFromStringToInt(String filename) {
         return Integer.parseInt(filename.split("-")[0] + filename.split("-")[1] + filename.split("-")[2]);
+    }
+
+    private void checkPeriodExport() {
+
+        SharedPreferences sharedPref = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
+        Log.i("CHROMA", "The period export policy is: " + sharedPref.getString(SettingsActivity.KEY_PREF_PERIODIC_EXPORT, ""));
+        int periodExportInt = Integer.parseInt(sharedPref.getString(SettingsActivity.KEY_PREF_PERIODIC_EXPORT, "0"));
+        if (periodExportInt > 0) {
+            // must check and do periodic export
+            String filename;
+            Calendar cal = Calendar.getInstance();
+            cal.setTime(currentDate);
+            File f;
+
+            switch (periodExportInt) {
+                case 3:
+                    //yearly
+                    filename = getApplicationContext().getString(R.string.YearlyExportFilenamePrefix);
+
+                    cal.add(Calendar.YEAR, -1);
+
+                    filename += cal.get(Calendar.YEAR);
+                    filename += getApplicationContext().getString(R.string.JSONExtension);
+                    f = new File(Environment.getExternalStoragePublicDirectory(
+                            Environment.DIRECTORY_DOCUMENTS), filename);
+
+                    if (f.exists()) {
+                        Log.i("CHROMA", "Yearly export file is already there, see you next year!");
+                    } else {
+                        Log.i("CHROMA", "Happy new year, let's export the data from last year");
+                        String first_day = cal.get(Calendar.YEAR) + "-01-01";
+                        String last_day = cal.get(Calendar.YEAR) + "-12-31";
+                        Log.i("CHROMA", "first_day= " + first_day + " || last_day= " + last_day);
+                        Log.i("CHROMA", "Period export filename = " + filename);
+                        new ExportDataTask(getApplicationContext()).execute(first_day, last_day, filename);
+                    }
+                    break;
+                case 2:
+                    //monthly
+                    filename = getApplicationContext().getString(R.string.MonthlyExportFilenamePrefix);
+
+                    @SuppressLint("DefaultLocale") String month = String.format("%02d", cal.get(Calendar.MONTH));
+
+                    filename += month;
+                    filename += getApplicationContext().getString(R.string.JSONExtension);
+                    f = new File(Environment.getExternalStoragePublicDirectory(
+                            Environment.DIRECTORY_DOCUMENTS), filename);
+
+                    if (f.exists()) {
+                        Log.i("CHROMA", "Monthly export file is already there, see you next month!");
+                    } else {
+                        Log.i("CHROMA", "A new month begins, let's export the data from last month");
+                        String first_day = cal.get(Calendar.YEAR) + "-" + month + "-01";
+                        String last_day = cal.get(Calendar.YEAR) + "-" + month + "-31";
+                        Log.i("CHROMA", "first_day= " + first_day + " || last_day= " + last_day);
+                        Log.i("CHROMA", "Period export filename = " + filename);
+                        new ExportDataTask(getApplicationContext()).execute(first_day, last_day, filename);
+                    }
+                    break;
+                case 1:
+                    //weekly
+
+                    filename = getApplicationContext().getString(R.string.WeeklyExportFilenamePrefix);
+
+                    cal.add(Calendar.WEEK_OF_YEAR, -1);
+
+                    filename += cal.get(Calendar.WEEK_OF_YEAR);
+                    filename += getApplicationContext().getString(R.string.JSONExtension);
+                    f = new File(Environment.getExternalStoragePublicDirectory(
+                            Environment.DIRECTORY_DOCUMENTS), filename);
+
+                    if (f.exists()) {
+                        Log.i("CHROMA", "Weekly export file is already there, see you next week!");
+                    } else {
+                        Log.i("CHROMA", "A new week begins, let's export the data from last week");
+                        Calendar yesterday = Calendar.getInstance();
+                        yesterday.setTime(currentDate);
+                        yesterday.add(Calendar.DAY_OF_YEAR, -1);
+
+                        Calendar seven_day_ago = Calendar.getInstance();
+                        seven_day_ago.setTime(currentDate);
+                        seven_day_ago.add(Calendar.DAY_OF_YEAR, -7);
+
+                        String first_day = new SimpleDateFormat("yyyy-MM-dd", Locale.FRANCE).format(seven_day_ago.getTime());
+                        String last_day = new SimpleDateFormat("yyyy-MM-dd", Locale.FRANCE).format(yesterday.getTime());
+                        Log.i("CHROMA", "first_day= " + first_day + " || last_day= " + last_day);
+                        Log.i("CHROMA", "Period export filename = " + filename);
+                        new ExportDataTask(getApplicationContext()).execute(first_day, last_day, filename);
+                    }
+                    break;
+            }
+        }
     }
 }

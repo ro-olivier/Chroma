@@ -22,6 +22,14 @@
             android:summary="@string/pref_toggleSummary"
             android:defaultValue="@array/pref_toggleEntryValues"/>
 
+        <ListPreference
+            android:key="pref_periodExport"
+            android:title="@string/pref_periodExportTitle"
+            android:summary="@string/pref_periodExportSummary"
+            android:defaultValue="0"
+            android:entries="@array/periodExport"
+            android:entryValues="@array/periodExportValues"/>
+
     </PreferenceCategory>
 
     <PreferenceCategory

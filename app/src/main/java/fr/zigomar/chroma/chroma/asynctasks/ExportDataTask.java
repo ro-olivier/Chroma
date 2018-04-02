@@ -86,6 +86,17 @@ public class ExportDataTask extends AsyncTask<Object, Void, Integer> {
                 exportFilename = "chroma_export_" + beginDate + ".json";
             }
 
+        } else if (params.length == 3) {
+            Log.i("CHROMA", "exportOnReceiveExportPeriod was called");
+
+            String beginDate = (String) params[0];
+            String endDate = (String) params[1];
+
+            beginDateInt = dataFilenameFromStringToInt(beginDate);
+            endDateInt = dataFilenameFromStringToInt(endDate);
+
+            exportFilename = (String) params[2];
+
         } else {
             return ExportKO_InvalidNumberOfArguments;
         }

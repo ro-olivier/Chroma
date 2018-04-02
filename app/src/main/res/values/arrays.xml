@@ -154,4 +154,18 @@
         <item>5 persons</item>
         <item>6 persons</item>
     </string-array>
+
+    <string-array name="periodExportValues">
+        <item>0</item>
+        <item>1</item>
+        <item>2</item>
+        <item>3</item>
+    </string-array>
+
+    <string-array name="periodExport">
+        <item>No period export</item>
+        <item>Weekly</item>
+        <item>Monthly</item>
+        <item>Yearly</item>
+    </string-array>
 </resources>

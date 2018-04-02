@@ -118,6 +118,12 @@
     <string name="HintPartner">With whom?</string>
     <string name="PartnerRequired">At least tell us who it was…</string>
     <string name="AddSex">I got lucky again!</string>
+    <string name="YearlyExportFilenamePrefix">chroma_yearly_export_</string>
+    <string name="MonthlyExportFilenamePrefix">chroma_monthly_export_</string>
+    <string name="WeeklyExportFilenamePrefix">chroma_weekly_export_</string>
+    <string name="JSONExtension">.json</string>
+    <string name="pref_periodExportTitle">Period export policy</string>
+    <string name="pref_periodExportSummary">You can program Chroma to export your data periodically.</string>
 
     <string-array name="spendingsCategories">
         <item>Drinks</item>
