@@ -101,7 +101,7 @@ public class Book {
     public String getHash() { return hash; }
 
     JSONObject getBookAsJSON() {
-        DateFormat df = new SimpleDateFormat("yyyy/MM/dd", Locale.FRANCE);
+        DateFormat df = new SimpleDateFormat("yyyy-MM-dd", Locale.FRANCE);
         JSONObject json = new JSONObject();
         try {
             json.put("hash", this.hash);

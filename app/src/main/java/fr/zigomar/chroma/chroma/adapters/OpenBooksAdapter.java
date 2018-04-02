@@ -45,7 +45,7 @@ public class OpenBooksAdapter extends ArrayAdapter<Book> {
         assert book != null;
         viewHolder.title.setText(book.getTitle());
         viewHolder.author.setText(book.getAuthor());
-        viewHolder.date_open.setText(new SimpleDateFormat("yyyy/MM/dd", Locale.FRANCE).format(book.getDateOpen()));
+        viewHolder.date_open.setText(new SimpleDateFormat("yyyy-MM-dd", Locale.FRANCE).format(book.getDateOpen()));
 
         return convertView;
     }

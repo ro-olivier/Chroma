@@ -44,9 +44,11 @@ public class BookReviewActivity extends InputActivity {
 
     private ArrayList<Book> reviewedBooks;
 
-    private DateFormat df;
+    private DateFormat df = new SimpleDateFormat("yyyy-MM-dd", Locale.FRANCE);
     private int reviewedBookIndex;
     private String bookHash;
+
+    private Bundle extras;
 
     private boolean bookAlreadyClosed = false;
 
@@ -54,27 +56,26 @@ public class BookReviewActivity extends InputActivity {
     protected void onCreate(final Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        Bundle extras = getIntent().getExtras();
-        df = new SimpleDateFormat("yyyy/MM/dd", Locale.FRANCE);
+        extras = getIntent().getExtras();
 
-        title = findViewById(R.id.BookTitle);
-        author = findViewById(R.id.BookAuthor);
-        openDate = findViewById(R.id.BookOpenDate);
-        closeDate = findViewById(R.id.BookCloseDate);
-        notes = findViewById(R.id.BookNotes);
-        closeBook = findViewById(R.id.BookCloseCheckBox);
-        rating = findViewById(R.id.BookRating);
+        this.title = findViewById(R.id.BookTitle);
+        this.author = findViewById(R.id.BookAuthor);
+        this.openDate = findViewById(R.id.BookOpenDate);
+        this.closeDate = findViewById(R.id.BookCloseDate);
+        this.notes = findViewById(R.id.BookNotes);
+        this.closeBook = findViewById(R.id.BookCloseCheckBox);
+        this.rating = findViewById(R.id.BookRating);
 
         if (extras != null) {
-            title.setText(extras.getString("BOOK_TITLE"));
-            author.setText(extras.getString("BOOK_AUTHOR"));
-            openDate.setText(df.format(extras.get("BOOK_OPENDATE")));
+            this.title.setText(extras.getString("BOOK_TITLE"));
+            this.author.setText(extras.getString("BOOK_AUTHOR"));
+            this.openDate.setText(df.format(extras.get("BOOK_OPENDATE")));
         }
 
         this.bookHash = getBookHash();
         this.reviewedBooks = this.dh.getReviewedBooksList();
 
-        for (Book b : reviewedBooks) {
+        for (Book b : this.reviewedBooks) {
             if (Objects.equals(b.getHash(), this.bookHash)) {
                 this.reviewedBook = b;
                 this.reviewedBookIndex = this.reviewedBooks.indexOf(b);
@@ -82,22 +83,22 @@ public class BookReviewActivity extends InputActivity {
         }
 
         if (this.reviewedBook != null) {
-            if (reviewedBook.getReview() != null) {
-                notes.setText(reviewedBook.getReview());
+            if (this.reviewedBook.getReview() != null) {
+                this.notes.setText(this.reviewedBook.getReview());
             }
 
-            if (reviewedBook.getRating() != 0) {
-                rating.setRating(reviewedBook.getRating());
+            if (this.reviewedBook.getRating() != 0) {
+                this.rating.setRating(this.reviewedBook.getRating());
             }
 
-            if (reviewedBook.getDateFinished() != null) {
-                closeDate.setText(df.format(reviewedBook.getDateFinished()));
+            if (this.reviewedBook.getDateFinished() != null) {
+                this.closeDate.setText(this.df.format(this.reviewedBook.getDateFinished()));
             }
 
-            if (reviewedBook.getFinished()) {
-                bookAlreadyClosed = true;
-                closeBook.setChecked(true);
-                rating.setVisibility(View.VISIBLE);
+            if (this.reviewedBook.getFinished()) {
+                this.bookAlreadyClosed = true;
+                this.closeBook.setChecked(true);
+                this.rating.setVisibility(View.VISIBLE);
             }
         }
 
@@ -138,8 +139,6 @@ public class BookReviewActivity extends InputActivity {
     private String getBookHash() {
         Log.i("CHROMA", "Book hash requested for Book in intent");
 
-        Bundle extras = getIntent().getExtras();
-
         MessageDigest md = null;
         try {
             md = getInstance("SHA-256");
@@ -147,10 +146,10 @@ public class BookReviewActivity extends InputActivity {
             e.printStackTrace();
         }
         String text = null;
-        if (extras != null) {
-            Log.i("CHROMA", "Book intent title : " + extras.getString("BOOK_TITLE"));
-            Log.i("CHROMA", "Book intent author : " + extras.getString("BOOK_AUTHOR"));
-            text = extras.getString("BOOK_TITLE") + extras.getString("BOOK_AUTHOR");
+        if (this.extras != null) {
+            Log.i("CHROMA", "Book intent title : " + this.extras.getString("BOOK_TITLE"));
+            Log.i("CHROMA", "Book intent author : " + this.extras.getString("BOOK_AUTHOR"));
+            text = this.extras.getString("BOOK_TITLE") + this.extras.getString("BOOK_AUTHOR");
         }
 
         if (md != null) {
@@ -215,25 +214,25 @@ public class BookReviewActivity extends InputActivity {
     public void onBackPressed() {
 
         if (!this.inputsVisible) {
-            title.setVisibility(View.VISIBLE);
-            author.setVisibility(View.VISIBLE);
-            openDate.setVisibility(View.VISIBLE);
-            closeBook.setVisibility(View.VISIBLE);
-            rating.setVisibility(View.INVISIBLE);
-            closeDate.setVisibility(View.INVISIBLE);
+            this.title.setVisibility(View.VISIBLE);
+            this.author.setVisibility(View.VISIBLE);
+            this.openDate.setVisibility(View.VISIBLE);
+            this.closeBook.setVisibility(View.VISIBLE);
+            this.rating.setVisibility(View.INVISIBLE);
+            this.closeDate.setVisibility(View.INVISIBLE);
 
-            if (closeBook.isChecked()) {
-                closeBook.setVisibility(View.VISIBLE);
-                rating.setVisibility(View.VISIBLE);
-                closeDate.setVisibility(View.VISIBLE);
+            if (this.closeBook.isChecked()) {
+                this.closeBook.setVisibility(View.VISIBLE);
+                this.rating.setVisibility(View.VISIBLE);
+                this.closeDate.setVisibility(View.VISIBLE);
             }
 
-            inputsVisible = true;
+            this.inputsVisible = true;
 
         } else {
 
             Intent returnIntent = new Intent();
-            returnIntent.putExtra(CURRENT_DATE, currentDate.getTime());
+            returnIntent.putExtra(CURRENT_DATE, this.currentDate.getTime());
             returnIntent.putExtra("HASH", this.bookHash);
 
             if (this.closeBook.isChecked()) {
