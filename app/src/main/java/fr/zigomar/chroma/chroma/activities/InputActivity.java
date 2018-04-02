@@ -138,7 +138,7 @@ public abstract class InputActivity extends AppCompatActivity {
     protected void updateDateView() {
         // simple method to update the date view at the top of the screen
         TextView dateView = findViewById(R.id.DateTextView);
-        String formattedDate = (new SimpleDateFormat("yyyy/MM/dd", Locale.FRANCE).format(this.currentDate));
+        String formattedDate = (new SimpleDateFormat("yyyy-MM-dd", Locale.FRANCE).format(this.currentDate));
         dateView.setText(formattedDate);
 
         TextView dayView = findViewById(R.id.DayTextView);

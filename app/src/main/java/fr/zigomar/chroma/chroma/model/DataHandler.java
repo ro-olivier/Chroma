@@ -430,7 +430,7 @@ public class DataHandler {
         ArrayList<Book> s = new ArrayList<>();
         JSONArray jsonArray;
         Log.i("CHROMA", this.data.toString());
-        DateFormat df = new SimpleDateFormat("yyyy/MM/dd", Locale.FRANCE);
+        DateFormat df = new SimpleDateFormat("yyyy-MM-dd", Locale.FRANCE);
         try {
             jsonArray = new JSONArray(this.data.get("books").toString());
 
@@ -466,7 +466,7 @@ public class DataHandler {
     public ArrayList<Book> getReviewedBooksList() {
         ArrayList<Book> s = new ArrayList<>();
         JSONArray jsonArray;
-        DateFormat df = new SimpleDateFormat("yyyy/MM/dd", Locale.FRANCE);
+        DateFormat df = new SimpleDateFormat("yyyy-MM-dd", Locale.FRANCE);
 
         try {
             jsonArray = new JSONArray(this.data.get("books").toString());
