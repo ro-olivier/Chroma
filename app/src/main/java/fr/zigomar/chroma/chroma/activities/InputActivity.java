@@ -31,6 +31,8 @@ public abstract class InputActivity extends AppCompatActivity {
     protected boolean cancelDoNotSave = false;
 
     protected final Date currentDate = new Date();
+    protected String formattedDate;
+    protected String formattedDay;
 
     @Override
     protected void onCreate(final Bundle savedInstanceState) {
@@ -42,27 +44,37 @@ public abstract class InputActivity extends AppCompatActivity {
 
         setContentView(getResources().getIdentifier(layoutResName, "layout", this.getApplicationContext().getPackageName()));
 
+        // update the date view at the top of the layout
+        this.currentDate.setTime(getIntent().getLongExtra(CURRENT_DATE, -1));
+        this.formattedDate = (new SimpleDateFormat("yyyy-MM-dd", Locale.FRANCE).format(this.currentDate));
+        this.formattedDay = (new SimpleDateFormat("EEEE", Locale.ENGLISH).format(this.currentDate));
+
+        try {
+            updateDateView();
+
+            // hiding the buttons
+            ImageButton backwardDateButton = findViewById(R.id.ButtonBackwardDate);
+            backwardDateButton.setVisibility(View.INVISIBLE);
+            ImageButton forwardDateButton = findViewById(R.id.ButtonForwardDate);
+            forwardDateButton.setVisibility(View.INVISIBLE);
+        } catch (NullPointerException ex) {
+            Log.i("CHROMA", "Could not update the date and day views, maybe they are missing from the activity layout.");
+        }
+
         Toolbar myToolbar = findViewById(R.id.toolbar);
         setSupportActionBar(myToolbar);
         ActionBar ab = getSupportActionBar();
         if (ab != null) {
             ab.setDisplayHomeAsUpEnabled(true);
+            ab.setTitle(this.formattedDate + " (" + this.formattedDay + ")");
         }
 
-        // update the date view at the top of the layout
-        this.currentDate.setTime(getIntent().getLongExtra(CURRENT_DATE, -1));
-        updateDateView();
 
         // init the data handler if not already set in the child class
         if (this.dh == null) {
             this.dh = new DataHandler(this.getApplicationContext(), this.currentDate);
         }
 
-        // hiding the buttons
-        ImageButton backwardDateButton = findViewById(R.id.ButtonBackwardDate);
-        backwardDateButton.setVisibility(View.INVISIBLE);
-        ImageButton forwardDateButton = findViewById(R.id.ButtonForwardDate);
-        forwardDateButton.setVisibility(View.INVISIBLE);
     }
 
     @Override
@@ -135,14 +147,12 @@ public abstract class InputActivity extends AppCompatActivity {
         //Log.i("CHROMA", "Updating the data object with current values in the views");
     protected abstract void saveData();
 
-    protected void updateDateView() {
+    protected void updateDateView() throws NullPointerException{
         // simple method to update the date view at the top of the screen
         TextView dateView = findViewById(R.id.DateTextView);
-        String formattedDate = (new SimpleDateFormat("yyyy-MM-dd", Locale.FRANCE).format(this.currentDate));
         dateView.setText(formattedDate);
 
         TextView dayView = findViewById(R.id.DayTextView);
-        String formattedDay = (new SimpleDateFormat("EEEE", Locale.ENGLISH).format(this.currentDate));
         dayView.setText(formattedDay);
 
         Log.i("CHROMA", "Updating date : " + formattedDate + " (" + formattedDay + ")");

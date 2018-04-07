@@ -1,17 +1,15 @@
 package fr.zigomar.chroma.chroma.activities;
 
-import android.annotation.SuppressLint;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.os.Bundle;
+import android.support.design.widget.FloatingActionButton;
+import android.support.v4.app.FragmentManager;
+import android.support.v4.app.FragmentTransaction;
 import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
-import android.widget.ArrayAdapter;
-import android.widget.AutoCompleteTextView;
-import android.widget.Button;
-import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.TextView;
@@ -21,6 +19,7 @@ import java.text.DecimalFormat;
 import java.util.ArrayList;
 
 import fr.zigomar.chroma.chroma.adapters.TripAdapter;
+import fr.zigomar.chroma.chroma.fragments.TransportInputFragment;
 import fr.zigomar.chroma.chroma.model.Step;
 import fr.zigomar.chroma.chroma.model.Trip;
 import fr.zigomar.chroma.chroma.R;
@@ -28,106 +27,41 @@ import fr.zigomar.chroma.chroma.R;
 public class TransportActivity extends InputActivity {
 
     // the list holding the data
-    private ArrayList<Trip> trips;
+    protected ArrayList<Trip> trips;
     // the adapter managing the view of the data
-    private TripAdapter tripAdapter;
+    protected TripAdapter tripAdapter;
 
-    private LinearLayout stepsList;
-    private EditText priceField;
+    protected FloatingActionButton fab;
+    protected FloatingActionButton fab_revert;
+
+    public int getNumberOfTrips() {
+        return trips.size();
+    }
+
+    public String getLastStation() {
+        if (trips.size() > 0) {
+            Trip lastTrip = trips.get(trips.size() - 1);
+            return lastTrip.getSteps().get(lastTrip.getNumberOfSteps() - 1).getStop();
+        } else {
+            return "";
+        }
+    }
 
     @Override
     protected void onCreate(final Bundle savedInstanceState) {
         // calling inherited class constructor
         super.onCreate(savedInstanceState);
 
-        this.priceField = findViewById(R.id.TripPrice);
-
         // init of the data : fetch trips data in the currentDate file if it exist
         this.trips = getTrips();
         updateSummary();
 
-        if (trips.size() > 0) {
-            Log.i("CHROMA", "Trips is not empty, let's prefill the station");
-            stepsList = findViewById(R.id.StepLinearLayout);
-            View child = stepsList.findViewById(R.id.Station);
-            AutoCompleteTextView station = child.findViewById(R.id.Station);
-            Trip lastTrip = trips.get(trips.size() - 1);
-            station.setText(lastTrip.getSteps().get(lastTrip.getNumberOfSteps() - 1).getStop());
-        }
-
-        ArrayAdapter<CharSequence> stationAdapter = ArrayAdapter.createFromResource(TransportActivity.this,
-                R.array.stations, R.layout.dropdown);
-        AutoCompleteTextView textView = findViewById(R.id.Station);
-        textView.setAdapter(stationAdapter);
-
-        Button addStepButton = findViewById(R.id.AddStep);
-        addStepButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                stepsList = findViewById(R.id.StepLinearLayout);
-                @SuppressLint("InflateParams") View child = getLayoutInflater().inflate(R.layout.unit_input_tripstep, null);
-                stepsList.addView(child);
-
-                ArrayAdapter<CharSequence> stationAdapter = ArrayAdapter.createFromResource(TransportActivity.this,
-                        R.array.stations, R.layout.dropdown);
-                AutoCompleteTextView textView = child.findViewById(R.id.Station);
-                textView.setAdapter(stationAdapter);
-            }
-        });
-
-        Button addTripButton = findViewById(R.id.AddButton);
-        addTripButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                String cost_str = priceField.getText().toString();
-                if (cost_str.length() > 0) {
-                    try {
-                        double cost = Double.parseDouble(cost_str);
-                        int childCount = stepsList.getChildCount();
-                        if (childCount > 1) {
-                            ArrayList<Step> ar = new ArrayList<>();
-
-                            for (int i = 0; i < childCount - 1; i++) {
-                                View child = stepsList.getChildAt(i);
-                                AutoCompleteTextView station = child.findViewById(R.id.Station);
-                                EditText line = child.findViewById(R.id.Line);
-                                ar.add(new Step(station.getText().toString(), line.getText().toString()));
-                            }
-
-                            View child = stepsList.getChildAt(childCount - 1);
-                            AutoCompleteTextView station = child.findViewById(R.id.Station);
-                            ar.add(new Step(station.getText().toString()));
-
-                            tripAdapter.add(new Trip(ar, cost));
-                            updateSummary();
-                            Log.i("CHROMA", "Currently " + trips.size() + " trips.");
-                            resetViews(station.getText().toString());
-                        } else {
-                            Toast.makeText(getApplicationContext(), R.string.TripMinimumTwoStepsRequired, Toast.LENGTH_SHORT).show();
-                        }
-                    } catch (NumberFormatException e) {
-                        Toast.makeText(getApplicationContext(), R.string.UnableToParse, Toast.LENGTH_SHORT).show();
-                    } catch (NullPointerException e) {
-                        // NullPointer Exception can be thrown by the getChildCount method if no child has been added
-                        // which happens if the "submit" button if clicked with data only for one step of the trip
-                        Toast.makeText(getApplicationContext(), R.string.TripMinimumTwoStepsRequired, Toast.LENGTH_SHORT).show();
-                    } catch (Step.EmptyStationException e){
-                        // An exception is thrown if the name of the station is empty
-                        Toast.makeText(getApplicationContext(), R.string.TripStationMandatory, Toast.LENGTH_SHORT).show();
-                    } catch (Step.EmptyLineException e) {
-                        // An exception is thrown if the name of the line is empty (except for the last step of the trip)
-                        Toast.makeText(getApplicationContext(), R.string.TripLineMandatory, Toast.LENGTH_SHORT).show();
-
-                    }
-                } else {
-                    Toast.makeText(getApplicationContext(), R.string.TripCostMandatory, Toast.LENGTH_SHORT).show();
-                }
-            }
-        });
-
         // finishing up the setting of the adapter for the list view of the retrieved (and
         // new) trips
         ListView tripsListView = findViewById(R.id.ListViewTransport);
+
+        this.fab = findViewById(R.id.fab);
+        this.fab_revert = findViewById(R.id.fab_revert);
 
         this.tripAdapter = new TripAdapter(TransportActivity.this, this.trips);
         tripsListView.setAdapter(this.tripAdapter);
@@ -165,10 +99,25 @@ public class TransportActivity extends InputActivity {
             }
         });
 
-        Button revertTripButton = findViewById(R.id.RevertTransport);
-        revertTripButton.setOnClickListener(new View.OnClickListener() {
+        this.fab.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View v) {
+            public void onClick(View view) {
+                FragmentManager fragmentManager = getSupportFragmentManager();
+                FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+
+                findViewById(R.id.TransportActivityInputContainer).setVisibility(View.VISIBLE);
+
+                TransportInputFragment inputFragment = new TransportInputFragment();
+                fragmentTransaction.add(R.id.TransportActivityInputContainer, inputFragment);
+                fragmentTransaction.commit();
+
+                hideActionButtons();
+            }
+        });
+
+        this.fab_revert.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
                 if (trips.size() > 0) {
                     Trip lastTrip = trips.get(trips.size() - 1);
 
@@ -188,7 +137,7 @@ public class TransportActivity extends InputActivity {
 
                     tripAdapter.add(new Trip(backward_steps, lastTrip.getCost()));
                     updateSummary();
-                    resetViews(lastTrip.getSteps().get(0).getStop());
+                    //resetViews(lastTrip.getSteps().get(0).getStop());
                 } else {
                     Toast.makeText(getApplicationContext(), R.string.TripCannotRevertEmptyTrip, Toast.LENGTH_SHORT).show();
                 }
@@ -197,6 +146,7 @@ public class TransportActivity extends InputActivity {
 
     }
 
+    /*
     private void resetViews(String s) {
         stepsList.removeAllViews();
         @SuppressLint("InflateParams") View child = getLayoutInflater().inflate(R.layout.unit_input_tripstep, null);
@@ -207,6 +157,7 @@ public class TransportActivity extends InputActivity {
 
         priceField.setText("");
     }
+    */
 
     private void updateSummary() {
         LinearLayout data_summary = findViewById(R.id.data_summary);
@@ -255,5 +206,21 @@ public class TransportActivity extends InputActivity {
     public boolean onOptionsItemSelected(MenuItem item) {
         super.onOptionsItemSelected(item);
         return true;
+    }
+
+    public void addTrip(Trip trip) {
+        this.tripAdapter.add(trip);
+        updateSummary();
+        Log.i("CHROMA", "Currently " + this.trips.size() + " trips.");
+    }
+
+    public void showActionButtons() {
+        this.fab.setVisibility(View.VISIBLE);
+        this.fab_revert.setVisibility(View.VISIBLE);
+    }
+
+    public void hideActionButtons() {
+        this.fab.setVisibility(View.INVISIBLE);
+        this.fab_revert.setVisibility(View.INVISIBLE);
     }
 }
