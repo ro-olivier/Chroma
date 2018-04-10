@@ -15,7 +15,7 @@ public class Trip {
         this.cost = cost;
     }
 
-    Trip(String s, double cost) {
+    public Trip(String s, double cost) {
         this.steps = parseSteps(s);
         this.cost = cost;
     }

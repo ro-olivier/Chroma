@@ -55,21 +55,7 @@
             android:layout_width="0dp"
             android:layout_height="fill_parent"
             android:rotation="180"
-            android:layout_weight="1"/>
-
-        <Button
-            android:layout_width="0dp"
-            android:layout_height="fill_parent"
-            android:layout_weight="8"
-            android:id="@+id/AddStep"
-            android:text="@string/AddStep"/>
-
-        <Space
-            android:layout_width="0dp"
-            android:layout_height="fill_parent"
-            android:rotation="180"
-            android:layout_weight="1"
-            />
+            android:layout_weight="10"/>
 
         <Button
             android:layout_height="fill_parent"

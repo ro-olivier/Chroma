@@ -2,7 +2,9 @@ package fr.zigomar.chroma.chroma.activities;
 
 import android.app.AlertDialog;
 import android.content.DialogInterface;
+import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
@@ -33,6 +35,7 @@ public class TransportActivity extends InputActivity {
 
     protected FloatingActionButton fab;
     protected FloatingActionButton fab_revert;
+    protected FloatingActionButton fab_commute;
 
     public int getNumberOfTrips() {
         return trips.size();
@@ -62,6 +65,7 @@ public class TransportActivity extends InputActivity {
 
         this.fab = findViewById(R.id.fab);
         this.fab_revert = findViewById(R.id.fab_revert);
+        this.fab_commute = findViewById(R.id.fab_commute);
 
         this.tripAdapter = new TripAdapter(TransportActivity.this, this.trips);
         tripsListView.setAdapter(this.tripAdapter);
@@ -144,6 +148,20 @@ public class TransportActivity extends InputActivity {
             }
         });
 
+        this.fab_commute.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                SharedPreferences sharedPref = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
+                String commuteString = sharedPref.getString(SettingsActivity.KEY_PREF_COMMUTE, "");
+                String tripString = commuteString.split("€")[0];
+
+                double tripCost = Double.parseDouble(commuteString.split("€")[1]);
+
+                tripAdapter.add(new Trip(tripString, tripCost));
+                updateSummary();
+            }
+        });
+
     }
 
     /*
@@ -222,5 +240,6 @@ public class TransportActivity extends InputActivity {
     public void hideActionButtons() {
         this.fab.setVisibility(View.INVISIBLE);
         this.fab_revert.setVisibility(View.INVISIBLE);
+        this.fab_commute.setVisibility(View.INVISIBLE);
     }
 }

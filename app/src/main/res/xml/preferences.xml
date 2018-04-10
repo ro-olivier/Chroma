@@ -71,4 +71,15 @@
 
     </PreferenceCategory>
 
+    <PreferenceCategory
+        android:title="Transport"
+        android:key="pref_transport">
+
+        <fr.zigomar.chroma.chroma.preferences.CommutePickerPreference
+            android:summary="@string/pref_commuteSummary"
+            android:title="@string/pref_commuteTitle"
+            android:key="pref_commute"/>
+
+    </PreferenceCategory>
+
 </PreferenceScreen>

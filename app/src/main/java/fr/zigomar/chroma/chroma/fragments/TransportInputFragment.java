@@ -1,6 +1,5 @@
 package fr.zigomar.chroma.chroma.fragments;
 
-import android.annotation.SuppressLint;
 import android.content.Context;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
@@ -13,6 +12,7 @@ import android.widget.ArrayAdapter;
 import android.widget.AutoCompleteTextView;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageButton;
 import android.widget.LinearLayout;
 import android.widget.Toast;
 
@@ -20,6 +20,7 @@ import java.util.ArrayList;
 
 import fr.zigomar.chroma.chroma.R;
 import fr.zigomar.chroma.chroma.activities.TransportActivity;
+import fr.zigomar.chroma.chroma.listeners.AddTransportStepClickListener;
 import fr.zigomar.chroma.chroma.model.Step;
 import fr.zigomar.chroma.chroma.model.Trip;
 
@@ -72,20 +73,8 @@ public class TransportInputFragment extends Fragment {
         AutoCompleteTextView textView = v.findViewById(R.id.Station);
         textView.setAdapter(stationAdapter);
 
-        Button addStepButton = v.findViewById(R.id.AddStep);
-        addStepButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-
-                @SuppressLint("InflateParams") View child = getLayoutInflater().inflate(R.layout.unit_input_tripstep, null);
-                stepsList.addView(child);
-
-                ArrayAdapter<CharSequence> stationAdapter = ArrayAdapter.createFromResource(callingActivity,
-                        R.array.stations, R.layout.dropdown);
-                AutoCompleteTextView textView = child.findViewById(R.id.Station);
-                textView.setAdapter(stationAdapter);
-            }
-        });
+        ImageButton addStepButton = v.findViewById(R.id.AddStep);
+        addStepButton.setOnClickListener(new AddTransportStepClickListener(getContext(), this.stepsList));
 
         Button addTripButton = v.findViewById(R.id.AddButton);
         addTripButton.setOnClickListener(new View.OnClickListener() {
