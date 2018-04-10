@@ -88,18 +88,27 @@ public class AirplaneBroadcastReceiver extends BroadcastReceiver {
 
                     // do something !
                     Log.i("CHROMA", "I'm going to write data in today's file ! (bedtime)");
-                    Date day;
+                    Date dayforDH;
+                    Date dayForData;
                     if (currentHour >= limit_on) {
+                        // going to be before midnight...
                         Calendar calForDH = Calendar.getInstance();
-                        day = calForDH.getTime();
+                        dayforDH = calForDH.getTime();
+                        dayForData = dayforDH;
                     } else {
+                        // going to bed after midnight !
+                        // the DH will have to be opened for the day before,
+                        // but the data should still display the correct date (now)
                         Calendar calForDH = Calendar.getInstance();
                         calForDH.add(Calendar.DATE, -1);
-                        day = calForDH.getTime();
+                        dayforDH = calForDH.getTime();
+
+                        Calendar calForData = Calendar.getInstance();
+                        dayForData = calForData.getTime();
                     }
-                    String bedtimeData = new SimpleDateFormat("yyyy-MM-dd", Locale.FRANCE).format(day) + " " +
+                    String bedtimeData = new SimpleDateFormat("yyyy-MM-dd", Locale.FRANCE).format(dayForData) + " " +
                             roundedHour + ":" + roundedMinute;
-                    DataHandler dh = new DataHandler(context, day);
+                    DataHandler dh = new DataHandler(context, dayforDH);
                     if (!dh.isBedtimeTimeSet()) {
                         dh.saveBedtime(bedtimeData);
                         dh.writeDataToFile(context);
