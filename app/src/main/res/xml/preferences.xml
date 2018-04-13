@@ -39,13 +39,17 @@
         <SwitchPreference
             android:key="pref_encrypt"
             android:title="@string/pref_encryptTitle"
-            android:summary="@string/pref_encryptSummary"
-            android:defaultValue="false" />
+            android:summaryOn="@string/pref_encryptSummaryOn"
+            android:summaryOff="@string/pref_encryptSummaryOff"
+            android:defaultValue="false"
+            android:disableDependentsState="true"/>
 
-        <EditTextPreference
+        <fr.zigomar.chroma.chroma.preferences.PasswordPreference
             android:key="pref_encryptPWD"
             android:title="@string/pref_encryptPWDTitle"
-            android:summary="@string/pref_encryptPWDSummary" />
+            android:summary="@string/pref_encryptPWDSummary"
+            android:dependency="pref_encrypt"
+            android:shouldDisableView="true"/>
 
     </PreferenceCategory>
 

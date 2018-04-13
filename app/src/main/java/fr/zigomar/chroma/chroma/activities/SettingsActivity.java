@@ -1,11 +1,14 @@
 package fr.zigomar.chroma.chroma.activities;
 
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.preference.PreferenceFragment;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
+
+import java.util.Objects;
 
 import fr.zigomar.chroma.chroma.R;
 
@@ -45,6 +48,8 @@ public class SettingsActivity extends AppCompatActivity {
             }
         });
         getFragmentManager().beginTransaction().replace(R.id.fragment_container, new MyPreferenceFragment()).commit();
+
+
     }
 
     public static class MyPreferenceFragment extends PreferenceFragment
@@ -54,6 +59,40 @@ public class SettingsActivity extends AppCompatActivity {
         {
             super.onCreate(savedInstanceState);
             addPreferencesFromResource(R.xml.preferences);
+        }
+
+        @Override
+        public void onResume() {
+            super.onResume();
+            getPreferenceManager().getSharedPreferences().registerOnSharedPreferenceChangeListener(new SharedPreferences.OnSharedPreferenceChangeListener() {
+                @Override
+                public void onSharedPreferenceChanged(SharedPreferences sharedPreferences, String key) {
+                    if (Objects.equals(key, SettingsActivity.KEY_PREF_ENC)) {
+                        if (sharedPreferences.getBoolean(SettingsActivity.KEY_PREF_ENC, false)) {
+                            Objects.requireNonNull(getPreferenceManager().findPreference(SettingsActivity.KEY_PREF_PWD)).setEnabled(true);
+                        } else {
+                            Objects.requireNonNull(getPreferenceManager().findPreference(SettingsActivity.KEY_PREF_PWD)).setEnabled(false);
+                        }
+                    }
+                }
+            });
+        }
+
+        @Override
+        public void onPause() {
+            getPreferenceManager().getSharedPreferences().unregisterOnSharedPreferenceChangeListener(new SharedPreferences.OnSharedPreferenceChangeListener() {
+                @Override
+                public void onSharedPreferenceChanged(SharedPreferences sharedPreferences, String key) {
+                    if (Objects.equals(key, SettingsActivity.KEY_PREF_ENC)) {
+                        if (sharedPreferences.getBoolean(SettingsActivity.KEY_PREF_ENC, false)) {
+                            Objects.requireNonNull(getPreferenceManager().findPreference(SettingsActivity.KEY_PREF_PWD)).setEnabled(true);
+                        } else {
+                            Objects.requireNonNull(getPreferenceManager().findPreference(SettingsActivity.KEY_PREF_PWD)).setEnabled(false);
+                        }
+                    }
+                }
+            });
+            super.onPause();
         }
     }
 

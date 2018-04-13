@@ -109,8 +109,8 @@
     <string name="MissingAlcoholDescription">Please specify what you drank.</string>
     <string name="Cancel">Cancel</string>
     <string name="pref_saveModeTitle">Save mode</string>
-    <string name="pref_saveModeSummaryOn">Implicit Save is On: data will automatically be saved when you exit an activity, unless you cancel it.</string>
-    <string name="pref_saveModeSummaryOff">Implicit Save is Off: you will have to explicitly save data when exiting an activity, otherwise it won\'t be saved.</string>
+    <string name="pref_saveModeSummaryOn">Implicit Save is on: data will automatically be saved when you exit an activity, unless you cancel it.</string>
+    <string name="pref_saveModeSummaryOff">Implicit Save is off: you will have to explicitly save data when exiting an activity, otherwise it won\'t be saved.</string>
     <string name="pref_saveModeOn">On</string>
     <string name="pref_saveModeOff">Off</string>
     <string name="Save">Save data</string>
@@ -127,6 +127,10 @@
     <string name="pref_commuteSummary">You can specify your commute here, for easy input in the Transport activity.</string>
     <string name="pref_commuteTitle">Commute</string>
     <string name="RemoveStep">Remove step</string>
+    <string name="InvalidPasswordRepeat">Passwords did not match.</string>
+    <string name="EmptyPassword">Password cannot be null.</string>
+    <string name="pref_encryptSummaryOn">Data Encryption is on: exports will be encrypted with the password specified below.</string>
+    <string name="pref_encryptSummaryOff">Data Encryption is off: exports will not be encrypted.</string>
 
     <string-array name="spendingsCategories">
         <item>Drinks</item>
