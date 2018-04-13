@@ -59,6 +59,12 @@ public class SettingsActivity extends AppCompatActivity {
         {
             super.onCreate(savedInstanceState);
             addPreferencesFromResource(R.xml.preferences);
+
+            if (getPreferenceManager().getSharedPreferences().getBoolean(SettingsActivity.KEY_PREF_ENC, false)) {
+                Objects.requireNonNull(getPreferenceManager().findPreference(SettingsActivity.KEY_PREF_PWD)).setEnabled(true);
+            } else {
+                Objects.requireNonNull(getPreferenceManager().findPreference(SettingsActivity.KEY_PREF_PWD)).setEnabled(false);
+            }
         }
 
         @Override
