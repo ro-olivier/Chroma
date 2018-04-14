@@ -4,9 +4,7 @@ import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.res.TypedArray;
 import android.graphics.Color;
-import android.os.Build;
 import android.preference.DialogPreference;
-import android.support.annotation.RequiresApi;
 import android.util.AttributeSet;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -35,12 +33,16 @@ public class CommutePickerPreference extends DialogPreference {
     private LinearLayout stepsList;
     private EditText priceField;
 
+    private Context ctx;
+
     public CommutePickerPreference(Context context, AttributeSet attrs) {
         super(context, attrs);
 
         setDialogLayoutResource(R.layout.input_transport);
         setPositiveButtonText(android.R.string.ok);
         setNegativeButtonText(android.R.string.cancel);
+
+        this.ctx = context;
 
         setDialogIcon(null);
 
@@ -132,7 +134,6 @@ public class CommutePickerPreference extends DialogPreference {
         super.onBindDialogView(view);
     }
 
-    @RequiresApi(api = Build.VERSION_CODES.N)
     @Override
     protected void onDialogClosed(boolean result) {
 
@@ -164,13 +165,13 @@ public class CommutePickerPreference extends DialogPreference {
                         }
                     } catch (Step.EmptyStationException e) {
                         // An exception is thrown if the name of the station is empty
-                        Toast.makeText(getContext(), R.string.TripStationMandatory, Toast.LENGTH_SHORT).show();
+                        Toast.makeText(this.ctx, R.string.TripStationMandatory, Toast.LENGTH_SHORT).show();
                     } catch (Step.EmptyLineException e) {
                         // An exception is thrown if the name of the line is empty (except for the last step of the trip)
-                        Toast.makeText(getContext(), R.string.TripLineMandatory, Toast.LENGTH_SHORT).show();
+                        Toast.makeText(this.ctx, R.string.TripLineMandatory, Toast.LENGTH_SHORT).show();
                     }
                 } else {
-                    Toast.makeText(getContext(), R.string.TripCostMandatory, Toast.LENGTH_SHORT).show();
+                    Toast.makeText(this.ctx, R.string.TripCostMandatory, Toast.LENGTH_SHORT).show();
                 }
 
             if (commuteTrip != null) {
@@ -181,7 +182,6 @@ public class CommutePickerPreference extends DialogPreference {
         }
     }
 
-    @RequiresApi(api = Build.VERSION_CODES.N)
     @Override
     protected void onSetInitialValue(boolean restorePersistedValue, Object defaultValue) {
         if (restorePersistedValue) {

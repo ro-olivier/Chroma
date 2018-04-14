@@ -131,6 +131,16 @@
     <string name="EmptyPassword">Password cannot be null.</string>
     <string name="pref_encryptSummaryOn">Data Encryption is on: exports will be encrypted with the password specified below.</string>
     <string name="pref_encryptSummaryOff">Data Encryption is off: exports will not be encrypted.</string>
+    <string name="pref_appPasswordTitle">Protect the app with a password</string>
+    <string name="pref_appPasswordSummaryOn">Application Password is on: Chroma will not open with the password specified below.</string>
+    <string name="pref_appPasswordSummaryOff">Application Password is off: Chroma will not prompt for a password at start-up.</string>
+    <string name="pref_appPasswordSummary">Choose your password wisely!</string>
+    <string name="PleaseInputPassword">Please provide the password to open the app.</string>
+    <string name="IncorrectPassword">Incorrect password.</string>
+    <string name="PleaseEnterAppPassword">Please Enter Application Password</string>
+    <string name="RestartRequiredDoItNowQuestion">Chroma needs to be restarted for your changes to be taken into account. Do you wish to restart the application now?</string>
+    <string name="RestartNow">Restart now</string>
+    <string name="RestartLater">Restart later</string>
 
     <string-array name="spendingsCategories">
         <item>Drinks</item>

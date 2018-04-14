@@ -30,6 +30,21 @@
             android:entries="@array/periodExport"
             android:entryValues="@array/periodExportValues"/>
 
+        <SwitchPreference
+            android:key="pref_appPassword"
+            android:title="@string/pref_appPasswordTitle"
+            android:summaryOn="@string/pref_appPasswordSummaryOn"
+            android:summaryOff="@string/pref_appPasswordSummaryOff"
+            android:defaultValue="false"
+            android:disableDependentsState="true"/>
+
+        <fr.zigomar.chroma.chroma.preferences.PasswordPreference
+            android:key="pref_appPasswordPWD"
+            android:title="@string/pref_appPasswordTitle"
+            android:summary="@string/pref_appPasswordSummary"
+            android:dependency="pref_encrypt"
+            android:shouldDisableView="true"/>
+
     </PreferenceCategory>
 
     <PreferenceCategory

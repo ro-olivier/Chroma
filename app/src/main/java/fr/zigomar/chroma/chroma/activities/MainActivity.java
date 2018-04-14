@@ -39,6 +39,7 @@ import java.util.Comparator;
 import java.util.Date;
 import java.util.HashSet;
 import java.util.Locale;
+import java.util.Objects;
 import java.util.Set;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -48,6 +49,7 @@ import fr.zigomar.chroma.chroma.asynctasks.ExportDataTask;
 import fr.zigomar.chroma.chroma.broadcast_receivers.AirplaneBroadcastReceiver;
 import fr.zigomar.chroma.chroma.fragments.ExportDateFragment;
 import fr.zigomar.chroma.chroma.R;
+import fr.zigomar.chroma.chroma.fragments.PasswordFragment;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -59,12 +61,24 @@ public class MainActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+
+        PreferenceManager.setDefaultValues(this, R.xml.preferences, false);
+        SharedPreferences sharedPref = PreferenceManager.getDefaultSharedPreferences(this);
+
+        if (sharedPref.getBoolean(SettingsActivity.KEY_PREF_APP_PASSWORD, false) &&
+                !Objects.equals(sharedPref.getString(SettingsActivity.KEY_PREF_APP_PASSWORD_PWD, ""), "")) {
+
+            PasswordFragment pwdFragment = new PasswordFragment();
+            getFragmentManager().beginTransaction().add(pwdFragment, "NewPasswordAttempt").commit();
+            // yes, I know this first passwordOK=false; is quite useless, but this is just to be on the safe side
+            // if something goes wrong in showDialogPassword and it doesn't return a value for some reason.
+        }
+
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         Toolbar myToolbar = findViewById(R.id.toolbar);
         setSupportActionBar(myToolbar);
 
-        PreferenceManager.setDefaultValues(this, R.xml.preferences, false);
 
         ImageButton forwardButton = findViewById(R.id.ButtonForwardDate);
         forwardButton.setOnClickListener(new View.OnClickListener() {
@@ -237,13 +251,7 @@ public class MainActivity extends AppCompatActivity {
                 int val1 = dataFilenameFromStringToInt(o1);
                 int val2 = dataFilenameFromStringToInt(o2);
 
-                if (val1 < val2) {
-                    return -1;
-                } else if (val1 == val2) {
-                    return 0;
-                } else {
-                    return 1;
-                }
+                return Integer.compare(val1, val2);
             }
         });
 
