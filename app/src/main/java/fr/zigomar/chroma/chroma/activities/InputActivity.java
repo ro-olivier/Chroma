@@ -12,6 +12,7 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.ImageButton;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -24,15 +25,15 @@ import fr.zigomar.chroma.chroma.R;
 
 public abstract class InputActivity extends AppCompatActivity {
 
-    protected static final String CURRENT_DATE = "com.example.chroma.current_date";
+    static final String CURRENT_DATE = "com.example.chroma.current_date";
 
-    protected DataHandler dh;
+    DataHandler dh;
 
-    protected boolean cancelDoNotSave = false;
+    private boolean cancelDoNotSave = false;
 
-    protected final Date currentDate = new Date();
-    protected String formattedDate;
-    protected String formattedDay;
+    final Date currentDate = new Date();
+    private String formattedDate;
+    private String formattedDay;
 
     @Override
     protected void onCreate(final Bundle savedInstanceState) {
@@ -53,9 +54,9 @@ public abstract class InputActivity extends AppCompatActivity {
             updateDateView();
 
             // hiding the buttons
-            ImageButton backwardDateButton = findViewById(R.id.ButtonBackwardDate);
+            ImageView backwardDateButton = findViewById(R.id.ButtonBackwardDate);
             backwardDateButton.setVisibility(View.INVISIBLE);
-            ImageButton forwardDateButton = findViewById(R.id.ButtonForwardDate);
+            ImageView forwardDateButton = findViewById(R.id.ButtonForwardDate);
             forwardDateButton.setVisibility(View.INVISIBLE);
         } catch (NullPointerException ex) {
             Log.i("CHROMA", "Could not update the date and day views, maybe they are missing from the activity layout.");
@@ -147,7 +148,7 @@ public abstract class InputActivity extends AppCompatActivity {
         //Log.i("CHROMA", "Updating the data object with current values in the views");
     protected abstract void saveData();
 
-    protected void updateDateView() throws NullPointerException{
+    private void updateDateView() throws NullPointerException{
         // simple method to update the date view at the top of the screen
         TextView dateView = findViewById(R.id.DateTextView);
         dateView.setText(formattedDate);

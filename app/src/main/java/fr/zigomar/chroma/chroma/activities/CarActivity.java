@@ -312,7 +312,7 @@ public class CarActivity extends InputActivity {
 
     private class customOnFocusChangeListenerForTime implements View.OnFocusChangeListener {
 
-        protected View v;
+        View v;
         @Override
         public void onFocusChange(View v, boolean hasFocus) {
             this.v = v;
@@ -346,7 +346,7 @@ public class CarActivity extends InputActivity {
         }
     }
 
-    public String getDisplayTime(int hour, int minute) {
+    private String getDisplayTime(int hour, int minute) {
         if (hour < 10) {
             if (minute < 10) {
                 return "0" + String.valueOf(hour) + ":0" + String.valueOf(minute);

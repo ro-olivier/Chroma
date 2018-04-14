@@ -21,8 +21,6 @@ import fr.zigomar.chroma.chroma.R;
 
 public class SettingsActivity extends AppCompatActivity {
 
-    Toolbar toolbar;
-
     public static final String KEY_PREF_ENC = "pref_encrypt";
     public static final String KEY_PREF_PWD = "pref_encryptPWD";
     public static final String KEY_PREF_ACTIVATED_ACTIVITIES = "pref_toggle";
@@ -40,7 +38,7 @@ public class SettingsActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.settings_toolbar);
 
-        toolbar = findViewById(R.id.toolbar);
+        Toolbar toolbar = findViewById(R.id.toolbar);
         toolbar.setTitle("Settings");
         setSupportActionBar(toolbar);
         ActionBar ab = getSupportActionBar();
@@ -162,7 +160,7 @@ public class SettingsActivity extends AppCompatActivity {
             }
         }
 
-        protected class onRestartSelected implements AlertDialog.OnClickListener {
+        class onRestartSelected implements AlertDialog.OnClickListener {
 
             @Override
             public void onClick(DialogInterface dialog, int which) {

@@ -1,6 +1,5 @@
 package fr.zigomar.chroma.chroma.listeners;
 
-import android.content.Context;
 import android.view.View;
 import android.widget.LinearLayout;
 

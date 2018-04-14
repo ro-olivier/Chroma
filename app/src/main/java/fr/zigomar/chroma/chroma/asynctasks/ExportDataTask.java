@@ -65,40 +65,48 @@ public class ExportDataTask extends AsyncTask<Object, Void, Integer> {
         int beginDateInt = 0;
         int endDateInt = 0;
 
+        String beginDate;
+        String endDate;
+
         String exportFilename;
 
-        if (params.length == 0) {
-            Log.i("CHROMA", "Full Export was called");
-            exportFilename = context.getString(R.string.FullExportFilename);
+        switch (params.length) {
+            case 0:
+                Log.i("CHROMA", "Full Export was called");
+                exportFilename = context.getString(R.string.FullExportFilename);
+                break;
 
-        } else if (params.length == 2) {
-            Log.i("CHROMA", "exportOnReceiveExportDates was called");
+            case 2:
+                Log.i("CHROMA", "exportOnReceiveExportDates was called");
 
-            String beginDate = (String) params[0];
-            String endDate = (String) params[1];
+                beginDate = (String) params[0];
+                endDate = (String) params[1];
 
-            beginDateInt = dataFilenameFromStringToInt(beginDate);
-            endDateInt = dataFilenameFromStringToInt(endDate);
+                beginDateInt = dataFilenameFromStringToInt(beginDate);
+                endDateInt = dataFilenameFromStringToInt(endDate);
 
-            if (beginDateInt != endDateInt) {
-                exportFilename = "chroma_export_" + beginDate + "_" + endDate + ".json";
-            } else {
-                exportFilename = "chroma_export_" + beginDate + ".json";
-            }
+                if (beginDateInt != endDateInt) {
+                    exportFilename = "chroma_export_" + beginDate + "_" + endDate + ".json";
+                } else {
+                    exportFilename = "chroma_export_" + beginDate + ".json";
+                }
 
-        } else if (params.length == 3) {
-            Log.i("CHROMA", "exportOnReceiveExportPeriod was called");
+                break;
 
-            String beginDate = (String) params[0];
-            String endDate = (String) params[1];
+            case 3:
+                Log.i("CHROMA", "exportOnReceiveExportPeriod was called");
 
-            beginDateInt = dataFilenameFromStringToInt(beginDate);
-            endDateInt = dataFilenameFromStringToInt(endDate);
+                beginDate = (String) params[0];
+                endDate = (String) params[1];
 
-            exportFilename = (String) params[2];
+                beginDateInt = dataFilenameFromStringToInt(beginDate);
+                endDateInt = dataFilenameFromStringToInt(endDate);
 
-        } else {
-            return ExportKO_InvalidNumberOfArguments;
+                exportFilename = (String) params[2];
+                break;
+
+            default:
+                return ExportKO_InvalidNumberOfArguments;
         }
 
         for (File f : context.getFilesDir().listFiles()) {

@@ -29,13 +29,13 @@ import fr.zigomar.chroma.chroma.R;
 public class TransportActivity extends InputActivity {
 
     // the list holding the data
-    protected ArrayList<Trip> trips;
+    private ArrayList<Trip> trips;
     // the adapter managing the view of the data
-    protected TripAdapter tripAdapter;
+    private TripAdapter tripAdapter;
 
-    protected FloatingActionButton fab;
-    protected FloatingActionButton fab_revert;
-    protected FloatingActionButton fab_commute;
+    private FloatingActionButton fab;
+    private FloatingActionButton fab_revert;
+    private FloatingActionButton fab_commute;
 
     public int getNumberOfTrips() {
         return trips.size();
@@ -237,7 +237,7 @@ public class TransportActivity extends InputActivity {
         this.fab_revert.setVisibility(View.VISIBLE);
     }
 
-    public void hideActionButtons() {
+    private void hideActionButtons() {
         this.fab.setVisibility(View.INVISIBLE);
         this.fab_revert.setVisibility(View.INVISIBLE);
         this.fab_commute.setVisibility(View.INVISIBLE);

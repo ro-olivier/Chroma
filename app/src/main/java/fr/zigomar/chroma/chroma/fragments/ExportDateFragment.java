@@ -15,7 +15,7 @@ import fr.zigomar.chroma.chroma.asynctasks.ExportDataTask;
 
 public class ExportDateFragment extends DialogFragment {
 
-    String[] valid_dates;
+    private String[] valid_dates;
 
     public static ExportDateFragment newInstance(String[] dates) {
         ExportDateFragment edf = new ExportDateFragment();
