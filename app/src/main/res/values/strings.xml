@@ -141,6 +141,8 @@
     <string name="RestartRequiredDoItNowQuestion">Chroma needs to be restarted for your changes to be taken into account. Do you wish to restart the application now?</string>
     <string name="RestartNow">Restart now</string>
     <string name="RestartLater">Restart later</string>
+    <string name="BackArrow">Back arrow</string>
+    <string name="ForwardArrow">Forward arrow</string>
 
     <string-array name="spendingsCategories">
         <item>Drinks</item>

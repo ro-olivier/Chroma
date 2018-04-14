@@ -6,13 +6,14 @@
     android:layout_height="wrap_content"
     android:id="@+id/display_date">
 
-    <ImageButton
+    <ImageView
         android:id="@+id/ButtonBackwardDate"
         android:layout_width="wrap_content"
         android:layout_height="match_parent"
-        app:srcCompat="?attr/homeAsUpIndicator"
+        android:src="@drawable/ic_arrow_back_black_24dp"
         android:layout_gravity="center"
-        android:layout_weight="1"/>
+        android:layout_weight="1"
+        android:contentDescription="@string/BackArrow" />
 
     <Space
         android:layout_width="wrap_content"
@@ -48,12 +49,13 @@
         android:layout_height="match_parent"
         android:layout_weight="1"/>
 
-    <ImageButton
+    <ImageView
         android:id="@+id/ButtonForwardDate"
         android:layout_width="wrap_content"
         android:layout_height="match_parent"
-        app:srcCompat="?attr/homeAsUpIndicator"
+        android:src="@drawable/ic_arrow_back_black_24dp"
         android:rotation="180"
-        android:layout_weight="1"/>
+        android:layout_weight="1"
+        android:contentDescription="@string/ForwardArrow" />
 
 </LinearLayout>

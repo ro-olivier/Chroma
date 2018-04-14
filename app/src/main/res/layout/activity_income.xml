@@ -20,9 +20,6 @@
         android:paddingTop="@dimen/activity_vertical_margin">
 
     <include
-        layout="@layout/display_date"/>
-
-    <include
         layout="@layout/input_money_in"/>
 
     <include

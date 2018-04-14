@@ -25,9 +25,6 @@
             android:orientation="vertical">
 
             <include
-                layout="@layout/display_date"/>
-
-            <include
                 layout="@layout/input_movie"/>
 
         </LinearLayout>

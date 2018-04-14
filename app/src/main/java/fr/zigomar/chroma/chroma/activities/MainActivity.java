@@ -27,6 +27,7 @@ import android.widget.AdapterView;
 import android.widget.DatePicker;
 import android.widget.GridView;
 import android.widget.ImageButton;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
@@ -80,7 +81,7 @@ public class MainActivity extends AppCompatActivity {
         setSupportActionBar(myToolbar);
 
 
-        ImageButton forwardButton = findViewById(R.id.ButtonForwardDate);
+        ImageView forwardButton = findViewById(R.id.ButtonForwardDate);
         forwardButton.setOnClickListener(new View.OnClickListener() {
 
             @Override
@@ -90,7 +91,7 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
-        ImageButton backwardButton = findViewById(R.id.ButtonBackwardDate);
+        ImageView backwardButton = findViewById(R.id.ButtonBackwardDate);
         backwardButton.setOnClickListener(new View.OnClickListener() {
 
             @Override
