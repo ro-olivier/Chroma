@@ -23,7 +23,7 @@ import java.util.Calendar;
 import java.util.Date;
 import java.util.concurrent.TimeUnit;
 
-import fr.zigomar.chroma.chroma.adapters.CarTripAdapter;
+import fr.zigomar.chroma.chroma.adapters.modeladapters.CarTripAdapter;
 import fr.zigomar.chroma.chroma.model.CarTrip;
 import fr.zigomar.chroma.chroma.R;
 

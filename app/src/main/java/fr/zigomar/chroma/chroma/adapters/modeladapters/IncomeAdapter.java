@@ -1,4 +1,4 @@
-package fr.zigomar.chroma.chroma.adapters;
+package fr.zigomar.chroma.chroma.adapters.modeladapters;
 
 
 import android.content.Context;

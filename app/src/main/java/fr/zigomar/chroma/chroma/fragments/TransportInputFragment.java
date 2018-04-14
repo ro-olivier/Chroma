@@ -135,6 +135,6 @@ public class TransportInputFragment extends Fragment {
 
         this.callingActivity.getSupportFragmentManager().beginTransaction().remove(this).commit();
         this.callingActivity.findViewById(R.id.TransportActivityInputContainer).setVisibility(View.GONE);
-        this.callingActivity.showActionButtons();
+        this.callingActivity.showFAB();
     }
 }

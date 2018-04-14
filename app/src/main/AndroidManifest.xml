@@ -14,6 +14,11 @@
         android:fullBackupContent="@xml/backup_descriptor"
         tools:ignore="GoogleAppIndexingWarning">
 
+        <meta-data
+            android:name="android.support.VERSION"
+            android:value="26.1.0"
+            tools:replace="android:value"/>
+
         <activity
             android:name=".activities.MainActivity"
             android:launchMode="singleTop">

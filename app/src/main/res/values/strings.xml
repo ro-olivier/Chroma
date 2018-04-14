@@ -143,6 +143,10 @@
     <string name="RestartLater">Restart later</string>
     <string name="BackArrow">Back arrow</string>
     <string name="ForwardArrow">Forward arrow</string>
+    <string name="addTrip">Add trip</string>
+    <string name="revertTrip">Revert last trip</string>
+    <string name="reverseTrip">Reverse last trip</string>
+    <string name="commuteTrip">Add commute</string>
 
     <string-array name="spendingsCategories">
         <item>Drinks</item>

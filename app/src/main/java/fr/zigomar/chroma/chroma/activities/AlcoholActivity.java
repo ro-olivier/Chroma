@@ -20,7 +20,7 @@ import android.widget.Toast;
 import java.text.DecimalFormat;
 import java.util.ArrayList;
 
-import fr.zigomar.chroma.chroma.adapters.DrinkAdapter;
+import fr.zigomar.chroma.chroma.adapters.modeladapters.DrinkAdapter;
 import fr.zigomar.chroma.chroma.model.Drink;
 import fr.zigomar.chroma.chroma.R;
 

@@ -2,12 +2,9 @@ package fr.zigomar.chroma.chroma.activities;
 
 import android.app.AlertDialog;
 import android.content.DialogInterface;
-import android.content.SharedPreferences;
 import android.os.Bundle;
-import android.preference.PreferenceManager;
-import android.support.design.widget.FloatingActionButton;
-import android.support.v4.app.FragmentManager;
-import android.support.v4.app.FragmentTransaction;
+import fr.zigomar.chroma.chroma.adapters.speeddialmenuadapters.TransportSpeedDialMenuAdapter;
+import uk.co.markormesher.android_fab.FloatingActionButton;
 import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
@@ -15,16 +12,14 @@ import android.widget.AdapterView;
 import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import java.text.DecimalFormat;
 import java.util.ArrayList;
 
-import fr.zigomar.chroma.chroma.adapters.TripAdapter;
-import fr.zigomar.chroma.chroma.fragments.TransportInputFragment;
-import fr.zigomar.chroma.chroma.model.Step;
+import fr.zigomar.chroma.chroma.adapters.modeladapters.TripAdapter;
 import fr.zigomar.chroma.chroma.model.Trip;
 import fr.zigomar.chroma.chroma.R;
+import uk.co.markormesher.android_fab.SpeedDialMenuItem;
 
 public class TransportActivity extends InputActivity {
 
@@ -34,8 +29,6 @@ public class TransportActivity extends InputActivity {
     private TripAdapter tripAdapter;
 
     private FloatingActionButton fab;
-    private FloatingActionButton fab_revert;
-    private FloatingActionButton fab_commute;
 
     public int getNumberOfTrips() {
         return trips.size();
@@ -48,6 +41,14 @@ public class TransportActivity extends InputActivity {
         } else {
             return "";
         }
+    }
+
+    public Trip getLastTrip() {
+        return this.trips.get(this.trips.size() - 1);
+    }
+
+    public TripAdapter getTripAdapter() {
+        return tripAdapter;
     }
 
     @Override
@@ -63,9 +64,27 @@ public class TransportActivity extends InputActivity {
         // new) trips
         ListView tripsListView = findViewById(R.id.ListViewTransport);
 
+        SpeedDialMenuItem fab_add = new SpeedDialMenuItem(getApplicationContext());
+        fab_add.setIcon(R.drawable.plus_sign_16dp);
+        fab_add.setLabel(R.string.addTrip);
+
+        SpeedDialMenuItem fab_revert = new SpeedDialMenuItem(getApplicationContext());
+        fab_revert.setIcon(R.drawable.arrow_revert_16dp);
+        fab_revert.setLabel(R.string.reverseTrip);
+
+        SpeedDialMenuItem fab_commute = new SpeedDialMenuItem(getApplicationContext());
+        fab_commute.setIcon(R.drawable.infinity_16dp);
+        fab_commute.setLabel(R.string.commuteTrip);
+
+        ArrayList<SpeedDialMenuItem> menu_items = new ArrayList<>();
+        menu_items.add(fab_add);
+        menu_items.add(fab_revert);
+        menu_items.add(fab_commute);
+
         this.fab = findViewById(R.id.fab);
-        this.fab_revert = findViewById(R.id.fab_revert);
-        this.fab_commute = findViewById(R.id.fab_commute);
+        this.fab.setContentCoverColour(0x88ffffff);
+        this.fab.setElevation(tripsListView.getElevation() + 1);
+        this.fab.setSpeedDialMenuAdapter(new TransportSpeedDialMenuAdapter(this, menu_items));
 
         this.tripAdapter = new TripAdapter(TransportActivity.this, this.trips);
         tripsListView.setAdapter(this.tripAdapter);
@@ -102,66 +121,14 @@ public class TransportActivity extends InputActivity {
                 return true;
             }
         });
+    }
 
-        this.fab.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                FragmentManager fragmentManager = getSupportFragmentManager();
-                FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+    public void hideFAB() {
+        this.fab.hide(true);
+    }
 
-                findViewById(R.id.TransportActivityInputContainer).setVisibility(View.VISIBLE);
-
-                TransportInputFragment inputFragment = new TransportInputFragment();
-                fragmentTransaction.add(R.id.TransportActivityInputContainer, inputFragment);
-                fragmentTransaction.commit();
-
-                hideActionButtons();
-            }
-        });
-
-        this.fab_revert.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                if (trips.size() > 0) {
-                    Trip lastTrip = trips.get(trips.size() - 1);
-
-                    ArrayList<Step> backward_steps = new ArrayList<>();
-
-                    try {
-                        for (int index = lastTrip.getNumberOfSteps() - 1; index > 0; index--) {
-
-                            backward_steps.add(new Step(lastTrip.getSteps().get(index).getStop(),
-                                    lastTrip.getSteps().get(index - 1).getLine()));
-                        }
-
-                        backward_steps.add(new Step(lastTrip.getSteps().get(0).getStop()));
-                    } catch (Step.EmptyStationException | Step.EmptyLineException e) {
-                        e.printStackTrace();
-                    }
-
-                    tripAdapter.add(new Trip(backward_steps, lastTrip.getCost()));
-                    updateSummary();
-                    //resetViews(lastTrip.getSteps().get(0).getStop());
-                } else {
-                    Toast.makeText(getApplicationContext(), R.string.TripCannotRevertEmptyTrip, Toast.LENGTH_SHORT).show();
-                }
-            }
-        });
-
-        this.fab_commute.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                SharedPreferences sharedPref = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
-                String commuteString = sharedPref.getString(SettingsActivity.KEY_PREF_COMMUTE, "");
-                String tripString = commuteString.split("€")[0];
-
-                double tripCost = Double.parseDouble(commuteString.split("€")[1]);
-
-                tripAdapter.add(new Trip(tripString, tripCost));
-                updateSummary();
-            }
-        });
-
+    public void showFAB() {
+        this.fab.show();
     }
 
     /*
@@ -177,7 +144,7 @@ public class TransportActivity extends InputActivity {
     }
     */
 
-    private void updateSummary() {
+    public void updateSummary() {
         LinearLayout data_summary = findViewById(R.id.data_summary);
         data_summary.setVisibility(View.VISIBLE);
 
@@ -230,16 +197,5 @@ public class TransportActivity extends InputActivity {
         this.tripAdapter.add(trip);
         updateSummary();
         Log.i("CHROMA", "Currently " + this.trips.size() + " trips.");
-    }
-
-    public void showActionButtons() {
-        this.fab.setVisibility(View.VISIBLE);
-        this.fab_revert.setVisibility(View.VISIBLE);
-    }
-
-    private void hideActionButtons() {
-        this.fab.setVisibility(View.INVISIBLE);
-        this.fab_revert.setVisibility(View.INVISIBLE);
-        this.fab_commute.setVisibility(View.INVISIBLE);
     }
 }

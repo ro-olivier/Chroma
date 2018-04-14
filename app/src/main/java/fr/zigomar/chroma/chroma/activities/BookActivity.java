@@ -16,7 +16,7 @@ import android.widget.Toast;
 import java.util.ArrayList;
 import java.util.Objects;
 
-import fr.zigomar.chroma.chroma.adapters.OpenBooksAdapter;
+import fr.zigomar.chroma.chroma.adapters.modeladapters.OpenBooksAdapter;
 import fr.zigomar.chroma.chroma.model.Book;
 import fr.zigomar.chroma.chroma.model.DataHandler;
 import fr.zigomar.chroma.chroma.R;

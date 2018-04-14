@@ -18,7 +18,7 @@ import android.widget.Toast;
 import java.text.DecimalFormat;
 import java.util.ArrayList;
 
-import fr.zigomar.chroma.chroma.adapters.SpendingAdapter;
+import fr.zigomar.chroma.chroma.adapters.modeladapters.SpendingAdapter;
 import fr.zigomar.chroma.chroma.model.Spending;
 import fr.zigomar.chroma.chroma.R;
 
