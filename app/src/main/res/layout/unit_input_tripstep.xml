@@ -2,19 +2,19 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:orientation="horizontal"
     android:layout_width="match_parent"
-    android:layout_height="20dp"
-    android:layout_marginBottom="@dimen/half_activity_vertical_margin">
+    android:layout_height="@dimen/input_field"
+    android:padding="@dimen/quarter_activity_vertical_margin">
 
     <AutoCompleteTextView
         android:layout_width="0dp"
         android:layout_height="fill_parent"
         android:layout_weight="12"
-        android:textSize="15sp"
+        android:textSize="@dimen/input_text"
         android:id="@+id/Station"
         android:maxLines="1"
         android:inputType="text|textCapSentences|textAutoCorrect"
-        android:background="#FAFAFA"
-        android:layout_marginStart="@dimen/activity_vertical_margin"
+        android:background="@color/colorInputFields"
+        android:textColor="@color/colorText"
         android:hint="@string/HintStation"/>
 
     <Space
@@ -30,8 +30,9 @@
         android:id="@+id/Line"
         android:maxLines="1"
         android:inputType="textCapCharacters"
-        android:background="#FAFAFA"
-        android:textSize="15sp"
+        android:background="@color/colorInputFields"
+        android:textColor="@color/colorText"
+        android:textSize="@dimen/input_text"
         android:layout_marginEnd="@dimen/activity_vertical_margin"
         android:hint="@string/HintLine"/>
 
@@ -41,7 +42,7 @@
         android:layout_gravity="center"
         android:layout_weight="1"/>
 
-    <ImageButton
+    <ImageView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:contentDescription="@string/AddStep"
@@ -54,7 +55,7 @@
         android:layout_gravity="center"
         android:layout_weight="1"/>
 
-    <ImageButton
+    <ImageView
         android:visibility="invisible"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"

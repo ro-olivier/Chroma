@@ -89,6 +89,10 @@
             android:name=".activities.SexActivity"
             android:parentActivityName=".activities.MainActivity"
             android:windowSoftInputMode="stateHidden"/>
+
+        <activity android:name=".activities.TrackingActivity"
+            android:parentActivityName=".activities.MainActivity"
+            android:windowSoftInputMode="stateHidden"/>
     </application>
 
 </manifest>

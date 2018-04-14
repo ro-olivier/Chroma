@@ -14,6 +14,7 @@ import android.widget.AutoCompleteTextView;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.Toast;
 
@@ -59,12 +60,18 @@ public class CommutePickerPreference extends DialogPreference {
         this.stepsList = view.findViewById(R.id.StepLinearLayout);
         this.priceField = view.findViewById(R.id.TripPrice);
 
+        AutoCompleteTextView initial_station = view.findViewById(R.id.Station);
+        EditText initial_line = view.findViewById(R.id.Line);
+
         ArrayAdapter<CharSequence> stationAdapter = ArrayAdapter.createFromResource(getContext(),
                 R.array.stations, R.layout.dropdown);
-        AutoCompleteTextView textView = view.findViewById(R.id.Station);
-        textView.setAdapter(stationAdapter);
+        initial_station.setAdapter(stationAdapter);
 
-        ImageButton addStepButton = view.findViewById(R.id.AddStep);
+        initial_station.setBackgroundColor(getContext().getResources().getColor(R.color.colorDialogFields));
+        initial_line.setBackgroundColor(getContext().getResources().getColor(R.color.colorDialogFields));
+        this.priceField.setBackgroundColor(getContext().getResources().getColor(R.color.colorDialogFields));
+
+        ImageView addStepButton = view.findViewById(R.id.AddStep);
         addStepButton.setVisibility(View.INVISIBLE);
         addStepButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -74,10 +81,15 @@ public class CommutePickerPreference extends DialogPreference {
                 @SuppressLint("InflateParams") View child = li.inflate(R.layout.unit_input_tripstep, null);
                 stepsList.addView(child);
 
+                AutoCompleteTextView station = child.findViewById(R.id.Station);
+                EditText line = child.findViewById(R.id.Line);
+
+                station.setBackgroundColor(getContext().getResources().getColor(R.color.colorDialogFields));
+                line.setBackgroundColor(getContext().getResources().getColor(R.color.colorDialogFields));
+
                 ArrayAdapter<CharSequence> stationAdapter = ArrayAdapter.createFromResource(getContext(),
                         R.array.stations, R.layout.dropdown);
-                AutoCompleteTextView textView = child.findViewById(R.id.Station);
-                textView.setAdapter(stationAdapter);
+                station.setAdapter(stationAdapter);
             }
         });
 
@@ -93,8 +105,11 @@ public class CommutePickerPreference extends DialogPreference {
 
             int length = s.split("\\(").length;
 
-            EditText station = this.stepsList.getChildAt(i).findViewById(R.id.Station);
+            AutoCompleteTextView station = this.stepsList.getChildAt(i).findViewById(R.id.Station);
             EditText line = this.stepsList.getChildAt(i).findViewById(R.id.Line);
+
+            station.setBackgroundColor(getContext().getResources().getColor(R.color.colorDialogFields));
+            line.setBackgroundColor(getContext().getResources().getColor(R.color.colorDialogFields));
 
             if (length > 1) {
                 String station_str = s.split("\\(")[length - 2];
@@ -119,11 +134,11 @@ public class CommutePickerPreference extends DialogPreference {
                 String station_str = s.split("\\(")[length - 1];
                 station.setText(station_str);
 
-                View addButton = stepsList.getChildAt(stepsList.getChildCount() - 1).findViewById(R.id.AddStep);
+                ImageView addButton = stepsList.getChildAt(stepsList.getChildCount() - 1).findViewById(R.id.AddStep);
                 addButton.setVisibility(View.VISIBLE);
                 addButton.setOnClickListener(new AddTransportStepClickListener(this.getContext(), this.stepsList));
 
-                View removeButton = stepsList.getChildAt(stepsList.getChildCount() - 1).findViewById(R.id.RemoveStep);
+                ImageView removeButton = stepsList.getChildAt(stepsList.getChildCount() - 1).findViewById(R.id.RemoveStep);
                 removeButton.setVisibility(View.VISIBLE);
                 removeButton.setOnClickListener(new RemoveTransportStepClickListener(this.stepsList));
             }

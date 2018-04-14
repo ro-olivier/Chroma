@@ -2,10 +2,12 @@ package fr.zigomar.chroma.chroma.listeners;
 
 import android.annotation.SuppressLint;
 import android.content.Context;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.AutoCompleteTextView;
+import android.widget.EditText;
 import android.widget.LinearLayout;
 
 import fr.zigomar.chroma.chroma.R;
@@ -27,10 +29,12 @@ public class AddTransportStepClickListener implements View.OnClickListener {
         @SuppressLint("InflateParams") View child = li.inflate(R.layout.unit_input_tripstep, null);
         this.stepsList.addView(child);
 
+        AutoCompleteTextView station = child.findViewById(R.id.Station);
+        EditText line = child.findViewById(R.id.Line);
+
         ArrayAdapter<CharSequence> stationAdapter = ArrayAdapter.createFromResource(this.context,
                 R.array.stations, R.layout.dropdown);
-        AutoCompleteTextView textView = child.findViewById(R.id.Station);
-        textView.setAdapter(stationAdapter);
+        station.setAdapter(stationAdapter);
 
         child.findViewById(R.id.AddStep).setOnClickListener(this);
         child.findViewById(R.id.RemoveStep).setOnClickListener(
@@ -39,8 +43,17 @@ public class AddTransportStepClickListener implements View.OnClickListener {
 
         LinearLayout stepLayout = (LinearLayout) v.getParent();
         View removeButton = stepLayout.findViewById(R.id.RemoveStep);
-
-        v.setVisibility(View.INVISIBLE);
         removeButton.setVisibility(View.INVISIBLE);
+        v.setVisibility(View.INVISIBLE);
+
+
+        Log.i("CHROMA", this.context.getClass().toString());
+        if (this.context.getClass().toString().endsWith("SettingsActivity")) {
+            station.setBackgroundColor(this.context.getResources().getColor(R.color.colorDialogFields));
+            line.setBackgroundColor(this.context.getResources().getColor(R.color.colorDialogFields));
+        } else {
+            station.setBackgroundColor(this.context.getResources().getColor(R.color.colorInputFields));
+            line.setBackgroundColor(this.context.getResources().getColor(R.color.colorInputFields));
+        }
     }
 }

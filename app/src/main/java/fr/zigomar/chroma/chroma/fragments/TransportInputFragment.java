@@ -3,6 +3,8 @@ package fr.zigomar.chroma.chroma.fragments;
 import android.content.Context;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentManager;
+import android.support.v4.app.FragmentTransaction;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -13,6 +15,7 @@ import android.widget.AutoCompleteTextView;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.Toast;
 
@@ -50,13 +53,13 @@ public class TransportInputFragment extends Fragment {
         this.priceField = v.findViewById(R.id.TripPrice);
         this.stepsList = v.findViewById(R.id.StepLinearLayout);
         AutoCompleteTextView station = this.stepsList.findViewById(R.id.Station);
+        EditText line = this.stepsList.findViewById(R.id.Line);
 
         if (callingActivity.getNumberOfTrips() > 0) {
             Log.i("CHROMA", "Trips is not empty, let's prefill the station");
 
             station.setText(callingActivity.getLastStation());
 
-            EditText line = this.stepsList.findViewById(R.id.Line);
             line.requestFocus();
             if (this.inputMethodManager != null) {
                 this.inputMethodManager.toggleSoftInput(0,0);
@@ -68,13 +71,13 @@ public class TransportInputFragment extends Fragment {
             }
         }
 
-        ArrayAdapter<CharSequence> stationAdapter = ArrayAdapter.createFromResource(callingActivity,
+        ArrayAdapter<CharSequence> stationAdapter = ArrayAdapter.createFromResource(this.callingActivity,
                 R.array.stations, R.layout.dropdown);
         AutoCompleteTextView textView = v.findViewById(R.id.Station);
         textView.setAdapter(stationAdapter);
 
-        ImageButton addStepButton = v.findViewById(R.id.AddStep);
-        addStepButton.setOnClickListener(new AddTransportStepClickListener(getContext(), this.stepsList));
+        ImageView addStepButton = v.findViewById(R.id.AddStep);
+        addStepButton.setOnClickListener(new AddTransportStepClickListener(this.callingActivity, this.stepsList));
 
         Button addTripButton = v.findViewById(R.id.AddButton);
         addTripButton.setOnClickListener(new View.OnClickListener() {
@@ -133,8 +136,15 @@ public class TransportInputFragment extends Fragment {
             this.inputMethodManager.toggleSoftInput(0,0);
         }
 
-        this.callingActivity.getSupportFragmentManager().beginTransaction().remove(this).commit();
-        this.callingActivity.findViewById(R.id.TransportActivityInputContainer).setVisibility(View.GONE);
+        // TODO fragment exit is not working...
+        // may be due to an error in the anim XML file, or something else
+        FragmentManager fragmentManager = callingActivity.getSupportFragmentManager();
+        FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+
+        fragmentTransaction.setCustomAnimations(R.anim.enter_from_top, R.anim.exit_to_top);
+
+        fragmentTransaction.remove(this).commit();
+
         this.callingActivity.showFAB();
     }
 }
