@@ -11,7 +11,6 @@ import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -109,7 +108,7 @@ public abstract class InputActivity extends AppCompatActivity {
             case R.id.explicit_save:
                 Log.i("CHROMA", "Explicit save requested by the user");
                 saveData();
-                this.dh.writeDataToFile(getApplicationContext());
+                this.dh.writeDataToFile();
                 Toast.makeText(getApplicationContext(), R.string.Saved, Toast.LENGTH_SHORT).show();
                 return true;
 
@@ -133,7 +132,7 @@ public abstract class InputActivity extends AppCompatActivity {
         if (sharedPref.getBoolean(SettingsActivity.KEY_PREF_SAVE_MODE, true)) {
             if (!cancelDoNotSave) {
                 saveData();
-                this.dh.writeDataToFile(getApplicationContext());
+                this.dh.writeDataToFile();
                 Toast.makeText(getApplicationContext(), R.string.Saved, Toast.LENGTH_SHORT).show();
             } else {
                 Log.i("CHROMA", "SaveData aborted because cancel button");

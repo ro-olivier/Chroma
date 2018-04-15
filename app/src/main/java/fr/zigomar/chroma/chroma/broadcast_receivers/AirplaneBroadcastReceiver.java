@@ -68,7 +68,7 @@ public class AirplaneBroadcastReceiver extends BroadcastReceiver {
                             roundedHour + ":" + roundedMinute;
                     if (!dh.isWakeupTimeSet()) {
                         dh.saveWakeuptime(wakeuptimeData);
-                        dh.writeDataToFile(context);
+                        dh.writeDataToFile();
                         Toast.makeText(context, R.string.Saved, Toast.LENGTH_SHORT).show();
                     } else {
                         Log.i("CHROMA", "Aborted because the airplane broadcast receiver already set the wakeup time");
@@ -111,7 +111,7 @@ public class AirplaneBroadcastReceiver extends BroadcastReceiver {
                     DataHandler dh = new DataHandler(context, dayforDH);
                     if (!dh.isBedtimeTimeSet()) {
                         dh.saveBedtime(bedtimeData);
-                        dh.writeDataToFile(context);
+                        dh.writeDataToFile();
                         Toast.makeText(context, R.string.Saved, Toast.LENGTH_SHORT).show();
                     } else {
                         Log.i("CHROMA", "Aborted because the airplane broadcast receiver already set the bedtime");

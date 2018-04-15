@@ -100,6 +100,8 @@ public class Book {
 
     public String getHash() { return hash; }
 
+    public boolean hasReview() { return this.review != null; }
+
     JSONObject getBookAsJSON() {
         DateFormat df = new SimpleDateFormat("yyyy-MM-dd", Locale.FRANCE);
         JSONObject json = new JSONObject();

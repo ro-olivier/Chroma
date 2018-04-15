@@ -52,11 +52,13 @@ public class BookReviewActivity extends InputActivity {
 
     private boolean bookAlreadyClosed = false;
 
+    private boolean read_only = false;
+
     @Override
     protected void onCreate(final Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        extras = getIntent().getExtras();
+        this.extras = getIntent().getExtras();
 
         this.title = findViewById(R.id.BookTitle);
         this.author = findViewById(R.id.BookAuthor);
@@ -67,9 +69,16 @@ public class BookReviewActivity extends InputActivity {
         this.rating = findViewById(R.id.BookRating);
 
         if (extras != null) {
-            this.title.setText(extras.getString("BOOK_TITLE"));
-            this.author.setText(extras.getString("BOOK_AUTHOR"));
-            this.openDate.setText(df.format(extras.get("BOOK_OPENDATE")));
+            this.read_only = this.extras.getInt("REQUEST_CODE") == 13 ;
+            this.title.setText(this.extras.getString("BOOK_TITLE"));
+            this.author.setText(this.extras.getString("BOOK_AUTHOR"));
+            this.openDate.setText(this.df.format(this.extras.get("BOOK_OPENDATE")));
+        }
+
+        if (this.read_only) {
+            this.notes.setEnabled(false);
+            this.closeBook.setVisibility(View.GONE);
+            this.rating.setEnabled(false);
         }
 
         this.bookHash = getBookHash();
@@ -83,6 +92,7 @@ public class BookReviewActivity extends InputActivity {
         }
 
         if (this.reviewedBook != null) {
+            Log.i("CHROMA", this.reviewedBook.toString());
             if (this.reviewedBook.getReview() != null) {
                 this.notes.setText(this.reviewedBook.getReview());
             }
@@ -102,38 +112,41 @@ public class BookReviewActivity extends InputActivity {
             }
         }
 
-        this.closeBook.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+        if (!read_only) {
+            this.closeBook.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
 
-            @Override
-            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-                if (isChecked) {
-                    closeDate.setVisibility(View.VISIBLE);
-                    closeDate.setText(df.format(currentDate));
-                    rating.setVisibility(View.VISIBLE);
-                } else if (bookAlreadyClosed) {
-                    closeBook.setChecked(true);
-                    Toast.makeText(getApplicationContext(), R.string.CannotReOpenBook, Toast.LENGTH_SHORT).show();
-                } else {
-                    closeDate.setText("");
-                    rating.setVisibility(View.INVISIBLE);
+                @Override
+                public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                    if (isChecked) {
+                        closeDate.setVisibility(View.VISIBLE);
+                        closeDate.setText(df.format(currentDate));
+                        rating.setVisibility(View.VISIBLE);
+                    } else if (bookAlreadyClosed) {
+                        closeBook.setChecked(true);
+                        Toast.makeText(getApplicationContext(), R.string.CannotReOpenBook, Toast.LENGTH_SHORT).show();
+                    } else {
+                        closeDate.setText("");
+                        rating.setVisibility(View.INVISIBLE);
+                    }
                 }
-            }
-        });
+            });
 
-        this.notes.setOnFocusChangeListener(new View.OnFocusChangeListener() {
-            @Override
-            public void onFocusChange(View v, boolean hasFocus) {
-                if (hasFocus) {
-                    title.setVisibility(View.GONE);
-                    author.setVisibility(View.GONE);
-                    openDate.setVisibility(View.GONE);
-                    closeBook.setVisibility(View.GONE);
-                    rating.setVisibility(View.GONE);
-                    closeDate.setVisibility(View.GONE);
-                    inputsVisible = false;
+
+            this.notes.setOnFocusChangeListener(new View.OnFocusChangeListener() {
+                @Override
+                public void onFocusChange(View v, boolean hasFocus) {
+                    if (hasFocus) {
+                        title.setVisibility(View.GONE);
+                        author.setVisibility(View.GONE);
+                        openDate.setVisibility(View.GONE);
+                        closeBook.setVisibility(View.GONE);
+                        rating.setVisibility(View.GONE);
+                        closeDate.setVisibility(View.GONE);
+                        inputsVisible = false;
+                    }
                 }
-            }
-        });
+            });
+        }
     }
 
     private String getBookHash() {
@@ -167,84 +180,96 @@ public class BookReviewActivity extends InputActivity {
 
     @Override
     protected void saveData() {
-        Log.i("CHROMA", "Updating the data object with current reviewed books");
+        if (!read_only) {
+            Log.i("CHROMA", "Updating the data object with current reviewed books");
 
-        if (this.reviewedBook == null) {
-            if (this.closeBook.isChecked()) {
-                try {
-                    this.reviewedBook = new Book(this.title.getText().toString(),
-                            this.author.getText().toString(),
-                            this.df.parse(this.openDate.getText().toString()),
-                            this.notes.getText().toString(),
-                            this.df.parse(this.closeDate.getText().toString()),
-                            this.rating.getRating());
-                } catch (ParseException e) {
-                    e.printStackTrace();
+            if (this.reviewedBook == null) {
+                if (this.closeBook.isChecked()) {
+                    try {
+                        this.reviewedBook = new Book(this.title.getText().toString(),
+                                this.author.getText().toString(),
+                                this.df.parse(this.openDate.getText().toString()),
+                                this.notes.getText().toString(),
+                                this.df.parse(this.closeDate.getText().toString()),
+                                this.rating.getRating());
+                    } catch (ParseException e) {
+                        e.printStackTrace();
+                    }
+                } else {
+                    try {
+                        this.reviewedBook = new Book(this.title.getText().toString(),
+                                this.author.getText().toString(),
+                                this.df.parse(this.openDate.getText().toString()),
+                                this.notes.getText().toString());
+                    } catch (ParseException e) {
+                        e.printStackTrace();
+                    }
                 }
+
+                this.reviewedBooks.add(this.reviewedBook);
             } else {
-                try {
-                    this.reviewedBook = new Book(this.title.getText().toString(),
-                            this.author.getText().toString(),
-                            this.df.parse(this.openDate.getText().toString()),
-                            this.notes.getText().toString());
-                } catch (ParseException e) {
-                    e.printStackTrace();
+                if (this.closeBook.isChecked()) {
+                    try {
+                        this.reviewedBooks.get(this.reviewedBookIndex).rateBook(this.notes.getText().toString(),
+                                this.df.parse(this.closeDate.getText().toString()),
+                                this.rating.getRating());
+                    } catch (ParseException e) {
+                        e.printStackTrace();
+                    }
+                } else {
+                    this.reviewedBooks.get(this.reviewedBookIndex).updateReview(this.notes.getText().toString());
                 }
             }
 
-            this.reviewedBooks.add(this.reviewedBook);
-        } else {
-            if (this.closeBook.isChecked()) {
-                try {
-                    this.reviewedBooks.get(this.reviewedBookIndex).rateBook(this.notes.getText().toString(),
-                            this.df.parse(this.closeDate.getText().toString()),
-                            this.rating.getRating());
-                } catch (ParseException e) {
-                    e.printStackTrace();
-                }
-            } else {
-                this.reviewedBooks.get(this.reviewedBookIndex).updateReview(this.notes.getText().toString());
-            }
+            this.dh.saveReviewedBooksData(this.reviewedBooks);
         }
-
-        this.dh.saveReviewedBooksData(this.reviewedBooks);
     }
 
     @Override
     public void onBackPressed() {
 
-        if (!this.inputsVisible) {
-            this.title.setVisibility(View.VISIBLE);
-            this.author.setVisibility(View.VISIBLE);
-            this.openDate.setVisibility(View.VISIBLE);
-            this.closeBook.setVisibility(View.VISIBLE);
-            this.rating.setVisibility(View.INVISIBLE);
-            this.closeDate.setVisibility(View.INVISIBLE);
+        if (!read_only) {
 
-            if (this.closeBook.isChecked()) {
+            if (!this.inputsVisible) {
+                this.title.setVisibility(View.VISIBLE);
+                this.author.setVisibility(View.VISIBLE);
+                this.openDate.setVisibility(View.VISIBLE);
                 this.closeBook.setVisibility(View.VISIBLE);
-                this.rating.setVisibility(View.VISIBLE);
-                this.closeDate.setVisibility(View.VISIBLE);
-            }
+                this.rating.setVisibility(View.INVISIBLE);
+                this.closeDate.setVisibility(View.INVISIBLE);
 
-            this.inputsVisible = true;
+                if (this.closeBook.isChecked()) {
+                    this.closeBook.setVisibility(View.VISIBLE);
+                    this.rating.setVisibility(View.VISIBLE);
+                    this.closeDate.setVisibility(View.VISIBLE);
+                }
 
-        } else {
+                this.inputsVisible = true;
 
-            Intent returnIntent = new Intent();
-            returnIntent.putExtra(CURRENT_DATE, this.currentDate.getTime());
-            returnIntent.putExtra("HASH", this.bookHash);
-
-            if (this.closeBook.isChecked()) {
-                Log.i("CHROMA", "Setting result of BookReview Activity to 200");
-                setResult(200, returnIntent);
             } else {
-                Log.i("CHROMA", "Setting result of BookReview Activity to 201");
-                setResult(201, returnIntent);
-            }
 
-            super.onBackPressed();
+                Intent returnIntent = new Intent();
+                returnIntent.putExtra(CURRENT_DATE, this.currentDate.getTime());
+                returnIntent.putExtra("HASH", this.bookHash);
+                returnIntent.putExtra("REVIEW", this.notes.getText().toString());
+                returnIntent.putExtra("TITLE", this.title.getText().toString());
+                returnIntent.putExtra("AUTHOR", this.author.getText().toString());
+                returnIntent.putExtra("BOOK_OPENDATE", this.openDate.getText().toString());
+
+                if (this.closeBook.isChecked()) {
+                    returnIntent.putExtra("BOOK_CLOSEDDATE", this.closeDate.getText().toString());
+                    returnIntent.putExtra("RATING", this.rating.getRating());
+                    Log.i("CHROMA", "Setting result of BookReview Activity to 200");
+                    setResult(200, returnIntent);
+                } else {
+                    Log.i("CHROMA", "Setting result of BookReview Activity to 201");
+                    setResult(201, returnIntent);
+                }
+
+            }
         }
+
+        super.onBackPressed();
     }
 
     @Override

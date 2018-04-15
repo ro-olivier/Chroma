@@ -4,8 +4,7 @@
     <dimen name="activity_vertical_margin">16dp</dimen>
     <dimen name="half_activity_vertical_margin">8dp</dimen>
     <dimen name="quarter_activity_vertical_margin">4dp</dimen>
-
+    <dimen name="listViewMinHeight">112dp</dimen>
     <dimen name="input_text">16sp</dimen>
-
     <dimen name="input_field">28dp</dimen>
 </resources>

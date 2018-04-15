@@ -13,10 +13,13 @@ import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Locale;
 import java.util.Objects;
 
-import fr.zigomar.chroma.chroma.adapters.modeladapters.OpenBooksAdapter;
+import fr.zigomar.chroma.chroma.adapters.modeladapters.BooksAdapter;
 import fr.zigomar.chroma.chroma.model.Book;
 import fr.zigomar.chroma.chroma.model.DataHandler;
 import fr.zigomar.chroma.chroma.R;
@@ -27,7 +30,10 @@ public class BookActivity extends InputActivity {
     private TextView author;
 
     private ArrayList<Book> openBooks;
-    private OpenBooksAdapter openBooksAdapter;
+    private BooksAdapter openBooksAdapter;
+
+    private ArrayList<Book> bookReviews;
+    private BooksAdapter bookReviewsAdapter;
 
     @Override
     protected void onCreate(final Bundle savedInstanceState) {
@@ -41,13 +47,13 @@ public class BookActivity extends InputActivity {
         this.author = findViewById(R.id.BookAuthor);
 
         // init of the data : fetch spendings data in the currentDate file if it exist
-        this.openBooks = dh.getOpenBooksData();
+        this.openBooks = this.dh.getOpenBooksData();
 
         // finishing up the setting of the adapter for the list view of the retrieve (and
         // new) spendings
         ListView openBooksView = findViewById(R.id.ListViewOpenBooks);
 
-        this.openBooksAdapter = new OpenBooksAdapter(BookActivity.this, this.openBooks);
+        this.openBooksAdapter = new BooksAdapter(BookActivity.this, this.openBooks);
         openBooksView.setAdapter(this.openBooksAdapter);
 
         openBooksView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
@@ -58,11 +64,14 @@ public class BookActivity extends InputActivity {
 
                 Log.i("CHROMA", "Switching to book review activity");
                 Intent bookReviewIntent = new Intent (BookActivity.this, BookReviewActivity.class);
+                int requestCode = 12;
+
                 bookReviewIntent.putExtra(CURRENT_DATE, currentDate.getTime());
                 bookReviewIntent.putExtra("BOOK_TITLE", openBooks.get(position).getTitle());
                 bookReviewIntent.putExtra("BOOK_AUTHOR", openBooks.get(position).getAuthor());
                 bookReviewIntent.putExtra("BOOK_OPENDATE", openBooks.get(position).getDateOpen());
-                startActivityForResult(bookReviewIntent, 12);
+                bookReviewIntent.putExtra("REQUEST_CODE", requestCode);
+                startActivityForResult(bookReviewIntent, requestCode);
             }
         });
 
@@ -114,6 +123,33 @@ public class BookActivity extends InputActivity {
                 return true;
             }
         });
+
+        DataHandler dh_reviews = new DataHandler(this.getApplicationContext(), this.currentDate);
+        this.bookReviews = dh_reviews.getReviewedBooksList();
+        final ListView reviewsView = findViewById(R.id.ListViewBookReviews);
+
+        this.bookReviewsAdapter = new BooksAdapter(BookActivity.this, this.bookReviews);
+        reviewsView.setAdapter(this.bookReviewsAdapter);
+
+        reviewsView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                Log.i("CHROMA", "Clicked the " + position + "-th item.");
+
+                Log.i("CHROMA", "Switching to book review activity (read-only mode)");
+                Intent bookReviewIntent = new Intent (BookActivity.this, BookReviewActivity.class);
+                int requestCode = 13;
+                bookReviewIntent.putExtra(CURRENT_DATE, currentDate.getTime());
+                bookReviewIntent.putExtra("DISPLAY_ONLY", true);
+                bookReviewIntent.putExtra("BOOK_TITLE", bookReviews.get(position).getTitle());
+                bookReviewIntent.putExtra("BOOK_AUTHOR", bookReviews.get(position).getAuthor());
+                bookReviewIntent.putExtra("BOOK_OPENDATE", bookReviews.get(position).getDateOpen());
+                bookReviewIntent.putExtra("REQUEST_CODE", requestCode);
+                startActivityForResult(bookReviewIntent, requestCode);
+            }
+        });
+
     }
 
     @Override
@@ -126,27 +162,97 @@ public class BookActivity extends InputActivity {
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         Log.i("CHROMA", "onActivityResult, request code : " + requestCode);
-        if (resultCode == 200) {
-            Log.i("CHROMA", "Apparently a book was closed, lets delete it from the openBook list !");
-            Log.i("CHROMA", "Hash is : " + data.getStringExtra("HASH"));
-            int a = -1;
-            for (Book b : this.openBooks) {
-                if (Objects.equals(b.getHash(), data.getStringExtra("HASH"))) {
-                    a = this.openBooks.indexOf(b);
-                    Log.i("CHROMA", "Found corresponding book at index : " + a);
-                }
-            }
-            this.openBooks.remove(a);
-            this.openBooksAdapter.notifyDataSetChanged();
-            this.dh.saveOpenBookData(openBooks);
-        } else {
-            Log.i("CHROMA", "Received code : " + resultCode);
+
+        if (requestCode != 12) {
+            // if the request code is not 12 (this means that we opened the BookReview in read-only mode) we return here
+            // this is just "in case" something went wrong in the BookReview activity since the request code should
+            // make the fields read-only so no data should have changed.
+            return;
         }
+
+        int a = -1;
+
+        switch (resultCode) {
+            case 200:
+                Log.i("CHROMA", "Apparently a book was closed, lets delete it from the openBook list !");
+                Log.i("CHROMA", "Hash is : " + data.getStringExtra("HASH"));
+                for (Book b : this.openBooks) {
+                    if (Objects.equals(b.getHash(), data.getStringExtra("HASH"))) {
+                        a = this.openBooks.indexOf(b);
+                        Log.i("CHROMA", "Found corresponding book at index : " + a);
+                    }
+                }
+                this.openBooks.remove(a);
+                this.openBooksAdapter.notifyDataSetChanged();
+                this.dh.saveOpenBookData(this.openBooks);
+                break;
+
+            case 201:
+                Log.i("CHROMA", "Book was reviewed but not closed.");
+                break;
+
+            default:
+                Log.i("CHROMA", "Received code : " + resultCode);
+                break;
+        }
+
+        Log.i("CHROMA", "Apparently a book was reviewed, let's display it in the list of today's review");
+        Log.i("CHROMA", "Hash is : " + data.getStringExtra("HASH"));
+        Log.i("CHROMA", "Review is : " + data.getStringExtra("REVIEW"));
+
+        Log.i("CHROMA", "Currently " + this.bookReviews.size() + " books reviews");
+
+        boolean found = false;
+        for (Book b : this.bookReviews) {
+            if (Objects.equals(b.getHash(), data.getStringExtra("HASH"))) {
+                a = this.bookReviews.indexOf(b);
+                Log.i("CHROMA", "Found corresponding book at index : " + a);
+                Log.i("CHROMA", "Previous review : " + this.bookReviews.get(a).getReview());
+
+                if (!data.hasExtra("BOOK_CLOSEDDATE")) {
+                    this.bookReviews.get(a).updateReview(data.getStringExtra("REVIEW"));
+                } else {
+                    try {
+                        this.bookReviews.get(a).rateBook(data.getStringExtra("REVIEW"),
+                                new SimpleDateFormat("yyyy-MM-dd", Locale.FRANCE).parse(data.getStringExtra("BOOK_CLOSEDDATE")),
+                                data.getFloatExtra("RATING", 0));
+                    } catch (ParseException e) {
+                        e.printStackTrace();
+                    }
+                }
+                Log.i("CHROMA", "New review : " + this.bookReviews.get(a).getReview());
+                found = true;
+            }
+        }
+
+
+        if (!found) {
+            try {
+                if (!data.hasExtra("BOOK_CLOSEDDATE")) {
+                    this.bookReviews.add(new Book(data.getStringExtra("TITLE"),
+                            data.getStringExtra("AUTHOR"),
+                            new SimpleDateFormat("yyyy-MM-dd", Locale.FRANCE).parse(data.getStringExtra("BOOK_OPENDATE")),
+                            data.getStringExtra("REVIEW")));
+                } else {
+                    this.bookReviews.add(new Book(data.getStringExtra("TITLE"),
+                            data.getStringExtra("AUTHOR"),
+                            new SimpleDateFormat("yyyy-MM-dd", Locale.FRANCE).parse(data.getStringExtra("BOOK_OPENDATE")),
+                            data.getStringExtra("REVIEW"),
+                            new SimpleDateFormat("yyyy-MM-dd", Locale.FRANCE).parse(data.getStringExtra("BOOK_CLOSEDDATE")),
+                            data.getFloatExtra("RATING", 0)));
+                }
+            } catch (ParseException e) {
+                e.printStackTrace();
+            }
+        }
+
+        this.bookReviewsAdapter.notifyDataSetChanged();
+
     }
 
     private void resetViews() {
-        title.setText("");
-        author.setText("");
+        this.title.setText("");
+        this.author.setText("");
     }
 
 

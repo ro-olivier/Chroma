@@ -30,17 +30,21 @@ public class DataHandler {
 
     private static final int INITIAL_MOOD = 5;
 
+    private Context ctx;
+
     public DataHandler(Context ctx, Date currentDate) {
         this.filename = new SimpleDateFormat("yyyy-MM-dd", Locale.FRANCE).format(currentDate) + ".json";
         this.data = new JSONObject();
-        initData(ctx);
+        this.ctx = ctx;
+        initData();
         Log.i("CHROMA", "Opened or created file " + this.filename);
     }
 
     public DataHandler(Context ctx, String filename) {
         this.filename = filename;
         this.data = new JSONObject();
-        initData(ctx);
+        this.ctx = ctx;
+        initData();
         Log.i("CHROMA", "Opened or created file " + this.filename);
     }
 
@@ -52,21 +56,21 @@ public class DataHandler {
         ########################################################
      */
 
-    private void initData(Context ctx) {
+    private void initData() {
         Log.i("CHROMA", "Data init started.");
 
         FileInputStream is;
 
         try {
             // read the file if it exists, and create JSON object with was is in it
-            is  = ctx.getApplicationContext().openFileInput(this.filename);
+            is  = this.ctx.openFileInput(this.filename);
             int size = is.available();
             byte[] buffer = new byte[size];
             int byte_read = is.read(buffer);
-            if (byte_read != size) { Log.i("CHROMA", "Did not read the complete file, or something else went wrong"); }
+            if (byte_read != size) { Log.i("CHROMA", "Did not read the complete file (" + this.filename + "), or something else went wrong"); }
             is.close();
             this.data = new JSONObject(new String(buffer, "UTF-8"));
-            Log.i("CHROMA", "Read currentDate file and obtained following data :" + this.data.toString());
+            Log.i("CHROMA", "Read " + this.filename + " and obtained following data :" + this.data.toString());
 
         } catch (FileNotFoundException e) {
             // the file does exist yet so we load the data with the default data for each section
@@ -76,13 +80,13 @@ public class DataHandler {
             e.printStackTrace();
 
         } catch (JSONException e) {
-            Log.e("CHROMA","Data in file does not seem to be in JSON format");
+            Log.e("CHROMA","Data in file " + this.filename + " does not seem to be in JSON format");
             e.printStackTrace();
         }
 
     }
 
-    public void writeDataToFile(Context ctx) {
+    public void writeDataToFile() {
         // this method does the actual writing-to-file work
         // no big deal, the OutputStream is used and it should go well
         // and remain private to the app
@@ -94,7 +98,7 @@ public class DataHandler {
 
         try {
             Log.i("CHROMA", "Writing new values to file " + this.filename + " : " + string);
-            outputStream = ctx.getApplicationContext().openFileOutput(this.filename, Context.MODE_PRIVATE);
+            outputStream = this.ctx.getApplicationContext().openFileOutput(this.filename, Context.MODE_PRIVATE);
             outputStream.write(string.getBytes());
             outputStream.close();
         } catch (Exception e) {

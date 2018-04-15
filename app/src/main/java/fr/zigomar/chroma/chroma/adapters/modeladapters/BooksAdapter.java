@@ -16,9 +16,9 @@ import java.util.Locale;
 import fr.zigomar.chroma.chroma.model.Book;
 import fr.zigomar.chroma.chroma.R;
 
-public class OpenBooksAdapter extends ArrayAdapter<Book> {
+public class BooksAdapter extends ArrayAdapter<Book> {
 
-    public OpenBooksAdapter(Context context, List<Book> books) {
+    public BooksAdapter(Context context, List<Book> books) {
         super(context, 0, books);
     }
 
@@ -36,6 +36,8 @@ public class OpenBooksAdapter extends ArrayAdapter<Book> {
             viewHolder.title = convertView.findViewById(R.id.book_title);
             viewHolder.author = convertView.findViewById(R.id.book_author);
             viewHolder.date_open = convertView.findViewById(R.id.book_dateopen);
+            viewHolder.review = convertView.findViewById(R.id.book_review);
+            viewHolder.date_closed = convertView.findViewById(R.id.book_dateclosed);
             convertView.setTag(viewHolder);
         }
 
@@ -47,6 +49,15 @@ public class OpenBooksAdapter extends ArrayAdapter<Book> {
         viewHolder.author.setText(book.getAuthor());
         viewHolder.date_open.setText(new SimpleDateFormat("yyyy-MM-dd", Locale.FRANCE).format(book.getDateOpen()));
 
+        if (book.getFinished()) {
+            viewHolder.date_closed.setText(new SimpleDateFormat("yyyy-MM-dd", Locale.FRANCE).format(book.getDateFinished()));
+        }
+
+        if (book.hasReview()) {
+            String review_str = book.getReview() + "...";
+            viewHolder.review.setText(review_str);
+        }
+
         return convertView;
     }
 
@@ -54,5 +65,7 @@ public class OpenBooksAdapter extends ArrayAdapter<Book> {
         TextView title;
         TextView author;
         TextView date_open;
+        TextView review;
+        TextView date_closed;
     }
 }
