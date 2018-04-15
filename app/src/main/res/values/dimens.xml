@@ -6,5 +6,6 @@
     <dimen name="quarter_activity_vertical_margin">4dp</dimen>
     <dimen name="listViewMinHeight">112dp</dimen>
     <dimen name="input_text">16sp</dimen>
-    <dimen name="input_field">28dp</dimen>
+    <dimen name="input_field">32dp</dimen>
+    <dimen name="input_fragment_height">128dp</dimen>
 </resources>

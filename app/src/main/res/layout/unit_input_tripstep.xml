@@ -3,6 +3,7 @@
     android:orientation="horizontal"
     android:layout_width="match_parent"
     android:layout_height="@dimen/input_field"
+    android:minHeight="@dimen/input_field"
     android:padding="@dimen/quarter_activity_vertical_margin">
 
     <AutoCompleteTextView
@@ -47,7 +48,8 @@
         android:layout_height="wrap_content"
         android:contentDescription="@string/AddStep"
         android:src="@drawable/black_plus_16dp"
-        android:id="@+id/AddStep"/>
+        android:id="@+id/AddStep"
+        android:layout_gravity="center"/>
 
     <Space
         android:layout_width="wrap_content"
@@ -61,6 +63,7 @@
         android:layout_height="wrap_content"
         android:contentDescription="@string/RemoveStep"
         android:src="@drawable/black_minus_16dp"
-        android:id="@+id/RemoveStep"/>
+        android:id="@+id/RemoveStep"
+        android:layout_gravity="center"/>
 
 </LinearLayout>

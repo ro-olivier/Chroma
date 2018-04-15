@@ -9,17 +9,19 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.ArrayAdapter;
 import android.widget.AutoCompleteTextView;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.Toast;
 
 import java.util.ArrayList;
+import java.util.Objects;
 
 import fr.zigomar.chroma.chroma.R;
 import fr.zigomar.chroma.chroma.activities.TransportActivity;
@@ -131,20 +133,35 @@ public class TransportInputFragment extends Fragment {
         return v;
     }
 
-    private void closeFragment() {
-        if (this.inputMethodManager != null) {
-            this.inputMethodManager.toggleSoftInput(0,0);
-        }
+    public void closeFragment() {
+        Log.i("CHROMA", "closeFragment called");
 
-        // TODO fragment exit is not working...
-        // may be due to an error in the anim XML file, or something else
-        FragmentManager fragmentManager = callingActivity.getSupportFragmentManager();
-        FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+        Animation animation = AnimationUtils.loadAnimation(this.callingActivity, R.anim.exit_to_top);
+        animation.setAnimationListener(new Animation.AnimationListener() {
+            @Override
+            public void onAnimationStart(Animation animation) { }
 
-        fragmentTransaction.setCustomAnimations(R.anim.enter_from_top, R.anim.exit_to_top);
+            @Override
+            public void onAnimationEnd(Animation animation) {
+                if (inputMethodManager != null) {
+                    if (inputMethodManager.isActive()) {
+                        Log.i("CHROMA", "input is on, toggling");
+                        inputMethodManager.hideSoftInputFromWindow(Objects.requireNonNull(callingActivity.getCurrentFocus()).getWindowToken(), 0);
+                    }
+                }
 
-        fragmentTransaction.remove(this).commit();
+                FragmentManager fragmentManager = callingActivity.getSupportFragmentManager();
+                FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+                fragmentTransaction.remove(TransportInputFragment.this);
+                fragmentTransaction.commit();
+            }
 
+            @Override
+            public void onAnimationRepeat(Animation animation) { }
+        });
+
+        Objects.requireNonNull(getView()).startAnimation(animation);
         this.callingActivity.showFAB();
+        this.callingActivity.setInputDisabled();
     }
 }

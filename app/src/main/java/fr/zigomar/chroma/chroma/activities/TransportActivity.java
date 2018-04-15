@@ -4,6 +4,7 @@ import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.os.Bundle;
 import fr.zigomar.chroma.chroma.adapters.speeddialmenuadapters.TransportSpeedDialMenuAdapter;
+import fr.zigomar.chroma.chroma.fragments.TransportInputFragment;
 import uk.co.markormesher.android_fab.FloatingActionButton;
 import android.util.Log;
 import android.view.MenuItem;
@@ -15,6 +16,7 @@ import android.widget.TextView;
 
 import java.text.DecimalFormat;
 import java.util.ArrayList;
+import java.util.Objects;
 
 import fr.zigomar.chroma.chroma.adapters.modeladapters.TripAdapter;
 import fr.zigomar.chroma.chroma.model.Trip;
@@ -29,6 +31,8 @@ public class TransportActivity extends InputActivity {
     private TripAdapter tripAdapter;
 
     private FloatingActionButton fab;
+    private boolean inputEnabled = false;
+    private TransportInputFragment fragment;
 
     public int getNumberOfTrips() {
         return trips.size();
@@ -123,13 +127,9 @@ public class TransportActivity extends InputActivity {
         });
     }
 
-    public void hideFAB() {
-        this.fab.hide(true);
-    }
+    public void hideFAB() { this.fab.hide(true); }
 
-    public void showFAB() {
-        this.fab.show();
-    }
+    public void showFAB() { this.fab.show(); }
 
     /*
     private void resetViews(String s) {
@@ -189,7 +189,19 @@ public class TransportActivity extends InputActivity {
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        super.onOptionsItemSelected(item);
+        Log.i("CHROMA", "onOptionsItemSelected called, this.inputEnabled=" + this.inputEnabled);
+        Log.i("CHROMA","item = " + item.getItemId());
+
+        if (android.R.id.home == item.getItemId())
+            if (this.inputEnabled) {
+                this.fragment.closeFragment();
+                this.inputEnabled = false;
+            } else {
+                super.onOptionsItemSelected(item);
+            }
+        else {
+            super.onOptionsItemSelected(item);
+        }
         return true;
     }
 
@@ -197,5 +209,27 @@ public class TransportActivity extends InputActivity {
         this.tripAdapter.add(trip);
         updateSummary();
         Log.i("CHROMA", "Currently " + this.trips.size() + " trips.");
+    }
+
+    @Override
+    public void onBackPressed() {
+        Log.i("CHROMA", "onBackPressed called, this.inputEnabled=" + this.inputEnabled);
+
+        if (this.inputEnabled) {
+            this.fragment.closeFragment();
+            this.inputEnabled = false;
+        } else {
+            finish();
+        }
+    }
+
+    public void setInputEnabled(TransportInputFragment fragment) {
+        this.inputEnabled = true;
+        this.fragment = fragment;
+        hideFAB();
+    }
+
+    public void setInputDisabled() {
+        this.inputEnabled = false;
     }
 }

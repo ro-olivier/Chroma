@@ -44,15 +44,19 @@ public class TransportSpeedDialMenuAdapter extends SpeedDialMenuAdapter {
                 FragmentManager fragmentManager = callingActivity.getSupportFragmentManager();
                 FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
 
-                fragmentTransaction.setCustomAnimations(R.anim.enter_from_top, R.anim.exit_to_top);
+                fragmentTransaction.setCustomAnimations(R.anim.enter_from_top, R.anim.exit_to_top, R.anim.exit_to_top, R.anim.exit_to_top);
 
                 callingActivity.findViewById(R.id.TransportActivityInputContainer).setVisibility(View.VISIBLE);
 
                 TransportInputFragment inputFragment = new TransportInputFragment();
-                fragmentTransaction.add(R.id.TransportActivityInputContainer, inputFragment);
+                //fragmentTransaction.add(R.id.TransportActivityInputContainer, inputFragment, "inputFragment");
+                fragmentTransaction.replace(R.id.TransportActivityInputContainer, inputFragment, "inputFragment");
+                fragmentTransaction.addToBackStack("inputFragment");
+                //fragmentTransaction.show(inputFragment);
                 fragmentTransaction.commit();
 
-                callingActivity.hideFAB();
+                callingActivity.setInputEnabled(inputFragment);
+
                 break;
 
             case 1:
