@@ -266,10 +266,12 @@ public class BookReviewActivity extends InputActivity {
                     setResult(201, returnIntent);
                 }
 
-            }
-        }
+                super.onBackPressed();
 
-        super.onBackPressed();
+            }
+        } else {
+            super.onBackPressed();
+        }
     }
 
     @Override
