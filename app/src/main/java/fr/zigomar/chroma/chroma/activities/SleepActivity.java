@@ -80,9 +80,11 @@ public class SleepActivity extends InputActivity {
                     bedtimeMinute.setVisibility(View.GONE);
                     bedtimeHour.setVisibility(View.GONE);
                     bedtimeText.setVisibility(View.GONE);
+                    bedtimeDay.setVisibility(View.GONE);
                     wakeupHour.setVisibility(View.GONE);
                     wakeupMinute.setVisibility(View.GONE);
                     wakeupText.setVisibility(View.GONE);
+                    wakeupDay.setVisibility(View.GONE);
 
                     //notes.setLayoutParams(new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT,
                      //       notes.getMaxHeight()));
@@ -261,9 +263,11 @@ public class SleepActivity extends InputActivity {
             this.bedtimeMinute.setVisibility(View.VISIBLE);
             this.bedtimeHour.setVisibility(View.VISIBLE);
             this.bedtimeText.setVisibility(View.VISIBLE);
+            this.bedtimeDay.setVisibility(View.VISIBLE);
             this.wakeupHour.setVisibility(View.VISIBLE);
             this.wakeupMinute.setVisibility(View.VISIBLE);
             this.wakeupText.setVisibility(View.VISIBLE);
+            this.wakeupDay.setVisibility(View.VISIBLE);
 
             //notes.setLayoutParams(new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT,
              //       notes.getMinHeight()));
