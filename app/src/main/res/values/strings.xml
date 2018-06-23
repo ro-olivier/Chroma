@@ -148,6 +148,7 @@
     <string name="reverseTrip">Reverse last trip</string>
     <string name="commuteTrip">Add commute</string>
     <string name="BookReviewOfTheDay">Today\'s book reviews</string>
+    <string name="SpecifyExportDates">Please select export start and end dates.</string>
 
     <string-array name="spendingsCategories">
         <item>Drinks</item>

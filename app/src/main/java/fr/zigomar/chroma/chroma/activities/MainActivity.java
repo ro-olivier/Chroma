@@ -3,7 +3,6 @@ package fr.zigomar.chroma.chroma.activities;
 import android.Manifest;
 import android.annotation.SuppressLint;
 import android.app.DatePickerDialog;
-import android.app.DialogFragment;
 import android.content.BroadcastReceiver;
 import android.content.Intent;
 import android.content.IntentFilter;
@@ -255,8 +254,11 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
-        DialogFragment newFragment = ExportDateFragment.newInstance(available_dates.toArray( available_dates_array ));
-        newFragment.show(getFragmentManager(), "dialog");
+        ExportDateFragment exportDateFragment = new ExportDateFragment();
+        String[] sorted_available_dates = (available_dates.toArray(available_dates_array));
+        exportDateFragment.setMinDate(sorted_available_dates[0]);
+        exportDateFragment.setMaxDate(sorted_available_dates[sorted_available_dates.length - 1]);
+        getFragmentManager().beginTransaction().add(exportDateFragment, "ExportDateSelector").commit();
     }
 
     @Override
@@ -347,7 +349,7 @@ public class MainActivity extends AppCompatActivity {
         Log.i("CHROMA", "Updating date : " + formattedDate + " (" + formattedDay + ")");
     }
 
-    private int dataFilenameFromStringToInt(String filename) {
+    public static int dataFilenameFromStringToInt(String filename) {
         return Integer.parseInt(filename.split("-")[0] + filename.split("-")[1] + filename.split("-")[2]);
     }
 
