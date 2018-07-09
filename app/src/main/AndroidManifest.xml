@@ -4,6 +4,7 @@
     package="fr.zigomar.chroma.chroma">
 
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+    <uses-permission android:name="com.android.alarm.permission.SET_ALARM"/>
 
     <application
         android:allowBackup="true"
@@ -13,6 +14,8 @@
         android:theme="@style/AppTheme"
         android:fullBackupContent="@xml/backup_descriptor"
         tools:ignore="GoogleAppIndexingWarning">
+
+        <receiver android:name=".broadcast_receivers.MoodNotificationBroadcastReceiver"/>
 
         <meta-data
             android:name="android.support.VERSION"
@@ -24,7 +27,6 @@
             android:launchMode="singleTop">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
-
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>

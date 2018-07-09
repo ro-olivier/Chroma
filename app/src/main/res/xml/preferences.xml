@@ -30,6 +30,19 @@
             android:entries="@array/periodExport"
             android:entryValues="@array/periodExportValues"/>
 
+        <MultiSelectListPreference
+            android:key="pref_moodNotification"
+            android:title="@string/pref_moodNotificationTitle"
+            android:summary="@string/pref_moodNotificationSummary"
+            android:entries="@array/pref_moodNotificationEntries"
+            android:entryValues="@array/pref_moodNotificationEntryValues" />
+
+    </PreferenceCategory>
+
+    <PreferenceCategory
+        android:title="Security"
+        android:key="pref_security">
+
         <SwitchPreference
             android:key="pref_appPassword"
             android:title="@string/pref_appPasswordTitle"

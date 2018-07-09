@@ -31,6 +31,7 @@ public class SettingsActivity extends AppCompatActivity {
     public static final String KEY_PREF_COMMUTE = "pref_commute";
     public static final String KEY_PREF_APP_PASSWORD = "pref_appPassword";
     public static final String KEY_PREF_APP_PASSWORD_PWD = "pref_appPasswordPWD";
+    public static final String KEY_PREF_MOOD_NOTIFICATION = "pref_moodNotification";
 
     @Override
     protected void onCreate(final Bundle savedInstanceState) {

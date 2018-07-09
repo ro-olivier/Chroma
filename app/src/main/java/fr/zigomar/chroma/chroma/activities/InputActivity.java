@@ -24,7 +24,7 @@ import fr.zigomar.chroma.chroma.R;
 
 public abstract class InputActivity extends AppCompatActivity {
 
-    static final String CURRENT_DATE = "com.example.chroma.current_date";
+    public static final String CURRENT_DATE = "com.example.chroma.current_date";
 
     DataHandler dh;
 
@@ -46,6 +46,7 @@ public abstract class InputActivity extends AppCompatActivity {
 
         // update the date view at the top of the layout
         this.currentDate.setTime(getIntent().getLongExtra(CURRENT_DATE, -1));
+        Log.i("CHROMA", "Activity created with Intent time: " + this.currentDate.getTime());
         this.formattedDate = (new SimpleDateFormat("yyyy-MM-dd", Locale.FRANCE).format(this.currentDate));
         this.formattedDay = (new SimpleDateFormat("EEEE", Locale.ENGLISH).format(this.currentDate));
 

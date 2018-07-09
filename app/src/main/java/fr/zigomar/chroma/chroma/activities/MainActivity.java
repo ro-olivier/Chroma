@@ -2,13 +2,18 @@ package fr.zigomar.chroma.chroma.activities;
 
 import android.Manifest;
 import android.annotation.SuppressLint;
+import android.app.AlarmManager;
 import android.app.DatePickerDialog;
+import android.app.NotificationChannel;
+import android.app.NotificationManager;
+import android.app.PendingIntent;
 import android.content.BroadcastReceiver;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
 import android.net.ConnectivityManager;
+import android.os.Build;
 import android.os.Environment;
 import android.preference.PreferenceManager;
 import android.support.annotation.NonNull;
@@ -46,6 +51,7 @@ import java.util.regex.Pattern;
 import fr.zigomar.chroma.chroma.adapters.ImageAdapter;
 import fr.zigomar.chroma.chroma.asynctasks.ExportDataTask;
 import fr.zigomar.chroma.chroma.broadcast_receivers.AirplaneBroadcastReceiver;
+import fr.zigomar.chroma.chroma.broadcast_receivers.MoodNotificationBroadcastReceiver;
 import fr.zigomar.chroma.chroma.fragments.ExportDateFragment;
 import fr.zigomar.chroma.chroma.R;
 import fr.zigomar.chroma.chroma.fragments.PasswordFragment;
@@ -55,8 +61,11 @@ public class MainActivity extends AppCompatActivity {
     private static final String CURRENT_DATE = "com.example.chroma.current_date";
     private static final int CHROMA_WRITE_EXTERNAL_STORAGE_PERMISSION_FULL_EXPORT = 100;
     private static final int CHROMA_WRITE_EXTERNAL_STORAGE_PERMISSION_DATE_EXPORT = 101;
+    private static final String INTENT_MOOD_NOTIFICATION = "com.example.chroma.intent.mood_notification";
+    public static final String NOTIFICATION_CHANNEL_ID = "com.example.chroma.notification.channel";
 
     private Date currentDate = new Date();
+    private AlarmManager alarmManager;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -71,6 +80,20 @@ public class MainActivity extends AppCompatActivity {
             getFragmentManager().beginTransaction().add(pwdFragment, "NewPasswordAttempt").commit();
             // yes, I know this first passwordOK=false; is quite useless, but this is just to be on the safe side
             // if something goes wrong in showDialogPassword and it doesn't return a value for some reason.
+        }
+
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+            CharSequence name = getString(R.string.notification_channel_name);
+            String description = getString(R.string.notification_channel_name);
+            int importance = NotificationManager.IMPORTANCE_DEFAULT;
+            NotificationChannel channel = new NotificationChannel(NOTIFICATION_CHANNEL_ID, name, importance);
+            channel.setDescription(description);
+            // Register the channel with the system; you can't change the importance
+            // or other notification behaviors after this
+            NotificationManager notificationManager = getSystemService(NotificationManager.class);
+            if (notificationManager != null) {
+                notificationManager.createNotificationChannel(channel);
+            }
         }
 
         super.onCreate(savedInstanceState);
@@ -124,11 +147,12 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
-        BroadcastReceiver br = new AirplaneBroadcastReceiver();
-        IntentFilter filter = new IntentFilter(ConnectivityManager.CONNECTIVITY_ACTION);
-        filter.addAction(Intent.ACTION_AIRPLANE_MODE_CHANGED);
-        getApplicationContext().registerReceiver(br, filter);
+        BroadcastReceiver airplane_broadcast_receiver = new AirplaneBroadcastReceiver();
+        IntentFilter filter_airplane = new IntentFilter(ConnectivityManager.CONNECTIVITY_ACTION);
+        filter_airplane.addAction(Intent.ACTION_AIRPLANE_MODE_CHANGED);
+        getApplicationContext().registerReceiver(airplane_broadcast_receiver, filter_airplane);
 
+        this.alarmManager = (AlarmManager) getSystemService(ALARM_SERVICE);
     }
 
     @Override
@@ -269,14 +293,82 @@ public class MainActivity extends AppCompatActivity {
         SharedPreferences sharedPref = PreferenceManager.getDefaultSharedPreferences(this);
         Set<String> activated_activities = sharedPref.getStringSet(SettingsActivity.KEY_PREF_ACTIVATED_ACTIVITIES, new HashSet<String>());
 
-        Log.i("CHROMA", "Size of set returned from Preferences: " + activated_activities.size());
+        buildGrid(activated_activities);
+
+        updateDateView();
+
+        checkPeriodExport();
+
+        Set<String> notifications = sharedPref.getStringSet(SettingsActivity.KEY_PREF_MOOD_NOTIFICATION, new HashSet<String>());
+        processNotificationLevels(notifications);
+    }
+
+    private void processNotificationLevels(Set<String> notifications) {
+
+        if (notifications.contains("0")) {
+            setOrRemoveAlarm(true,0,true, 22);
+            Log.i("CHROMA", "Set alarm 0");
+        } else {
+            setOrRemoveAlarm(false, 0, true, 22);
+            Log.i("CHROMA", "Removed alarm 0");
+        }
+
+        if (notifications.contains("1")) {
+            setOrRemoveAlarm(true,1,false, 9);
+            Log.i("CHROMA", "Set alarm 1");
+        } else {
+            setOrRemoveAlarm(false, 1, false, 9);
+            Log.i("CHROMA", "Removed alarm 1");
+        }
+
+
+        if (notifications.contains("2")) {
+            setOrRemoveAlarm(true,2,false, 18);
+            Log.i("CHROMA", "Set alarm 2");
+        } else {
+            setOrRemoveAlarm(false, 2, false, 18);
+            Log.i("CHROMA", "Removed alarm 2");
+        }
+    }
+
+    private void setOrRemoveAlarm(boolean set, int id_alarm, boolean same_day, int hour_of_day) {
+        Intent intent = new Intent(this, MoodNotificationBroadcastReceiver.class);
+        intent.putExtra("sameDay", same_day);
+        intent.putExtra("idAlarm", id_alarm);
+        intent.setAction(INTENT_MOOD_NOTIFICATION);
+        PendingIntent pendingIntent = PendingIntent.getBroadcast(this.getApplicationContext(), id_alarm, intent, PendingIntent.FLAG_UPDATE_CURRENT);
+
+        if (this.alarmManager != null) {
+            if (set) {
+                Calendar calendar = Calendar.getInstance();
+
+                if (Calendar.getInstance().get(Calendar.HOUR_OF_DAY) >= hour_of_day) {
+                    calendar.add(Calendar.DAY_OF_YEAR, 1); // if we already after the hour of the day, the alarm will be set for tomorrow
+                }
+                calendar.set(Calendar.HOUR_OF_DAY, hour_of_day);
+                calendar.set(Calendar.MINUTE, 36);
+                calendar.set(Calendar.SECOND, 0);
+
+                this.alarmManager.setInexactRepeating(AlarmManager.RTC_WAKEUP, calendar.getTimeInMillis(),
+                        AlarmManager.INTERVAL_DAY, pendingIntent);
+                Log.i("CRHOMA","Setting alarm for pendingIntent : " + pendingIntent.toString());
+            } else {
+                this.alarmManager.cancel(pendingIntent);
+                pendingIntent.cancel();
+            Log.i("CHROMA", "Cancelling pendingIntent : " + pendingIntent.toString());
+            }
+        }
+    }
+
+    private void buildGrid(Set<String> activated_activities) {
+        Log.i("CHROMA", "Number of activated activities returned from Preferences: " + activated_activities.size());
 
         ArrayList<Integer> ids_array = new ArrayList<>();
         for (String s: activated_activities) {
             int id = getResources().getIdentifier(s.toLowerCase(), "drawable", this.getApplicationContext().getPackageName());
             ids_array.add(id);
-            Log.i("CHROMA", "Adding the following activity class the the list from Preferences: " + s);
-            Log.i("CHROMA", "id: " + id);
+            //Log.i("CHROMA", "Adding the following activity class the the list from Preferences: " + s);
+            //Log.i("CHROMA", "id: " + id);
         }
 
         //Integer[] ids = {
@@ -316,10 +408,6 @@ public class MainActivity extends AppCompatActivity {
                 }
             }
         });
-
-        updateDateView();
-
-        checkPeriodExport();
     }
 
     private void incrementDate() {

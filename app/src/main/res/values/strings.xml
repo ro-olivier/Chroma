@@ -149,6 +149,9 @@
     <string name="commuteTrip">Add commute</string>
     <string name="BookReviewOfTheDay">Today\'s book reviews</string>
     <string name="SpecifyExportDates">Please select export start and end dates.</string>
+    <string name="notification_channel_name">ChromaNotificationChannel</string>
+    <string name="pref_moodNotificationTitle">Daily mood data reminder</string>
+    <string name="pref_moodNotificationSummary">You can specify a or several moments in a day when Chroma will prompt you to write a few words about your day.</string>
 
     <string-array name="spendingsCategories">
         <item>Drinks</item>
