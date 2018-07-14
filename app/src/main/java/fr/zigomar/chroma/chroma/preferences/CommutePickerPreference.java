@@ -3,7 +3,6 @@ package fr.zigomar.chroma.chroma.preferences;
 import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.res.TypedArray;
-import android.graphics.Color;
 import android.preference.DialogPreference;
 import android.util.AttributeSet;
 import android.util.Log;
@@ -11,9 +10,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.AutoCompleteTextView;
-import android.widget.Button;
 import android.widget.EditText;
-import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.Toast;
@@ -51,11 +48,6 @@ public class CommutePickerPreference extends DialogPreference {
 
     @Override
     protected void onBindDialogView(View view) {
-
-        Button submitButton = view.findViewById(R.id.AddButton);
-        submitButton.setVisibility(View.GONE);
-
-        view.setBackgroundColor(Color.WHITE);
 
         this.stepsList = view.findViewById(R.id.StepLinearLayout);
         this.priceField = view.findViewById(R.id.TripPrice);
@@ -181,9 +173,12 @@ public class CommutePickerPreference extends DialogPreference {
                     } catch (Step.EmptyStationException e) {
                         // An exception is thrown if the name of the station is empty
                         Toast.makeText(this.ctx, R.string.TripStationMandatory, Toast.LENGTH_SHORT).show();
-                    } catch (Step.EmptyLineException e) {
-                        // An exception is thrown if the name of the line is empty (except for the last step of the trip)
-                        Toast.makeText(this.ctx, R.string.TripLineMandatory, Toast.LENGTH_SHORT).show();
+                    } catch (Trip.InvalidTripOnlyOneStep e) {
+                        e.printStackTrace();
+                        Toast.makeText(this.ctx, R.string.TripMinimumTwoStepsRequired, Toast.LENGTH_SHORT).show();
+                    } catch (Trip.InvalidTripNoEndException e) {
+                        e.printStackTrace();
+                        Toast.makeText(this.ctx, R.string.TripInvalid, Toast.LENGTH_SHORT).show();
                     }
                 } else {
                     Toast.makeText(this.ctx, R.string.TripCostMandatory, Toast.LENGTH_SHORT).show();

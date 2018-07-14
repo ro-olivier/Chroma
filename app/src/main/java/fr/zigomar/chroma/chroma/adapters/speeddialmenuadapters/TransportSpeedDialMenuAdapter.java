@@ -2,10 +2,8 @@ package fr.zigomar.chroma.chroma.adapters.speeddialmenuadapters;
 
 import android.content.Context;
 import android.content.SharedPreferences;
+import android.os.Bundle;
 import android.preference.PreferenceManager;
-import android.support.v4.app.FragmentManager;
-import android.support.v4.app.FragmentTransaction;
-import android.view.View;
 import android.widget.Toast;
 
 import org.jetbrains.annotations.NotNull;
@@ -41,21 +39,18 @@ public class TransportSpeedDialMenuAdapter extends SpeedDialMenuAdapter {
     public boolean onMenuItemClick(int position) {
         switch (position) {
             case 0:
-                FragmentManager fragmentManager = callingActivity.getSupportFragmentManager();
-                FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
-
-                fragmentTransaction.setCustomAnimations(R.anim.enter_from_top, R.anim.exit_to_top, R.anim.exit_to_top, R.anim.exit_to_top);
-
-                callingActivity.findViewById(R.id.TransportActivityInputContainer).setVisibility(View.VISIBLE);
-
                 TransportInputFragment inputFragment = new TransportInputFragment();
-                //fragmentTransaction.add(R.id.TransportActivityInputContainer, inputFragment, "inputFragment");
-                fragmentTransaction.replace(R.id.TransportActivityInputContainer, inputFragment, "inputFragment");
-                fragmentTransaction.addToBackStack("inputFragment");
-                //fragmentTransaction.show(inputFragment);
-                fragmentTransaction.commit();
+                Bundle data = new Bundle();
+                ArrayList<String> stations = new ArrayList<>();
+                if (this.callingActivity.getNumberOfTrips() > 0) {
+                    Trip lastTrip = this.callingActivity.getLastTrip();
+                    stations.add(lastTrip.getLastStep().getStop());
+                }
+                data.putStringArrayList("stations", stations);
 
-                callingActivity.setInputEnabled(inputFragment);
+                data.putStringArrayList("lines", new ArrayList<String>());
+                inputFragment.setArguments(data);
+                inputFragment.show(this.callingActivity.getFragmentManager(), "TransportInputDialogFragment");
 
                 break;
 
@@ -73,11 +68,15 @@ public class TransportSpeedDialMenuAdapter extends SpeedDialMenuAdapter {
                         }
 
                         backward_steps.add(new Step(lastTrip.getSteps().get(0).getStop()));
-                    } catch (Step.EmptyStationException | Step.EmptyLineException e) {
+                    } catch (Step.EmptyStationException e) {
                         e.printStackTrace();
                     }
 
-                    callingActivity.getTripAdapter().add(new Trip(backward_steps, lastTrip.getCost()));
+                    try {
+                        callingActivity.getTripAdapter().add(new Trip(backward_steps, lastTrip.getCost()));
+                    } catch (Trip.InvalidTripNoEndException | Trip.InvalidTripOnlyOneStep e) {
+                        e.printStackTrace();
+                    }
                     callingActivity.updateSummary();
                 } else {
                     Toast.makeText(callingActivity, R.string.TripCannotRevertEmptyTrip, Toast.LENGTH_SHORT).show();

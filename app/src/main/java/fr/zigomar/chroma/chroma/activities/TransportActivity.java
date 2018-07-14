@@ -1,50 +1,41 @@
 package fr.zigomar.chroma.chroma.activities;
 
 import android.app.AlertDialog;
+import android.app.FragmentManager;
 import android.content.DialogInterface;
 import android.os.Bundle;
 import fr.zigomar.chroma.chroma.adapters.speeddialmenuadapters.TransportSpeedDialMenuAdapter;
-import fr.zigomar.chroma.chroma.fragments.TransportInputFragment;
-import uk.co.markormesher.android_fab.FloatingActionButton;
 import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.LinearLayout;
-import android.widget.ListView;
 import android.widget.TextView;
 
 import java.text.DecimalFormat;
 import java.util.ArrayList;
-import java.util.Objects;
 
 import fr.zigomar.chroma.chroma.adapters.modeladapters.TripAdapter;
 import fr.zigomar.chroma.chroma.model.Trip;
 import fr.zigomar.chroma.chroma.R;
 import uk.co.markormesher.android_fab.SpeedDialMenuItem;
 
-public class TransportActivity extends InputActivity {
+public class TransportActivity extends InputListActivity {
 
     // the list holding the data
     private ArrayList<Trip> trips;
     // the adapter managing the view of the data
     private TripAdapter tripAdapter;
 
-    private FloatingActionButton fab;
     private boolean inputEnabled = false;
-    private TransportInputFragment fragment;
 
     public int getNumberOfTrips() {
         return trips.size();
     }
 
-    public String getLastStation() {
-        if (trips.size() > 0) {
-            Trip lastTrip = trips.get(trips.size() - 1);
-            return lastTrip.getSteps().get(lastTrip.getNumberOfSteps() - 1).getStop();
-        } else {
-            return "";
-        }
+    @Override
+    public FragmentManager getFragmentManager() {
+        return super.getFragmentManager();
     }
 
     public Trip getLastTrip() {
@@ -64,10 +55,6 @@ public class TransportActivity extends InputActivity {
         this.trips = getTrips();
         updateSummary();
 
-        // finishing up the setting of the adapter for the list view of the retrieved (and
-        // new) trips
-        ListView tripsListView = findViewById(R.id.ListViewTransport);
-
         SpeedDialMenuItem fab_add = new SpeedDialMenuItem(getApplicationContext());
         fab_add.setIcon(R.drawable.plus_sign_16dp);
         fab_add.setLabel(R.string.addTrip);
@@ -80,20 +67,16 @@ public class TransportActivity extends InputActivity {
         fab_commute.setIcon(R.drawable.infinity_16dp);
         fab_commute.setLabel(R.string.commuteTrip);
 
-        ArrayList<SpeedDialMenuItem> menu_items = new ArrayList<>();
-        menu_items.add(fab_add);
-        menu_items.add(fab_revert);
-        menu_items.add(fab_commute);
+        this.getFABItems().add(fab_add);
+        this.getFABItems().add(fab_revert);
+        this.getFABItems().add(fab_commute);
 
-        this.fab = findViewById(R.id.fab);
-        this.fab.setContentCoverColour(0x88ffffff);
-        this.fab.setElevation(tripsListView.getElevation() + 1);
-        this.fab.setSpeedDialMenuAdapter(new TransportSpeedDialMenuAdapter(this, menu_items));
+        this.getFAB().setSpeedDialMenuAdapter(new TransportSpeedDialMenuAdapter(this, this.getFABItems()));
 
         this.tripAdapter = new TripAdapter(TransportActivity.this, this.trips);
-        tripsListView.setAdapter(this.tripAdapter);
+        this.getListView().setAdapter(this.tripAdapter);
 
-        tripsListView.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
+        this.getListView().setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
             @Override
             public boolean onItemLongClick(AdapterView<?> parent, View view, int position, long id) {
                 Log.i("CHROMA", "Clicked the " + position + "-th item.");
@@ -126,10 +109,6 @@ public class TransportActivity extends InputActivity {
             }
         });
     }
-
-    public void hideFAB() { this.fab.hide(true); }
-
-    public void showFAB() { this.fab.show(); }
 
     /*
     private void resetViews(String s) {
@@ -194,7 +173,7 @@ public class TransportActivity extends InputActivity {
 
         if (android.R.id.home == item.getItemId())
             if (this.inputEnabled) {
-                this.fragment.closeFragment();
+                //this.fragment.closeFragment();
                 this.inputEnabled = false;
             } else {
                 super.onOptionsItemSelected(item);
@@ -211,25 +190,4 @@ public class TransportActivity extends InputActivity {
         Log.i("CHROMA", "Currently " + this.trips.size() + " trips.");
     }
 
-    @Override
-    public void onBackPressed() {
-        Log.i("CHROMA", "onBackPressed called, this.inputEnabled=" + this.inputEnabled);
-
-        if (this.inputEnabled) {
-            this.fragment.closeFragment();
-            this.inputEnabled = false;
-        } else {
-            finish();
-        }
-    }
-
-    public void setInputEnabled(TransportInputFragment fragment) {
-        this.inputEnabled = true;
-        this.fragment = fragment;
-        hideFAB();
-    }
-
-    public void setInputDisabled() {
-        this.inputEnabled = false;
-    }
 }

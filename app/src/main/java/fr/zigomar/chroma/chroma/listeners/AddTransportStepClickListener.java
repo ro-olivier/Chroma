@@ -2,7 +2,6 @@ package fr.zigomar.chroma.chroma.listeners;
 
 import android.annotation.SuppressLint;
 import android.content.Context;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.ArrayAdapter;
@@ -46,14 +45,7 @@ public class AddTransportStepClickListener implements View.OnClickListener {
         removeButton.setVisibility(View.INVISIBLE);
         v.setVisibility(View.INVISIBLE);
 
-
-        Log.i("CHROMA", this.context.getClass().toString());
-        if (this.context.getClass().toString().endsWith("SettingsActivity")) {
-            station.setBackgroundColor(this.context.getResources().getColor(R.color.colorDialogFields));
-            line.setBackgroundColor(this.context.getResources().getColor(R.color.colorDialogFields));
-        } else {
-            station.setBackgroundColor(this.context.getResources().getColor(R.color.colorInputFields));
-            line.setBackgroundColor(this.context.getResources().getColor(R.color.colorInputFields));
-        }
+        station.setBackgroundColor(this.context.getResources().getColor(R.color.colorDialogFields));
+        line.setBackgroundColor(this.context.getResources().getColor(R.color.colorDialogFields));
     }
 }

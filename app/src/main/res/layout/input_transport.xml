@@ -1,11 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:orientation="vertical"
-    android:layout_gravity="bottom"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:padding="@dimen/activity_vertical_margin"
-    android:background="@color/colorInputFragmentBackground">
+    android:layout_height="match_parent"
+    android:paddingEnd="@dimen/activity_vertical_margin"
+    android:paddingStart="@dimen/activity_vertical_margin">
 
     <LinearLayout
         android:layout_width="fill_parent"
@@ -24,20 +23,17 @@
         android:layout_width="fill_parent"
         android:layout_height="50dp"
         android:orientation="horizontal"
-        android:layout_alignParentBottom="true"
         android:layout_marginStart="@dimen/activity_vertical_margin"
-        android:layout_marginEnd="@dimen/activity_vertical_margin">
+        android:layout_marginEnd="@dimen/activity_vertical_margin" >
 
         <EditText
-            android:layout_width="0dp"
+            android:layout_width="wrap_content"
             android:layout_height="fill_parent"
-            android:layout_weight="3"
             android:id="@+id/TripPrice"
             android:hint="@string/HintTripPrice"
             android:textSize="@dimen/input_text"
             android:maxLines="1"
             android:inputType="numberDecimal"
-            android:background="@color/colorInputFields"
             android:textColor="@color/colorText"
             android:gravity="center_vertical|end"/>
 
@@ -51,19 +47,5 @@
             android:textColor="@color/colorText"
             android:gravity="center_vertical|start"/>
 
-        <Space
-            android:layout_width="0dp"
-            android:layout_height="fill_parent"
-            android:rotation="180"
-            android:layout_weight="8"/>
-
-        <Button
-            android:layout_height="fill_parent"
-            android:layout_width="0dp"
-            android:layout_weight="8"
-            android:id="@+id/AddButton"
-            android:text="@string/AddTrip"/>
-
     </LinearLayout>
-
-</RelativeLayout>
+</LinearLayout>
