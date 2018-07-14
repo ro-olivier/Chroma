@@ -1,14 +1,11 @@
 package fr.zigomar.chroma.chroma.activities;
 
-import android.app.AlertDialog;
 import android.app.FragmentManager;
-import android.content.DialogInterface;
 import android.os.Bundle;
 import fr.zigomar.chroma.chroma.adapters.speeddialmenuadapters.TransportSpeedDialMenuAdapter;
 import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.AdapterView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
@@ -16,6 +13,8 @@ import java.text.DecimalFormat;
 import java.util.ArrayList;
 
 import fr.zigomar.chroma.chroma.adapters.modeladapters.TripAdapter;
+import fr.zigomar.chroma.chroma.fragments.TransportInputFragment;
+import fr.zigomar.chroma.chroma.model.Step;
 import fr.zigomar.chroma.chroma.model.Trip;
 import fr.zigomar.chroma.chroma.R;
 import uk.co.markormesher.android_fab.SpeedDialMenuItem;
@@ -42,8 +41,14 @@ public class TransportActivity extends InputListActivity {
         return this.trips.get(this.trips.size() - 1);
     }
 
-    public TripAdapter getTripAdapter() {
-        return tripAdapter;
+    @Override
+    public TripAdapter getAdapter() {
+        return this.tripAdapter;
+    }
+
+    @Override
+    public ArrayList<Trip> getItems() {
+        return this.trips;
     }
 
     @Override
@@ -76,38 +81,6 @@ public class TransportActivity extends InputListActivity {
         this.tripAdapter = new TripAdapter(TransportActivity.this, this.trips);
         this.getListView().setAdapter(this.tripAdapter);
 
-        this.getListView().setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
-            @Override
-            public boolean onItemLongClick(AdapterView<?> parent, View view, int position, long id) {
-                Log.i("CHROMA", "Clicked the " + position + "-th item.");
-
-                final int pos = position;
-                AlertDialog.Builder builder = new AlertDialog.Builder(view.getContext());
-
-                builder.setTitle(R.string.DeleteTitle);
-                builder.setMessage(R.string.DeleteItemQuestion);
-
-                builder.setPositiveButton(R.string.YES, new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialog, int which) {
-                        tripAdapter.remove(trips.get(pos));
-                        tripAdapter.notifyDataSetChanged();
-                        updateSummary();
-                        dialog.dismiss();
-                    }
-                });
-                builder.setNegativeButton(R.string.NO, new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialog, int which) {
-                        dialog.dismiss();
-                    }
-                });
-
-                AlertDialog alert = builder.create();
-                alert.show();
-                return true;
-            }
-        });
     }
 
     /*
@@ -123,6 +96,7 @@ public class TransportActivity extends InputListActivity {
     }
     */
 
+    @Override
     public void updateSummary() {
         LinearLayout data_summary = findViewById(R.id.data_summary);
         data_summary.setVisibility(View.VISIBLE);
@@ -188,6 +162,33 @@ public class TransportActivity extends InputListActivity {
         this.tripAdapter.add(trip);
         updateSummary();
         Log.i("CHROMA", "Currently " + this.trips.size() + " trips.");
+    }
+
+    public void updateTrip(int position, Trip trip) {
+        this.trips.set(position, trip);
+        updateSummary();
+        this.tripAdapter.notifyDataSetChanged();
+    }
+
+    @Override
+    protected void buildInputFragmentForUpdate(int position) {
+        TransportInputFragment inputFragment = new TransportInputFragment();
+        Bundle data = new Bundle();
+        ArrayList<String> stations = new ArrayList<>();
+        ArrayList<String> lines = new ArrayList<>();
+
+        Trip t = this.trips.get(position);
+        for (Step s : t.getSteps()) {
+            stations.add(s.getStop());
+            lines.add(s.getLine());
+        }
+        data.putStringArrayList("stations", stations);
+        data.putStringArrayList("lines", lines);
+        data.putString("cost", String.valueOf(t.getCost()));
+        data.putInt("position", position);
+
+        inputFragment.setArguments(data);
+        inputFragment.show(this.getFragmentManager(), "TransportInputDialogFragment");
     }
 
 }

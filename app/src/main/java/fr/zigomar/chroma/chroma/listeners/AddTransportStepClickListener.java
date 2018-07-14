@@ -36,14 +36,16 @@ public class AddTransportStepClickListener implements View.OnClickListener {
         station.setAdapter(stationAdapter);
 
         child.findViewById(R.id.AddStep).setOnClickListener(this);
+        child.findViewById(R.id.AddStep).setVisibility(View.VISIBLE);
         child.findViewById(R.id.RemoveStep).setOnClickListener(
-                new RemoveTransportStepClickListener(this.stepsList));
+                new RemoveTransportStepClickListener(this.context, this.stepsList));
         child.findViewById(R.id.RemoveStep).setVisibility(View.VISIBLE);
 
         LinearLayout stepLayout = (LinearLayout) v.getParent();
         View removeButton = stepLayout.findViewById(R.id.RemoveStep);
+        View addButton = stepLayout.findViewById(R.id.AddStep);
         removeButton.setVisibility(View.INVISIBLE);
-        v.setVisibility(View.INVISIBLE);
+        addButton.setVisibility(View.INVISIBLE);
 
         station.setBackgroundColor(this.context.getResources().getColor(R.color.colorDialogFields));
         line.setBackgroundColor(this.context.getResources().getColor(R.color.colorDialogFields));

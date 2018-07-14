@@ -22,6 +22,7 @@ import java.util.ArrayList;
 import fr.zigomar.chroma.chroma.R;
 import fr.zigomar.chroma.chroma.activities.TransportActivity;
 import fr.zigomar.chroma.chroma.listeners.AddTransportStepClickListener;
+import fr.zigomar.chroma.chroma.listeners.RemoveTransportStepClickListener;
 import fr.zigomar.chroma.chroma.model.Step;
 import fr.zigomar.chroma.chroma.model.Trip;
 
@@ -31,6 +32,7 @@ public class TransportInputFragment extends DialogFragment implements DialogInte
 
     private LinearLayout stepsList;
     private EditText priceField;
+    private int position;
 
     @Override
     public Dialog onCreateDialog(Bundle savedInstanceState) {
@@ -53,6 +55,10 @@ public class TransportInputFragment extends DialogFragment implements DialogInte
         ArrayList<String> stations = data.getStringArrayList("stations");
         ArrayList<String> lines = data.getStringArrayList("lines");
 
+        if ((stations != null ? stations.size() : 0) == 1) {
+            v.findViewById(R.id.AddStep).setVisibility(View.VISIBLE);
+        }
+
         for (int i = 0; i < (stations != null ? stations.size() : 0); i++) {
             station.setText(stations.get(i));
             if (lines != null && lines.size() > 0) {
@@ -65,6 +71,19 @@ public class TransportInputFragment extends DialogFragment implements DialogInte
 
                 station = child.findViewById(R.id.Station);
                 line = child.findViewById(R.id.Line);
+
+                station.setBackgroundColor(this.callingActivity.getResources().getColor(R.color.colorDialogFields));
+                line.setBackgroundColor(this.callingActivity.getResources().getColor(R.color.colorDialogFields));
+
+                if (i == stations.size() - 2) {
+                    ImageView addStepButton = child.findViewById(R.id.AddStep);
+                    addStepButton.setOnClickListener(new AddTransportStepClickListener(this.callingActivity, this.stepsList));
+                    addStepButton.setVisibility(View.VISIBLE);
+                    ImageView removeStepButton = child.findViewById(R.id.RemoveStep);
+                    removeStepButton.setOnClickListener(new RemoveTransportStepClickListener(this.callingActivity, this.stepsList));
+                    removeStepButton.setVisibility(View.VISIBLE);
+                }
+
             }
         }
 
@@ -84,8 +103,12 @@ public class TransportInputFragment extends DialogFragment implements DialogInte
         AutoCompleteTextView textView = v.findViewById(R.id.Station);
         textView.setAdapter(stationAdapter);
 
-        ImageView addStepButton = v.findViewById(R.id.AddStep);
-        addStepButton.setOnClickListener(new AddTransportStepClickListener(this.callingActivity, this.stepsList));
+        this.position = data.getInt("position", -1);
+        if (this.position == -1) {
+            ImageView addStepButton = v.findViewById(R.id.AddStep);
+            addStepButton.setVisibility(View.VISIBLE);
+            addStepButton.setOnClickListener(new AddTransportStepClickListener(this.callingActivity, this.stepsList));
+        }
 
         return new AlertDialog.Builder(getActivity())
                 .setTitle(R.string.app_name)
@@ -122,30 +145,46 @@ public class TransportInputFragment extends DialogFragment implements DialogInte
             rebuildDialog(cost_str, stations, lines);
         }
 
-        ArrayList<Step> ar = new ArrayList<>();
+        ArrayList<Step> steps = new ArrayList<>();
         for (int i = 0; i < stations.size(); i++) {
             try {
                 Log.i("CHROMA", "s = " + stations.get(i));
                 Log.i("CHROMA", "l = " + lines.get(i));
-                ar.add(new Step(stations.get(i), lines.get(i)));
+                if (i == stations.size() - 1) {
+                    steps.add(new Step(stations.get(i), lines.get(i), true));
+                } else {
+                    steps.add(new Step(stations.get(i), lines.get(i), false));
+                }
             } catch (Step.EmptyStationException e) {
                 // An exception is thrown if a station is empty
                 Toast.makeText(this.callingActivity.getApplicationContext(), R.string.TripStationMandatory, Toast.LENGTH_SHORT).show();
+                e.printStackTrace();
+                rebuildDialog(cost_str, stations, lines);
+            } catch (Step.EmptyLineException e) {
+                // An exception is thrown if a line is empty and the corresponding step is not end of trip
+                Toast.makeText(this.callingActivity.getApplicationContext(), R.string.TripLineMandatory, Toast.LENGTH_SHORT).show();
                 e.printStackTrace();
                 rebuildDialog(cost_str, stations, lines);
             }
         }
 
         try {
-            this.callingActivity.addTrip(new Trip(ar, cost));
+            if (position < 0) {
+                this.callingActivity.addTrip(new Trip(steps, cost));
+            } else {
+                this.callingActivity.updateTrip(position, new Trip(steps, cost));
+            }
         } catch (Trip.InvalidTripNoEndException e) {
             Toast.makeText(this.callingActivity.getApplicationContext(), R.string.TripInvalid, Toast.LENGTH_SHORT).show();
             e.printStackTrace();
+            Log.i("CHROMA", "InvalidTripNoEndException, rebuilding");
             rebuildDialog(cost_str, stations, lines);
         } catch (Trip.InvalidTripOnlyOneStep e) {
             Toast.makeText(this.callingActivity.getApplicationContext(), R.string.TripMinimumTwoStepsRequired, Toast.LENGTH_SHORT).show();
             e.printStackTrace();
             rebuildDialog(cost_str, stations, lines);
+        } catch (Exception e) {
+            e.printStackTrace();
         }
     }
 
@@ -154,6 +193,9 @@ public class TransportInputFragment extends DialogFragment implements DialogInte
         data.putString("cost", cost);
         data.putStringArrayList("stations", stations);
         data.putStringArrayList("lines", lines);
+        data.putInt("position", position);
+
+        this.dismiss();
 
         TransportInputFragment inputFragment = new TransportInputFragment();
         inputFragment.setArguments(data);

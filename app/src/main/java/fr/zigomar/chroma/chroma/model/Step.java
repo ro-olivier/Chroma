@@ -7,20 +7,28 @@ public class Step {
 
     private String stop;
     private String line;
-    private boolean endOfTrip = false;
+    private boolean endOfTrip;
 
-    public Step(String stop, String line) throws EmptyStationException {
+    public Step(String stop, String line, boolean EOT) throws EmptyStationException, EmptyLineException {
         if (stop.length() == 0) {
             throw new EmptyStationException();
         }
 
         this.stop = stop;
+        this.endOfTrip = EOT;
 
-        if (line.length() > 0) {
-            this.line = line;
+        if (EOT) {
+            if (line.length() == 0) {
+                Log.i("CHROMA", "Created end of trip step");
+            } else {
+                Log.i("CHROMA", "Created end of trip step with none empty line on step (ignored)");
+            }
         } else {
-            this.endOfTrip = true;
-            Log.i("CHROMA", "Created end of trip step");
+            if (line.length() == 0) {
+                throw new EmptyLineException();
+            } else {
+                this.line = line;
+            }
         }
     }
 
@@ -53,4 +61,9 @@ public class Step {
         }
     }
 
+    public class EmptyLineException extends Exception {
+        private EmptyLineException() {
+            System.out.println("Invalid step : empty line string and step is not end of trip.");
+        }
+    }
 }

@@ -119,7 +119,7 @@ public class CommutePickerPreference extends DialogPreference {
                         new AddTransportStepClickListener(this.getContext(), this.stepsList));
                 child.findViewById(R.id.RemoveStep).setVisibility(View.INVISIBLE);
                 child.findViewById(R.id.RemoveStep).setOnClickListener(
-                        new RemoveTransportStepClickListener(this.stepsList));
+                        new RemoveTransportStepClickListener(this.getContext(), this.stepsList));
 
                 i++;
             } else {
@@ -132,7 +132,7 @@ public class CommutePickerPreference extends DialogPreference {
 
                 ImageView removeButton = stepsList.getChildAt(stepsList.getChildCount() - 1).findViewById(R.id.RemoveStep);
                 removeButton.setVisibility(View.VISIBLE);
-                removeButton.setOnClickListener(new RemoveTransportStepClickListener(this.stepsList));
+                removeButton.setOnClickListener(new RemoveTransportStepClickListener(this.getContext(), this.stepsList));
             }
 
             line.requestFocus();
@@ -161,7 +161,7 @@ public class CommutePickerPreference extends DialogPreference {
                                 View child = stepsList.getChildAt(i);
                                 AutoCompleteTextView station = child.findViewById(R.id.Station);
                                 EditText line = child.findViewById(R.id.Line);
-                                ar.add(new Step(station.getText().toString(), line.getText().toString()));
+                                ar.add(new Step(station.getText().toString(), line.getText().toString(), false));
                             }
 
                             View child = stepsList.getChildAt(childCount - 1);
@@ -179,6 +179,9 @@ public class CommutePickerPreference extends DialogPreference {
                     } catch (Trip.InvalidTripNoEndException e) {
                         e.printStackTrace();
                         Toast.makeText(this.ctx, R.string.TripInvalid, Toast.LENGTH_SHORT).show();
+                    } catch (Step.EmptyLineException e) {
+                        e.printStackTrace();
+                        Toast.makeText(this.ctx, R.string.TripLineMandatory, Toast.LENGTH_SHORT).show();
                     }
                 } else {
                     Toast.makeText(this.ctx, R.string.TripCostMandatory, Toast.LENGTH_SHORT).show();

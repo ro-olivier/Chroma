@@ -63,8 +63,8 @@ public class Trip {
                 int parenthese_close = step.indexOf(")");
                 try {
                     result.add(new Step(step.substring(0, parenthese_open - 1),
-                            step.substring(parenthese_open + 1, parenthese_close)));
-                } catch (Step.EmptyStationException e) {
+                            step.substring(parenthese_open + 1, parenthese_close), false));
+                } catch (Step.EmptyStationException | Step.EmptyLineException e) {
                     e.printStackTrace();
                 }
             } else {

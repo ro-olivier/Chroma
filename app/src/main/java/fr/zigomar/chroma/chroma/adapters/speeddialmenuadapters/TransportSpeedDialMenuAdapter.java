@@ -55,8 +55,8 @@ public class TransportSpeedDialMenuAdapter extends SpeedDialMenuAdapter {
                 break;
 
             case 1:
-                if (callingActivity.getNumberOfTrips() > 0) {
-                    Trip lastTrip = callingActivity.getLastTrip();
+                if (this.callingActivity.getNumberOfTrips() > 0) {
+                    Trip lastTrip = this.callingActivity.getLastTrip();
 
                     ArrayList<Step> backward_steps = new ArrayList<>();
 
@@ -64,35 +64,35 @@ public class TransportSpeedDialMenuAdapter extends SpeedDialMenuAdapter {
                         for (int index = lastTrip.getNumberOfSteps() - 1; index > 0; index--) {
 
                             backward_steps.add(new Step(lastTrip.getSteps().get(index).getStop(),
-                                    lastTrip.getSteps().get(index - 1).getLine()));
+                                    lastTrip.getSteps().get(index - 1).getLine(), false));
                         }
 
                         backward_steps.add(new Step(lastTrip.getSteps().get(0).getStop()));
-                    } catch (Step.EmptyStationException e) {
+                    } catch (Step.EmptyStationException | Step.EmptyLineException e) {
                         e.printStackTrace();
                     }
 
                     try {
-                        callingActivity.getTripAdapter().add(new Trip(backward_steps, lastTrip.getCost()));
+                        this.callingActivity.getAdapter().add(new Trip(backward_steps, lastTrip.getCost()));
                     } catch (Trip.InvalidTripNoEndException | Trip.InvalidTripOnlyOneStep e) {
                         e.printStackTrace();
                     }
-                    callingActivity.updateSummary();
+                    this.callingActivity.updateSummary();
                 } else {
-                    Toast.makeText(callingActivity, R.string.TripCannotRevertEmptyTrip, Toast.LENGTH_SHORT).show();
+                    Toast.makeText(this.callingActivity, R.string.TripCannotRevertEmptyTrip, Toast.LENGTH_SHORT).show();
                 }
 
                 break;
 
             case 2:
-                SharedPreferences sharedPref = PreferenceManager.getDefaultSharedPreferences(callingActivity);
+                SharedPreferences sharedPref = PreferenceManager.getDefaultSharedPreferences(this.callingActivity);
                 String commuteString = sharedPref.getString(SettingsActivity.KEY_PREF_COMMUTE, "");
                 String tripString = commuteString.split("€")[0];
 
                 double tripCost = Double.parseDouble(commuteString.split("€")[1]);
 
-                callingActivity.getTripAdapter().add(new Trip(tripString, tripCost));
-                callingActivity.updateSummary();
+                this.callingActivity.getAdapter().add(new Trip(tripString, tripCost));
+                this.callingActivity.updateSummary();
                 break;
         }
 

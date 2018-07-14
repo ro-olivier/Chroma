@@ -1,8 +1,14 @@
 package fr.zigomar.chroma.chroma.activities;
 
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
 import android.widget.ListView;
 
 import java.util.ArrayList;
@@ -38,7 +44,58 @@ public abstract class InputListActivity extends InputActivity {
         this.fab = findViewById(R.id.fab);
         this.fab.setContentCoverColour(0x88ffffff);
         this.fab.setElevation(this.getListView().getElevation() + 1);
+
+        this.activity_list_view.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
+            @Override
+            public boolean onItemLongClick(AdapterView<?> parent, View view, int position, long id) {
+                Log.i("CHROMA", "Clicked the " + position + "-th item.");
+
+                final int pos = position;
+                AlertDialog.Builder builder = new AlertDialog.Builder(view.getContext());
+
+                builder.setTitle(R.string.DeleteTitle);
+                builder.setMessage(R.string.DeleteItemQuestion);
+
+                builder.setPositiveButton(R.string.YES, new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        getItems().remove(pos);
+                        getAdapter().notifyDataSetChanged();
+                        updateSummary();
+                        dialog.dismiss();
+                    }
+                });
+                builder.setNegativeButton(R.string.NO, new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        dialog.dismiss();
+                    }
+                });
+
+                AlertDialog alert = builder.create();
+                alert.show();
+                return true;
+            }
+        });
+
+        this.activity_list_view.setOnItemClickListener(new AdapterView.OnItemClickListener()  {
+
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                Log.i("CHROMA", "Clicked the " + position + "-th item.");
+
+                buildInputFragmentForUpdate(position);
+            }
+
+        });
     }
+
+    protected abstract void buildInputFragmentForUpdate(int position);
+
+    protected abstract ArrayList<?> getItems();
+    protected abstract ArrayAdapter<?> getAdapter();
+
+    protected abstract void updateSummary();
 
     @Override
     protected void onStop() {
