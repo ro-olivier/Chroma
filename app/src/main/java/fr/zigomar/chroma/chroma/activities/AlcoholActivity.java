@@ -109,7 +109,7 @@ public class AlcoholActivity extends InputActivity {
                                 updateSummary();
                                 resetViews();
                             } catch (NumberFormatException e) {
-                                Toast.makeText(getApplicationContext(), R.string.UnableToParse, Toast.LENGTH_SHORT).show();
+                                Toast.makeText(getApplicationContext(), R.string.InvalidDrink_VolDeg, Toast.LENGTH_SHORT).show();
                                 e.printStackTrace();
                             }
                         } else {

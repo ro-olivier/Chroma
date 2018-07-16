@@ -35,6 +35,12 @@ public class TransportSpeedDialMenuAdapter extends SpeedDialMenuAdapter {
         return this.items.size();
     }
 
+    @NotNull
+    @Override
+    public SpeedDialMenuItem getMenuItem(Context context, int i) {
+        return this.items.get(i);
+    }
+
     @Override
     public boolean onMenuItemClick(int position) {
         switch (position) {
@@ -93,15 +99,10 @@ public class TransportSpeedDialMenuAdapter extends SpeedDialMenuAdapter {
 
                 this.callingActivity.getAdapter().add(new Trip(tripString, tripCost));
                 this.callingActivity.updateSummary();
+
                 break;
         }
 
         return true;
-    }
-
-    @NotNull
-    @Override
-    public SpeedDialMenuItem getMenuItem(Context context, int i) {
-        return this.items.get(i);
     }
 }

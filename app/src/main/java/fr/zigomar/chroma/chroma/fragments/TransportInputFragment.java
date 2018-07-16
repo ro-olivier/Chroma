@@ -32,6 +32,7 @@ public class TransportInputFragment extends DialogFragment implements DialogInte
 
     private LinearLayout stepsList;
     private EditText priceField;
+
     private int position;
 
     @Override
@@ -141,7 +142,7 @@ public class TransportInputFragment extends DialogFragment implements DialogInte
         try {
             cost = Double.parseDouble(cost_str);
         } catch (NumberFormatException e){
-            Toast.makeText(this.callingActivity.getApplicationContext(), R.string.UnableToParse, Toast.LENGTH_SHORT).show();
+            Toast.makeText(this.callingActivity.getApplicationContext(), R.string.InvalidTrip_Amount, Toast.LENGTH_SHORT).show();
             rebuildDialog(cost_str, stations, lines);
         }
 

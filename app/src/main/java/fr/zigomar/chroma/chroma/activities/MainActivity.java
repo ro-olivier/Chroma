@@ -402,6 +402,10 @@ public class MainActivity extends AppCompatActivity {
                 try {
                     newIntent = new Intent(MainActivity.this, Class.forName(className));
                     newIntent.putExtra(CURRENT_DATE, currentDate.getTime());
+                    boolean list_activity = Objects.equals(capitalized_activity, "moneyActivity") || Objects.equals(capitalized_activity, "transportActivity");
+                    Log.i("CHROMA", "About to add list_activity = " + list_activity + " to intent");
+                    Log.i("CHROMA", capitalized_activity);
+                    newIntent.putExtra("list_activity", list_activity);
                     startActivity(newIntent);
                 } catch (ClassNotFoundException e) {
                     e.printStackTrace();

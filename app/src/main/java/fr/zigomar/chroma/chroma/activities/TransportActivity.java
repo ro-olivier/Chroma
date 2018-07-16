@@ -4,7 +4,6 @@ import android.app.FragmentManager;
 import android.os.Bundle;
 import fr.zigomar.chroma.chroma.adapters.speeddialmenuadapters.TransportSpeedDialMenuAdapter;
 import android.util.Log;
-import android.view.MenuItem;
 import android.view.View;
 import android.widget.LinearLayout;
 import android.widget.TextView;
@@ -21,13 +20,22 @@ import uk.co.markormesher.android_fab.SpeedDialMenuItem;
 
 public class TransportActivity extends InputListActivity {
 
-    // the list holding the data
     private ArrayList<Trip> trips;
-    // the adapter managing the view of the data
     private TripAdapter tripAdapter;
 
-    private boolean inputEnabled = false;
+    // Overridden getters from InputListActivity
+    @Override
+    public TripAdapter getAdapter() {
+        return this.tripAdapter;
+    }
 
+    @Override
+    public ArrayList<Trip> getItems() {
+        return this.trips;
+    }
+    //////////////////////////////////////////
+
+    // Other getter methods //////////////////
     public int getNumberOfTrips() {
         return trips.size();
     }
@@ -40,26 +48,17 @@ public class TransportActivity extends InputListActivity {
     public Trip getLastTrip() {
         return this.trips.get(this.trips.size() - 1);
     }
-
-    @Override
-    public TripAdapter getAdapter() {
-        return this.tripAdapter;
-    }
-
-    @Override
-    public ArrayList<Trip> getItems() {
-        return this.trips;
-    }
+    ///////////////////////////////////////////
 
     @Override
     protected void onCreate(final Bundle savedInstanceState) {
-        // calling inherited class constructor
         super.onCreate(savedInstanceState);
 
         // init of the data : fetch trips data in the currentDate file if it exist
-        this.trips = getTrips();
+        this.trips = this.dh.getTripsList();
         updateSummary();
 
+        // Building the action menu
         SpeedDialMenuItem fab_add = new SpeedDialMenuItem(getApplicationContext());
         fab_add.setIcon(R.drawable.plus_sign_16dp);
         fab_add.setLabel(R.string.addTrip);
@@ -78,24 +77,36 @@ public class TransportActivity extends InputListActivity {
 
         this.getFAB().setSpeedDialMenuAdapter(new TransportSpeedDialMenuAdapter(this, this.getFABItems()));
 
+        // Setting the adapter for the list view
         this.tripAdapter = new TripAdapter(TransportActivity.this, this.trips);
         this.getListView().setAdapter(this.tripAdapter);
-
     }
 
-    /*
-    private void resetViews(String s) {
-        stepsList.removeAllViews();
-        @SuppressLint("InflateParams") View child = getLayoutInflater().inflate(R.layout.unit_input_tripstep, null);
-        stepsList.addView(child);
+    // Overridden method from InputListActivity ///
+    @Override
+    protected void buildInputFragmentForUpdate(int position) {
+        TransportInputFragment inputFragment = new TransportInputFragment();
+        Bundle data = new Bundle();
+        ArrayList<String> stations = new ArrayList<>();
+        ArrayList<String> lines = new ArrayList<>();
 
-        AutoCompleteTextView station = child.findViewById(R.id.Station);
-        station.setText(s);
+        Trip t = this.trips.get(position);
+        for (Step s : t.getSteps()) {
+            stations.add(s.getStop());
+            lines.add(s.getLine());
+        }
 
-        priceField.setText("");
+        data.putStringArrayList("stations", stations);
+        data.putStringArrayList("lines", lines);
+        data.putString("cost", String.valueOf(t.getCost()));
+        data.putInt("position", position);
+
+        inputFragment.setArguments(data);
+        inputFragment.show(this.getFragmentManager(), "TransportInputDialogFragment");
     }
-    */
+    //////////////////////////////////////////////
 
+    // Overridden methods from InputActivity //////
     @Override
     public void updateSummary() {
         LinearLayout data_summary = findViewById(R.id.data_summary);
@@ -128,35 +139,13 @@ public class TransportActivity extends InputListActivity {
         }
     }
 
-    private ArrayList<Trip> getTrips(){
-        // getting the data is handled by the DataHandler
-        return this.dh.getTripsList();
-    }
-
     @Override
     protected void saveData() {
         // simply pass the data to the DataHandler with the dedicated method
         Log.i("CHROMA", "Updating the data object with current trips");
         this.dh.saveTransportData(this.trips);
     }
-
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        Log.i("CHROMA", "onOptionsItemSelected called, this.inputEnabled=" + this.inputEnabled);
-        Log.i("CHROMA","item = " + item.getItemId());
-
-        if (android.R.id.home == item.getItemId())
-            if (this.inputEnabled) {
-                //this.fragment.closeFragment();
-                this.inputEnabled = false;
-            } else {
-                super.onOptionsItemSelected(item);
-            }
-        else {
-            super.onOptionsItemSelected(item);
-        }
-        return true;
-    }
+    //////////////////////////////////////////////
 
     public void addTrip(Trip trip) {
         this.tripAdapter.add(trip);
@@ -169,26 +158,4 @@ public class TransportActivity extends InputListActivity {
         updateSummary();
         this.tripAdapter.notifyDataSetChanged();
     }
-
-    @Override
-    protected void buildInputFragmentForUpdate(int position) {
-        TransportInputFragment inputFragment = new TransportInputFragment();
-        Bundle data = new Bundle();
-        ArrayList<String> stations = new ArrayList<>();
-        ArrayList<String> lines = new ArrayList<>();
-
-        Trip t = this.trips.get(position);
-        for (Step s : t.getSteps()) {
-            stations.add(s.getStop());
-            lines.add(s.getLine());
-        }
-        data.putStringArrayList("stations", stations);
-        data.putStringArrayList("lines", lines);
-        data.putString("cost", String.valueOf(t.getCost()));
-        data.putInt("position", position);
-
-        inputFragment.setArguments(data);
-        inputFragment.show(this.getFragmentManager(), "TransportInputDialogFragment");
-    }
-
 }

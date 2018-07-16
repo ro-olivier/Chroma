@@ -103,7 +103,7 @@ public class CarActivity extends InputActivity {
                             }
                         }
                     } catch (NumberFormatException e) {
-                        Toast.makeText(getApplicationContext(), R.string.UnableToParse, Toast.LENGTH_SHORT).show();
+                        Toast.makeText(getApplicationContext(), R.string.InvalidCarTrip_Distance, Toast.LENGTH_SHORT).show();
                     }
                 } else {
                     Toast.makeText(getApplicationContext(), R.string.MissingDataLocationAndKMRequired, Toast.LENGTH_SHORT).show();
@@ -148,7 +148,7 @@ public class CarActivity extends InputActivity {
                         }
 
                     } catch (NumberFormatException e) {
-                        Toast.makeText(getApplicationContext(), R.string.UnableToParse, Toast.LENGTH_SHORT).show();
+                        Toast.makeText(getApplicationContext(), R.string.InvalidCarTrip_Distance, Toast.LENGTH_SHORT).show();
                     }
                 } else {
                     Toast.makeText(getApplicationContext(), R.string.MissingDataLocationAndKMRequired, Toast.LENGTH_SHORT).show();

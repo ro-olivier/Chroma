@@ -36,8 +36,9 @@
     <string name="DeleteTitle">DELETE</string>
     <string name="YES">YES</string>
     <string name="NO">NO</string>
-    <string name="UnableToParse">Unable to parse the value.</string>
-    <string name="MissingDataThreeValuesRequired">All three values are required.</string>
+    <string name="InvalidSpending_Amount">Amount is missing or cannot be parsed.</string>
+    <string name="InvalidSpending_Category">Category is missing or invalid.</string>
+    <string name="InvalidSpending_Description">Description is missing or invalid.</string>
     <string name="Saved">Saved!</string>
     <string name="TripMinimumTwoStepsRequired">A minimum of two steps is required to register a trip.</string>
     <string name="TripStationMandatory">Station field cannot be blank.</string>
@@ -153,6 +154,11 @@
     <string name="pref_moodNotificationTitle">Daily mood data reminder</string>
     <string name="pref_moodNotificationSummary">You can specify a or several moments in a day when Chroma will prompt you to write a few words about your day.</string>
     <string name="TripInvalid">You entered invalid trip data.</string>
+    <string name="addSpending">Add spending</string>
+    <string name="InvalidTrip_Amount">Trip cost is missing or cannot be parsed.</string>
+    <string name="InvalidIncome_AllValuesRequired">All value are required.</string>
+    <string name="InvalidCarTrip_Distance">Distance fields are invalid or cannot be parsed.</string>
+    <string name="InvalidDrink_VolDeg">Volume and/or ABV fields are invalid or cannot be parsed.</string>
 
     <string-array name="spendingsCategories">
         <item>Drinks</item>

@@ -189,7 +189,7 @@ public class DataHandler {
             s.add(new Spending(jso.getString("description"), jso.getString("category"), jso.getDouble("amount")));
         }
 
-        } catch (JSONException e) {
+        } catch (JSONException | Spending.InvalidDescriptionException | Spending.InvalidCategoryException e) {
             e.printStackTrace();
         }
 

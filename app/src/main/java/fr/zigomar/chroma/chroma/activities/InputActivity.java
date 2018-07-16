@@ -38,11 +38,17 @@ public abstract class InputActivity extends AppCompatActivity {
     protected void onCreate(final Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        String className = this.getClass().getSimpleName();
-        String cleanClassName = className.replace("Activity", "");
-        String layoutResName = "activity_" + cleanClassName.toLowerCase();
+        if (getIntent().getBooleanExtra("list_activity", false)) {
+            setContentView(R.layout.listinput_activity);
+            Log.i("CHROMA", "opened activity with listinput generic layout");
+        } else {
+            Log.i("CHROMA", "opened activity with specific layout");
+            String className = this.getClass().getSimpleName();
+            String cleanClassName = className.replace("Activity", "");
+            String layoutResName = "activity_" + cleanClassName.toLowerCase();
 
-        setContentView(getResources().getIdentifier(layoutResName, "layout", this.getApplicationContext().getPackageName()));
+            setContentView(getResources().getIdentifier(layoutResName, "layout", this.getApplicationContext().getPackageName()));
+        }
 
         // update the date view at the top of the layout
         this.currentDate.setTime(getIntent().getLongExtra(CURRENT_DATE, -1));

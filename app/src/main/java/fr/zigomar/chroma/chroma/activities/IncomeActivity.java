@@ -50,10 +50,10 @@ public class IncomeActivity extends InputActivity {
                         updateSummary();
                         Log.i("CHROMA", "Currently " + incomes.size() + " incomes.");
                     } catch (NumberFormatException e) {
-                        Toast.makeText(getApplicationContext(), R.string.UnableToParse, Toast.LENGTH_SHORT).show();
+                        Toast.makeText(getApplicationContext(), R.string.InvalidSpending_Amount, Toast.LENGTH_SHORT).show();
                     }
                 } else {
-                    Toast.makeText(getApplicationContext(), R.string.MissingDataThreeValuesRequired, Toast.LENGTH_SHORT).show();
+                    Toast.makeText(getApplicationContext(), R.string.InvalidIncome_AllValuesRequired, Toast.LENGTH_SHORT).show();
                 }
             }
         });
