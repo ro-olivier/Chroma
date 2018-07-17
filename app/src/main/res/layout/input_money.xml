@@ -20,7 +20,7 @@
             android:inputType="text|textCapSentences|textAutoCorrect"
             android:background="#FAFAFA"
             android:layout_marginStart="@dimen/activity_vertical_margin"
-            android:hint="@string/HintDescSpending"/>
+            android:hint="@string/HintDescTransaction"/>
 
         <Space
             android:layout_width="wrap_content"

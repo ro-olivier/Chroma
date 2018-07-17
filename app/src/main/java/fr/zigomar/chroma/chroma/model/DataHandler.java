@@ -160,36 +160,36 @@ public class DataHandler {
     ########################################################
     Money section :
         - saveMoneyData
-        - getSpendingsList
+        - getTransactionsList
     ########################################################
     */
 
-    public void saveMoneyData(List<Spending> l) {
+    public void saveMoneyData(List<Transaction> l) {
         Log.i("CHROMA", "SaveMoneyData was invoked.");
         JSONArray jArray = new JSONArray();
-        for (Spending spending : l) {
-            jArray.put(spending.getSpendingAsJSON());
+        for (Transaction transaction : l) {
+            jArray.put(transaction.getTransactionAsJSON());
         }
         try {
-            this.data.put("spendings", jArray);
+            this.data.put("transactions", jArray);
         } catch (JSONException e) {
             e.printStackTrace();
         }
     }
 
-    public ArrayList<Spending> getSpendingsList() {
-        ArrayList<Spending> s = new ArrayList<>();
+    public ArrayList<Transaction> getTransactionsList() {
+        ArrayList<Transaction> s = new ArrayList<>();
         JSONArray jsonArray;
         try {
-            jsonArray = new JSONArray(this.data.get("spendings").toString());
+            jsonArray = new JSONArray(this.data.get("transactions").toString());
 
 
         for (int i = 0; i < jsonArray.length(); i++) {
             JSONObject jso = jsonArray.getJSONObject(i);
-            s.add(new Spending(jso.getString("description"), jso.getString("category"), jso.getDouble("amount")));
+            s.add(new Transaction(jso.getString("description"), jso.getString("category"), jso.getDouble("amount")));
         }
 
-        } catch (JSONException | Spending.InvalidDescriptionException | Spending.InvalidCategoryException e) {
+        } catch (JSONException | Transaction.InvalidDescriptionException | Transaction.InvalidCategoryException e) {
             e.printStackTrace();
         }
 
@@ -317,46 +317,6 @@ public class DataHandler {
                             new Date(jso.getLong("startDate")),
                             jso.getDouble("startKM")));
                 }
-            }
-
-        } catch (JSONException e) {
-            e.printStackTrace();
-        }
-
-        return s;
-    }
-
-    /*
-    ########################################################
-    Money In section :
-        - saveMoneyInData
-        - getIncomesList
-    ########################################################
-    */
-
-    public void saveMoneyInData(List<Income> l) {
-        Log.i("CHROMA", "SaveMoneyInData was invoked.");
-        JSONArray jArray = new JSONArray();
-        for (Income income : l) {
-            jArray.put(income.getIncomeAsJSON());
-        }
-        try {
-            this.data.put("incomes", jArray);
-        } catch (JSONException e) {
-            e.printStackTrace();
-        }
-    }
-
-    public ArrayList<Income> getIncomesList() {
-        ArrayList<Income> s = new ArrayList<>();
-        JSONArray jsonArray;
-        try {
-            jsonArray = new JSONArray(this.data.get("incomes").toString());
-
-
-            for (int i = 0; i < jsonArray.length(); i++) {
-                JSONObject jso = jsonArray.getJSONObject(i);
-                s.add(new Income(jso.getString("description"), jso.getDouble("amount")));
             }
 
         } catch (JSONException e) {

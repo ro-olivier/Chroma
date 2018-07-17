@@ -8,15 +8,15 @@ import org.jetbrains.annotations.NotNull;
 import java.util.List;
 
 import fr.zigomar.chroma.chroma.activities.MoneyActivity;
-import fr.zigomar.chroma.chroma.fragments.SpendingInputFragment;
+import fr.zigomar.chroma.chroma.fragments.TransactionInputFragment;
 import uk.co.markormesher.android_fab.SpeedDialMenuAdapter;
 import uk.co.markormesher.android_fab.SpeedDialMenuItem;
 
-public class SpendingSpeedDialMenuAdapter extends SpeedDialMenuAdapter {
+public class TransactionSpeedDialMenuAdapter extends SpeedDialMenuAdapter {
     private List<SpeedDialMenuItem> items;
     private MoneyActivity callingActivity;
 
-    public SpendingSpeedDialMenuAdapter(MoneyActivity callingActivity, List<SpeedDialMenuItem> items) {
+    public TransactionSpeedDialMenuAdapter(MoneyActivity callingActivity, List<SpeedDialMenuItem> items) {
         this.items = items;
         this.callingActivity = callingActivity;
     }
@@ -34,12 +34,19 @@ public class SpendingSpeedDialMenuAdapter extends SpeedDialMenuAdapter {
 
     @Override
     public boolean onMenuItemClick(int position) {
+        Bundle data = new Bundle();
+        TransactionInputFragment inputFragment = new TransactionInputFragment();
+
         switch (position) {
             case 0:
-                Bundle data = new Bundle();
-                SpendingInputFragment inputFragment = new SpendingInputFragment();
                 inputFragment.setArguments(data);
-                inputFragment.show(this.callingActivity.getFragmentManager(), "SpendingInputDialogFragment");
+                inputFragment.show(this.callingActivity.getFragmentManager(), "TransactionInputDialogFragment");
+                break;
+
+            case 1:
+                data.putString("category", "Income");
+                inputFragment.setArguments(data);
+                inputFragment.show(this.callingActivity.getFragmentManager(), "TransactionInputDialogFragment");
                 break;
         }
 

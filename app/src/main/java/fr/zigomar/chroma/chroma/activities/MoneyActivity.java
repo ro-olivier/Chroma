@@ -9,28 +9,29 @@ import android.widget.TextView;
 
 import java.text.DecimalFormat;
 import java.util.ArrayList;
+import java.util.Objects;
 
-import fr.zigomar.chroma.chroma.adapters.modeladapters.SpendingAdapter;
-import fr.zigomar.chroma.chroma.adapters.speeddialmenuadapters.SpendingSpeedDialMenuAdapter;
-import fr.zigomar.chroma.chroma.fragments.SpendingInputFragment;
-import fr.zigomar.chroma.chroma.model.Spending;
+import fr.zigomar.chroma.chroma.adapters.modeladapters.TransactionAdapter;
+import fr.zigomar.chroma.chroma.adapters.speeddialmenuadapters.TransactionSpeedDialMenuAdapter;
+import fr.zigomar.chroma.chroma.fragments.TransactionInputFragment;
+import fr.zigomar.chroma.chroma.model.Transaction;
 import fr.zigomar.chroma.chroma.R;
 import uk.co.markormesher.android_fab.SpeedDialMenuItem;
 
 public class MoneyActivity extends InputListActivity {
 
-    private ArrayList<Spending> spendings;
-    private SpendingAdapter spendingAdapter;
+    private ArrayList<Transaction> transactions;
+    private TransactionAdapter transactionAdapter;
 
     // Overridden getters from InputListActivity
     @Override
-    public ArrayList<Spending> getItems() {
-        return this.spendings;
+    public ArrayList<Transaction> getItems() {
+        return this.transactions;
     }
 
     @Override
-    public SpendingAdapter getAdapter() {
-        return this.spendingAdapter;
+    public TransactionAdapter getAdapter() {
+        return this.transactionAdapter;
     }
     //////////////////////////////////////////
 
@@ -45,22 +46,27 @@ public class MoneyActivity extends InputListActivity {
     protected void onCreate(final Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        // init of the data : fetch spendings data in the currentDate file if it exist
-        this.spendings = this.dh.getSpendingsList();
+        // init of the data : fetch transactions data in the currentDate file if it exist
+        this.transactions = this.dh.getTransactionsList();
         updateSummary();
 
         //Building the action menu
-        SpeedDialMenuItem fab_add = new SpeedDialMenuItem(getApplicationContext());
-        fab_add.setIcon(R.drawable.plus_sign_16dp);
-        fab_add.setLabel(R.string.addSpending);
+        SpeedDialMenuItem fab_add_spending = new SpeedDialMenuItem(getApplicationContext());
+        fab_add_spending.setIcon(R.drawable.spending_16dp);
+        fab_add_spending.setLabel(R.string.addSpending);
 
-        this.getFABItems().add(fab_add);
+        SpeedDialMenuItem fab_add_income = new SpeedDialMenuItem(getApplicationContext());
+        fab_add_income.setIcon(R.drawable.income_16dp);
+        fab_add_income.setLabel(R.string.addIncome);
 
-        this.getFAB().setSpeedDialMenuAdapter(new SpendingSpeedDialMenuAdapter(this, this.getFABItems()));
+        this.getFABItems().add(fab_add_spending);
+        this.getFABItems().add(fab_add_income);
+
+        this.getFAB().setSpeedDialMenuAdapter(new TransactionSpeedDialMenuAdapter(this, this.getFABItems()));
 
         // Setting the adapter for the list view
-        this.spendingAdapter = new SpendingAdapter(MoneyActivity.this, this.spendings);
-        this.getListView().setAdapter(this.spendingAdapter);
+        this.transactionAdapter = new TransactionAdapter(MoneyActivity.this, this.transactions);
+        this.getListView().setAdapter(this.transactionAdapter);
 
     }
 
@@ -68,15 +74,15 @@ public class MoneyActivity extends InputListActivity {
     @Override
     protected void buildInputFragmentForUpdate(int position) {
         Bundle data = new Bundle();
-        Spending spending = this.spendings.get(position);
-        data.putString("description", spending.getDescription());
-        data.putString("category", spending.getCategory());
-        data.putString("amount", String.valueOf(spending.getAmount()));
+        Transaction transaction = this.transactions.get(position);
+        data.putString("description", transaction.getDescription());
+        data.putString("category", transaction.getCategory());
+        data.putString("amount", String.valueOf(transaction.getAmount()));
         data.putInt("position", position);
 
-        SpendingInputFragment inputFragment = new SpendingInputFragment();
+        TransactionInputFragment inputFragment = new TransactionInputFragment();
         inputFragment.setArguments(data);
-        inputFragment.show(this.getFragmentManager(), "SpendingInputDialogFragment");
+        inputFragment.show(this.getFragmentManager(), "TransactionInputDialogFragment");
     }
 
     // Overridden methods from InputActivity //////
@@ -90,7 +96,7 @@ public class MoneyActivity extends InputListActivity {
         TextView field1_text = findViewById(R.id.data_summary_text1);
         TextView field2_text = findViewById(R.id.data_summary_text2);
 
-        if (this.spendings.size() > 0) {
+        if (this.transactions.size() > 0) {
 
             field0_data.setText(R.string.Summary);
 
@@ -98,8 +104,10 @@ public class MoneyActivity extends InputListActivity {
             field1_text.setVisibility(View.INVISIBLE);
 
             double amount_total = 0;
-            for (Spending s : this.spendings) {
-                amount_total += s.getAmount();
+            for (Transaction s : this.transactions) {
+                if (!Objects.equals(s.getCategory(), "Income")) {
+                    amount_total += s.getAmount();
+                }
             }
             DecimalFormat df = new DecimalFormat("0.00");
             field2_data.setText(df.format(amount_total));
@@ -114,20 +122,20 @@ public class MoneyActivity extends InputListActivity {
     @Override
     protected void saveData() {
         // simply pass the data to the DataHandler with the dedicated method
-        Log.i("CHROMA", "Updating the data object with current spendings");
-        this.dh.saveMoneyData(this.spendings);
+        Log.i("CHROMA", "Updating the data object with current transactions");
+        this.dh.saveMoneyData(this.transactions);
     }
     ///////////////////////////////////////////////
 
-    public void addSpending(Spending spending) {
-        this.spendingAdapter.add(spending);
+    public void addTransaction(Transaction transaction) {
+        this.transactionAdapter.add(transaction);
         updateSummary();
-        Log.i("CHROMA", "Currently " + this.spendings.size() + " spendings.");
+        Log.i("CHROMA", "Currently " + this.transactions.size() + " transactions.");
     }
 
-    public void updateSpending(int position, Spending spending) {
-        this.spendings.set(position, spending);
+    public void updateTransaction(int position, Transaction transaction) {
+        this.transactions.set(position, transaction);
         updateSummary();
-        this.spendingAdapter.notifyDataSetChanged();
+        this.transactionAdapter.notifyDataSetChanged();
     }
 }

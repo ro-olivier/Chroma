@@ -6,7 +6,6 @@
         <item>Alcohol consumption</item>
         <item>Public transportation</item>
         <item>Car trips</item>
-        <item>Income</item>
         <item>Movies</item>
         <item>Books</item>
         <item>Sleep</item>
@@ -19,7 +18,6 @@
         <item>AlcoholActivity</item>
         <item>TransportActivity</item>
         <item>CarActivity</item>
-        <item>IncomeActivity</item>
         <item>MovieActivity</item>
         <item>BookActivity</item>
         <item>SleepActivity</item>

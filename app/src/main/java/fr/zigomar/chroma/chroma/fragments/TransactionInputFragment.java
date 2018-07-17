@@ -13,17 +13,20 @@ import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import java.util.Objects;
+
 import fr.zigomar.chroma.chroma.R;
 import fr.zigomar.chroma.chroma.activities.MoneyActivity;
-import fr.zigomar.chroma.chroma.model.Spending;
+import fr.zigomar.chroma.chroma.model.Transaction;
 
-public class SpendingInputFragment extends DialogFragment implements DialogInterface.OnClickListener {
+public class TransactionInputFragment extends DialogFragment implements DialogInterface.OnClickListener {
 
     private MoneyActivity callingActivity;
 
     private TextView descField;
     private Spinner catField;
     private TextView amountField;
+    private boolean isIncome = false;
 
     private int position;
 
@@ -49,17 +52,21 @@ public class SpendingInputFragment extends DialogFragment implements DialogInter
         this.amountField.setBackgroundColor(this.callingActivity.getResources().getColor(R.color.colorDialogFields));
 
         final ArrayAdapter<CharSequence> spinnerAdapter = ArrayAdapter.createFromResource(callingActivity,
-                R.array.spendingsCategories, android.R.layout.simple_spinner_item);
+                R.array.transactionsCategories, android.R.layout.simple_spinner_item);
         spinnerAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         this.catField.setAdapter(spinnerAdapter);
         if (data.getString("category") != null) {
             int spinnerPosition = spinnerAdapter.getPosition(data.getString("category"));
             this.catField.setSelection(spinnerPosition);
+            if (Objects.equals(data.getString("category"), "Income")) {
+                this.catField.setVisibility(View.INVISIBLE);
+                this.isIncome = true;
+            }
         }
 
         return new AlertDialog.Builder(getActivity())
                 .setTitle(R.string.app_name)
-                .setMessage(R.string.addSpending)
+                .setMessage(R.string.addTransaction)
                 .setPositiveButton("OK", this)
                 .setView(v)
                 .create();
@@ -68,7 +75,7 @@ public class SpendingInputFragment extends DialogFragment implements DialogInter
     @Override
     public void onClick(DialogInterface dialog, int which) {
         String d = descField.getText().toString();
-        String c = catField.getSelectedItem().toString();
+        String c = isIncome ? "Income" : catField.getSelectedItem().toString();
         String a_str = amountField.getText().toString();
         Double a_dbl;
 
@@ -76,20 +83,20 @@ public class SpendingInputFragment extends DialogFragment implements DialogInter
             a_dbl = Double.valueOf(amountField.getText().toString());
 
             if (this.position < 0) {
-                this.callingActivity.addSpending(new Spending(d, c, a_dbl));
+                this.callingActivity.addTransaction(new Transaction(d, c, a_dbl));
             } else {
-                this.callingActivity.updateSpending(this.position, new Spending(d, c, a_dbl));
+                this.callingActivity.updateTransaction(this.position, new Transaction(d, c, a_dbl));
             }
 
         } catch (NumberFormatException e) {
-            Toast.makeText(callingActivity, R.string.InvalidSpending_Amount, Toast.LENGTH_SHORT).show();
+            Toast.makeText(callingActivity, R.string.InvalidTransaction_Amount, Toast.LENGTH_SHORT).show();
             rebuildDialog(d, c, a_str);
-        } catch (Spending.InvalidDescriptionException e) {
-            Toast.makeText(this.callingActivity, R.string.InvalidSpending_Description, Toast.LENGTH_SHORT).show();
+        } catch (Transaction.InvalidDescriptionException e) {
+            Toast.makeText(this.callingActivity, R.string.InvalidTransaction_Description, Toast.LENGTH_SHORT).show();
             e.printStackTrace();
             rebuildDialog(d, c, a_str);
-        } catch (Spending.InvalidCategoryException e) {
-            Toast.makeText(this.callingActivity, R.string.InvalidSpending_Category, Toast.LENGTH_SHORT).show();
+        } catch (Transaction.InvalidCategoryException e) {
+            Toast.makeText(this.callingActivity, R.string.InvalidTransaction_Category, Toast.LENGTH_SHORT).show();
             e.printStackTrace();
             rebuildDialog(d, c, a_str);
         }
@@ -104,8 +111,8 @@ public class SpendingInputFragment extends DialogFragment implements DialogInter
 
         this.dismiss();
 
-        SpendingInputFragment inputFragment = new SpendingInputFragment();
+        TransactionInputFragment inputFragment = new TransactionInputFragment();
         inputFragment.setArguments(data);
-        inputFragment.show(this.callingActivity.getFragmentManager(), "SpendingInputDialogFragment");
+        inputFragment.show(this.callingActivity.getFragmentManager(), "TransactionInputDialogFragment");
     }
 }
